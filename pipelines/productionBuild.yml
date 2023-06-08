@@ -1,0 +1,89 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+# Create a production build artifact from the HEAD of the master branch.
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - src/*
+    exclude:
+      - .github/*
+      - build/*
+      - docs/*
+      - pipelines/*
+      - scripts/*
+      - .gitignore
+      - CONTRIBUTING.md
+      - LICENSE.txt
+      - Microsoft.Graph.Core.sln
+      - README.md
+      - THIRD PARTY NOTICES
+      - appveyor.yml
+
+pr: none
+
+variables:
+  PACKAGE_NAME: 'microsoft.graph.bicep.types'
+  PROJECT_PATH: '.\src\Microsoft.Graph.Bicep.Types\Microsoft.Graph.Bicep.Types.csproj'
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  clean: true
+  fetchDepth: 1
+
+- task: UseDotNet@2
+  displayName: 'Use .NET 6'
+  inputs:
+    version: 6.x
+
+- task: securedevelopmentteam.vss-secure-development-tools.build-task-credscan.CredScan@3
+  displayName: 'Run CredScan'
+  inputs:
+    toolMajorVersion: 'V2'
+    scanFolder: '$(Build.SourcesDirectory)'
+    debugMode: false
+
+- task: PowerShell@2
+  displayName: 'Validate updated version'
+  inputs:
+    targetType: filePath
+    filePath: 'scripts\ValidateUpdatedNugetVersion.ps1'
+    arguments: '-packageName "$(PACKAGE_NAME)" -projectPath "$(PROJECT_PATH)"'
+  enabled: false
+
+- powershell: |
+    dotnet workload restore $(Build.SourcesDirectory)\Microsoft.Graph.Bicep.Types.sln
+  displayName: 'dotnet workload restore'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'run tests'
+  inputs:
+    command: 'test'
+    projects: '$(Build.SourcesDirectory)\tests\Microsoft.Graph.Bicep.Types.UnitTests\Microsoft.Graph.Bicep.Types.UnitTests.csproj'
+    arguments: '--configuration Debug --verbosity normal'
+
+- task: PowerShell@2
+  displayName: 'Enable signing'
+  inputs:
+    targetType: filePath
+    filePath: 'scripts\EnableSigning.ps1'
+    arguments: '-projectPath "$(PROJECT_PATH)"'
+  enabled: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    projects: '$(Build.SourcesDirectory)\src\Microsoft.Graph.Bicep.Types\Microsoft.Graph.Bicep.Types.csproj'
+    arguments: '-c Release --no-incremental'

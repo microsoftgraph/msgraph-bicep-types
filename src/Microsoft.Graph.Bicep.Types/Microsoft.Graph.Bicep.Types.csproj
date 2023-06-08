@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableNuget>true</EnableNuget>
+    <AssemblyName>Microsoft.Graph.Bicep.Types</AssemblyName>
+    <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
+    <Description>Bicep types for Microsoft Graph</Description>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Bicep.Types" Version="0.3.99" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeFiles Include="../../generated/**/*.json">
+      <CompressedFile>$(IntermediateOutputPath)/generated/%(RecursiveDir)%(Filename)%(Extension).deflated</CompressedFile>
+      <LogicalName>$([System.String]::new('%(RecursiveDir)%(Filename)%(Extension).deflated').Replace('\', '/').ToLowerInvariant())</LogicalName>
+    </TypeFiles>
+  </ItemGroup>
+  <UsingTask TaskName="CompressType" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <SourceFile ParameterType="System.String" Required="true" />
+      <TargetFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.IO.Compression" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+          Directory.CreateDirectory(Path.GetDirectoryName(TargetFile));
+
+          using (var inputStream = File.OpenRead(SourceFile))
+          using (var outputStream = File.Create(TargetFile))
+          using (var compressionStream = new DeflateStream(outputStream, CompressionLevel.Optimal))
+          {
+              inputStream.CopyTo(compressionStream);
+          }
+        ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="CompressTypes" Inputs="@(TypeFiles)" Outputs="%(TypeFiles.CompressedFile)">
+    <CompressType SourceFile="%(TypeFiles.FullPath)" TargetFile="%(TypeFiles.CompressedFile)" />
+  </Target>
+  <Target Name="EmbedTypes" BeforeTargets="BeforeBuild" DependsOnTargets="CompressTypes">
+    <ItemGroup>
+      <EmbeddedResource Include="%(TypeFiles.CompressedFile)" LogicalName="%(LogicalName)" />
+    </ItemGroup>
+  </Target>
+</Project>
