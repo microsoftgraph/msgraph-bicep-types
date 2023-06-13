@@ -18,12 +18,9 @@
 
   <!-- Nuget Publishing related properties that are common to all packages -->
   <PropertyGroup Condition="'$(EnableNuget)' == 'true'" >
-    <!-- <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);</GenerateNuspecDependsOn> -->
     <PackageOutputPath>$(MSBuildThisFileDirectory)\..\out</PackageOutputPath>
     <Authors>Microsoft</Authors>
     <Owners><!-- Don't set this field --></Owners>
-    <!-- <PackageProjectUrl>https://github.com/Azure/bicep-types-k8s</PackageProjectUrl> -->
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicenseUrl><!-- Don't set this field (deprecated) --></PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -35,6 +32,5 @@
 
     <!-- sourcelink configuration -->
     <RepositoryType>git</RepositoryType>
-    <!-- <RepositoryUrl>https://github.com/Azure/bicep-types-k8s</RepositoryUrl> -->
   </PropertyGroup>
 </Project>
