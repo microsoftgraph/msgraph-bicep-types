@@ -5,14 +5,20 @@
     <AssemblyName>Microsoft.Graph.Bicep.Types</AssemblyName>
     <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
     <Description>Bicep types for Microsoft Graph</Description>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Azure.Bicep.Types" Version="0.3.99" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Bicep.Types" Version="0.3.181" />
   </ItemGroup>
   <ItemGroup>
     <TypeFiles Include="../../generated/**/*.json">
