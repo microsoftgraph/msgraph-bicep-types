@@ -6,10 +6,9 @@
     <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
     <Description>Bicep types for Microsoft Graph</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <SignAssembly>false</SignAssembly>
-    <DelaySign>false</DelaySign>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
