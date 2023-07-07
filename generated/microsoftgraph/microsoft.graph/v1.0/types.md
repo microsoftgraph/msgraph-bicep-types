@@ -1,11 +1,11 @@
-# Microsoft.Graph @ 2023-06-15-preview
+# Microsoft.Graph @ v1.0
 
-## Resource Microsoft.Graph/applications@2023-06-15-preview
+## Resource Microsoft.Graph/applications@v1.0
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **addIns**: [MicrosoftGraphAddIn](#microsoftgraphaddin)[]
 * **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication)[]
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **appId**: string
 * **applicationTemplateId**: string
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]
@@ -43,10 +43,10 @@
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Properties of a web application.
 
-## Resource Microsoft.Graph/groups@2023-06-15-preview
+## Resource Microsoft.Graph/groups@v1.0
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **classification**: string
 * **createdDateTime**: string (ReadOnly)
 * **description**: string
@@ -80,10 +80,10 @@
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **visibility**: string
 
-## Resource Microsoft.Graph/oauth2PermissionGrants@2023-06-15-preview
+## Resource Microsoft.Graph/oauth2PermissionGrants@v1.0
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **clientId**: string (Required)
 * **consentType**: string (Required)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
@@ -93,13 +93,13 @@
 * **scope**: string
 * **type**: 'Microsoft.Graph/oauth2PermissionGrants' (ReadOnly, DeployTimeConstant): The resource type
 
-## Resource Microsoft.Graph/servicePrincipals@2023-06-15-preview
+## Resource Microsoft.Graph/servicePrincipals@v1.0
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **accountEnabled**: bool
 * **addIns**: [MicrosoftGraphAddIn](#microsoftgraphaddin)[]
 * **alternativeNames**: string[]
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **appDescription**: string
 * **appDisplayName**: string
 * **appId**: string (Required)
@@ -134,10 +134,10 @@
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
 
-## Resource Microsoft.Graph/servicePrincipals/appRoleAssignments@2023-06-15-preview
+## Resource Microsoft.Graph/servicePrincipals/appRoleAssignments@v1.0
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **appRoleId**: string (Required)
 * **createdDateTime**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id

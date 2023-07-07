@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft Graph",
-    "version": "2023-06-15-preview"
+    "version": "v1.0"
   },
   "schemes": [
     "http",

@@ -1,17 +1,22 @@
 # Bicep Types
 ## microsoft.graph
 ### microsoft.graph/applications
-* **Link**: [2023-06-15-preview](microsoftgraph\microsoft.graph\2023-06-15-preview\types.md#resource-microsoftgraphapplications2023-06-15-preview)
+* **Link**: [beta](microsoftgraph\microsoft.graph\beta\types.md#resource-microsoftgraphapplicationsbeta)
+* **Link**: [v1.0](microsoftgraph\microsoft.graph\v1.0\types.md#resource-microsoftgraphapplicationsv10)
 
 ### microsoft.graph/groups
-* **Link**: [2023-06-15-preview](microsoftgraph\microsoft.graph\2023-06-15-preview\types.md#resource-microsoftgraphgroups2023-06-15-preview)
+* **Link**: [beta](microsoftgraph\microsoft.graph\beta\types.md#resource-microsoftgraphgroupsbeta)
+* **Link**: [v1.0](microsoftgraph\microsoft.graph\v1.0\types.md#resource-microsoftgraphgroupsv10)
 
 ### microsoft.graph/oauth2permissiongrants
-* **Link**: [2023-06-15-preview](microsoftgraph\microsoft.graph\2023-06-15-preview\types.md#resource-microsoftgraphoauth2permissiongrants2023-06-15-preview)
+* **Link**: [beta](microsoftgraph\microsoft.graph\beta\types.md#resource-microsoftgraphoauth2permissiongrantsbeta)
+* **Link**: [v1.0](microsoftgraph\microsoft.graph\v1.0\types.md#resource-microsoftgraphoauth2permissiongrantsv10)
 
 ### microsoft.graph/serviceprincipals
-* **Link**: [2023-06-15-preview](microsoftgraph\microsoft.graph\2023-06-15-preview\types.md#resource-microsoftgraphserviceprincipals2023-06-15-preview)
+* **Link**: [beta](microsoftgraph\microsoft.graph\beta\types.md#resource-microsoftgraphserviceprincipalsbeta)
+* **Link**: [v1.0](microsoftgraph\microsoft.graph\v1.0\types.md#resource-microsoftgraphserviceprincipalsv10)
 
 ### microsoft.graph/serviceprincipals/approleassignments
-* **Link**: [2023-06-15-preview](microsoftgraph\microsoft.graph\2023-06-15-preview\types.md#resource-microsoftgraphserviceprincipalsapproleassignments2023-06-15-preview)
+* **Link**: [beta](microsoftgraph\microsoft.graph\beta\types.md#resource-microsoftgraphserviceprincipalsapproleassignmentsbeta)
+* **Link**: [v1.0](microsoftgraph\microsoft.graph\v1.0\types.md#resource-microsoftgraphserviceprincipalsapproleassignmentsv10)
 

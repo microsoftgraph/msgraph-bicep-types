@@ -34,5 +34,6 @@ These settings apply only when `--tag=microsoftgraph-2023-06-15-preview` is spec
 
 ```yaml $(tag) == 'microsoftgraph-2023-06-15-preview'
 input-file: 
-  - microsoftgraph/preview/2023-06-15-preview/microsoftgraph.json
+  - microsoftgraph/preview/2023-06-15-preview/microsoftgraph-v1.0.json
+  - microsoftgraph/preview/2023-06-15-preview/microsoftgraph-beta.json
 ```

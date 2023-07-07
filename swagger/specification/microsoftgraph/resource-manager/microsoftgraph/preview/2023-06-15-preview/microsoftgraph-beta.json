@@ -1,0 +1,1192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft Graph",
+    "version": "beta"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "definitions": {
+    "microsoft.graph.addIn": {
+      "description": "Properties of an addIn.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyValue"
+          }
+        }
+      }
+    },
+    "microsoft.graph.apiApplication": {
+      "description": "Properties of an API Application.",
+      "type": "object",
+      "properties": {
+        "acceptMappedClaims": {
+          "type": "boolean"
+        },
+        "knownClientApplications": {
+          "type": "array",
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "oauth2PermissionScopes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.permissionScope"
+          }
+        },
+        "preAuthorizedApplications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.preAuthorizedApplication"
+          }
+        },
+        "requestedAccessTokenVersion": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "microsoft.graph.application": {
+      "description": "Properties of an Application.",
+      "type": "object",
+      "properties": {
+        "addIns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.addIn"
+          }
+        },
+        "api": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.apiApplication"
+          }
+        },
+        "appId": {
+          "type": "string"
+        },
+        "applicationTemplateId": {
+          "type": "string"
+        },
+        "appRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.appRole"
+          }
+        },
+        "certification": {
+          "$ref": "#/definitions/microsoft.graph.certification",
+          "readOnly": true
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "defaultRedirectUri": {
+          "type": "string"
+        },
+        "disabledByMicrosoftStatus": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },    
+        "groupMembershipClaims": {
+          "type": "string"
+        },  
+        "identifierUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "info": {
+          "$ref": "#/definitions/microsoft.graph.informationalUrl"
+        },
+        "isDeviceOnlyAuthSupported": {
+          "type": "boolean"
+        },
+        "isFallbackPublicClient": {
+          "type": "boolean"
+        },
+        "keyCredentials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyCredential"
+          }
+        },
+        "logo": {
+          "format": "base64url",
+          "type":"string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "oauth2requirePostResponse": {
+          "type": "boolean"
+        },
+        "optionalClaims": {
+          "$ref": "#/definitions/microsoft.graph.optionalClaims"
+        },
+        "parentalControlSettings": {
+          "$ref": "#/definitions/microsoft.graph.parentalControlSettings"
+        },
+        "passwordCredentials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          }
+        },
+        "publicClient": {
+          "$ref": "#/definitions/microsoft.graph.publicClientApplication"
+        },
+        "publisherDomain": {
+          "type": "string"
+        },
+        "requestSignatureVerification": {
+          "$ref": "#/definitions/microsoft.graph.requestSignatureVerification"
+        },
+        "requiredResourceAccess": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.requiredResourceAccess"
+          }
+        },
+        "samlMetadataUrl": {
+          "type": "string"
+        },
+        "serviceManagementReference": {
+          "type": "string"
+        },
+        "signInAudience": {
+          "type": "string"
+        },
+        "spa": {
+          "$ref": "#/definitions/microsoft.graph.spaApplication"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tokenEncryptionKeyId": {
+          "type": "string"
+        },
+        "verifiedPublisher": {
+          "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
+        },
+        "web": {
+          "$ref": "#/definitions/microsoft.graph.webApplication"
+        }
+      },
+      "required": ["displayName"]
+    },
+    "microsoft.graph.appRole": {
+      "description": "Properties of an app role.",
+      "type": "object",
+      "properties": {
+        "allowedMemberTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "origin": {
+          "type": "string",
+          "readOnly": true
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.appRoleAssignment": {
+      "description": "Properties of assigning an app role.",
+      "type": "object",
+      "properties": {
+        "appRoleId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "principalDisplayName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "principalId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "principalType": {
+          "type": "string",
+          "readOnly": true
+        },
+        "resourceDisplayName": {
+          "type": "string"
+        },
+        "resourceId": {
+          "format": "uuid",
+          "type": "string"
+        }        
+      },
+      "required": ["appRoleId", "principalId", "resourceId"]
+    },
+    "microsoft.graph.certification": {
+      "description": "Properties of a Certification.",
+      "type": "object",
+      "properties": {
+        "certificationDetailsUrl": {
+          "type": "string"
+        },
+        "certificationExpirationDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "isCertifiedByMicrosoft": {
+          "type": "boolean"
+        },
+        "isPublisherAttested": {
+          "type": "boolean"
+        },
+        "lastCertificationDateTime": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.group": {
+      "description": "Properties of a Group.",
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "string"
+        },
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "expirationDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "groupTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAssignableToRole": {
+          "type": "boolean"
+        },
+        "mail": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "mailEnabled": {
+          "type": "boolean"
+        },
+        "mailNickName": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "membershipRule": {
+          "type": "string"
+        },
+        "membershipRuleProcessingState": {
+          "type": "string"
+        },
+        "onPremisesDomainName": {
+          "type": "string"
+        },
+        "onPremisesLastSyncDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "onPremisesNetBiosName": {
+          "type": "string"
+        },
+        "onPremisesProvisioningErrors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
+          }
+        },
+        "onPremisesSamAccountName": {
+          "type": "string",
+          "readOnly": true
+        },
+        "onPremisesSecurityIdentifier": {
+          "type": "string",
+          "readOnly": true
+        },
+        "onPremisesSyncEnabled": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preferredDataLocation": {
+          "type": "string"
+        },
+        "preferredLanguage": {
+          "type": "string"
+        },
+        "proxyAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "renewedDateTime": {
+          "format": "date-time",
+          "type": "string",
+          "readOnly": true
+        },
+        "securityEnabled": {
+          "type": "boolean"
+        },
+        "securityIdentifier": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        }
+      },
+      "required": ["displayName", "mailEnabled", "mailNickName", "securityEnabled"]
+    },
+    "microsoft.graph.implicitGrantSettings": {
+      "description": "Represents the implicit grant settings for OAuth2PermissionGrant.",
+      "type": "object",
+      "properties": {
+        "enableAccessTokenIssuance": {
+          "type": "boolean"
+        },
+        "enableIdTokenIssuance": {
+          "type": "boolean"
+        }
+      }
+    },
+    "microsoft.graph.informationalUrl": {
+      "description": "Properties of an informational URL.",
+      "type": "object",
+      "properties": {
+        "logoUrl": {
+          "type": "string",
+          "readOnly": true
+        },
+        "marketingUrl": {
+          "type": "string"
+        },
+        "privacyStatementUrl": {
+          "type": "string"
+        },
+        "supportUrl": {
+          "type": "string"
+        },
+        "termsOfServiceUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.keyCredential": {
+      "description": "Properties of a key credential.",
+      "type": "object",
+      "properties": {
+        "customKeyIdentifier": {
+          "format": "base64url",
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "endDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "key": {
+          "format": "base64url",
+          "type": "string"
+        },
+        "keyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "startDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "usage": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.keyValue": {
+      "description": "Properties of a key value pair.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.oAuth2PermissionGrant": {
+      "description": "Properties of oAuth2PermissionGrant.",
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "consentType": {
+          "type": "string"
+        },
+        "principalId": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        }   
+      },
+      "required": ["clientId", "consentType"]
+    },
+    "microsoft.graph.onPremisesProvisioningError": {
+      "description": "Represents directory synchronization errors.",
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "occurredDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "propertyCausingError": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.optionalClaim": {
+      "description": "Properties of an optional claim.",
+      "type": "object",
+      "properties": {
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "essential": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.optionalClaims": {
+      "description": "Properties of an optional claim.",
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
+        },
+        "idToken": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
+        },
+        "saml2Token": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
+        }
+      }
+    },
+    "microsoft.graph.parentalControlSettings": {
+      "description": "Parental control settings for a device.",
+      "type": "object",
+      "properties": {
+        "countriesBlockedForMinors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "legalAgeGroupRule": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.passwordCredential": {
+      "description": "Properties of a password credential.",
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "endDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "hint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "keyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "secretText": {
+          "type": "string",
+          "readOnly": true
+        },
+        "startDateTime": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.permissionScope": {
+      "description": "Properties of a permission scope.",
+      "type": "object",
+      "properties": {
+        "adminConsentDescription": {
+          "type": "string"
+        },
+        "adminConsentDisplayName": {
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "userConsentDescription": {
+          "type": "string"
+        },
+        "userConsentDisplayName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.preAuthorizedApplication": {
+      "description": "Properties of a pre authorized application.",
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string"
+        },
+        "delegatedPermissionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "microsoft.graph.publicClientApplication": {
+      "description": "Properties of a public client application.",
+      "type": "object",
+      "properties": {
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "microsoft.graph.requestSignatureVerification": {
+      "description": "Properties of a request signature verification.",
+      "type": "object",
+      "properties": {
+        "allowedWeakAlgorithms": {
+          "type": "string",
+          "enum": [
+            "rsaSha1",
+            "unknownFutureValue"
+          ]
+        },
+        "isSignedRequestRequired": {
+          "type": "boolean"
+        }
+      }
+    },
+    "microsoft.graph.requiredResourceAccess": {
+      "description": "Properties of a required resource access.",
+      "type": "object",
+      "properties": {
+        "resourceAccess": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.resourceAccess"
+          }
+        },
+        "resourceAppId": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.resourceAccess": {
+      "description": "Properties of a resource access.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.resourceSpecificPermission": {
+      "description": "Properties of a resource specific permission.",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.samlSingleSignOnSettings": {
+      "description": "Properties of a saml single sign on settings.",
+      "type": "object",
+      "properties": {
+        "relayState": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.servicePrincipal": {
+      "description": "Properties of a ServicePrincipal.",
+      "type": "object",
+      "properties": {
+        "accountEnabled": {
+          "type": "boolean"
+        },
+        "addIns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.addIn"
+          }
+        },
+        "alternativeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "appDescription": {
+          "type": "string"
+        },
+        "appDisplayName": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "applicationTemplateId": {
+          "type": "string",
+          "readOnly": true
+        },
+        "appOwnerOrganizationId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "appRoleAssignmentRequired": {
+          "type": "boolean"
+        },
+        "appRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.appRole"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "disabledByMicrosoftStatus": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "homepage": {
+          "type": "string"
+        },
+        "info": {
+          "$ref": "#/definitions/microsoft.graph.informationalUrl"
+        },
+        "keyCredentials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyCredential"
+          }
+        },
+        "loginUrl": {
+          "type": "string"
+        },
+        "logoutUrl": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "notificationEmailAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "oauth2PermissionScopes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.permissionScope"
+          }
+        },
+        "passwordCredentials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          }
+        },
+        "preferredSingleSignOnMode": {
+          "type": "string"
+        },
+        "preferredTokenSigningKeyThumbprint": {
+          "type": "string"
+        },
+        "replyUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resourceSpecificApplicationPermissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.resourceSpecificPermission"
+          },
+          "readOnly": true
+        },
+        "samlSingleSignOnSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.samlSingleSignOnSettings"
+          }
+        },
+        "servicePrincipalNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "servicePrincipalType": {
+          "type": "string"
+        },
+        "signInAudience": {
+          "type": "string",
+          "readOnly": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tokenEncryptionKeyId": {
+          "type": "string"
+        },
+        "verifiedPublisher": {
+          "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
+        }
+      },
+      "required": ["appId"]
+    },
+    "microsoft.graph.spaApplication": {
+      "description": "Properties of a spa application.",
+      "type": "object",
+      "properties": {
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "microsoft.graph.verifiedPublisher": {
+      "description": "Properties of a verified publisher.",
+      "type": "object",
+      "properties": {
+        "addedDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "verifiedPublisherId": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.webApplication": {
+      "description": "Properties of a web application.",
+      "type": "object",
+      "properties": {
+        "homePageUrl": {
+          "type": "string"
+        },
+        "implicitGrantSettings": {
+          "$ref": "#/definitions/microsoft.graph.implicitGrantSettings"
+        },
+        "logoutUrl": {
+          "type": "string"
+        },
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/{rootScope}/providers/Microsoft.Graph/groups/{groupName}": {
+      "put": {
+        "tags": [
+          "Groups"
+        ],
+        "description": "Create or Update a group",
+        "operationId": "Groups_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "group",
+            "description": "The group to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.group"
+            }
+          },
+          {
+            "description": "The name of the group",
+            "name": "groupName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group created/updated OK.",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.group"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/applications/{appId}": {
+      "put": {
+        "tags": [
+          "Applications"
+        ],
+        "description": "Create or Update an Application",
+        "operationId": "Applications_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "application",
+            "description": "The application to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.application"
+            }
+          },
+          {
+            "description": "The id of the application",
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Application created/updated OK.",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.application"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/oauth2PermissionGrants/{oauth2PermissionGrantId}": {
+      "put": {
+        "tags": [
+          "OAuth2PermissionGrant"
+        ],
+        "description": "Create or Update an oauth2PermissionGrant",
+        "operationId": "oauth2PermissionGrant_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "oAuth2PermissionGrant",
+            "description": "The oAuth2PermissionGrant to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
+            }
+          },
+          {
+            "description": "The id of the oAuth2PermissionGrant",
+            "name": "oauth2PermissionGrantId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "oAuth2PermissionGrant created/updated OK.",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{appId}": {
+      "put": {
+        "tags": [
+          "Applications"
+        ],
+        "description": "Create or Update an Application",
+        "operationId": "ServicePrincipal_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "servicePrincipal",
+            "description": "The servicePrincipal to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          },
+          {
+            "description": "The id of the application",
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ServicePrincipal created/updated OK.",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{appId}/appRoleAssignments/{appRoleAssignmentsId}": {
+      "put": {
+        "tags": [
+          "AppRoleAssignments"
+        ],
+        "description": "Create or Update an AppRoleAssignments",
+        "operationId": "AppRoleAssignments_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "appRoleAssignment",
+            "description": "The appRoleAssignments to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
+            }
+          },
+          {
+            "description": "The id of the application",
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The id of the appRoleAssignments",
+            "name": "appRoleAssignmentsId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ServicePrincipal created/updated OK.",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          }
+        }
+      }
+    }
+  }
+}
