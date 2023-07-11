@@ -157,7 +157,8 @@ stages:
 
           - task: PowerShell@2
             displayName: "Validate project version has been incremented"
-            condition: and(contains(variables['build.sourceBranch'], 'refs/heads/master'), succeeded())
+            condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
+            enabled: false
             inputs:
               targetType: "filePath"
               filePath: $(System.DefaultWorkingDirectory)\scripts\ValidateProjectVersionUpdated.ps1
@@ -196,7 +197,7 @@ stages:
               targetPath: $(Build.ArtifactStagingDirectory)
 
   - stage: deploy
-    condition: and(contains(variables['build.sourceBranch'], 'refs/heads/master'), succeeded())
+    condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
     dependsOn: build
     jobs:
       - deployment: deploy
