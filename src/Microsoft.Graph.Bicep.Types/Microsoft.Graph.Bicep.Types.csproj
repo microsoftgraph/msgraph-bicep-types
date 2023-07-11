@@ -6,6 +6,9 @@
     <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
     <Description>Bicep types for Microsoft Graph</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/microsoftgraph/msgraph-arm-bicep</PackageProjectUrl>
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
