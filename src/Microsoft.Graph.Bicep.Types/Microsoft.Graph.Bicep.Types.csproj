@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Description>Bicep types for Microsoft Graph</Description>
+    <Authors>Microsoft</Authors>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <TargetFramework>netstandard2.0</TargetFramework>
     <EnableNuget>true</EnableNuget>
     <AssemblyName>Microsoft.Graph.Bicep.Types</AssemblyName>
     <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
-    <Description>Bicep types for Microsoft Graph</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://developer.microsoft.com/graph</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/microsoftgraph/msgraph-arm-bicep</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
