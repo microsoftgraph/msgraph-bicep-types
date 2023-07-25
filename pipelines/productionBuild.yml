@@ -1,89 +1,222 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 # Create a production build artifact from the HEAD of the master branch.
 trigger:
   branches:
     include:
-    - master
-  paths:
-    include:
-      - src/*
-    exclude:
-      - .github/*
-      - build/*
-      - docs/*
-      - pipelines/*
-      - scripts/*
-      - .gitignore
-      - CONTRIBUTING.md
-      - LICENSE.txt
-      - Microsoft.Graph.Core.sln
-      - README.md
-      - THIRD PARTY NOTICES
-      - appveyor.yml
-
-pr: none
-
-variables:
-  PACKAGE_NAME: 'microsoft.graph.bicep.types'
-  PROJECT_PATH: '.\src\Microsoft.Graph.Bicep.Types\Microsoft.Graph.Bicep.Types.csproj'
+      - master
 
 pool:
-  vmImage: 'windows-latest'
+  name: Azure Pipelines
+  vmImage: windows-latest
+  demands:
+    - msbuild
+    - vstest
 
-steps:
-- checkout: self
-  clean: true
-  fetchDepth: 1
+variables:
+  buildPlatform: "Any CPU"
+  buildConfiguration: "Release"
+  ProductBinPath: '$(Build.SourcesDirectory)\src\Microsoft.Graph.Bicep.Types\bin\$(BuildConfiguration)'
 
-- task: UseDotNet@2
-  displayName: 'Use .NET 6'
-  inputs:
-    version: 6.x
+stages:
+  - stage: build
+    jobs:
+      - job: build
 
-- task: securedevelopmentteam.vss-secure-development-tools.build-task-credscan.CredScan@3
-  displayName: 'Run CredScan'
-  inputs:
-    toolMajorVersion: 'V2'
-    scanFolder: '$(Build.SourcesDirectory)'
-    debugMode: false
+        steps:
+          - task: UseDotNet@2
+            displayName: "Use .NET 2" # needed for ESRP signing
+            inputs:
+              version: 2.x
 
-- task: PowerShell@2
-  displayName: 'Validate updated version'
-  inputs:
-    targetType: filePath
-    filePath: 'scripts\ValidateUpdatedNugetVersion.ps1'
-    arguments: '-packageName "$(PACKAGE_NAME)" -projectPath "$(PROJECT_PATH)"'
-  enabled: false
+          - task: UseDotNet@2
+            displayName: "Use .NET 6"
+            inputs:
+              version: 6.x
 
-- powershell: |
-    dotnet workload restore $(Build.SourcesDirectory)\Microsoft.Graph.Bicep.Types.sln
-  displayName: 'dotnet workload restore'
+          - task: PoliCheck@1
+            displayName: 'Run PoliCheck "/src"'
+            inputs:
+              inputType: CmdLine
+              cmdLineArgs: '/F:$(Build.SourcesDirectory)/src /T:9 /Sev:"1|2" /PE:2 /O:poli_result_src.xml'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
+          # Install the nuget tool.
+          - task: NuGetToolInstaller@0
+            displayName: "Use NuGet >=5.2.0"
+            inputs:
+              versionSpec: ">=5.2.0"
+              checkLatest: true
 
-- task: DotNetCoreCLI@2
-  displayName: 'run tests'
-  inputs:
-    command: 'test'
-    projects: '$(Build.SourcesDirectory)\tests\Microsoft.Graph.Bicep.Types.UnitTests\Microsoft.Graph.Bicep.Types.UnitTests.csproj'
-    arguments: '--configuration Debug --verbosity normal'
+          # Build the solution
+          - task: DotNetCoreCLI@2
+            displayName: "build"
+            inputs:
+              projects: '$(Build.SourcesDirectory)\Microsoft.Graph.Bicep.Types.sln'
+              arguments: "--configuration $(BuildConfiguration) --no-incremental"
 
-- task: PowerShell@2
-  displayName: 'Enable signing'
-  inputs:
-    targetType: filePath
-    filePath: 'scripts\EnableSigning.ps1'
-    arguments: '-projectPath "$(PROJECT_PATH)"'
-  enabled: true
+          # Run unit tests
+          - task: DotNetCoreCLI@2
+            displayName: "test"
+            inputs:
+              command: "test"
+              projects: '$(Build.SourcesDirectory)\Microsoft.Graph.Bicep.Types.sln'
+              arguments: "--configuration $(BuildConfiguration) --no-build"
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    projects: '$(Build.SourcesDirectory)\src\Microsoft.Graph.Bicep.Types\Microsoft.Graph.Bicep.Types.csproj'
-    arguments: '-c Release --no-incremental'
+          # CredScan
+          - task: securedevelopmentteam.vss-secure-development-tools.build-task-credscan.CredScan@2
+            displayName: "Run CredScan - Src"
+            inputs:
+              toolMajorVersion: "V2"
+              scanFolder: '$(Build.SourcesDirectory)\src'
+              debugMode: false
+
+          - task: AntiMalware@3
+            displayName: "Run MpCmdRun.exe - ProductBinPath"
+            inputs:
+              FileDirPath: "$(ProductBinPath)"
+            enabled: false
+
+          - task: BinSkim@3
+            displayName: "Run BinSkim - Product Binaries"
+            inputs:
+              InputType: Basic
+              AnalyzeTarget: '$(ProductBinPath)\**\Microsoft.Graph.Bicep.Types.dll'
+              AnalyzeSymPath: "$(ProductBinPath)"
+              AnalyzeVerbose: true
+              AnalyzeHashes: true
+              AnalyzeEnvironment: true
+
+          - task: PublishSecurityAnalysisLogs@2
+            displayName: "Publish Security Analysis Logs"
+            inputs:
+              ArtifactName: SecurityLogs
+
+          - task: PostAnalysis@1
+            displayName: "Post Analysis"
+            inputs:
+              BinSkim: true
+              CredScan: true
+              PoliCheck: true
+
+          - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
+            displayName: "ESRP CodeSigning"
+            inputs:
+              ConnectedServiceName: "microsoftgraph ESRP CodeSign DLL and NuGet (AKV)"
+              FolderPath: src
+              signConfigType: inlineSignParams
+              inlineOperation: |
+                [
+                    {
+                        "keyCode": "CP-230012",
+                        "operationSetCode": "SigntoolSign",
+                        "parameters": [
+                        {
+                            "parameterName": "OpusName",
+                            "parameterValue": "Microsoft"
+                        },
+                        {
+                            "parameterName": "OpusInfo",
+                            "parameterValue": "http://www.microsoft.com"
+                        },
+                        {
+                            "parameterName": "FileDigest",
+                            "parameterValue": "/fd \"SHA256\""
+                        },
+                        {
+                            "parameterName": "PageHash",
+                            "parameterValue": "/NPH"
+                        },
+                        {
+                            "parameterName": "TimeStamp",
+                            "parameterValue": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+                        }
+                        ],
+                        "toolName": "sign",
+                        "toolVersion": "1.0"
+                    },
+                    {
+                        "keyCode": "CP-230012",
+                        "operationSetCode": "SigntoolVerify",
+                        "parameters": [ ],
+                        "toolName": "sign",
+                        "toolVersion": "1.0"
+                    }
+                ]
+              SessionTimeout: 20
+
+          # Pack
+          - task: DotNetCoreCLI@2
+            displayName: "pack"
+            inputs:
+              command: pack
+              projects: src/Microsoft.Graph.Bicep.Types/Microsoft.Graph.Bicep.Types.csproj
+              arguments: "-o $(Build.ArtifactStagingDirectory) --configuration $(BuildConfiguration) --no-build --include-symbols --include-source /p:SymbolPackageFormat=snupkg"
+
+          - task: PowerShell@2
+            displayName: "Validate project version has been incremented"
+            condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
+            enabled: false
+            inputs:
+              targetType: "filePath"
+              filePath: $(System.DefaultWorkingDirectory)\scripts\ValidateProjectVersionUpdated.ps1
+              pwsh: true
+
+          - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
+            displayName: "ESRP CodeSigning Nuget Packages"
+            inputs:
+              ConnectedServiceName: "microsoftgraph ESRP CodeSign DLL and NuGet (AKV)"
+              FolderPath: "$(Build.ArtifactStagingDirectory)"
+              Pattern: "*.nupkg"
+              signConfigType: inlineSignParams
+              inlineOperation: |
+                [
+                    {
+                        "keyCode": "CP-401405",
+                        "operationSetCode": "NuGetSign",
+                        "parameters": [ ],
+                        "toolName": "sign",
+                        "toolVersion": "1.0"
+                    },
+                    {
+                        "keyCode": "CP-401405",
+                        "operationSetCode": "NuGetVerify",
+                        "parameters": [ ],
+                        "toolName": "sign",
+                        "toolVersion": "1.0"
+                    }
+                ]
+              SessionTimeout: 20
+
+          - task: PublishPipelineArtifact@1
+            displayName: "Upload Artifact: Nugets"
+            inputs:
+              artifactName: Nugets
+              targetPath: $(Build.ArtifactStagingDirectory)
+
+  - stage: deploy
+    condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
+    dependsOn: build
+    jobs:
+      - deployment: deploy
+        environment: microsoftgraph-nuget-org
+        strategy:
+          runOnce:
+            deploy:
+              pool:
+                vmImage: ubuntu-latest
+              steps:
+                - task: DownloadPipelineArtifact@2
+                  displayName: Download nupkg from artifacts
+                  inputs:
+                    artifact: Nugets
+                    source: current
+                - task: NuGetCommand@2
+                  displayName: "NuGet push"
+                  inputs:
+                    command: push
+                    packagesToPush: "$(Pipeline.Workspace)/Nugets/Microsoft.Graph.Bicep.Types.*.nupkg"
+                    nuGetFeedType: external
+                    publishFeedCredentials: "microsoftgraph NuGet connection"
