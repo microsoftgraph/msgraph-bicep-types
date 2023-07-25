@@ -25,7 +25,7 @@
 * **logo**: string
 * **name**: string (Required, DeployTimeConstant): The resource name
 * **notes**: string
-* **oauth2requirePostResponse**: bool
+* **oauth2RequirePostResponse**: bool
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Properties of an optional claim.
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Parental control settings for a device.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]
@@ -87,7 +87,7 @@
 * **clientId**: string (Required)
 * **consentType**: string (Required)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **principalId**: string
 * **resourceId**: string
 * **scope**: string
@@ -116,7 +116,7 @@
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **loginUrl**: string
 * **logoutUrl**: string
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **notes**: string
 * **notificationEmailAddresses**: string[]
 * **oauth2PermissionScopes**: [MicrosoftGraphPermissionScope](#microsoftgraphpermissionscope)[]
@@ -141,7 +141,7 @@
 * **appRoleId**: string (Required)
 * **createdDateTime**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **principalDisplayName**: string (ReadOnly)
 * **principalId**: string (Required)
 * **principalType**: string (ReadOnly)
