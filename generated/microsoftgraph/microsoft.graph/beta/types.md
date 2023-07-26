@@ -1,11 +1,11 @@
-# Microsoft.Graph @ 2023-06-15-preview
+# Microsoft.Graph @ beta
 
-## Resource Microsoft.Graph/applications@2023-06-15-preview
+## Resource Microsoft.Graph/applications@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **addIns**: [MicrosoftGraphAddIn](#microsoftgraphaddin)[]
 * **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication)[]
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appId**: string
 * **applicationTemplateId**: string
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]
@@ -25,7 +25,7 @@
 * **logo**: string
 * **name**: string (Required, DeployTimeConstant): The resource name
 * **notes**: string
-* **oauth2requirePostResponse**: bool
+* **oauth2RequirePostResponse**: bool
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Properties of an optional claim.
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Parental control settings for a device.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]
@@ -43,10 +43,10 @@
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Properties of a web application.
 
-## Resource Microsoft.Graph/groups@2023-06-15-preview
+## Resource Microsoft.Graph/groups@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **classification**: string
 * **createdDateTime**: string (ReadOnly)
 * **description**: string
@@ -80,26 +80,26 @@
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **visibility**: string
 
-## Resource Microsoft.Graph/oauth2PermissionGrants@2023-06-15-preview
+## Resource Microsoft.Graph/oauth2PermissionGrants@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **clientId**: string (Required)
 * **consentType**: string (Required)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **principalId**: string
 * **resourceId**: string
 * **scope**: string
 * **type**: 'Microsoft.Graph/oauth2PermissionGrants' (ReadOnly, DeployTimeConstant): The resource type
 
-## Resource Microsoft.Graph/servicePrincipals@2023-06-15-preview
+## Resource Microsoft.Graph/servicePrincipals@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **accountEnabled**: bool
 * **addIns**: [MicrosoftGraphAddIn](#microsoftgraphaddin)[]
 * **alternativeNames**: string[]
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appDescription**: string
 * **appDisplayName**: string
 * **appId**: string (Required)
@@ -116,7 +116,7 @@
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **loginUrl**: string
 * **logoutUrl**: string
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **notes**: string
 * **notificationEmailAddresses**: string[]
 * **oauth2PermissionScopes**: [MicrosoftGraphPermissionScope](#microsoftgraphpermissionscope)[]
@@ -134,14 +134,14 @@
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
 
-## Resource Microsoft.Graph/servicePrincipals/appRoleAssignments@2023-06-15-preview
+## Resource Microsoft.Graph/servicePrincipals/appRoleAssignments@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **apiVersion**: '2023-06-15-preview' (ReadOnly, DeployTimeConstant): The resource api version
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appRoleId**: string (Required)
 * **createdDateTime**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **principalDisplayName**: string (ReadOnly)
 * **principalId**: string (Required)
 * **principalType**: string (ReadOnly)

@@ -11,6 +11,11 @@ import { failure, success } from "./utils";
 export function generateTypes(host: AutorestExtensionHost, definition: ProviderDefinition) {
   const factory = new TypeFactory();
   const namedDefinitions: Dictionary<TypeReference> = {};
+  const typesWithoutRequiredName: Set<string> = new Set([
+    'Microsoft.Graph/servicePrincipals',
+    'Microsoft.Graph/oauth2PermissionGrants',
+    'Microsoft.Graph/servicePrincipals/appRoleAssignments',
+  ]);
 
   function logWarning(message: string) {
     host.message({ Channel: Channel.Warning, Text: message, });
@@ -42,7 +47,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
     // by a GET. Because the resource's name property will be used both when defining the resource and when using the
     // `existing` keyword, the two definitions of a resource's name need to be reconciled with a different approach than
     // is used for other resource properties.
-    const {putOperation, getOperation} = definition;
+    const { putOperation, getOperation } = definition;
     const nameLiterals = new Set<string>();
     const nameTypes = new Set<BuiltInTypeKind>();
     for (const ns of [putOperation ? getSchema(putOperation) : undefined, getOperation ? getSchema(getOperation) : undefined]) {
@@ -51,13 +56,13 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       }
 
       if (ns.type === 'parameterized') {
-        const {schema} = ns;
+        const { schema } = ns;
         if (schema instanceof ConstantSchema && toBuiltInTypeKind(schema.valueType) === BuiltInTypeKind.String) {
           nameLiterals.add(schema.value.value);
         } else if (schema instanceof ChoiceSchema || schema instanceof SealedChoiceSchema) {
           const enumValues = getValuesForEnum(schema);
           if (enumValues.success) {
-            const {values, closed} = enumValues.value;
+            const { values, closed } = enumValues.value;
             values.forEach(v => nameLiterals.add(v));
             if (!closed) {
               nameTypes.add(BuiltInTypeKind.String);
@@ -85,7 +90,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
 
   function processResourceBody(fullyQualifiedType: string, definition: ResourceDefinition) {
     const { descriptor, putOperation, getOperation } = definition;
-    const {requestSchema: putSchema} = putOperation || {};
+    const { requestSchema: putSchema } = putOperation || {};
     const getSchema = getOperation ? getOperation.responseSchema : putSchema;
 
     const nameType = getNameType(fullyQualifiedType, definition);
@@ -234,11 +239,15 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
   }
 
   function getStandardizedResourceProperties(descriptor: ResourceDescriptor, resourceName: TypeReference): Dictionary<ObjectTypeProperty> {
-    const type = factory.addStringLiteralType(getFullyQualifiedType(descriptor));
+    const fullyQualifiedType = getFullyQualifiedType(descriptor);
+    const type = factory.addStringLiteralType(fullyQualifiedType);
+    const nameFlag = typesWithoutRequiredName.has(fullyQualifiedType)
+      ? ObjectTypePropertyFlags.None
+      : ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant;
 
     return {
       id: createObjectTypeProperty(factory.lookupBuiltInType(BuiltInTypeKind.String), ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource id'),
-      name: createObjectTypeProperty(resourceName, ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource name'),
+      name: createObjectTypeProperty(resourceName, nameFlag, 'The resource name'),
       type: createObjectTypeProperty(type, ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource type'),
       apiVersion: createObjectTypeProperty(factory.addStringLiteralType(descriptor.apiVersion), ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource api version'),
     };
@@ -516,15 +525,15 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
         }
       }
 
-      return {syntheticObject: false, definitionName: putName};
+      return { syntheticObject: false, definitionName: putName };
     }
 
-    return {syntheticObject: false, definitionName: getName};
+    return { syntheticObject: false, definitionName: getName };
   }
 
   function parseObjectType(putSchema: ObjectSchema | undefined, getSchema: ObjectSchema | undefined, ancestorsToExclude?: Set<ComplexSchema>) {
     const combinedSchema = combineAndThrowIfNull(putSchema, getSchema);
-    const {syntheticObject, definitionName} = getObjectName(putSchema, getSchema);
+    const { syntheticObject, definitionName } = getObjectName(putSchema, getSchema);
 
     if (!ancestorsToExclude && namedDefinitions[definitionName]) {
       // if we're building a discriminated subtype, we're going to be missing the base properties
@@ -585,7 +594,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
     return definition;
   }
 
-  function getValuesForEnum(schema: ChoiceSchema|SealedChoiceSchema) {
+  function getValuesForEnum(schema: ChoiceSchema | SealedChoiceSchema) {
     if (!(schema.choiceType instanceof StringSchema)) {
       // we can only handle string enums right now
       return failure('Only string enums can be converted to union types');
@@ -606,7 +615,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       return parseType(putSchema?.choiceType, getSchema?.choiceType);
     }
 
-    const {values, closed} = enumValues.value;
+    const { values, closed } = enumValues.value;
 
     const enumTypes = values.map(s => factory.addStringLiteralType(s));
 

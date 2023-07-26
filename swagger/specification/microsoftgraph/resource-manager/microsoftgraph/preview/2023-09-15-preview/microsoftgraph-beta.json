@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft Graph",
-    "version": "2023-06-15-preview"
+    "version": "beta"
   },
   "schemes": [
     "http",
@@ -132,10 +132,10 @@
         },
         "displayName": {
           "type": "string"
-        },    
+        },
         "groupMembershipClaims": {
           "type": "string"
-        },  
+        },
         "identifierUris": {
           "type": "array",
           "items": {
@@ -159,12 +159,12 @@
         },
         "logo": {
           "format": "base64url",
-          "type":"string"
+          "type": "string"
         },
         "notes": {
           "type": "string"
         },
-        "oauth2requirePostResponse": {
+        "oauth2RequirePostResponse": {
           "type": "boolean"
         },
         "optionalClaims": {
@@ -222,7 +222,9 @@
           "$ref": "#/definitions/microsoft.graph.webApplication"
         }
       },
-      "required": ["displayName"]
+      "required": [
+        "displayName"
+      ]
     },
     "microsoft.graph.appRole": {
       "description": "Properties of an app role.",
@@ -287,9 +289,13 @@
         "resourceId": {
           "format": "uuid",
           "type": "string"
-        }        
+        }
       },
-      "required": ["appRoleId", "principalId", "resourceId"]
+      "required": [
+        "appRoleId",
+        "principalId",
+        "resourceId"
+      ]
     },
     "microsoft.graph.certification": {
       "description": "Properties of a Certification.",
@@ -434,7 +440,12 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "mailEnabled", "mailNickName", "securityEnabled"]
+      "required": [
+        "displayName",
+        "mailEnabled",
+        "mailNickName",
+        "securityEnabled"
+      ]
     },
     "microsoft.graph.implicitGrantSettings": {
       "description": "Represents the implicit grant settings for OAuth2PermissionGrant.",
@@ -535,9 +546,12 @@
         },
         "scope": {
           "type": "string"
-        }   
+        }
       },
-      "required": ["clientId", "consentType"]
+      "required": [
+        "clientId",
+        "consentType"
+      ]
     },
     "microsoft.graph.onPremisesProvisioningError": {
       "description": "Represents directory synchronization errors.",
@@ -923,7 +937,9 @@
           "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
         }
       },
-      "required": ["appId"]
+      "required": [
+        "appId"
+      ]
     },
     "microsoft.graph.spaApplication": {
       "description": "Properties of a spa application.",
