@@ -1,0 +1,34 @@
+{
+  "name": "swagger-generation",
+  "version": "0.0.0",
+  "description": "The MSGraph swagger specification auto-generation tool using CSDL",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoftgraph/msgraph-arm-bicep.git"
+  },
+  "readme": "https://github.com/microsoftgraph/msgraph-arm-bicep/blob/main/README.md",
+  "keywords": [
+    "swagger",
+    "bicep",
+    "arm",
+    "msgraph"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microsoftgraph/msgraph-arm-bicep/issues"
+  },
+  "homepage": "https://github.com/microsoftgraph/msgraph-arm-bicep#readme",
+  "dependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "xml2js": "^0.6.1",
+    "yaml": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/xml2js": "^0.4.11"
+  }
+}
