@@ -27,11 +27,6 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
                 const entityHeader: RawEntityTypeHeader = rawEntityTypes['$']
                 const entityName: string = entityHeader['Name']
 
-                if(entityName === 'oAuth2PermissionGrant'){
-                    console.log(`Namespace: '${namespace}'\nName: '${entityName}'`)
-                    console.log(scope)
-                }
-                
                 if(!(scope.has(`${namespace}.${entityName}`))) return
 
                 const abstract: boolean = entityHeader['Abstract'] ? entityHeader['Abstract'] : false

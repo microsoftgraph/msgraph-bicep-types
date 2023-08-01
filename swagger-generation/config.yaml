@@ -1,19 +1,17 @@
-- Name: group
-  RootUri: /groups
-  NavigationProperty:
-    - members
-    - owners
-
-- Name: user
-  RootUri: /users
-
-- Name: application
-  RootUri: /applications
-
-- Name: servicePrincipal
-  RootUri: /servicePrincipals
-  NavigationProperty:
-    - appRoleAssignments
-
-- Name: oAuth2PermissionGrant
-  RootUri: /oauth2PermissionGrants
+URL: https://graph.microsoft.com/v1.0/$metadata
+EntityTypes:
+  - Name: group
+    RootUri: /groups
+    NavigationProperty:
+      - members
+      - owners
+  - Name: user
+    RootUri: /users
+  - Name: application
+    RootUri: /applications
+  - Name: servicePrincipal
+    RootUri: /servicePrincipals
+    NavigationProperty:
+      - appRoleAssignments
+  - Name: oAuth2PermissionGrant
+    RootUri: /oauth2PermissionGrants
