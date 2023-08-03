@@ -16,7 +16,10 @@ export class DefinitionMap implements DefinitionMap{
     EnumMap: EnumMap;
     ComplexMap: ComplexMap;
 
-    constructor(entityMap: EntityMap, enumMap: EnumMap, complexMap: ComplexMap) {
+    constructor() {
+        const entityMap: EntityMap = new Map<string, EntityType>()
+        const enumMap: EnumMap = new Map<string, EnumType>()
+        const complexMap: ComplexMap = new Map<string, ComplexType>()
         this.EntityMap = entityMap;
         this.EnumMap = enumMap;
         this.ComplexMap = complexMap;
