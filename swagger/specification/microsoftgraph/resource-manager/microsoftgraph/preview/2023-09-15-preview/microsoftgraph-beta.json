@@ -95,10 +95,7 @@
           }
         },
         "api": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.apiApplication"
-          }
+          "$ref": "#/definitions/microsoft.graph.apiApplication"
         },
         "appId": {
           "type": "string"
@@ -353,7 +350,7 @@
           "type": "boolean"
         },
         "mail": {
-          "type": "boolean",
+          "type": "string",
           "readOnly": true
         },
         "mailEnabled": {
@@ -550,7 +547,8 @@
       },
       "required": [
         "clientId",
-        "consentType"
+        "consentType",
+        "resourceId"
       ]
     },
     "microsoft.graph.onPremisesProvisioningError": {
@@ -992,7 +990,7 @@
     }
   },
   "paths": {
-    "/{rootScope}/providers/Microsoft.Graph/groups/{groupName}": {
+    "/{rootScope}/providers/Microsoft.Graph/groups/{groupId}": {
       "put": {
         "tags": [
           "Groups"
@@ -1016,9 +1014,9 @@
             }
           },
           {
-            "description": "The name of the group",
-            "name": "groupName",
             "in": "path",
+            "description": "The id of the group",
+            "name": "groupId",
             "required": true,
             "type": "string"
           }
@@ -1057,9 +1055,9 @@
             }
           },
           {
+            "in": "path",
             "description": "The id of the application",
             "name": "appId",
-            "in": "path",
             "required": true,
             "type": "string"
           }
@@ -1077,10 +1075,10 @@
     "/{rootScope}/providers/Microsoft.Graph/oauth2PermissionGrants/{oauth2PermissionGrantId}": {
       "put": {
         "tags": [
-          "OAuth2PermissionGrant"
+          "OAuth2PermissionGrants"
         ],
-        "description": "Create or Update an oauth2PermissionGrant",
-        "operationId": "oauth2PermissionGrant_Put",
+        "description": "Create or Update an OAuth2PermissionGrant",
+        "operationId": "OAuth2PermissionGrants_Put",
         "consumes": [
           "application/json"
         ],
@@ -1090,17 +1088,17 @@
         "parameters": [
           {
             "in": "body",
-            "name": "oAuth2PermissionGrant",
-            "description": "The oAuth2PermissionGrant to be created or updated",
+            "name": "OAuth2PermissionGrant",
+            "description": "The OAuth2PermissionGrant to be created or updated",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
             }
           },
           {
+            "in": "path",
             "description": "The id of the oAuth2PermissionGrant",
             "name": "oauth2PermissionGrantId",
-            "in": "path",
             "required": true,
             "type": "string"
           }
@@ -1115,13 +1113,13 @@
         }
       }
     },
-    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{appId}": {
+    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{servicePrincipalId}": {
       "put": {
         "tags": [
-          "Applications"
+          "ServicePrincipals"
         ],
-        "description": "Create or Update an Application",
-        "operationId": "ServicePrincipal_Put",
+        "description": "Create or Update a service principal",
+        "operationId": "ServicePrincipals_Put",
         "consumes": [
           "application/json"
         ],
@@ -1139,9 +1137,9 @@
             }
           },
           {
-            "description": "The id of the application",
-            "name": "appId",
             "in": "path",
+            "description": "The id of the service principal",
+            "name": "servicePrincipalId",
             "required": true,
             "type": "string"
           }
@@ -1156,12 +1154,12 @@
         }
       }
     },
-    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{appId}/appRoleAssignments/{appRoleAssignmentsId}": {
+    "/{rootScope}/providers/Microsoft.Graph/appRoleAssignedTo/{appRoleAssignmentId}": {
       "put": {
         "tags": [
           "AppRoleAssignments"
         ],
-        "description": "Create or Update an AppRoleAssignments",
+        "description": "Create or Update an AppRoleAssignment via appRoleAssignedTo",
         "operationId": "AppRoleAssignments_Put",
         "consumes": [
           "application/json"
@@ -1173,22 +1171,15 @@
           {
             "in": "body",
             "name": "appRoleAssignment",
-            "description": "The appRoleAssignments to be created or updated",
+            "description": "The appRoleAssignment to be created or updated",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
             }
           },
           {
-            "description": "The id of the application",
-            "name": "appId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "description": "The id of the appRoleAssignments",
-            "name": "appRoleAssignmentsId",
+            "description": "The id of the appRoleAssignment",
+            "name": "appRoleAssignmentId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1196,9 +1187,9 @@
         ],
         "responses": {
           "200": {
-            "description": "ServicePrincipal created/updated OK.",
+            "description": "AppRoleAssignment created/updated OK.",
             "schema": {
-              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+              "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
             }
           }
         }

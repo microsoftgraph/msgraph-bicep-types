@@ -4,7 +4,7 @@
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **addIns**: [MicrosoftGraphAddIn](#microsoftgraphaddin)[]
-* **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication)[]
+* **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication): Properties of an API Application.
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appId**: string
 * **applicationTemplateId**: string
@@ -43,6 +43,21 @@
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Properties of a web application.
 
+## Resource Microsoft.Graph/appRoleAssignedTo@beta
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **appRoleId**: string (Required)
+* **createdDateTime**: string (ReadOnly)
+* **id**: string (ReadOnly, DeployTimeConstant): The resource id
+* **name**: string (Required, DeployTimeConstant): The resource name
+* **principalDisplayName**: string (ReadOnly)
+* **principalId**: string (Required)
+* **principalType**: string (ReadOnly)
+* **resourceDisplayName**: string
+* **resourceId**: string (Required)
+* **type**: 'Microsoft.Graph/appRoleAssignedTo' (ReadOnly, DeployTimeConstant): The resource type
+
 ## Resource Microsoft.Graph/groups@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
@@ -55,7 +70,7 @@
 * **groupTypes**: string[]
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **isAssignableToRole**: bool
-* **mail**: bool (ReadOnly)
+* **mail**: string (ReadOnly)
 * **mailEnabled**: bool (Required)
 * **mailNickName**: string (Required)
 * **members**: string[]
@@ -89,7 +104,7 @@
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **name**: string: The resource name
 * **principalId**: string
-* **resourceId**: string
+* **resourceId**: string (Required)
 * **scope**: string
 * **type**: 'Microsoft.Graph/oauth2PermissionGrants' (ReadOnly, DeployTimeConstant): The resource type
 
@@ -133,21 +148,6 @@
 * **tokenEncryptionKeyId**: string
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
-
-## Resource Microsoft.Graph/servicePrincipals/appRoleAssignments@beta
-* **Valid Scope(s)**: Unknown
-### Properties
-* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
-* **appRoleId**: string (Required)
-* **createdDateTime**: string (ReadOnly)
-* **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string: The resource name
-* **principalDisplayName**: string (ReadOnly)
-* **principalId**: string (Required)
-* **principalType**: string (ReadOnly)
-* **resourceDisplayName**: string
-* **resourceId**: string (Required)
-* **type**: 'Microsoft.Graph/servicePrincipals/appRoleAssignments' (ReadOnly, DeployTimeConstant): The resource type
 
 ## MicrosoftGraphAddIn
 ### Properties
