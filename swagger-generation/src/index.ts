@@ -24,12 +24,7 @@ parseXML(config.URL)
 
         constructDataStructure(csdl, definitionMap, entityScopeSet)
 
-        // definitionMap.EntityMap.forEach((entityType: EntityType) => {
-        //     console.log(entityType.Name)
-        //     console.log(entityType.Property)
-        // });
-
-        const swagger: Swagger = writeSwagger(definitionMap.EntityMap, scope)
+        const swagger: Swagger = writeSwagger(definitionMap.EntityMap, scope, definitionMap.PluralTranslationMap)
 
         JSON.stringify(swagger, null, 2)
 

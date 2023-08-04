@@ -17,7 +17,26 @@ export interface RawSchema extends Object {
     $: RawSchemaHeader,
     EnumType?: Object[],
     EntityType?: RawEntityType[],
-    ComplexType?: Object[]
+    ComplexType?: Object[],
+    EntityContainer?: EntityContainerRaw[]
+}
+
+export interface EntityContainerRaw extends Object {
+    $: EntityContainerRawHeader,
+    EntitySet?: EntitySetRaw[],
+}
+
+export interface EntityContainerRawHeader extends Object {
+    Name: string
+}
+
+export interface EntitySetRaw extends Object {
+    $: EntitySetRawHeader
+}
+
+export interface EntitySetRawHeader extends Object {
+    Name: string,
+    EntityType: string
 }
 
 export interface RawSchemaHeader extends Object {

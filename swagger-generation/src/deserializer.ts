@@ -6,7 +6,7 @@ import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, RawEntityType, RawEntityTypeHeader, RawNavigationProperty, RawNavigationPropertyHeader, RawProperty, RawPropertyHeader, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, EntityContainerRaw, EntitySetRaw, RawEntityType, RawEntityTypeHeader, RawNavigationProperty, RawNavigationPropertyHeader, RawProperty, RawPropertyHeader, RawSchema } from "./definitions/RawTypes";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap, scope: Set<string>): void => {
 
@@ -22,6 +22,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
             const enumTypes: Object[] = schema['EnumType'] ? schema['EnumType'] : []
             const rawEntityTypes: RawEntityType[] = schema['EntityType'] ? schema['EntityType'] : []
             const complexTypes: Object[] = schema['ComplexType'] ? schema['ComplexType'] : []
+            const entityContainers: EntityContainerRaw[] = schema['EntityContainer'] ? schema['EntityContainer'] : []
 
             rawEntityTypes.forEach((rawEntityTypes: RawEntityType) => {
                 const entityHeader: RawEntityTypeHeader = rawEntityTypes['$']
@@ -63,8 +64,22 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
                 const id = `${namespace}.${entityName}`
                 definitionMap.EntityMap.set(id, entityType)
             });
+
+            entityContainers.forEach((entityContainer: EntityContainerRaw) => {
+                const entitySets: EntitySetRaw[] = entityContainer['EntitySet'] ? entityContainer['EntitySet'] : []
+
+                entitySets.forEach((rawEntitySet: EntitySetRaw) => {
+                    const entitySetHeader = rawEntitySet['$']
+                    const entitySetName = entitySetHeader['Name']
+                    const entitySetType = entitySetHeader['EntityType']
+
+                    definitionMap.PluralTranslationMap.set(entitySetType, entitySetName)
+                });
+                
+            });
         
         });
+        
     });
 
     
