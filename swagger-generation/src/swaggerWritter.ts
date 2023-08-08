@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 // Type imports
+import { Config } from "./config";
 import { EntityMap, PluralTranslationMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { Property } from "./definitions/Property";
@@ -12,7 +13,7 @@ export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation
         swagger: SwaggerVersion.v2,
         info: {
             title: "Microsoft Graph",
-            version: "beta"
+            version: Config.Instance.SwaggerVersion,
         },
         schemes: [
             Scheme.http,
@@ -48,7 +49,7 @@ export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation
 
     entityMap.forEach((entityType: EntityType, id: string) => {
         const properties: Property[] = []
-        const property: Property = new Property("id", "string", false)
+        const property: Property = new Property("id", "string", true, false, true)
         properties.push(property)
         entityType.Property = properties
 

@@ -14,7 +14,7 @@ export interface DataService extends Object {
 }
 
 export interface RawSchema extends Object {
-    $: RawSchemaHeader,
+    $: RawSchemaAttributes,
     EnumType?: Object[],
     EntityType?: RawEntityType[],
     ComplexType?: Object[],
@@ -22,35 +22,34 @@ export interface RawSchema extends Object {
 }
 
 export interface EntityContainerRaw extends Object {
-    $: EntityContainerRawHeader,
+    $: EntityContainerRawAttributes,
     EntitySet?: EntitySetRaw[],
 }
 
-export interface EntityContainerRawHeader extends Object {
+export interface EntityContainerRawAttributes extends Object {
     Name: string
 }
 
 export interface EntitySetRaw extends Object {
-    $: EntitySetRawHeader
+    $: EntitySetRawAttributes
 }
 
-export interface EntitySetRawHeader extends Object {
+export interface EntitySetRawAttributes extends Object {
     Name: string,
     EntityType: string
-
 }
 
-export interface RawSchemaHeader extends Object {
+export interface RawSchemaAttributes extends Object {
     Namespace: string
 }
 
 export interface RawEntityType extends Object {
-    $: RawEntityTypeHeader,
+    $: RawEntityTypeAttributes,
     Property: RawProperty[],
     NavigationProperty: RawNavigationProperty[]
 }
 
-export interface RawEntityTypeHeader extends Object {
+export interface RawEntityTypeAttributes extends Object {
     Name: string,
     Abstract?: boolean,
     BaseType?: string,
@@ -59,32 +58,19 @@ export interface RawEntityTypeHeader extends Object {
 }
 
 export interface RawProperty extends Object {
-    $: RawPropertyHeader
+    $: RawPropertyAttributes
 }
 
-export interface RawPropertyHeader extends Object {
+export interface RawPropertyAttributes extends Object {
     Name: string,
     Type: string,
     Nullable?: boolean,
 }
 
-export interface RawNavigationPropertyHeader extends RawPropertyHeader {
+export interface RawNavigationPropertyAttributes extends RawPropertyAttributes {
     ContainsTarget?: boolean,
 }
 
 export interface RawNavigationProperty extends Object {
-    $: RawNavigationPropertyHeader
+    $: RawNavigationPropertyAttributes
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

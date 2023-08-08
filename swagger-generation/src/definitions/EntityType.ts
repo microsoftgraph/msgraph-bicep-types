@@ -32,8 +32,7 @@ export class EntityType extends Object {
         };
 
         definition.properties["id"] = {
-            type: "string",
-            format: "uuid"
+            type: "string"
         };
 
         return definition;

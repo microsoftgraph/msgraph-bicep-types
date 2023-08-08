@@ -60,7 +60,6 @@ describe('writeSwagger', () => {
                 "type": "object",
                 "properties": {
                   "id": {
-                    "format": "uuid",
                     "type": "string"
                   }
                 }

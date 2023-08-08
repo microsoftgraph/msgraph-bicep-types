@@ -8,5 +8,4 @@ export interface EnumType extends Object {
     UnderlyingType: string,
     IsFlags?: boolean,
     Member: Member[]
-    
 }

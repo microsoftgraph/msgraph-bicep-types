@@ -6,7 +6,7 @@ import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, EntityContainerRaw, EntitySetRaw, RawEntityType, RawEntityTypeHeader, RawNavigationProperty, RawNavigationPropertyHeader, RawProperty, RawPropertyHeader, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, EntityContainerRaw, EntitySetRaw, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap, scope: Set<string>): void => {
 
@@ -25,36 +25,38 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
             const entityContainers: EntityContainerRaw[] = schema['EntityContainer'] ? schema['EntityContainer'] : []
 
             rawEntityTypes.forEach((rawEntityTypes: RawEntityType) => {
-                const entityHeader: RawEntityTypeHeader = rawEntityTypes['$']
-                const entityName: string = entityHeader['Name']
+                const entityAttributes: RawEntityTypeAttributes = rawEntityTypes['$']
+                const entityName: string = entityAttributes['Name']
 
                 if(!(scope.has(`${namespace}.${entityName}`))) return
 
-                const abstract: boolean = entityHeader['Abstract'] ? entityHeader['Abstract'] : false
-                const baseType: string = entityHeader['BaseType'] ? entityHeader['BaseType'] : ''
-                const openType: boolean = entityHeader['OpenType'] ? entityHeader['OpenType'] : false
-                const hasStream: boolean = entityHeader['HasStream'] ? entityHeader['HasStream'] : false
+                const abstract: boolean = entityAttributes['Abstract'] ? entityAttributes['Abstract'] : false
+                const baseType: string = entityAttributes['BaseType'] ? entityAttributes['BaseType'] : ''
+                const openType: boolean = entityAttributes['OpenType'] ? entityAttributes['OpenType'] : false
+                const hasStream: boolean = entityAttributes['HasStream'] ? entityAttributes['HasStream'] : false
                 const rawProperties: RawProperty[] = rawEntityTypes['Property'] ? rawEntityTypes['Property'] : []
                 const rawNavigationProperties: RawNavigationProperty[] = rawEntityTypes['NavigationProperty'] ? rawEntityTypes['NavigationProperty'] : []
 
                 const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => {
-                    const propertyHeader: RawPropertyHeader = rawProperty['$']
-                    const propertyName: string = propertyHeader['Name']
-                    const propertyType: string = propertyHeader['Type']
-                    const propertyNullable: boolean = propertyHeader['Nullable'] ? propertyHeader['Nullable'] : false
+                    const propertyAttributes: RawPropertyAttributes = rawProperty['$']
+                    const propertyName: string = propertyAttributes['Name']
+                    const propertyType: string = propertyAttributes['Type']
+                    const propertyNullable: boolean = propertyAttributes['Nullable'] ? propertyAttributes['Nullable'] : false
 
-                    const property: Property = new Property(propertyName, propertyType, propertyNullable)
+                    //todo resolve undefined params
+                    const property: Property = new Property(propertyName, propertyType, undefined, propertyNullable, undefined)
                     return property
                 });
 
                 const navigationProperties: NavigationProperty[] = rawNavigationProperties.map((rawNavigationProperty: RawNavigationProperty) => {
-                    const navigationPropertyHeader: RawNavigationPropertyHeader = rawNavigationProperty['$']
-                    const navigationPropertyName: string = navigationPropertyHeader['Name']
-                    const navigationPropertyType: string = navigationPropertyHeader['Type']
-                    const navigationPropertyNullable: boolean = navigationPropertyHeader['Nullable'] ? navigationPropertyHeader['Nullable'] : false
-                    const navigationPropertyContainsTarget: boolean = navigationPropertyHeader['ContainsTarget'] ? navigationPropertyHeader['ContainsTarget'] : false
+                    const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty['$']
+                    const navigationPropertyName: string = navigationPropertyAttributes['Name']
+                    const navigationPropertyType: string = navigationPropertyAttributes['Type']
+                    const navigationPropertyNullable: boolean = navigationPropertyAttributes['Nullable'] ? navigationPropertyAttributes['Nullable'] : false
+                    const navigationPropertyContainsTarget: boolean = navigationPropertyAttributes['ContainsTarget'] ? navigationPropertyAttributes['ContainsTarget'] : false
                     
-                    const navigationProperty: NavigationProperty = new NavigationProperty(navigationPropertyName, navigationPropertyType, navigationPropertyNullable, navigationPropertyContainsTarget)
+                    //todo resolve undefined params
+                    const navigationProperty: NavigationProperty = new NavigationProperty(navigationPropertyName, navigationPropertyType, undefined, navigationPropertyNullable, undefined, navigationPropertyContainsTarget)
 
                     return navigationProperty
                 });
@@ -69,9 +71,9 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
                 const entitySets: EntitySetRaw[] = entityContainer['EntitySet'] ? entityContainer['EntitySet'] : []
 
                 entitySets.forEach((rawEntitySet: EntitySetRaw) => {
-                    const entitySetHeader = rawEntitySet['$']
-                    const entitySetName = entitySetHeader['Name']
-                    const entitySetType = entitySetHeader['EntityType']
+                    const entitySetAttributes = rawEntitySet['$']
+                    const entitySetName = entitySetAttributes['Name']
+                    const entitySetType = entitySetAttributes['EntityType']
 
                     definitionMap.PluralTranslationMap.set(entitySetType, entitySetName)
                 });

@@ -14,7 +14,7 @@ import { Swagger } from './definitions/Swagger'
 import { writeSwagger } from './swaggerWritter'
 import fs from 'fs'
 
-const config: Config = new Config()
+const config: Config = Config.Instance
 
 parseXML(config.URL)
     .then((csdl: CSDL) => {
@@ -26,9 +26,13 @@ parseXML(config.URL)
 
         const swagger: Swagger = writeSwagger(definitionMap.EntityMap, scope, definitionMap.PluralTranslationMap)
 
-        JSON.stringify(swagger, null, 2)
+        const swaggerJson: string = JSON.stringify(swagger, null, 2)
 
-        fs.writeFile('microsoftgraph-beta.json', JSON.stringify(swagger, null, 2), (err) => {
+        if (!fs.existsSync('output')){
+            fs.mkdirSync('output');
+        }
+
+        fs.writeFile('output/microsoftgraph-beta.json', swaggerJson, (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
         });

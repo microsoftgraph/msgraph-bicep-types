@@ -13,7 +13,7 @@ export interface ComplexMap extends Map<string, ComplexType>{};
 
 export interface PluralTranslationMap extends Map<string, string>{};
 
-export class DefinitionMap implements DefinitionMap{
+export class DefinitionMap{
     EntityMap: EntityMap;
     EnumMap: EnumMap;
     ComplexMap: ComplexMap;
@@ -32,4 +32,3 @@ export class DefinitionMap implements DefinitionMap{
 
     
 }
-
