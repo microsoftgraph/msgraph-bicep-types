@@ -3,7 +3,7 @@
 
 import { Property } from "./Property";
 import { NavigationProperty } from "./NavigationProperty";
-import { Property as SwaggerProperty, Definition } from "./Swagger";
+import { Definition } from "./Swagger";
 
 export class EntityType extends Object {
     Name: string;
@@ -14,7 +14,7 @@ export class EntityType extends Object {
     Property: Property[];
     NavigationProperty: NavigationProperty[];
 
-    constructor(name: string, abstract: boolean, baseType: string, openType: boolean, hasStream: boolean, property: Property[], navigationProperty: NavigationProperty[]) {
+    constructor(name: string, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[]) {
         super();
         this.Name = name;
         this.Abstract = abstract;
@@ -35,20 +35,6 @@ export class EntityType extends Object {
             type: "string",
             format: "uuid"
         };
-
-        // this.Property.forEach((property: Property) => {
-        //     switch (property.Type) {
-        //         case "Edm.String":
-        //             definition.properties[property.Name] = {
-                        
-            
-
-        //     definition.properties[property.Name] = property.toSwaggerProperty();
-        // });
-
-        // this.NavigationProperty.forEach((navigationProperty) => {
-        //     definition.properties[navigationProperty.Name] = navigationProperty.toSwaggerProperty();
-        // });
 
         return definition;
     }

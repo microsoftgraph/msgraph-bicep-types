@@ -37,11 +37,11 @@ export interface EntitySetRaw extends Object {
 export interface EntitySetRawHeader extends Object {
     Name: string,
     EntityType: string
+
 }
 
 export interface RawSchemaHeader extends Object {
-    Namespace: string,
-    xmlns: string
+    Namespace: string
 }
 
 export interface RawEntityType extends Object {
