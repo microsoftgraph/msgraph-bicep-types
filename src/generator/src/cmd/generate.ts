@@ -83,7 +83,7 @@ executeSynchronous(async () => {
 
       // Use markdown formatting as this summary will be included in the PR description
       logOut(summaryLogger,
-`<details>
+        `<details>
   <summary>Failed to generate types for path '${basePath}'</summary>
 
 \`\`\`
@@ -177,7 +177,7 @@ ${yaml.dump({ 'batch': Object.keys(filesByTag).map(tag => ({ 'tag': tag })) }, {
   for (const tag of Object.keys(filesByTag)) {
     generatedContent += `### Tag: ${tag} and bicep
 \`\`\`yaml $(tag) == '${tag}' && $(bicep)
-${yaml.dump({ 'input-file': filesByTag[tag] }, { lineWidth: 1000})}
+${yaml.dump({ 'input-file': filesByTag[tag] }, { lineWidth: 1000 })}
 \`\`\`
 `;
   }
@@ -250,10 +250,10 @@ async function buildTypeIndex(logger: ILogger, baseDir: string) {
     });
   }
 
-  const indexContent = await buildIndex(typeFiles,  (log) => logOut(logger, log));
-  
+  const indexContent = await buildIndex(typeFiles, (log) => logOut(logger, log));
+
   await writeFile(`${baseDir}/index.json`, normalizeJsonPath(writeIndexJson(indexContent)));
-  await writeFile(`${baseDir}/index.md`, writeIndexMarkdown(indexContent));
+  await writeFile(`${baseDir}/index.md`, normalizeJsonPath(writeIndexMarkdown(indexContent)));
 }
 
 function isVerboseLoggingLevel(logLevel: string) {
