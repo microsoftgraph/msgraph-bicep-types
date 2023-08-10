@@ -2,9 +2,8 @@
 // Licensed under the MIT License.
 
 // Type imports
-import { DefinitionMap, EntityMap, ComplexMap, EnumMap } from './definitions/DefinitionMap'
+import { DefinitionMap } from './definitions/DefinitionMap'
 import { CSDL } from './definitions/RawTypes'
-import { EntityType } from './definitions/EntityType'
 
 // Library imports
 import { parseXML } from './parser'
@@ -14,17 +13,15 @@ import { Swagger } from './definitions/Swagger'
 import { writeSwagger } from './swaggerWritter'
 import fs from 'fs'
 
-const config: Config = Config.Instance
 
-parseXML(config.URL)
+
+parseXML(Config.Instance.URL)
     .then((csdl: CSDL) => {
         const definitionMap: DefinitionMap = new DefinitionMap()
-        const scope: EntityMap = config.EntityTypes
-        const entityScopeSet: Set<string> = new Set<string>(scope.keys())
 
-        constructDataStructure(csdl, definitionMap, entityScopeSet)
+        constructDataStructure(csdl, definitionMap)
 
-        const swagger: Swagger = writeSwagger(definitionMap.EntityMap, scope, definitionMap.PluralTranslationMap)
+        const swagger: Swagger = writeSwagger(definitionMap.EntityMap)
 
         const swaggerJson: string = JSON.stringify(swagger, null, 2)
 

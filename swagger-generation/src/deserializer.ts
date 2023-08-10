@@ -2,13 +2,14 @@
 // Licensed under the MIT License.
 
 // Type imports
+import { Config } from "./config";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, EntityContainerRaw, EntitySetRaw, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 
-export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap, scope: Set<string>): void => {
+export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): void => {
 
     const dataServices: DataService[] = csdl['edmx:Edmx']['edmx:DataServices']
 
@@ -22,13 +23,12 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
             const enumTypes: Object[] = schema['EnumType'] ? schema['EnumType'] : []
             const rawEntityTypes: RawEntityType[] = schema['EntityType'] ? schema['EntityType'] : []
             const complexTypes: Object[] = schema['ComplexType'] ? schema['ComplexType'] : []
-            const entityContainers: EntityContainerRaw[] = schema['EntityContainer'] ? schema['EntityContainer'] : []
 
             rawEntityTypes.forEach((rawEntityTypes: RawEntityType) => {
                 const entityAttributes: RawEntityTypeAttributes = rawEntityTypes['$']
                 const entityName: string = entityAttributes['Name']
 
-                if(!(scope.has(`${namespace}.${entityName}`))) return
+                if(!(Config.Instance.EntityTypes.has(`${namespace}.${entityName}`))) return
 
                 const abstract: boolean = entityAttributes['Abstract'] ? entityAttributes['Abstract'] : false
                 const baseType: string = entityAttributes['BaseType'] ? entityAttributes['BaseType'] : ''
@@ -66,20 +66,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
                 const id = `${namespace}.${entityName}`
                 definitionMap.EntityMap.set(id, entityType)
             });
-
-            entityContainers.forEach((entityContainer: EntityContainerRaw) => {
-                const entitySets: EntitySetRaw[] = entityContainer['EntitySet'] ? entityContainer['EntitySet'] : []
-
-                entitySets.forEach((rawEntitySet: EntitySetRaw) => {
-                    const entitySetAttributes = rawEntitySet['$']
-                    const entitySetName = entitySetAttributes['Name']
-                    const entitySetType = entitySetAttributes['EntityType']
-
-                    definitionMap.PluralTranslationMap.set(entitySetType, entitySetName)
-                });
-                
-            });
-        
+       
         });
         
     });

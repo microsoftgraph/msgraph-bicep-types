@@ -2,18 +2,18 @@
 // Licensed under the MIT License.
 
 // Type imports
-import { Config } from "./config";
-import { EntityMap, PluralTranslationMap } from "./definitions/DefinitionMap";
+import { Config, EntityTypeConfig } from "./config";
+import { EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { Property } from "./definitions/Property";
 import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
 
-export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation: PluralTranslationMap): Swagger => {
+export const writeSwagger = (entityMap: EntityMap): Swagger => {
     const swagger: Swagger = {
         swagger: SwaggerVersion.v2,
         info: {
             title: "Microsoft Graph",
-            version: Config.Instance.SwaggerVersion,
+            version: Config.Instance.APIVersion,
         },
         schemes: [
             Scheme.http,
@@ -56,37 +56,20 @@ export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation
         swagger.definitions[id] = entityType.toSwaggerDefinition()
     });
 
-    scope.forEach((entityType: EntityType, id: string) => {
-        let plural: string 
-        if(translation.get(id)){
-            plural = translation.get(id)!
-        } else {
-            console.warn(`No entity set found for ${id}`)
-            const lastChar: string = id.charAt(id.length - 1)
-            switch(lastChar){
-            case "s":
-                plural = `${id}es`
-                break
-            case "y":
-                plural = `${id.substring(0, id.length - 1)}ies`
-                break
-            default:
-                plural = `${id}s`
-                break
-            }       
+    Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+        if(! entityMap.get(id)){
+            console.warn(`Entity ${id} from config.yml is not present in the CSDL`)
         }
-
-        let pascalCase: string = entityType.Name.charAt(0).toUpperCase() + entityType.Name.slice(1)
-        let pascalPlural: string = plural.charAt(0).toUpperCase() + plural.slice(1)
-        
-        const host: string = `/{rootScope}/providers/Microsoft.Graph/${plural}/{${entityType.Name}Id}`
+        const entityName: string = entityMap.get(id)!.Name
+        const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
+        const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`
         const path: Path = {
             put: {
                 tags: [
-                    pascalPlural
+                    relativeUri
                 ],
-                description: `Create or update a ${pascalCase}`,
-                operationId: `${pascalPlural}_Put`,
+                description: `Create or update a ${entityName}`,
+                operationId: `${relativeUri}_Put`,
                 consumes: [
                     Product.application_json
                 ],
@@ -96,8 +79,8 @@ export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation
                 parameters: [
                     {
                         in: "body",
-                        name: entityType.Name,
-                        description: `The ${entityType.Name} to be created or updated`,
+                        name: entityName,
+                        description: `The ${entityName} to be created or updated`,
                         required: true,
                         schema: {
                             $ref: `#/definitions/${id}`
@@ -105,15 +88,15 @@ export const writeSwagger = (entityMap: EntityMap, scope: EntityMap, translation
                     },
                     {
                         in: "path",
-                        description: `The id of the ${entityType.Name}`,
-                        name: `${entityType.Name}Id`,
+                        description: `The id of the ${entityName}`,
+                        name: `${entityName}Id`,
                         required: true,
                         type: "string"
                     }
                 ],
                 responses: {
                     "200": {
-                        description: `${pascalCase} created/updated successfully`,
+                        description: `${entityName} created/updated successfully`,
                         schema: {
                             $ref: `#/definitions/${id}`
                         }

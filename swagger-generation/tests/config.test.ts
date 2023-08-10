@@ -1,5 +1,4 @@
-import { Config } from '../src/config';
-import { EntityType } from '../src/definitions/EntityType';
+import { Config, EntityTypeConfig } from '../src/config';
 import { readFileSync } from 'fs';
 
 jest.mock('fs');
@@ -8,8 +7,12 @@ describe('Config', () => {
   it('should read config file and set EntityTypes and URL', () => {
     const mockConfigFile = `
       EntityTypes:
-        - Name: EntityType1
-        - Name: EntityType2
+        - Name: microsoft.graph.EntityTypeOne
+          RootUri: entityTypeOnes
+          NavigationProperty:
+            - navOne
+            - navTwo
+        - Name: microsoft.graph.EntityTypeTwo
       URL: https://example.com
     `;
     
@@ -17,15 +20,16 @@ describe('Config', () => {
 
     const config = Config.Instance;
 
-    const map = new Map<string, EntityType>();
-    map.set('microsoft.graph.EntityType1', {
-        Name: 'EntityType1',
-        
-    } as EntityType);
+    const map = new Map<string, EntityTypeConfig>();
+    map.set('microsoft.graph.EntityTypeOne', {
+        Name: 'microsoft.graph.EntityTypeOne',
+        RootUri: 'entityTypeOnes',
+        NavigationProperty: ['navOne', 'navTwo']
+    } as EntityTypeConfig);
 
-    map.set('microsoft.graph.EntityType2', {
-        Name: 'EntityType2',
-    } as EntityType);
+    map.set('microsoft.graph.EntityTypeTwo', {
+        Name: 'microsoft.graph.EntityTypeTwo',
+    } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);
     expect(config.URL).toEqual('https://example.com');

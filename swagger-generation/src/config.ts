@@ -1,34 +1,39 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Type imports
-import { EntityMap } from "./definitions/DefinitionMap";
-import { EntityType } from "./definitions/EntityType";
+// Type definitions
+import { EntityTypeConfigMap } from './definitions/DefinitionMap'
 // Library imports
 import { parse } from 'yaml'
 import {readFileSync } from 'fs'
+
+export interface EntityTypeConfig{
+    Name: string,
+    RootUri: string,
+    NavigationProperty: string[]
+}
 
 export class Config {
 
     private static _instance: Config
 
-    EntityTypes: EntityMap
+    EntityTypes: Map<string, EntityTypeConfig>
     URL: string
-    SwaggerVersion: string
+    APIVersion: string
 
     private constructor() {
         const configFile = readFileSync('./config.yaml', 'utf8')
         let configFileObj: any = parse(configFile)
-        let entityTypesMap: EntityMap = new Map<string, EntityType>()
-        let entityTypes: EntityType[] = configFileObj['EntityTypes'] as EntityType[]
+        let entityTypesMap: EntityTypeConfigMap = new  Map<string, EntityTypeConfig>()
+        let entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
         
-        entityTypes.forEach((entityType: EntityType) => {
-            entityTypesMap.set(`${entityType.Name}`, entityType)
+        entityTypes.forEach((entityTypeConfig: EntityTypeConfig) => {
+            entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig)
         })
 
         this.EntityTypes = entityTypesMap
         this.URL = configFileObj['URL']
-        this.SwaggerVersion = configFileObj['SwaggerVersion']
+        this.APIVersion = configFileObj['apiVersion']
     }
 
     public static get Instance(): Config {
