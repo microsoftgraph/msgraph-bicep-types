@@ -1,0 +1,23 @@
+# URL to fetch the metadata document
+URL: https://graph.microsoft.com/beta/$metadata
+
+# Version with which the api will be generated in the swagger document
+apiVersion: beta
+
+# List of entity types to be exposed in the swagger document
+EntityTypes:
+  - Name: microsoft.graph.group
+    RootUri: /groups
+    NavigationProperty:
+      - members
+      - owners
+  - Name: microsoft.graph.user
+    RootUri: /users
+  - Name: microsoft.graph.application
+    RootUri: /applications
+  - Name: microsoft.graph.servicePrincipal
+    RootUri: /servicePrincipals
+  - Name: microsoft.graph.oAuth2PermissionGrant
+    RootUri: /oauth2PermissionGrants
+  - Name: microsoft.graph.appRoleAssignment
+    RootUri: /appRoleAssignment

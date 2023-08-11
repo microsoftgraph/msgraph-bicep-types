@@ -1,0 +1,333 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft Graph",
+    "version": "beta"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "definitions": {
+    "microsoft.graph.application": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.user": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.servicePrincipal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.appRoleAssignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.oAuth2PermissionGrant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/{rootScope}/providers/Microsoft.Graph/groups/{groupId}": {
+      "put": {
+        "tags": [
+          "groups"
+        ],
+        "description": "Create or update a group",
+        "operationId": "groups_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "group",
+            "description": "The group to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.group"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the group",
+            "name": "groupId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "group created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.group"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/users/{userId}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "description": "Create or update a user",
+        "operationId": "users_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.user"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the user",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.user"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/applications/{applicationId}": {
+      "put": {
+        "tags": [
+          "applications"
+        ],
+        "description": "Create or update a application",
+        "operationId": "applications_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "application",
+            "description": "The application to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.application"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the application",
+            "name": "applicationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "application created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.application"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{servicePrincipalId}": {
+      "put": {
+        "tags": [
+          "servicePrincipals"
+        ],
+        "description": "Create or update a servicePrincipal",
+        "operationId": "servicePrincipals_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "servicePrincipal",
+            "description": "The servicePrincipal to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the servicePrincipal",
+            "name": "servicePrincipalId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "servicePrincipal created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/oauth2PermissionGrants/{oAuth2PermissionGrantId}": {
+      "put": {
+        "tags": [
+          "oauth2PermissionGrants"
+        ],
+        "description": "Create or update a oAuth2PermissionGrant",
+        "operationId": "oauth2PermissionGrants_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "oAuth2PermissionGrant",
+            "description": "The oAuth2PermissionGrant to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the oAuth2PermissionGrant",
+            "name": "oAuth2PermissionGrantId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "oAuth2PermissionGrant created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/appRoleAssignment/{appRoleAssignmentId}": {
+      "put": {
+        "tags": [
+          "appRoleAssignment"
+        ],
+        "description": "Create or update a appRoleAssignment",
+        "operationId": "appRoleAssignment_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "appRoleAssignment",
+            "description": "The appRoleAssignment to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the appRoleAssignment",
+            "name": "appRoleAssignmentId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "appRoleAssignment created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
+            }
+          }
+        }
+      }
+    }
+  }
+}
