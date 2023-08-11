@@ -4,7 +4,7 @@
 import { ComplexTypeProperty } from "./ComplexTypeProperty";
 import { NavigationProperty } from "./NavigationProperty";
 
-export interface ComplexType extends Object { 
+export interface ComplexType { 
     Name: string,
     BaseType?: boolean,
     Abstract?: boolean,

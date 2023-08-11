@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-export interface Member extends Object {
+export interface Member {
     Name: string,
     Value: string
 }

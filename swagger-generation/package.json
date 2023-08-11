@@ -4,7 +4,8 @@
   "description": "The MSGraph swagger specification auto-generation tool using CSDL",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,9 @@
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/xml2js": "^0.4.11",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.47.0",
     "jest": "^29.6.2",
     "ts-jest": "^29.1.1"
   }

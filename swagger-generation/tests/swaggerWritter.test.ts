@@ -6,7 +6,7 @@ const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeCon
 
 entityTypes.set('microsoft.graph.entityNameOne', {
     Name: 'microsoft.graph.entityNameOne',
-    RootUri: 'entityNameOnes',
+    RootUri: '/entityNameOnes',
     NavigationProperty: []
 } as EntityTypeConfig);
 

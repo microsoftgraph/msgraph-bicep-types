@@ -5,51 +5,51 @@ export interface CSDL{
     "edmx:Edmx": DataServices
 }
 
-export interface DataServices extends Object {
+export interface DataServices {
     "edmx:DataServices": DataService[]
 }
 
-export interface DataService extends Object {
+export interface DataService {
     Schema: RawSchema[]
 }
 
-export interface RawSchema extends Object {
+export interface RawSchema {
     $: RawSchemaAttributes,
-    EnumType?: Object[],
+    EnumType?: object[],
     EntityType?: RawEntityType[],
-    ComplexType?: Object[],
+    ComplexType?: object[],
     EntityContainer?: EntityContainerRaw[]
 }
 
-export interface EntityContainerRaw extends Object {
+export interface EntityContainerRaw {
     $: EntityContainerRawAttributes,
     EntitySet?: EntitySetRaw[],
 }
 
-export interface EntityContainerRawAttributes extends Object {
+export interface EntityContainerRawAttributes {
     Name: string
 }
 
-export interface EntitySetRaw extends Object {
+export interface EntitySetRaw {
     $: EntitySetRawAttributes
 }
 
-export interface EntitySetRawAttributes extends Object {
+export interface EntitySetRawAttributes {
     Name: string,
     EntityType: string
 }
 
-export interface RawSchemaAttributes extends Object {
+export interface RawSchemaAttributes {
     Namespace: string
 }
 
-export interface RawEntityType extends Object {
+export interface RawEntityType {
     $: RawEntityTypeAttributes,
     Property: RawProperty[],
     NavigationProperty: RawNavigationProperty[]
 }
 
-export interface RawEntityTypeAttributes extends Object {
+export interface RawEntityTypeAttributes {
     Name: string,
     Abstract?: boolean,
     BaseType?: string,
@@ -57,11 +57,11 @@ export interface RawEntityTypeAttributes extends Object {
     HasStream?: boolean
 }
 
-export interface RawProperty extends Object {
+export interface RawProperty {
     $: RawPropertyAttributes
 }
 
-export interface RawPropertyAttributes extends Object {
+export interface RawPropertyAttributes {
     Name: string,
     Type: string,
     Nullable?: boolean,
@@ -71,6 +71,6 @@ export interface RawNavigationPropertyAttributes extends RawPropertyAttributes {
     ContainsTarget?: boolean,
 }
 
-export interface RawNavigationProperty extends Object {
+export interface RawNavigationProperty {
     $: RawNavigationPropertyAttributes
 }

@@ -20,9 +20,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
         schemas.forEach((schema: RawSchema) => {
 
             const namespace: string = schema['$']['Namespace']
-            const enumTypes: Object[] = schema['EnumType'] ? schema['EnumType'] : []
             const rawEntityTypes: RawEntityType[] = schema['EntityType'] ? schema['EntityType'] : []
-            const complexTypes: Object[] = schema['ComplexType'] ? schema['ComplexType'] : []
 
             rawEntityTypes.forEach((rawEntityTypes: RawEntityType) => {
                 const entityAttributes: RawEntityTypeAttributes = rawEntityTypes['$']

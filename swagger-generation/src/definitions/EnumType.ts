@@ -3,7 +3,7 @@
 
 import { Member } from "./Member";
 
-export interface EnumType extends Object { 
+export interface EnumType { 
     Name: string,
     UnderlyingType: string,
     IsFlags?: boolean,

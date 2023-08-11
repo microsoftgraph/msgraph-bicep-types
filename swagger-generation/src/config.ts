@@ -23,9 +23,9 @@ export class Config {
 
     private constructor() {
         const configFile = readFileSync('./config.yaml', 'utf8')
-        let configFileObj: any = parse(configFile)
-        let entityTypesMap: EntityTypeConfigMap = new  Map<string, EntityTypeConfig>()
-        let entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
+        const configFileObj = parse(configFile)
+        const entityTypesMap: EntityTypeConfigMap = new Map<string, EntityTypeConfig>()
+        const entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
         
         entityTypes.forEach((entityTypeConfig: EntityTypeConfig) => {
             entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig)

@@ -26,7 +26,7 @@ export class EntityType extends Object {
     }
 
     toSwaggerDefinition(): Definition {
-        let definition: Definition = {
+        const definition: Definition = {
             type: "object",
             properties: {}
         };
