@@ -235,7 +235,7 @@ describe('constructDataStructure with non-namespaced entities', () => {
 
     it('should not relate unnamespaced entities', () => {
         const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
+        expect(() => constructDataStructure(csdl, definitionMap)).toThrowError();
         expect(definitionMap.EntityMap.size).toBe(0);
         expect(definitionMap.EntityMap.get('entityTypeOne')).toBeUndefined();
     });

@@ -49,7 +49,6 @@ describe('writeSwagger', () => {
             "version": "beta"
             },
             "schemes": [
-            "http",
             "https"
             ],
             "consumes": [

@@ -64,6 +64,8 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                 const id = `${namespace}.${entityName}`
                 definitionMap.EntityMap.set(id, entityType)
             });
+
+            if(definitionMap.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
        
         });
         
