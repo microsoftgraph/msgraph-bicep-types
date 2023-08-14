@@ -20,4 +20,4 @@ EntityTypes:
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
   - Name: microsoft.graph.appRoleAssignment
-    RootUri: /appRoleAssignment
+    RootUri: /servicePrincipals/{resourceId}/appRoleAssignedTo

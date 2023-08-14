@@ -16,7 +16,6 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
             version: Config.Instance.APIVersion,
         },
         schemes: [
-            Scheme.http,
             Scheme.https
         ],
         consumes: [
