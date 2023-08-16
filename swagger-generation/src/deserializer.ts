@@ -6,10 +6,13 @@ import { Config } from "./config";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
+import { PrimitiveSwaggerType } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
 import { CSDL, DataService, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { TypeTranslator } from "./util/typeTranslator";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): void => {
+    const typeTranslator: TypeTranslator = new TypeTranslator();
 
     const dataServices: DataService[] = csdl['edmx:Edmx']['edmx:DataServices']
 
@@ -38,7 +41,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                 const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => {
                     const propertyAttributes: RawPropertyAttributes = rawProperty['$']
                     const propertyName: string = propertyAttributes['Name']
-                    const propertyType: string = propertyAttributes['Type']
+                    const propertyType: PrimitiveSwaggerType = typeTranslator.odatatoSwaggerType(propertyAttributes['Type']) as PrimitiveSwaggerType
                     const propertyNullable: boolean = propertyAttributes['Nullable'] ? propertyAttributes['Nullable'] : false
 
                     //todo resolve undefined params
@@ -60,16 +63,14 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                 });
 
                 const entityType: EntityType = new EntityType(entityName, abstract, baseType, openType, hasStream, properties, navigationProperties)
-
                 const id = `${namespace}.${entityName}`
                 definitionMap.EntityMap.set(id, entityType)
             });
-
-            if(definitionMap.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
        
         });
         
     });
 
+    if(definitionMap.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
     
 }

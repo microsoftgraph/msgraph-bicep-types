@@ -1,6 +1,7 @@
 //import { constructDataStructure } from '../src/deserializer';
 import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { Config, EntityTypeConfig } from '../src/config';
+import { CSDL } from '../src/definitions/RawTypes';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 const entityTypesNonNamespaced: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
@@ -71,7 +72,7 @@ jest.mock('../src/config', () => {
     return { Config: mockConfig };
 })
 
-const csdl = {
+const csdl: CSDL = {
     'edmx:Edmx': {
         'edmx:DataServices': [
         {

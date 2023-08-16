@@ -1,6 +1,7 @@
 import { EntityMap } from '../src/definitions/DefinitionMap';
 import { EntityType } from '../src/definitions/EntityType';
 import { Config, EntityTypeConfig } from '../src/config';
+import { Property } from '../src/definitions/Property';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -37,8 +38,12 @@ describe('writeSwagger', () => {
 
     it('should generate Swagger object', () => {
         const entityMap: EntityMap = new Map<string, EntityType>();
+        const properties: Property[] = [
+            new Property('id', 'string', false, false, false)
+        ];
 
-        const entity: EntityType = new EntityType('entityNameOne', undefined, undefined, undefined, undefined, [], [])
+
+        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
 
         entityMap.set('microsoft.graph.entityNameOne', entity);
 

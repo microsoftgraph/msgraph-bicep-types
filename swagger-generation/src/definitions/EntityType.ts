@@ -31,9 +31,11 @@ export class EntityType extends Object {
             properties: {}
         };
 
-        definition.properties["id"] = {
-            type: "string"
-        };
+        this.Property.forEach((property: Property) => {
+            definition.properties[property.Name] = {
+                type: property.Type,
+            };
+        });
 
         return definition;
     }

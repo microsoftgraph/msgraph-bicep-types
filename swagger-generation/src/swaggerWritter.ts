@@ -47,9 +47,7 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
     }
 
     entityMap.forEach((entityType: EntityType, id: string) => {
-        const properties: Property[] = []
-        const property: Property = new Property("id", "string", true, false, true)
-        properties.push(property)
+        const properties: Property[] = entityType.Property.filter((property: Property) => property.Type)
         entityType.Property = properties
 
         swagger.definitions[id] = entityType.toSwaggerDefinition()
