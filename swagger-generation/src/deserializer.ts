@@ -8,7 +8,7 @@ import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerType } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 import { TypeTranslator } from "./util/typeTranslator";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): void => {
@@ -40,14 +40,27 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
 
                 const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => {
                     const propertyAttributes: RawPropertyAttributes = rawProperty['$']
-                    const propertyName: string = propertyAttributes['Name']
-                    const propertyType: PrimitiveSwaggerType = typeTranslator.odatatoSwaggerType(propertyAttributes['Type']) as PrimitiveSwaggerType
+                    const propertyName: string = propertyAttributes.Name
+                    let propertyType: PrimitiveSwaggerType | string
+                    
+                    // Primitive Types
+                    if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyAttributes.Type)){
+                        propertyType = typeTranslator.odatatoSwaggerType(propertyAttributes.Type) 
+                    } else { // Other
+                        // ToDo: Implement complex types, enums, etc
+                        return // temporary return
+                        //propertyType = propertyAttributes.Type
+                    }
+                     
                     const propertyNullable: boolean = propertyAttributes['Nullable'] ? propertyAttributes['Nullable'] : false
 
                     //todo resolve undefined params
                     const property: Property = new Property(propertyName, propertyType, undefined, propertyNullable, undefined)
+
                     return property
-                });
+                })
+                .filter((property: Property | undefined) => property !== undefined) // temporary filter
+                .map((prop: Property | undefined): Property => prop!); // temporary map
 
                 const navigationProperties: NavigationProperty[] = rawNavigationProperties.map((rawNavigationProperty: RawNavigationProperty) => {
                     const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty['$']

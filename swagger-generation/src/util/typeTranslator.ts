@@ -59,19 +59,11 @@ export class TypeTranslator{
 
 
     odatatoSwaggerType(primitiveType: PrimitivePropertyType | string): PrimitiveSwaggerType {
-        if (typeof primitiveType === "string") {
-            return this.translationMap.get(primitiveType as PrimitivePropertyType) as PrimitiveSwaggerType
-        } 
-
-        return this.translationMap.get(primitiveType) as PrimitiveSwaggerType
+        return this.translationMap.get(primitiveType as PrimitivePropertyType) as PrimitiveSwaggerType
     }
 
     swaggerToODataType(primitiveType: PrimitiveSwaggerType | string): PrimitivePropertyType {
-        if (typeof primitiveType === "string") {
-            return this.reverseTranslationMap.get(primitiveType as PrimitiveSwaggerType) as PrimitivePropertyType
-        }
-        
-        return this.reverseTranslationMap.get(primitiveType) as PrimitivePropertyType
+        return this.reverseTranslationMap.get(primitiveType as PrimitiveSwaggerType) as PrimitivePropertyType
     }
 }
 

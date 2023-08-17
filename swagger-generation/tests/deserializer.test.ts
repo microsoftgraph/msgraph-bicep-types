@@ -91,7 +91,7 @@ const csdl: CSDL = {
                     {
                         $: {
                         Name: 'propertyName',
-                        Type: 'propertyType'
+                        Type: 'Edm.String'
                         },
                     },
                     ],
@@ -105,7 +105,7 @@ const csdl: CSDL = {
                     {
                         $: {
                         Name: 'propertyName',
-                        Type: 'propertyType'
+                        Type: 'Edm.String'
                         },
                     },
                     ],
@@ -126,7 +126,7 @@ const csdl: CSDL = {
                             {
                                 $: {
                                     Name: 'propertyNameDiff',
-                                    Type: 'propertyType'
+                                    Type: 'Edm.String'
                                 },
                             },
                         ],
@@ -148,7 +148,7 @@ const csdl: CSDL = {
                             {
                                 $: {
                                 Name: 'propertyName',
-                                Type: 'propertyType'
+                                Type: 'Edm.String'
                                 },
                             },
                             ],
