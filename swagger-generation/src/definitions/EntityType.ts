@@ -25,10 +25,10 @@ export class EntityType extends Object {
         this.NavigationProperty = navigationProperty;
     }
 
-    toSwaggerDefinition(): Definition {
+    toSwaggerDefinition(required?: string[]): Definition {
         const definition: Definition = {
             type: "object",
-            properties: {}
+            properties: {},
         };
 
         this.Property.forEach((property: Property) => {
@@ -36,6 +36,17 @@ export class EntityType extends Object {
                 type: property.Type,
             };
         });
+
+        if(required){
+            required.forEach((property: string) => {
+                if (!definition.properties[property]) {
+                    throw new Error(`Required property ${property} not found in ${this.Name}`);
+                }
+            });
+            
+            definition.required = required;
+        }
+        
 
         return definition;
     }

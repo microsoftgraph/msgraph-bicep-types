@@ -359,7 +359,12 @@
         "resourceId": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "resourceId",
+        "principalId",
+        "appRoleId"
+      ]
     },
     "microsoft.graph.oAuth2PermissionGrant": {
       "type": "object",

@@ -50,7 +50,10 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
         const properties: Property[] = entityType.Property.filter((property: Property) => property.Type)
         entityType.Property = properties
 
-        swagger.definitions[id] = entityType.toSwaggerDefinition()
+        if(!Config.Instance.EntityTypes.get(id))
+            throw new Error(`Entity ${id} from CSDL is not present in the config.yml. Perhaps something went wrong?`)
+
+        swagger.definitions[id] = entityType.toSwaggerDefinition(Config.Instance.EntityTypes.get(id)!.RequiredOnWrite)
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
