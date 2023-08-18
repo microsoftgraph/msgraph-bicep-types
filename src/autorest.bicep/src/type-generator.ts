@@ -14,7 +14,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
   const typesWithoutRequiredName: Set<string> = new Set([
     'Microsoft.Graph/servicePrincipals',
     'Microsoft.Graph/oauth2PermissionGrants',
-    'Microsoft.Graph/servicePrincipals/appRoleAssignments',
+    'Microsoft.Graph/appRoleAssignedTo',
   ]);
 
   function logWarning(message: string) {

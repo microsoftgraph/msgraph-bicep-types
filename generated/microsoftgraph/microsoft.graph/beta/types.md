@@ -50,7 +50,7 @@
 * **appRoleId**: string (Required)
 * **createdDateTime**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string: The resource name
 * **principalDisplayName**: string (ReadOnly)
 * **principalId**: string (Required)
 * **principalType**: string (ReadOnly)
@@ -248,6 +248,7 @@
 ### Properties
 * **adminConsentDescription**: string
 * **adminConsentDisplayName**: string
+* **id**: string
 * **isEnabled**: bool
 * **origin**: string
 * **type**: string
