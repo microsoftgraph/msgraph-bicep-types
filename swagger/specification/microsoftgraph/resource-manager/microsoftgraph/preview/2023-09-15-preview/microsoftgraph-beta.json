@@ -663,6 +663,10 @@
       "description": "Properties of a permission scope.",
       "type": "object",
       "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
         "adminConsentDescription": {
           "type": "string"
         },
