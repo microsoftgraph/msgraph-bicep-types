@@ -4,10 +4,17 @@
 name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 # Create a production build artifact from the HEAD of the master branch.
-trigger:
+trigger:  
+  paths: # File paths to include or exclude for triggering a run.
+    include: 
+      - src/*
+      - generated/*
   branches:
     include:
       - master
+      - main
+
+pr: none
 
 pool:
   name: Azure Pipelines
@@ -201,7 +208,7 @@ stages:
     dependsOn: build
     jobs:
       - deployment: deploy
-        environment: microsoftgraph-nuget-org
+        environment: microsoftgraph-bicep-nuget-org
         strategy:
           runOnce:
             deploy:
