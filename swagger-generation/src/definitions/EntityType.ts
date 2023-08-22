@@ -3,7 +3,7 @@
 
 import { Property } from "./Property";
 import { NavigationProperty } from "./NavigationProperty";
-import { Definition, Property as SwProp } from "./Swagger";
+import { Definition, Property as SwaggerProperty } from "./Swagger";
 import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType";
 
 
@@ -34,19 +34,19 @@ export class EntityType extends Object {
         };
 
         this.Property.forEach((property: Property) => {
-            const type: SwProp = {
+            const propertyType: SwaggerProperty = {
                 type: property.Type,
             }
 
             if(property.Type instanceof PrimitiveSwaggerTypeStruct){
                 property.Type = property.Type as PrimitiveSwaggerTypeStruct
-                type.type = property.Type.type // rewrite struct with string type
+                propertyType.type = property.Type.type // rewrite struct with string type
                 if(property.Type.format){
-                    type.format = property.Type.format
+                    propertyType.format = property.Type.format
                 }
             }
 
-            definition.properties[property.Name] = type
+            definition.properties[property.Name] = propertyType
         });
 
         if(required){
@@ -58,7 +58,6 @@ export class EntityType extends Object {
             
             definition.required = required;
         }
-        
 
         return definition;
     }

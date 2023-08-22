@@ -32,7 +32,6 @@ export class PrimitiveSwaggerTypeStruct {
 }
 
 
-
 export class PrimitiveSwaggerType {
 
     private static _instance: PrimitiveSwaggerType
@@ -65,7 +64,5 @@ export class PrimitiveSwaggerType {
 
     public static get Instance(): PrimitiveSwaggerType {
         return this._instance || (this._instance = new this())
-
     }
-
 }

@@ -7,7 +7,6 @@ import { PrimitivePropertyType } from "../definitions/RawTypes";
 
 export class TypeTranslator{
     translationMap: Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>;
-    reverseTranslationMap: Map<PrimitiveSwaggerTypeStruct, PrimitivePropertyType>;
 
     constructor(){
         this.translationMap = new Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>([
@@ -15,7 +14,7 @@ export class TypeTranslator{
             [PrimitivePropertyType.Boolean, PrimitiveSwaggerType.Instance.Boolean],
             [PrimitivePropertyType.Byte, PrimitiveSwaggerType.Instance.Byte],
             [PrimitivePropertyType.Date, PrimitiveSwaggerType.Instance.Date],
-            [PrimitivePropertyType.DateTimeOffset, PrimitiveSwaggerType.Instance.DateTime], // review
+            [PrimitivePropertyType.DateTimeOffset, PrimitiveSwaggerType.Instance.DateTime],
             [PrimitivePropertyType.Decimal, PrimitiveSwaggerType.Instance.Float],
             [PrimitivePropertyType.Double, PrimitiveSwaggerType.Instance.Double],
             [PrimitivePropertyType.Duration, PrimitiveSwaggerType.Instance.String],
@@ -23,9 +22,9 @@ export class TypeTranslator{
             [PrimitivePropertyType.Int16, PrimitiveSwaggerType.Instance.Integer],
             [PrimitivePropertyType.Int32, PrimitiveSwaggerType.Instance.Integer],
             [PrimitivePropertyType.Int64, PrimitiveSwaggerType.Instance.Long],
-            [PrimitivePropertyType.SByte, PrimitiveSwaggerType.Instance.Integer], // review
-            [PrimitivePropertyType.Single, PrimitiveSwaggerType.Instance.Float], // review
-            [PrimitivePropertyType.Stream, PrimitiveSwaggerType.Instance.String], // review
+            [PrimitivePropertyType.SByte, PrimitiveSwaggerType.Instance.Integer],
+            [PrimitivePropertyType.Single, PrimitiveSwaggerType.Instance.Float],
+            [PrimitivePropertyType.Stream, PrimitiveSwaggerType.Instance.String],
             [PrimitivePropertyType.String, PrimitiveSwaggerType.Instance.String],
             [PrimitivePropertyType.TimeOfDay, PrimitiveSwaggerType.Instance.String],
             [PrimitivePropertyType.Geography, PrimitiveSwaggerType.Instance.String],
@@ -45,13 +44,6 @@ export class TypeTranslator{
             [PrimitivePropertyType.GeometryMultiPolygon, PrimitiveSwaggerType.Instance.String],
             [PrimitivePropertyType.GeometryCollection, PrimitiveSwaggerType.Instance.String],
         ])
-
-        this.reverseTranslationMap = new Map<PrimitiveSwaggerTypeStruct, PrimitivePropertyType>([
-            [PrimitiveSwaggerType.Instance.Binary, PrimitivePropertyType.Binary],
-            [PrimitiveSwaggerType.Instance.Boolean, PrimitivePropertyType.Boolean],
-            
-            
-        ])
     }
 
 
@@ -59,12 +51,6 @@ export class TypeTranslator{
         const swaggerType: PrimitiveSwaggerTypeStruct | undefined= this.translationMap.get(primitiveType)
         if(!swaggerType) throw new Error(`No swagger type found for ${primitiveType}`)
         return swaggerType
-    }
-
-    swaggerToODataType(primitiveType: PrimitiveSwaggerTypeStruct): PrimitivePropertyType {
-        const odataType: PrimitivePropertyType | undefined = this.reverseTranslationMap.get(primitiveType)
-        if(!odataType) throw new Error(`No OData type found for ${primitiveType}`)
-        return odataType
     }
 }
 
