@@ -87,190 +87,10 @@
         "uniqueName": {
           "type": "string"
         }
-      }
-    },
-    "microsoft.graph.user": {
-      "type": "object",
-      "properties": {
-        "accountEnabled": {
-          "type": "boolean"
-        },
-        "ageGroup": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "companyName": {
-          "type": "string"
-        },
-        "consentProvidedForMinor": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "createdDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "creationType": {
-          "type": "string"
-        },
-        "department": {
-          "type": "string"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "employeeHireDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "employeeId": {
-          "type": "string"
-        },
-        "employeeLeaveDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "employeeType": {
-          "type": "string"
-        },
-        "externalUserState": {
-          "type": "string"
-        },
-        "externalUserStateChangeDateTime": {
-          "type": "string"
-        },
-        "faxNumber": {
-          "type": "string"
-        },
-        "givenName": {
-          "type": "string"
-        },
-        "isLicenseReconciliationNeeded": {
-          "type": "boolean"
-        },
-        "isManagementRestricted": {
-          "type": "boolean"
-        },
-        "isResourceAccount": {
-          "type": "boolean"
-        },
-        "jobTitle": {
-          "type": "string"
-        },
-        "lastPasswordChangeDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "legalAgeGroupClassification": {
-          "type": "string"
-        },
-        "mail": {
-          "type": "string"
-        },
-        "mailNickname": {
-          "type": "string"
-        },
-        "mobilePhone": {
-          "type": "string"
-        },
-        "officeLocation": {
-          "type": "string"
-        },
-        "onPremisesDistinguishedName": {
-          "type": "string"
-        },
-        "onPremisesDomainName": {
-          "type": "string"
-        },
-        "onPremisesImmutableId": {
-          "type": "string"
-        },
-        "onPremisesLastSyncDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "onPremisesSamAccountName": {
-          "type": "string"
-        },
-        "onPremisesSecurityIdentifier": {
-          "type": "string"
-        },
-        "onPremisesSyncEnabled": {
-          "type": "boolean"
-        },
-        "onPremisesUserPrincipalName": {
-          "type": "string"
-        },
-        "passwordPolicies": {
-          "type": "string"
-        },
-        "postalCode": {
-          "type": "string"
-        },
-        "preferredDataLocation": {
-          "type": "string"
-        },
-        "preferredLanguage": {
-          "type": "string"
-        },
-        "refreshTokensValidFromDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "securityIdentifier": {
-          "type": "string"
-        },
-        "showInAddressList": {
-          "type": "boolean"
-        },
-        "signInSessionsValidFromDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "state": {
-          "type": "string"
-        },
-        "streetAddress": {
-          "type": "string"
-        },
-        "surname": {
-          "type": "string"
-        },
-        "usageLocation": {
-          "type": "string"
-        },
-        "userPrincipalName": {
-          "type": "string"
-        },
-        "userType": {
-          "type": "string"
-        },
-        "deviceEnrollmentLimit": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "aboutMe": {
-          "type": "string"
-        },
-        "birthday": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "hireDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "mySite": {
-          "type": "string"
-        },
-        "preferredName": {
-          "type": "string"
-        }
-      }
+      },
+      "required": [
+        "displayName"
+      ]
     },
     "microsoft.graph.servicePrincipal": {
       "type": "object",
@@ -345,7 +165,10 @@
         "tokenEncryptionKeyId": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "appId"
+      ]
     },
     "microsoft.graph.appRoleAssignment": {
       "type": "object",
@@ -405,7 +228,12 @@
           "type": "string",
           "format": "date-time"
         }
-      }
+      },
+      "required": [
+        "clientId",
+        "resourceId",
+        "consentType"
+      ]
     },
     "microsoft.graph.group": {
       "type": "object",
@@ -534,7 +362,13 @@
         "isArchived": {
           "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "displayName",
+        "mailEnabled",
+        "mailNickname",
+        "securityEnabled"
+      ]
     }
   },
   "paths": {
@@ -574,47 +408,6 @@
             "description": "group created/updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.group"
-            }
-          }
-        }
-      }
-    },
-    "/{rootScope}/providers/Microsoft.Graph/users/{userId}": {
-      "put": {
-        "tags": [
-          "users"
-        ],
-        "description": "Create or update a user",
-        "operationId": "users_Put",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "user",
-            "description": "The user to be created or updated",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/microsoft.graph.user"
-            }
-          },
-          {
-            "in": "path",
-            "description": "The id of the user",
-            "name": "userId",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user created/updated successfully",
-            "schema": {
-              "$ref": "#/definitions/microsoft.graph.user"
             }
           }
         }
