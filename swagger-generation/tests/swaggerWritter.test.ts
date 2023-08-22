@@ -2,6 +2,7 @@ import { EntityMap } from '../src/definitions/DefinitionMap';
 import { EntityType } from '../src/definitions/EntityType';
 import { Config, EntityTypeConfig } from '../src/config';
 import { Property } from '../src/definitions/Property';
+import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from '../src/definitions/PrimitiveSwaggerType';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -39,7 +40,20 @@ describe('writeSwagger', () => {
     it('should generate Swagger object', () => {
         const entityMap: EntityMap = new Map<string, EntityType>();
         const properties: Property[] = [
-            new Property('id', 'string', false, false, false)
+            new Property('contentBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary), false, false, false),
+            new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), false, false, false),
+            new Property('caseStatus', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte), false, false, false),
+            new Property('startDate', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date), false, false, false),
+            new Property('effectiveDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), false, false, false),
+            new Property('balanceDue', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float), false, false, false),
+            new Property('weight', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double), false, false, false),
+            new Property('duration', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
+            new Property('callChainId', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
+            new Property('disc', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false, false),
+            new Property('version', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false, false),
+            new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), false, false, false),
+            new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
+            new Property('fakeProp', 'fakeType', false, false, false)
         ];
 
 
@@ -84,9 +98,57 @@ describe('writeSwagger', () => {
                 "microsoft.graph.entityNameOne": {
                     "type": "object",
                     "properties": {
-                    "id": {
-                        "type": "string"
-                    }
+                        "id": {
+                            "type": "string"
+                        },
+                        "contentBytes": {
+                            "type": "string",
+                            "format": "binary"
+                        },
+                        "isEnabled": {
+                            "type": "boolean"
+                        },
+                        "caseStatus": {
+                            "type": "string",
+                            "format": "byte"
+                        },
+                        "startDate": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "effectiveDateTime": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "balanceDue": {
+                            "type": "number",
+                            "format": "float"
+                        },
+                        "weight": {
+                            "type": "number",
+                            "format": "double"
+                        },
+                        "duration": {
+                            "type": "string"
+                        },
+                        "callChainId": {
+                            "type": "string"
+                        },
+                        "disc": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "version": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "freeStorageSpaceInBytes": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "fakeProp": {
+                            "type": "fakeType"
+                        }
                     }
                 },
             },

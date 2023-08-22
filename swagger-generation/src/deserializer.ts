@@ -6,7 +6,7 @@ import { Config } from "./config";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
-import { PrimitiveSwaggerType } from "./definitions/PrimitiveSwaggerType";
+import { PrimitiveSwaggerTypeStruct } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
 import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 import { TypeTranslator } from "./util/typeTranslator";
@@ -41,11 +41,11 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                 const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => {
                     const propertyAttributes: RawPropertyAttributes = rawProperty['$']
                     const propertyName: string = propertyAttributes.Name
-                    let propertyType: PrimitiveSwaggerType | string
+                    let propertyType: PrimitiveSwaggerTypeStruct | string
                     
                     // Primitive Types
                     if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyAttributes.Type)){
-                        propertyType = typeTranslator.odatatoSwaggerType(propertyAttributes.Type) 
+                        propertyType = typeTranslator.odatatoSwaggerType(propertyAttributes.Type as PrimitivePropertyType) 
                     } else { // Other
                         // ToDo: Implement complex types, enums, etc
                         return // temporary return

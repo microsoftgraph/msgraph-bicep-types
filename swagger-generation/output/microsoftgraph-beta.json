@@ -39,7 +39,8 @@
           "type": "string"
         },
         "createdDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "defaultRedirectUri": {
           "type": "string"
@@ -110,7 +111,8 @@
           "type": "string"
         },
         "createdDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "creationType": {
           "type": "string"
@@ -122,13 +124,15 @@
           "type": "string"
         },
         "employeeHireDate": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "employeeId": {
           "type": "string"
         },
         "employeeLeaveDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "employeeType": {
           "type": "string"
@@ -158,7 +162,8 @@
           "type": "string"
         },
         "lastPasswordChangeDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "legalAgeGroupClassification": {
           "type": "string"
@@ -185,7 +190,8 @@
           "type": "string"
         },
         "onPremisesLastSyncDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "onPremisesSamAccountName": {
           "type": "string"
@@ -212,7 +218,8 @@
           "type": "string"
         },
         "refreshTokensValidFromDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "securityIdentifier": {
           "type": "string"
@@ -221,7 +228,8 @@
           "type": "boolean"
         },
         "signInSessionsValidFromDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "state": {
           "type": "string"
@@ -242,16 +250,19 @@
           "type": "string"
         },
         "deviceEnrollmentLimit": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         },
         "aboutMe": {
           "type": "string"
         },
         "birthday": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "hireDate": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "mySite": {
           "type": "string"
@@ -313,7 +324,8 @@
           "type": "string"
         },
         "preferredTokenSigningKeyEndDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "preferredTokenSigningKeyThumbprint": {
           "type": "string"
@@ -342,7 +354,8 @@
           "type": "string"
         },
         "creationTimestamp": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "principalDisplayName": {
           "type": "string"
@@ -376,7 +389,8 @@
           "type": "string"
         },
         "expiryTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "principalId": {
           "type": "string"
@@ -388,7 +402,8 @@
           "type": "string"
         },
         "startTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -402,7 +417,8 @@
           "type": "string"
         },
         "createdDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "description": {
           "type": "string"
@@ -411,7 +427,8 @@
           "type": "string"
         },
         "expirationDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "hasMembersWithLicenseErrors": {
           "type": "boolean"
@@ -441,7 +458,8 @@
           "type": "string"
         },
         "onPremisesLastSyncDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "onPremisesNetBiosName": {
           "type": "string"
@@ -465,7 +483,8 @@
           "type": "string"
         },
         "renewedDateTime": {
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "securityEnabled": {
           "type": "boolean"
@@ -501,13 +520,16 @@
           "type": "boolean"
         },
         "unseenConversationsCount": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         },
         "unseenCount": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         },
         "unseenMessagesCount": {
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         },
         "isArchived": {
           "type": "boolean"

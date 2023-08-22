@@ -1,69 +1,70 @@
-import { PrimitiveSwaggerType } from "../definitions/PrimitiveSwaggerType";
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+import { PrimitiveSwaggerType, PrimitiveSwaggerTypeStruct } from "../definitions/PrimitiveSwaggerType";
 import { PrimitivePropertyType } from "../definitions/RawTypes";
 
 
 export class TypeTranslator{
-    translationMap: Map<PrimitivePropertyType, PrimitiveSwaggerType>;
-    reverseTranslationMap: Map<PrimitiveSwaggerType, PrimitivePropertyType>;
+    translationMap: Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>;
+    reverseTranslationMap: Map<PrimitiveSwaggerTypeStruct, PrimitivePropertyType>;
 
     constructor(){
-        this.translationMap = new Map<PrimitivePropertyType, PrimitiveSwaggerType>([
-            [PrimitivePropertyType.Binary, PrimitiveSwaggerType.Binary],
-            [PrimitivePropertyType.Boolean, PrimitiveSwaggerType.Boolean],
-            [PrimitivePropertyType.Byte, PrimitiveSwaggerType.Byte],
-            [PrimitivePropertyType.Date, PrimitiveSwaggerType.Date],
-            [PrimitivePropertyType.DateTimeOffset, PrimitiveSwaggerType.DateTime],
-            [PrimitivePropertyType.Decimal, PrimitiveSwaggerType.Double],
-            [PrimitivePropertyType.Double, PrimitiveSwaggerType.Double],
-            [PrimitivePropertyType.Duration, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.Guid, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.Int16, PrimitiveSwaggerType.Integer],
-            [PrimitivePropertyType.Int32, PrimitiveSwaggerType.Integer],
-            [PrimitivePropertyType.Int64, PrimitiveSwaggerType.Long],
-            [PrimitivePropertyType.SByte, PrimitiveSwaggerType.Integer],
-            [PrimitivePropertyType.Single, PrimitiveSwaggerType.Float],
-            [PrimitivePropertyType.Stream, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.String, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.TimeOfDay, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.Geography, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyPoint, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyLineString, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyPolygon, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyMultiPoint, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyMultiLineString, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyMultiPolygon, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeographyCollection, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.Geometry, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryPoint, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryLineString, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryPolygon, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryMultiPoint, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryMultiLineString, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryMultiPolygon, PrimitiveSwaggerType.String],
-            [PrimitivePropertyType.GeometryCollection, PrimitiveSwaggerType.String],
+        this.translationMap = new Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>([
+            [PrimitivePropertyType.Binary, PrimitiveSwaggerType.Instance.Binary],
+            [PrimitivePropertyType.Boolean, PrimitiveSwaggerType.Instance.Boolean],
+            [PrimitivePropertyType.Byte, PrimitiveSwaggerType.Instance.Byte],
+            [PrimitivePropertyType.Date, PrimitiveSwaggerType.Instance.Date],
+            [PrimitivePropertyType.DateTimeOffset, PrimitiveSwaggerType.Instance.DateTime], // review
+            [PrimitivePropertyType.Decimal, PrimitiveSwaggerType.Instance.Float],
+            [PrimitivePropertyType.Double, PrimitiveSwaggerType.Instance.Double],
+            [PrimitivePropertyType.Duration, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.Guid, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.Int16, PrimitiveSwaggerType.Instance.Integer],
+            [PrimitivePropertyType.Int32, PrimitiveSwaggerType.Instance.Integer],
+            [PrimitivePropertyType.Int64, PrimitiveSwaggerType.Instance.Long],
+            [PrimitivePropertyType.SByte, PrimitiveSwaggerType.Instance.Integer], // review
+            [PrimitivePropertyType.Single, PrimitiveSwaggerType.Instance.Float], // review
+            [PrimitivePropertyType.Stream, PrimitiveSwaggerType.Instance.String], // review
+            [PrimitivePropertyType.String, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.TimeOfDay, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.Geography, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyPoint, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyLineString, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyPolygon, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyMultiPoint, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyMultiLineString, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyMultiPolygon, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeographyCollection, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.Geometry, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryPoint, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryLineString, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryPolygon, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryMultiPoint, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryMultiLineString, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryMultiPolygon, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.GeometryCollection, PrimitiveSwaggerType.Instance.String],
         ])
 
-        this.reverseTranslationMap = new Map<PrimitiveSwaggerType, PrimitivePropertyType>([
-            [PrimitiveSwaggerType.Binary, PrimitivePropertyType.Binary],
-            [PrimitiveSwaggerType.Boolean, PrimitivePropertyType.Boolean],
-            [PrimitiveSwaggerType.Byte, PrimitivePropertyType.Byte],
-            [PrimitiveSwaggerType.Date, PrimitivePropertyType.Date],
-            [PrimitiveSwaggerType.DateTime, PrimitivePropertyType.DateTimeOffset],
-            [PrimitiveSwaggerType.Double, PrimitivePropertyType.Double],
-            [PrimitiveSwaggerType.Float, PrimitivePropertyType.Single],
-            [PrimitiveSwaggerType.Integer, PrimitivePropertyType.Int32],
-            [PrimitiveSwaggerType.Long, PrimitivePropertyType.Int64],
-            [PrimitiveSwaggerType.String, PrimitivePropertyType.String],
+        this.reverseTranslationMap = new Map<PrimitiveSwaggerTypeStruct, PrimitivePropertyType>([
+            [PrimitiveSwaggerType.Instance.Binary, PrimitivePropertyType.Binary],
+            [PrimitiveSwaggerType.Instance.Boolean, PrimitivePropertyType.Boolean],
+            
+            
         ])
     }
 
 
-    odatatoSwaggerType(primitiveType: PrimitivePropertyType | string): PrimitiveSwaggerType {
-        return this.translationMap.get(primitiveType as PrimitivePropertyType) as PrimitiveSwaggerType
+    odatatoSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
+        const swaggerType: PrimitiveSwaggerTypeStruct | undefined= this.translationMap.get(primitiveType)
+        if(!swaggerType) throw new Error(`No swagger type found for ${primitiveType}`)
+        return swaggerType
     }
 
-    swaggerToODataType(primitiveType: PrimitiveSwaggerType | string): PrimitivePropertyType {
-        return this.reverseTranslationMap.get(primitiveType as PrimitiveSwaggerType) as PrimitivePropertyType
+    swaggerToODataType(primitiveType: PrimitiveSwaggerTypeStruct): PrimitivePropertyType {
+        const odataType: PrimitivePropertyType | undefined = this.reverseTranslationMap.get(primitiveType)
+        if(!odataType) throw new Error(`No OData type found for ${primitiveType}`)
+        return odataType
     }
 }
 

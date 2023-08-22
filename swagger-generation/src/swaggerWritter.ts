@@ -5,7 +5,6 @@
 import { Config, EntityTypeConfig } from "./config";
 import { EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
-import { Property } from "./definitions/Property";
 import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
 
 export const writeSwagger = (entityMap: EntityMap): Swagger => {
@@ -47,9 +46,6 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
     }
 
     entityMap.forEach((entityType: EntityType, id: string) => {
-        const properties: Property[] = entityType.Property.filter((property: Property) => property.Type)
-        entityType.Property = properties
-
         if(!Config.Instance.EntityTypes.get(id))
             throw new Error(`Entity ${id} from CSDL is not present in the config.yml. Perhaps something went wrong?`)
 

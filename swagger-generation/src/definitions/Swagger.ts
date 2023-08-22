@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType"
+
 /*  
     This interface definition is not comprehensive to OpenAPI 2.0; 
     it is specifically designed for the Swagger JSON file that is
@@ -68,7 +70,7 @@ export interface Properties{
 }
 
 export interface Property{
-    type?: string,
+    type?: string | PrimitiveSwaggerTypeStruct,
     $ref?: string,
     description?: string,
     format?: string,
