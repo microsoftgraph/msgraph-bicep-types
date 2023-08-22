@@ -45,7 +45,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                     
                     // Primitive Types
                     if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyAttributes.Type)){
-                        propertyType = typeTranslator.odatatoSwaggerType(propertyAttributes.Type as PrimitivePropertyType) 
+                        propertyType = typeTranslator.odataToSwaggerType(propertyAttributes.Type as PrimitivePropertyType) 
                     } else { // Other
                         // ToDo: Implement complex types, enums, etc
                         return // temporary return

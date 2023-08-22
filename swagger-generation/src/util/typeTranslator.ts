@@ -55,7 +55,7 @@ export class TypeTranslator{
     }
 
 
-    odatatoSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
+    odataToSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
         const swaggerType: PrimitiveSwaggerTypeStruct | undefined= this.translationMap.get(primitiveType)
         if(!swaggerType) throw new Error(`No swagger type found for ${primitiveType}`)
         return swaggerType
