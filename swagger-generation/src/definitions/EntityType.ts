@@ -3,7 +3,9 @@
 
 import { Property } from "./Property";
 import { NavigationProperty } from "./NavigationProperty";
-import { Definition } from "./Swagger";
+import { Definition, Property as SwaggerProperty } from "./Swagger";
+import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType";
+
 
 export class EntityType extends Object {
     Name: string;
@@ -25,15 +27,37 @@ export class EntityType extends Object {
         this.NavigationProperty = navigationProperty;
     }
 
-    toSwaggerDefinition(): Definition {
+    toSwaggerDefinition(required?: string[]): Definition {
         const definition: Definition = {
             type: "object",
-            properties: {}
+            properties: {},
         };
 
-        definition.properties["id"] = {
-            type: "string"
-        };
+        this.Property.forEach((property: Property) => {
+            const propertyType: SwaggerProperty = {
+                type: property.Type,
+            }
+
+            if(property.Type instanceof PrimitiveSwaggerTypeStruct){
+                property.Type = property.Type as PrimitiveSwaggerTypeStruct
+                propertyType.type = property.Type.type // rewrite struct with string type
+                if(property.Type.format){
+                    propertyType.format = property.Type.format
+                }
+            }
+
+            definition.properties[property.Name] = propertyType
+        });
+
+        if(required){
+            required.forEach((property: string) => {
+                if (!definition.properties[property]) {
+                    throw new Error(`Required property ${property} not found in ${this.Name}`);
+                }
+            });
+            
+            definition.required = required;
+        }
 
         return definition;
     }

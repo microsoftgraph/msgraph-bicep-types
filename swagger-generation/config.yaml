@@ -11,13 +11,28 @@ EntityTypes:
     NavigationProperty:
       - members
       - owners
-  - Name: microsoft.graph.user
-    RootUri: /users
+    RequiredOnWrite:
+      - displayName
+      - mailEnabled
+      - mailNickname
+      - securityEnabled
   - Name: microsoft.graph.application
     RootUri: /applications
+    RequiredOnWrite:
+      - displayName
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
+    RequiredOnWrite:
+      - appId
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
+    RequiredOnWrite:
+      - clientId
+      - resourceId
+      - consentType
   - Name: microsoft.graph.appRoleAssignment
-    RootUri: /appRoleAssignment
+    RootUri: /servicePrincipals/{resourceId}/appRoleAssignedTo
+    RequiredOnWrite:
+      - resourceId
+      - principalId
+      - appRoleId

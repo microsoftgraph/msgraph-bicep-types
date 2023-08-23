@@ -11,6 +11,7 @@ export interface EntityTypeConfig{
     Name: string,
     RootUri: string,
     NavigationProperty: string[]
+    RequiredOnWrite?: string[]
 }
 
 export class Config {

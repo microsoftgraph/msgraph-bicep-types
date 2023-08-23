@@ -5,7 +5,6 @@
     "version": "beta"
   },
   "schemes": [
-    "http",
     "https"
   ],
   "consumes": [
@@ -36,50 +35,340 @@
     "microsoft.graph.application": {
       "type": "object",
       "properties": {
-        "id": {
+        "appId": {
+          "type": "string"
+        },
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "defaultRedirectUri": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "disabledByMicrosoftStatus": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "groupMembershipClaims": {
+          "type": "string"
+        },
+        "isDeviceOnlyAuthSupported": {
+          "type": "boolean"
+        },
+        "isFallbackPublicClient": {
+          "type": "boolean"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "publisherDomain": {
+          "type": "string"
+        },
+        "samlMetadataUrl": {
+          "type": "string"
+        },
+        "serviceManagementReference": {
+          "type": "string"
+        },
+        "signInAudience": {
+          "type": "string"
+        },
+        "tokenEncryptionKeyId": {
+          "type": "string"
+        },
+        "uniqueName": {
           "type": "string"
         }
-      }
-    },
-    "microsoft.graph.user": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
+      },
+      "required": [
+        "displayName"
+      ]
     },
     "microsoft.graph.servicePrincipal": {
       "type": "object",
       "properties": {
-        "id": {
+        "accountEnabled": {
+          "type": "boolean"
+        },
+        "appDescription": {
+          "type": "string"
+        },
+        "appDisplayName": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "applicationTemplateId": {
+          "type": "string"
+        },
+        "appOwnerOrganizationId": {
+          "type": "string"
+        },
+        "appRoleAssignmentRequired": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "disabledByMicrosoftStatus": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "errorUrl": {
+          "type": "string"
+        },
+        "homepage": {
+          "type": "string"
+        },
+        "loginUrl": {
+          "type": "string"
+        },
+        "logoutUrl": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "preferredSingleSignOnMode": {
+          "type": "string"
+        },
+        "preferredTokenSigningKeyEndDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "preferredTokenSigningKeyThumbprint": {
+          "type": "string"
+        },
+        "publisherName": {
+          "type": "string"
+        },
+        "samlMetadataUrl": {
+          "type": "string"
+        },
+        "servicePrincipalType": {
+          "type": "string"
+        },
+        "signInAudience": {
+          "type": "string"
+        },
+        "tokenEncryptionKeyId": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "appId"
+      ]
     },
     "microsoft.graph.appRoleAssignment": {
       "type": "object",
       "properties": {
-        "id": {
+        "appRoleId": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "principalDisplayName": {
+          "type": "string"
+        },
+        "principalId": {
+          "type": "string"
+        },
+        "principalType": {
+          "type": "string"
+        },
+        "resourceDisplayName": {
+          "type": "string"
+        },
+        "resourceId": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "resourceId",
+        "principalId",
+        "appRoleId"
+      ]
     },
     "microsoft.graph.oAuth2PermissionGrant": {
       "type": "object",
       "properties": {
-        "id": {
+        "clientId": {
           "type": "string"
+        },
+        "consentType": {
+          "type": "string"
+        },
+        "expiryTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "principalId": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
         }
-      }
+      },
+      "required": [
+        "clientId",
+        "resourceId",
+        "consentType"
+      ]
     },
     "microsoft.graph.group": {
       "type": "object",
       "properties": {
-        "id": {
+        "classification": {
           "type": "string"
+        },
+        "createdByAppId": {
+          "type": "string"
+        },
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "expirationDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hasMembersWithLicenseErrors": {
+          "type": "boolean"
+        },
+        "isAssignableToRole": {
+          "type": "boolean"
+        },
+        "isManagementRestricted": {
+          "type": "boolean"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "mailEnabled": {
+          "type": "boolean"
+        },
+        "mailNickname": {
+          "type": "string"
+        },
+        "membershipRule": {
+          "type": "string"
+        },
+        "membershipRuleProcessingState": {
+          "type": "string"
+        },
+        "onPremisesDomainName": {
+          "type": "string"
+        },
+        "onPremisesLastSyncDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "onPremisesNetBiosName": {
+          "type": "string"
+        },
+        "onPremisesSamAccountName": {
+          "type": "string"
+        },
+        "onPremisesSecurityIdentifier": {
+          "type": "string"
+        },
+        "onPremisesSyncEnabled": {
+          "type": "boolean"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "preferredDataLocation": {
+          "type": "string"
+        },
+        "preferredLanguage": {
+          "type": "string"
+        },
+        "renewedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "securityEnabled": {
+          "type": "boolean"
+        },
+        "securityIdentifier": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "uniqueName": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "allowExternalSenders": {
+          "type": "boolean"
+        },
+        "autoSubscribeNewMembers": {
+          "type": "boolean"
+        },
+        "hideFromAddressLists": {
+          "type": "boolean"
+        },
+        "hideFromOutlookClients": {
+          "type": "boolean"
+        },
+        "isFavorite": {
+          "type": "boolean"
+        },
+        "isSubscribedByMail": {
+          "type": "boolean"
+        },
+        "unseenConversationsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unseenCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unseenMessagesCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isArchived": {
+          "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "displayName",
+        "mailEnabled",
+        "mailNickname",
+        "securityEnabled"
+      ]
     }
   },
   "paths": {
@@ -119,47 +408,6 @@
             "description": "group created/updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.group"
-            }
-          }
-        }
-      }
-    },
-    "/{rootScope}/providers/Microsoft.Graph/users/{userId}": {
-      "put": {
-        "tags": [
-          "users"
-        ],
-        "description": "Create or update a user",
-        "operationId": "users_Put",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "user",
-            "description": "The user to be created or updated",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/microsoft.graph.user"
-            }
-          },
-          {
-            "in": "path",
-            "description": "The id of the user",
-            "name": "userId",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user created/updated successfully",
-            "schema": {
-              "$ref": "#/definitions/microsoft.graph.user"
             }
           }
         }
@@ -288,13 +536,13 @@
         }
       }
     },
-    "/{rootScope}/providers/Microsoft.Graph/appRoleAssignment/{appRoleAssignmentId}": {
+    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{resourceId}/appRoleAssignedTo/{appRoleAssignmentId}": {
       "put": {
         "tags": [
-          "appRoleAssignment"
+          "appRoleAssignedTo"
         ],
         "description": "Create or update a appRoleAssignment",
-        "operationId": "appRoleAssignment_Put",
+        "operationId": "appRoleAssignedTo_Put",
         "consumes": [
           "application/json"
         ],

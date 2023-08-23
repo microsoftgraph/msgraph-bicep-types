@@ -1,6 +1,7 @@
 //import { constructDataStructure } from '../src/deserializer';
 import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { Config, EntityTypeConfig } from '../src/config';
+import { CSDL } from '../src/definitions/RawTypes';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 const entityTypesNonNamespaced: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
@@ -71,7 +72,7 @@ jest.mock('../src/config', () => {
     return { Config: mockConfig };
 })
 
-const csdl = {
+const csdl: CSDL = {
     'edmx:Edmx': {
         'edmx:DataServices': [
         {
@@ -90,7 +91,7 @@ const csdl = {
                     {
                         $: {
                         Name: 'propertyName',
-                        Type: 'propertyType'
+                        Type: 'Edm.String'
                         },
                     },
                     ],
@@ -104,7 +105,7 @@ const csdl = {
                     {
                         $: {
                         Name: 'propertyName',
-                        Type: 'propertyType'
+                        Type: 'Edm.String'
                         },
                     },
                     ],
@@ -125,7 +126,7 @@ const csdl = {
                             {
                                 $: {
                                     Name: 'propertyNameDiff',
-                                    Type: 'propertyType'
+                                    Type: 'Edm.String'
                                 },
                             },
                         ],
@@ -147,7 +148,7 @@ const csdl = {
                             {
                                 $: {
                                 Name: 'propertyName',
-                                Type: 'propertyType'
+                                Type: 'Edm.String'
                                 },
                             },
                             ],
@@ -235,7 +236,7 @@ describe('constructDataStructure with non-namespaced entities', () => {
 
     it('should not relate unnamespaced entities', () => {
         const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
+        expect(() => constructDataStructure(csdl, definitionMap)).toThrowError();
         expect(definitionMap.EntityMap.size).toBe(0);
         expect(definitionMap.EntityMap.get('entityTypeOne')).toBeUndefined();
     });

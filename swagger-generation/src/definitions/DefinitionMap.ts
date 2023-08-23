@@ -26,7 +26,5 @@ export class DefinitionMap{
         this.EntityMap = entityMap;
         this.EnumMap = enumMap;
         this.ComplexMap = complexMap;
-    }
-
-    
+    }  
 }

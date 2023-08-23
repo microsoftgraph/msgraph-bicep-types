@@ -5,7 +5,6 @@
 import { Config, EntityTypeConfig } from "./config";
 import { EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
-import { Property } from "./definitions/Property";
 import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
 
 export const writeSwagger = (entityMap: EntityMap): Swagger => {
@@ -16,7 +15,6 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
             version: Config.Instance.APIVersion,
         },
         schemes: [
-            Scheme.http,
             Scheme.https
         ],
         consumes: [
@@ -48,12 +46,10 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
     }
 
     entityMap.forEach((entityType: EntityType, id: string) => {
-        const properties: Property[] = []
-        const property: Property = new Property("id", "string", true, false, true)
-        properties.push(property)
-        entityType.Property = properties
+        if(!Config.Instance.EntityTypes.get(id))
+            throw new Error(`Entity ${id} from CSDL is not present in the config.yml. Perhaps something went wrong?`)
 
-        swagger.definitions[id] = entityType.toSwaggerDefinition()
+        swagger.definitions[id] = entityType.toSwaggerDefinition(Config.Instance.EntityTypes.get(id)!.RequiredOnWrite)
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
