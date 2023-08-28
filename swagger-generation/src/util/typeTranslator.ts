@@ -18,7 +18,7 @@ export class TypeTranslator{
             [PrimitivePropertyType.Decimal, PrimitiveSwaggerType.Instance.Float],
             [PrimitivePropertyType.Double, PrimitiveSwaggerType.Instance.Double],
             [PrimitivePropertyType.Duration, PrimitiveSwaggerType.Instance.String],
-            [PrimitivePropertyType.Guid, PrimitiveSwaggerType.Instance.String],
+            [PrimitivePropertyType.Guid, PrimitiveSwaggerType.Instance.Uuid],
             [PrimitivePropertyType.Int16, PrimitiveSwaggerType.Instance.Integer],
             [PrimitivePropertyType.Int32, PrimitiveSwaggerType.Instance.Integer],
             [PrimitivePropertyType.Int64, PrimitiveSwaggerType.Instance.Long],
@@ -48,7 +48,7 @@ export class TypeTranslator{
 
 
     odataToSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
-        const swaggerType: PrimitiveSwaggerTypeStruct | undefined= this.translationMap.get(primitiveType)
+        const swaggerType: PrimitiveSwaggerTypeStruct | undefined = this.translationMap.get(primitiveType)
         if(!swaggerType) throw new Error(`No swagger type found for ${primitiveType}`)
         return swaggerType
     }

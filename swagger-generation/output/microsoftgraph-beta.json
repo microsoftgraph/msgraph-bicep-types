@@ -57,6 +57,12 @@
         "groupMembershipClaims": {
           "type": "string"
         },
+        "identifierUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "isDeviceOnlyAuthSupported": {
           "type": "boolean"
         },
@@ -81,8 +87,15 @@
         "signInAudience": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "tokenEncryptionKeyId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "uniqueName": {
           "type": "string"
@@ -98,6 +111,12 @@
         "accountEnabled": {
           "type": "boolean"
         },
+        "alternativeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "appDescription": {
           "type": "string"
         },
@@ -111,7 +130,8 @@
           "type": "string"
         },
         "appOwnerOrganizationId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "appRoleAssignmentRequired": {
           "type": "boolean"
@@ -140,6 +160,12 @@
         "notes": {
           "type": "string"
         },
+        "notificationEmailAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "preferredSingleSignOnMode": {
           "type": "string"
         },
@@ -153,8 +179,20 @@
         "publisherName": {
           "type": "string"
         },
+        "replyUrls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "samlMetadataUrl": {
           "type": "string"
+        },
+        "servicePrincipalNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "servicePrincipalType": {
           "type": "string"
@@ -162,8 +200,15 @@
         "signInAudience": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "tokenEncryptionKeyId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         }
       },
       "required": [
@@ -174,7 +219,8 @@
       "type": "object",
       "properties": {
         "appRoleId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "creationTimestamp": {
           "type": "string",
@@ -184,7 +230,8 @@
           "type": "string"
         },
         "principalId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         },
         "principalType": {
           "type": "string"
@@ -193,7 +240,8 @@
           "type": "string"
         },
         "resourceId": {
-          "type": "string"
+          "type": "string",
+          "format": "uuid"
         }
       },
       "required": [
@@ -258,8 +306,20 @@
           "type": "string",
           "format": "date-time"
         },
+        "groupTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "hasMembersWithLicenseErrors": {
           "type": "boolean"
+        },
+        "infoCatalogs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "isAssignableToRole": {
           "type": "boolean"
@@ -310,9 +370,27 @@
         "preferredLanguage": {
           "type": "string"
         },
+        "proxyAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "renewedDateTime": {
           "type": "string",
           "format": "date-time"
+        },
+        "resourceBehaviorOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resourceProvisioningOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "securityEnabled": {
           "type": "boolean"

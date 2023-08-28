@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import { CollectionProperty } from "./CollectionProperty"
 import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType"
 
 /*  
@@ -70,7 +71,7 @@ export interface Properties{
 }
 
 export interface Property{
-    type?: string | PrimitiveSwaggerTypeStruct,
+    type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     $ref?: string,
     description?: string,
     format?: string,
@@ -78,7 +79,7 @@ export interface Property{
 }
 
 export interface Items{
-    type?: string,
+    type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     format?: string,
     readOnly?: boolean,
     enum?: string[],

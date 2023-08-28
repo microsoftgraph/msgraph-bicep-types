@@ -46,8 +46,10 @@ export const writeSwagger = (entityMap: EntityMap): Swagger => {
     }
 
     entityMap.forEach((entityType: EntityType, id: string) => {
-        if(!Config.Instance.EntityTypes.get(id))
-            throw new Error(`Entity ${id} from CSDL is not present in the config.yml. Perhaps something went wrong?`)
+        if(!Config.Instance.EntityTypes.get(id)) // If the entity is not in the config, don't add it to the swagger
+            return
+
+        console.log("Writing swagger for " + id)
 
         swagger.definitions[id] = entityType.toSwaggerDefinition(Config.Instance.EntityTypes.get(id)!.RequiredOnWrite)
     });

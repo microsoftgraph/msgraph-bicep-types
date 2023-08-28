@@ -19,6 +19,7 @@ export enum SwaggerMetaFormat {
     Date = "date",
     DateTime = "date-time",
     Password = "password",
+    Uuid = "uuid",
 }
 
 export class PrimitiveSwaggerTypeStruct {
@@ -47,6 +48,7 @@ export class PrimitiveSwaggerType {
     Date: PrimitiveSwaggerTypeStruct
     DateTime: PrimitiveSwaggerTypeStruct
     Password: PrimitiveSwaggerTypeStruct
+    Uuid: PrimitiveSwaggerTypeStruct
 
     private constructor() {
         this.Integer = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)
@@ -60,6 +62,7 @@ export class PrimitiveSwaggerType {
         this.Date = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date)
         this.DateTime = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime)
         this.Password = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Password)
+        this.Uuid = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Uuid)
     }
 
     public static get Instance(): PrimitiveSwaggerType {

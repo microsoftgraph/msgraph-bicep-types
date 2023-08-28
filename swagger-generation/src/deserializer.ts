@@ -1,8 +1,9 @@
-// Copyright (c) Microsoft Corporation.
+ // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
 // Type imports
-import { Config } from "./config";
+
+import { CollectionProperty } from "./definitions/CollectionProperty";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
@@ -12,6 +13,7 @@ import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeA
 import { TypeTranslator } from "./util/typeTranslator";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): void => {
+    console.log('Deserializing CSDL')
     const typeTranslator: TypeTranslator = new TypeTranslator();
 
     const dataServices: DataService[] = csdl['edmx:Edmx']['edmx:DataServices']
@@ -24,12 +26,11 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
 
             const namespace: string = schema['$']['Namespace']
             const rawEntityTypes: RawEntityType[] = schema['EntityType'] ? schema['EntityType'] : []
+            
 
             rawEntityTypes.forEach((rawEntityTypes: RawEntityType) => {
                 const entityAttributes: RawEntityTypeAttributes = rawEntityTypes['$']
                 const entityName: string = entityAttributes['Name']
-
-                if(!(Config.Instance.EntityTypes.has(`${namespace}.${entityName}`))) return
 
                 const abstract: boolean = entityAttributes['Abstract'] ? entityAttributes['Abstract'] : false
                 const baseType: string = entityAttributes['BaseType'] ? entityAttributes['BaseType'] : ''
@@ -41,21 +42,32 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
                 const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => {
                     const propertyAttributes: RawPropertyAttributes = rawProperty['$']
                     const propertyName: string = propertyAttributes.Name
-                    let propertyType: PrimitiveSwaggerTypeStruct | string
+                    let propertyType: string = propertyAttributes.Type
+                    let typedPropertyType: PrimitiveSwaggerTypeStruct | CollectionProperty | string
+                    const collectionRegex: RegExp = /Collection\((.+)\)/
+                    let isCollection: boolean = false
+
+                    if(collectionRegex.test(propertyType)) { // Collection
+                        propertyType = propertyType.match(collectionRegex)![1]
+                        isCollection = true
+                    }
                     
                     // Primitive Types
-                    if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyAttributes.Type)){
-                        propertyType = typeTranslator.odataToSwaggerType(propertyAttributes.Type as PrimitivePropertyType) 
+                    if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyType)){
+                            typedPropertyType = typeTranslator.odataToSwaggerType(propertyType as PrimitivePropertyType)
+                        if(isCollection){
+                            typedPropertyType = new CollectionProperty(typedPropertyType)
+                        }
                     } else { // Other
                         // ToDo: Implement complex types, enums, etc
-                        return // temporary return
+                        return // temporary return0
                         //propertyType = propertyAttributes.Type
                     }
                      
                     const propertyNullable: boolean = propertyAttributes['Nullable'] ? propertyAttributes['Nullable'] : false
 
                     //todo resolve undefined params
-                    const property: Property = new Property(propertyName, propertyType, undefined, propertyNullable, undefined)
+                    const property: Property = new Property(propertyName, typedPropertyType, undefined, propertyNullable, undefined)
 
                     return property
                 })
@@ -83,6 +95,8 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
         });
         
     });
+
+    console.log(`Found ${definitionMap.EntityMap.size} entity types in the CSDL`)
 
     if(definitionMap.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
     
