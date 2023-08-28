@@ -356,7 +356,7 @@
         "mailEnabled": {
           "type": "boolean"
         },
-        "mailNickName": {
+        "mailNickname": {
           "type": "string"
         },
         "members": {
@@ -440,7 +440,7 @@
       "required": [
         "displayName",
         "mailEnabled",
-        "mailNickName",
+        "mailNickname",
         "securityEnabled"
       ]
     },

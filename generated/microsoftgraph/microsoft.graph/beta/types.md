@@ -72,7 +72,7 @@
 * **isAssignableToRole**: bool
 * **mail**: string (ReadOnly)
 * **mailEnabled**: bool (Required)
-* **mailNickName**: string (Required)
+* **mailNickname**: string (Required)
 * **members**: string[]
 * **membershipRule**: string
 * **membershipRuleProcessingState**: string
