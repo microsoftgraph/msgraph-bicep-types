@@ -88,19 +88,10 @@
       "description": "Properties of an Application.",
       "type": "object",
       "properties": {
-        "addIns": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.addIn"
-          }
-        },
         "api": {
           "$ref": "#/definitions/microsoft.graph.apiApplication"
         },
         "appId": {
-          "type": "string"
-        },
-        "applicationTemplateId": {
           "type": "string"
         },
         "appRoles": {
@@ -108,6 +99,9 @@
           "items": {
             "$ref": "#/definitions/microsoft.graph.appRole"
           }
+        },
+        "authenticationBehaviors": {
+          "$ref": "#/definitions/microsoft.graph.authenticationBehaviors"
         },
         "certification": {
           "$ref": "#/definitions/microsoft.graph.certification",
@@ -161,9 +155,6 @@
         "notes": {
           "type": "string"
         },
-        "oauth2RequirePostResponse": {
-          "type": "boolean"
-        },
         "optionalClaims": {
           "$ref": "#/definitions/microsoft.graph.optionalClaims"
         },
@@ -197,6 +188,9 @@
         "serviceManagementReference": {
           "type": "string"
         },
+        "servicePrincipalLockConfiguration": {
+          "$ref": "#/definitions/microsoft.graph.servicePrincipalLockConfiguration"
+        },
         "signInAudience": {
           "type": "string"
         },
@@ -217,6 +211,9 @@
         },
         "web": {
           "$ref": "#/definitions/microsoft.graph.webApplication"
+        },
+        "windows": {
+          "$ref": "#/definitions/microsoft.graph.windowsApplication"
         }
       },
       "required": [
@@ -263,7 +260,7 @@
           "format": "uuid",
           "type": "string"
         },
-        "createdDateTime": {
+        "creationTimestamp": {
           "format": "date-time",
           "type": "string",
           "readOnly": true
@@ -294,6 +291,18 @@
         "resourceId"
       ]
     },
+    "microsoft.graph.authenticationBehaviors": {
+      "description": "Properties of authencation behaviors.",
+      "type": "object",
+      "properties": {
+        "removeUnverifiedEmailClaim": {
+          "type": "boolean"
+        },
+        "requireClientServicePrincipal": {
+          "type": "boolean"
+        }
+      }
+    },
     "microsoft.graph.certification": {
       "description": "Properties of a Certification.",
       "type": "object",
@@ -317,12 +326,20 @@
         }
       }
     },
+    "microsoft.graph.customSecurityAttributeValue": {
+      "description": "An open complex type that holds the value of a custom security attribute that is assigned to a directory object.",
+      "type": "object"
+    },
     "microsoft.graph.group": {
       "description": "Properties of a Group.",
       "type": "object",
       "properties": {
         "classification": {
           "type": "string"
+        },
+        "createdByAppId": {
+          "type": "string",
+          "readOnly": true
         },
         "createdDateTime": {
           "format": "date-time",
@@ -346,8 +363,18 @@
             "type": "string"
           }
         },
+        "infoCatalogs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "isAssignableToRole": {
           "type": "boolean"
+        },
+        "isManagementRestricted": {
+          "type": "boolean",
+          "readOnly": true
         },
         "mail": {
           "type": "string",
@@ -400,6 +427,9 @@
           "type": "boolean",
           "readOnly": true
         },
+        "organizationId": {
+          "type": "string"
+        },
         "owners": {
           "type": "array",
           "items": {
@@ -430,11 +460,20 @@
         "securityIdentifier": {
           "type": "string"
         },
+        "serviceProvisioningErrors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
+          }
+        },
         "theme": {
           "type": "string"
         },
         "visibility": {
           "type": "string"
+        },
+        "writebackConfiguration": {
+          "$ref": "#/definitions/microsoft.graph.groupWritebackConfiguration"
         }
       },
       "required": [
@@ -443,6 +482,18 @@
         "mailNickname",
         "securityEnabled"
       ]
+    },
+    "microsoft.graph.groupWritebackConfiguration": {
+      "description": "Indicates whether writeback of cloud groups to on-premise Active Directory is enabled and the target group type for the on-premise group.",
+      "type": "object",
+      "properties": {
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "onPremisesGroupType": {
+          "type": "string"
+        }
+      }
     },
     "microsoft.graph.implicitGrantSettings": {
       "description": "Represents the implicit grant settings for OAuth2PermissionGrant.",
@@ -720,6 +771,19 @@
         }
       }
     },
+    "microsoft.graph.redirectUriSettings": {
+      "description": "Specifies the index of the URLs where user tokens are sent for sign-in.",
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "index": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
     "microsoft.graph.requestSignatureVerification": {
       "description": "Properties of a request signature verification.",
       "type": "object",
@@ -840,6 +904,9 @@
             "$ref": "#/definitions/microsoft.graph.appRole"
           }
         },
+        "customSecurityAttributes": {
+          "$ref": "#/definitions/microsoft.graph.customSecurityAttributeValue"
+        },
         "description": {
           "type": "string"
         },
@@ -876,22 +943,29 @@
             "type": "string"
           }
         },
-        "oauth2PermissionScopes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.permissionScope"
-          }
-        },
         "passwordCredentials": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.passwordCredential"
           }
         },
+        "preferredTokenSigningKeyEndDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
         "preferredSingleSignOnMode": {
           "type": "string"
         },
         "preferredTokenSigningKeyThumbprint": {
+          "type": "string"
+        },
+        "publishedPermissionScopes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.permissionScope"
+          }
+        },
+        "publisherName": {
           "type": "string"
         },
         "replyUrls": {
@@ -900,12 +974,8 @@
             "type": "string"
           }
         },
-        "resourceSpecificApplicationPermissions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.resourceSpecificPermission"
-          },
-          "readOnly": true
+        "samlMetadataUrl": {
+          "type": "string"
         },
         "samlSingleSignOnSettings": {
           "type": "array",
@@ -942,6 +1012,43 @@
       "required": [
         "appId"
       ]
+    },
+    "microsoft.graph.servicePrincipalLockConfiguration": {
+      "description": "Specifies the sensitive properties of the app that are locked for editing on the service principal.",
+      "type": "object",
+      "properties": {
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "allProperties": {
+          "type": "boolean"
+        },
+        "credentialsWithUsageVerify": {
+          "type": "boolean"
+        },
+        "credentialsWithUsageSign": {
+          "type": "boolean"
+        },
+        "tokenEncryptionKeyId": {
+          "type": "boolean"
+        }
+      }
+    },
+    "microsoft.graph.serviceProvisioningError": {
+      "description": "Properties of a service provisioning error.",
+      "type": "object",
+      "properties": {
+        "createdDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "isResolved": {
+          "type": "boolean"
+        },
+        "serviceInstance": {
+          "type": "string"
+        }
+      }
     },
     "microsoft.graph.spaApplication": {
       "description": "Properties of a spa application.",
@@ -983,6 +1090,31 @@
         },
         "logoutUrl": {
           "type": "string"
+        },
+        "oauth2AllowImplicitFlow": {
+          "type": "boolean"
+        },
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirectUriSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.redirectUriSettings"
+          }
+        }
+      }
+    },
+    "microsoft.graph.windowsApplication": {
+      "description": "Represents settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store.",
+      "type": "object",
+      "properties": {
+        "packageSid": {
+          "type": "string",
+          "readOnly": true
         },
         "redirectUris": {
           "type": "array",
