@@ -15,11 +15,13 @@ export interface ComplexMap extends Map<string, ComplexType>{}
 export interface EntityTypeConfigMap extends Map<string, EntityTypeConfig>{}
 
 export class DefinitionMap{
+    private static _instance: DefinitionMap;
+
     EntityMap: EntityMap;
     EnumMap: EnumMap;
     ComplexMap: ComplexMap;
 
-    constructor() {
+    private constructor() {
         const entityMap: EntityMap = new Map<string, EntityType>()
         const enumMap: EnumMap = new Map<string, EnumType>()
         const complexMap: ComplexMap = new Map<string, ComplexType>()
@@ -27,4 +29,8 @@ export class DefinitionMap{
         this.EnumMap = enumMap;
         this.ComplexMap = complexMap;
     }  
+
+    public static get Instance(): DefinitionMap {
+        return this._instance || (this._instance = new this())
+    }
 }

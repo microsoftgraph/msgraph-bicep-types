@@ -3,6 +3,7 @@ import { EntityType } from '../src/definitions/EntityType';
 import { Config, EntityTypeConfig } from '../src/config';
 import { Property } from '../src/definitions/Property';
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from '../src/definitions/PrimitiveSwaggerType';
+import { Scheme, Swagger, SwaggerVersion, Product, SecurityType, SecurityFlow } from '../src/definitions/Swagger';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -31,10 +32,12 @@ jest.mock('../src/config', () => {
 
 describe('writeSwagger', () => {
     let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
+    let definitionMap: typeof import('../src/definitions/DefinitionMap').DefinitionMap;
 
     beforeEach(() => {
         jest.resetModules();
         writeSwagger = require('../src/swaggerWritter').writeSwagger;
+        definitionMap = require('../src/definitions/DefinitionMap').DefinitionMap;
     });
 
     it('should generate Swagger object', () => {
@@ -61,20 +64,20 @@ describe('writeSwagger', () => {
 
         entityMap.set('microsoft.graph.entityNameOne', entity);
 
-        const expectedSwagger = {
-            "swagger": "2.0",
+        const expectedSwagger: Swagger = {
+            "swagger": SwaggerVersion.v2,
             "info": {
             "title": "Microsoft Graph",
             "version": "beta"
             },
             "schemes": [
-            "https"
+                Scheme.https
             ],
             "consumes": [
-            "application/json"
+                Product.application_json
             ],
             "produces": [
-            "application/json"
+                Product.application_json
             ],
             "security": [
             {
@@ -84,15 +87,15 @@ describe('writeSwagger', () => {
             }
             ],
             "securityDefinitions": {
-            "azure_auth": {
-                "type": "oauth2",
-                "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
-                "flow": "implicit",
-                "description": "Azure Active Directory OAuth2 Flow.",
-                "scopes": {
-                "user_impersonation": "impersonate your user account"
+                "azure_auth": {
+                    "type": SecurityType.oauth2,
+                    "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+                    "flow": SecurityFlow.implicit,
+                    "description": "Azure Active Directory OAuth2 Flow.",
+                    "scopes": {
+                    "user_impersonation": "impersonate your user account"
+                    }
                 }
-            }
             },
             "definitions": {
                 "microsoft.graph.entityNameOne": {
@@ -197,7 +200,9 @@ describe('writeSwagger', () => {
             }
         };
 
-        expect(writeSwagger(entityMap)).toEqual(expectedSwagger);
+        definitionMap.Instance.EntityMap = entityMap;
+
+        expect(writeSwagger()).toEqual(expectedSwagger);
 
     });
 });

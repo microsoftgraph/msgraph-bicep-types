@@ -35,8 +35,20 @@
     "microsoft.graph.application": {
       "type": "object",
       "properties": {
+        "api": {
+          "type": "graph.apiApplication"
+        },
         "appId": {
           "type": "string"
+        },
+        "appRoles": {
+          "type": "graph.appRole"
+        },
+        "authenticationBehaviors": {
+          "type": "graph.authenticationBehaviors"
+        },
+        "certification": {
+          "type": "graph.certification"
         },
         "createdDateTime": {
           "type": "string",
@@ -63,11 +75,17 @@
             "type": "string"
           }
         },
+        "info": {
+          "type": "graph.informationalUrl"
+        },
         "isDeviceOnlyAuthSupported": {
           "type": "boolean"
         },
         "isFallbackPublicClient": {
           "type": "boolean"
+        },
+        "keyCredentials": {
+          "type": "graph.keyCredential"
         },
         "logo": {
           "type": "string"
@@ -75,8 +93,26 @@
         "notes": {
           "type": "string"
         },
+        "optionalClaims": {
+          "type": "graph.optionalClaims"
+        },
+        "parentalControlSettings": {
+          "type": "graph.parentalControlSettings"
+        },
+        "passwordCredentials": {
+          "type": "graph.passwordCredential"
+        },
+        "publicClient": {
+          "type": "graph.publicClientApplication"
+        },
         "publisherDomain": {
           "type": "string"
+        },
+        "requestSignatureVerification": {
+          "type": "graph.requestSignatureVerification"
+        },
+        "requiredResourceAccess": {
+          "type": "graph.requiredResourceAccess"
         },
         "samlMetadataUrl": {
           "type": "string"
@@ -84,8 +120,14 @@
         "serviceManagementReference": {
           "type": "string"
         },
+        "servicePrincipalLockConfiguration": {
+          "type": "graph.servicePrincipalLockConfiguration"
+        },
         "signInAudience": {
           "type": "string"
+        },
+        "spa": {
+          "type": "graph.spaApplication"
         },
         "tags": {
           "type": "array",
@@ -99,6 +141,18 @@
         },
         "uniqueName": {
           "type": "string"
+        },
+        "verifiedPublisher": {
+          "type": "graph.verifiedPublisher"
+        },
+        "web": {
+          "type": "graph.webApplication"
+        },
+        "windows": {
+          "type": "graph.windowsApplication"
+        },
+        "onPremisesPublishing": {
+          "type": "graph.onPremisesPublishing"
         }
       },
       "required": [
@@ -108,8 +162,14 @@
     "microsoft.graph.servicePrincipal": {
       "type": "object",
       "properties": {
+        "passwordSingleSignOnSettings": {
+          "type": "graph.passwordSingleSignOnSettings"
+        },
         "accountEnabled": {
           "type": "boolean"
+        },
+        "addIns": {
+          "type": "graph.addIn"
         },
         "alternativeNames": {
           "type": "array",
@@ -136,6 +196,12 @@
         "appRoleAssignmentRequired": {
           "type": "boolean"
         },
+        "appRoles": {
+          "type": "graph.appRole"
+        },
+        "customSecurityAttributes": {
+          "type": "graph.customSecurityAttributeValue"
+        },
         "description": {
           "type": "string"
         },
@@ -150,6 +216,12 @@
         },
         "homepage": {
           "type": "string"
+        },
+        "info": {
+          "type": "graph.informationalUrl"
+        },
+        "keyCredentials": {
+          "type": "graph.keyCredential"
         },
         "loginUrl": {
           "type": "string"
@@ -166,6 +238,9 @@
             "type": "string"
           }
         },
+        "passwordCredentials": {
+          "type": "graph.passwordCredential"
+        },
         "preferredSingleSignOnMode": {
           "type": "string"
         },
@@ -175,6 +250,9 @@
         },
         "preferredTokenSigningKeyThumbprint": {
           "type": "string"
+        },
+        "publishedPermissionScopes": {
+          "type": "graph.permissionScope"
         },
         "publisherName": {
           "type": "string"
@@ -187,6 +265,9 @@
         },
         "samlMetadataUrl": {
           "type": "string"
+        },
+        "samlSingleSignOnSettings": {
+          "type": "graph.samlSingleSignOnSettings"
         },
         "servicePrincipalNames": {
           "type": "array",
@@ -209,6 +290,9 @@
         "tokenEncryptionKeyId": {
           "type": "string",
           "format": "uuid"
+        },
+        "verifiedPublisher": {
+          "type": "graph.verifiedPublisher"
         }
       },
       "required": [
@@ -286,6 +370,12 @@
     "microsoft.graph.group": {
       "type": "object",
       "properties": {
+        "assignedLabels": {
+          "type": "graph.assignedLabel"
+        },
+        "assignedLicenses": {
+          "type": "graph.assignedLicense"
+        },
         "classification": {
           "type": "string"
         },
@@ -327,6 +417,9 @@
         "isManagementRestricted": {
           "type": "boolean"
         },
+        "licenseProcessingState": {
+          "type": "graph.licenseProcessingState"
+        },
         "mail": {
           "type": "string"
         },
@@ -351,6 +444,9 @@
         },
         "onPremisesNetBiosName": {
           "type": "string"
+        },
+        "onPremisesProvisioningErrors": {
+          "type": "graph.onPremisesProvisioningError"
         },
         "onPremisesSamAccountName": {
           "type": "string"
@@ -398,6 +494,9 @@
         "securityIdentifier": {
           "type": "string"
         },
+        "serviceProvisioningErrors": {
+          "type": "graph.serviceProvisioningError"
+        },
         "theme": {
           "type": "string"
         },
@@ -406,6 +505,12 @@
         },
         "visibility": {
           "type": "string"
+        },
+        "writebackConfiguration": {
+          "type": "graph.groupWritebackConfiguration"
+        },
+        "accessType": {
+          "type": "graph.groupAccessType"
         },
         "allowExternalSenders": {
           "type": "boolean"
@@ -436,6 +541,9 @@
         "unseenMessagesCount": {
           "type": "integer",
           "format": "int32"
+        },
+        "membershipRuleProcessingStatus": {
+          "type": "graph.membershipRuleProcessingStatus"
         },
         "isArchived": {
           "type": "boolean"

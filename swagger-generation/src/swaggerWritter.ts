@@ -3,11 +3,12 @@
 
 // Type imports
 import { Config, EntityTypeConfig } from "./config";
-import { EntityMap } from "./definitions/DefinitionMap";
+import { DefinitionMap, EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
 
-export const writeSwagger = (entityMap: EntityMap): Swagger => {
+export const writeSwagger = (): Swagger => {
+    const entityMap: EntityMap = DefinitionMap.Instance.EntityMap
     const swagger: Swagger = {
         swagger: SwaggerVersion.v2,
         info: {

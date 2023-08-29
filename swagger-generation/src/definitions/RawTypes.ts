@@ -17,26 +17,7 @@ export interface RawSchema {
     $: RawSchemaAttributes,
     EnumType?: object[],
     EntityType?: RawEntityType[],
-    ComplexType?: object[],
-    EntityContainer?: EntityContainerRaw[]
-}
-
-export interface EntityContainerRaw {
-    $: EntityContainerRawAttributes,
-    EntitySet?: EntitySetRaw[],
-}
-
-export interface EntityContainerRawAttributes {
-    Name: string
-}
-
-export interface EntitySetRaw {
-    $: EntitySetRawAttributes
-}
-
-export interface EntitySetRawAttributes {
-    Name: string,
-    EntityType: string
+    ComplexType?: RawEntityType[]
 }
 
 export interface RawSchemaAttributes {

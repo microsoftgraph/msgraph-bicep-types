@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 // Type imports
-import { DefinitionMap } from './definitions/DefinitionMap'
 import { CSDL } from './definitions/RawTypes'
 
 // Library imports
@@ -14,14 +13,13 @@ import { writeSwagger } from './swaggerWritter'
 import fs from 'fs'
 
 
-
+console.log("Fetching MSGraph metadata CSDL")
 parseXML(Config.Instance.URL)
     .then((csdl: CSDL) => {
-        const definitionMap: DefinitionMap = new DefinitionMap()
 
-        constructDataStructure(csdl, definitionMap)
+        constructDataStructure(csdl)
 
-        const swagger: Swagger = writeSwagger(definitionMap.EntityMap)
+        const swagger: Swagger = writeSwagger()
 
         const swaggerJson: string = JSON.stringify(swagger, null, 2)
 

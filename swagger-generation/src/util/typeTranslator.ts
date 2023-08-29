@@ -7,8 +7,9 @@ import { PrimitivePropertyType } from "../definitions/RawTypes";
 
 export class TypeTranslator{
     translationMap: Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>;
+    private static _instance: TypeTranslator;
 
-    constructor(){
+    private constructor(){
         this.translationMap = new Map<PrimitivePropertyType, PrimitiveSwaggerTypeStruct>([
             [PrimitivePropertyType.Binary, PrimitiveSwaggerType.Instance.Binary],
             [PrimitivePropertyType.Boolean, PrimitiveSwaggerType.Instance.Boolean],
@@ -47,10 +48,14 @@ export class TypeTranslator{
     }
 
 
-    odataToSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
+    public odataToSwaggerType(primitiveType: PrimitivePropertyType): PrimitiveSwaggerTypeStruct {
         const swaggerType: PrimitiveSwaggerTypeStruct | undefined = this.translationMap.get(primitiveType)
         if(!swaggerType) throw new Error(`No swagger type found for ${primitiveType}`)
         return swaggerType
+    }
+
+    public static get Instance(): TypeTranslator {
+        return this._instance || (this._instance = new this())
     }
 }
 

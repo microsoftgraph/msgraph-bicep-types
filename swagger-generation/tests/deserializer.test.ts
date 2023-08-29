@@ -1,5 +1,3 @@
-//import { constructDataStructure } from '../src/deserializer';
-import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { Config, EntityTypeConfig } from '../src/config';
 import { CSDL } from '../src/definitions/RawTypes';
 
@@ -166,58 +164,55 @@ const csdl: CSDL = {
 describe('constructDataStructure', () => {
 
     let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    let definitionMap: typeof import('../src/definitions/DefinitionMap').DefinitionMap;
 
     beforeEach(() => {
         jest.resetModules();
         constructDataStructure = require('../src/deserializer').constructDataStructure;
+        definitionMap = require('../src/definitions/DefinitionMap').DefinitionMap;
     });
 
     it('should construct data structure', () => {
-        const definitionMap = new DefinitionMap();
-        expect(() => constructDataStructure(csdl, definitionMap)).not.toThrow();
+        expect(() => constructDataStructure(csdl)).not.toThrow();
     });
 
     it('should identify namespaces of scope', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.get('namespaceThree.entityNameTwo')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespaceThree.entityNameOne')).toBeUndefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.get('namespaceThree.entityNameTwo')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespaceThree.entityNameOne')).toBeUndefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')).toBeDefined();
     });
 
     it('should differenciate entities with same name in different namespaces', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameDiff')).toBeUndefined();
-        expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameDiff')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeUndefined();
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespaceTwo.entityNameOne')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameDiff')).toBeUndefined();
+        expect(definitionMap.Instance.EntityMap.get('namespaceTwo.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameDiff')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespaceTwo.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeUndefined();
     });
 
     it('should identify properties of entities', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameTwo')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameTwo')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
     });
 
     it('should have integrity between csdl and definitionMap', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.size).toBe(entityTypes.size - 1);
+        
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.size).toBe(entityTypes.size - 1);
     });
 
     it('should not create entities from scope', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.size).toBe(entityTypes.size - 1);
-        expect(definitionMap.EntityMap.get('namespace.fakeEntityName')).toBeUndefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
-        expect(definitionMap.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.size).toBe(entityTypes.size - 1);
+        expect(definitionMap.Instance.EntityMap.get('namespace.fakeEntityName')).toBeUndefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')).toBeDefined();
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
     });
     
     
@@ -225,6 +220,7 @@ describe('constructDataStructure', () => {
 
 describe('constructDataStructure with non-namespaced entities', () => {
     let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    let definitionMap: typeof import('../src/definitions/DefinitionMap').DefinitionMap;
 
     beforeEach(() => {
         jest.resetModules();
@@ -232,12 +228,12 @@ describe('constructDataStructure with non-namespaced entities', () => {
             return { Config: mockConfigNonNamespaced };
         });
         constructDataStructure = require('../src/deserializer').constructDataStructure;
+        definitionMap = require('../src/definitions/DefinitionMap').DefinitionMap;
     });
 
     it('should not relate unnamespaced entities', () => {
-        const definitionMap = new DefinitionMap();
-        expect(() => constructDataStructure(csdl, definitionMap)).toThrowError();
-        expect(definitionMap.EntityMap.size).toBe(0);
-        expect(definitionMap.EntityMap.get('entityTypeOne')).toBeUndefined();
+        constructDataStructure(csdl);
+        expect(definitionMap.Instance.EntityMap.size).toBe(4);
+        expect(definitionMap.Instance.EntityMap.get('entityTypeOne')).toBeUndefined();
     });
 });

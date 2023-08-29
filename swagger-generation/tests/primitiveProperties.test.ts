@@ -1,5 +1,5 @@
 import { Config, EntityTypeConfig } from "../src/config";
-import { DefinitionMap } from "../src/definitions/DefinitionMap";
+import { PrimitiveSwaggerTypeStruct } from "../src/definitions/PrimitiveSwaggerType";
 import { CSDL } from "../src/definitions/RawTypes";
 
 
@@ -111,18 +111,32 @@ jest.mock('../src/config', () => {
 describe("when csdl contains not mapped types", () =>{
 
     let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    let definitionMap: typeof import('../src/definitions/DefinitionMap').DefinitionMap;
 
     beforeEach(() => {
         jest.resetModules();
         constructDataStructure = require('../src/deserializer').constructDataStructure;
+        definitionMap = require('../src/definitions/DefinitionMap').DefinitionMap;
     });
 
     it("should return the correct properties", () => {
-        const definitionMap: DefinitionMap = new DefinitionMap();
     
-        expect(() => constructDataStructure(csdl, definitionMap)).not.toThrow();
+        expect(() => constructDataStructure(csdl)).not.toThrow();
+
+        constructDataStructure(csdl);
+
+        
     
-        expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.length).toBe(1)
+        expect(definitionMap.Instance.EntityMap.get('namespace.entityNameOne')?.Property.length).toBe(4)
+
+        let primitiveCounter = 0;
+        definitionMap.Instance.EntityMap.forEach((entity) => {
+            entity.Property.forEach((property) => {
+                if(property.Type.constructor.name === PrimitiveSwaggerTypeStruct.name) primitiveCounter++;
+            }
+        )})
+
+        expect(primitiveCounter).toBe(3)
     
     });
 });
