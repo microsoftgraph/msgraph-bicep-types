@@ -35,33 +35,39 @@ export class EntityType extends Object {
         };
 
         this.Property.forEach((property: Property) => {
-            const propertyType: SwaggerProperty = {
-                type: property.Type,  // Undefined property type
-            }
+            
+            const swaggerProperty: SwaggerProperty = {}
 
-            if(property.Type instanceof PrimitiveSwaggerTypeStruct){  // Property is primitive type
-                property.Type = property.Type as PrimitiveSwaggerTypeStruct
-                propertyType.type = property.Type.type // rewrite struct with string type
-                if(property.Type.format){
-                    propertyType.format = property.Type.format // property type has format
-                }
-            } else if (property.Type instanceof CollectionProperty) { // Property is collection
-                
-                property.Type = property.Type as CollectionProperty
-                propertyType.type = "array"
-                propertyType.items = {
-                    type: property.Type.Type,  // Undefined collection type
-                }
-                if(property.Type.Type instanceof PrimitiveSwaggerTypeStruct){  // Collection is primitive type
-                    property.Type.Type = property.Type.Type as PrimitiveSwaggerTypeStruct
-                    propertyType.items.type = property.Type.Type.type // rewrite struct with string type
-                    if(property.Type.Type.format){
-                        propertyType.items.format = property.Type.Type.format // collection type has format
+            let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
+
+            if(propertyType instanceof CollectionProperty){ // Collection unwrap
+                propertyType = propertyType.Type as PrimitiveSwaggerTypeStruct | string;
+                if(propertyType instanceof PrimitiveSwaggerTypeStruct){  // Property is primitive type
+                    swaggerProperty.type = "array"
+                    swaggerProperty.items = {
+                        type: propertyType.type,  // Set swagger primitive type
+                    }
+                    if(propertyType.format){
+                        swaggerProperty.items.format = propertyType.format // Set swagger primitive format
+                    }
+                } else { // Property is complex type
+                    swaggerProperty.type = "array"
+                    swaggerProperty.items = {
+                        $ref: `#/definitions/${property.Type}` // Set swagger reference
                     }
                 }
+            } else { // Not collection
+                if(property.Type instanceof PrimitiveSwaggerTypeStruct){  // Property is primitive type
+                    swaggerProperty.type = property.Type.type // Set swagger primitive type
+                    if(property.Type.format){
+                        swaggerProperty.format = property.Type.format // Set swagger primitive format
+                    }
+                } else {
+                    swaggerProperty.$ref = `#/definitions/${property.Type}` // Set swagger reference
+                }
             }
 
-            definition.properties[property.Name] = propertyType
+            definition.properties[property.Name] = swaggerProperty
         });
 
         if(required){

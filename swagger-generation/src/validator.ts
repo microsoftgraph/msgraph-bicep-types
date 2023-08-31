@@ -1,9 +1,8 @@
 import { Config } from "./config";
-import { CollectionProperty } from "./definitions/CollectionProperty";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
-import { PrimitiveSwaggerTypeStruct } from "./definitions/PrimitiveSwaggerType";
 import { AliasTranslator } from "./util/aliasTranslator";
+import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 export const validateReferences = (): void => {
     console.log("Validating references")
@@ -17,18 +16,10 @@ export const validateReferences = (): void => {
         }
 
         entity.Property.forEach(property => {
-            let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
-            if(propertyType instanceof CollectionProperty){ // Is collection
-                propertyType = propertyType as CollectionProperty; 
-                propertyType = propertyType.Type as PrimitiveSwaggerTypeStruct | string; // Unwrap collection
-            } else {
-                propertyType = propertyType as PrimitiveSwaggerTypeStruct | string; // Not collection
-            }
-
-            if(propertyType instanceof PrimitiveSwaggerTypeStruct) // if type is primitive, no need to validate
-                return
+            const reference: string | undefined = resolvePropertyTypeToReference(property);
             
-            propertyHandler(entity, propertyType); // type is only and always string
+            if(reference)
+                propertyHandler(entity, reference); // type is only and always string
         });
 
     });
@@ -44,11 +35,22 @@ const propertyHandler = (entity: EntityType, propertyType: string): void => {
         const namespace: string | undefined = AliasTranslator.Instance.getNamespace(alias)
         if(namespace){ // There's an alias, try again
             const entityName: string = `${namespace}.${namespacelessPropertyType}`
-            if(!definitionMap.EntityMap.has(entityName)){
-                console.error(`Entity ${entity.Name} references ${propertyType} which is not defined in the CSDL. Also tried to resolve ${entityName} but it is not defined in the CSDL either`);
+            if(definitionMap.EntityMap.has(entityName)){ // Replace alias with namespace
+                entity.Property = entity.Property.map(property => {
+                    if(property.Type === propertyType){
+                        property.Type = entityName;
+                    }
+                    return property;
+                });
+            } else {
+                console.error(`Entity ${entity.Name} references ${propertyType} which is not defined in the CSDL. Also tried to resolve ${entityName} but it is not defined in the CSDL either. Property will be removed from definitions`);
+                entity.Property = entity.Property.filter(property => property.Type !== propertyType);
+                DefinitionMap.Instance.EntityMap.set(entityName, entity);
             }
         } else { // There's no alias
-            console.error(`Entity ${entity.Name} references ${propertyType} which is not defined in the CSDL`);
+            console.error(`Entity ${entity.Name} references ${propertyType} which is not defined in the CSDL. Property will be removed from definitions`);
+            entity.Property = entity.Property.filter(property => property.Type !== propertyType);
+            DefinitionMap.Instance.EntityMap.set(propertyType, entity);
         }
     }
 }
