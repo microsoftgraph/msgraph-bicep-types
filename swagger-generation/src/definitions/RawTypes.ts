@@ -22,6 +22,7 @@ export interface RawSchema {
 
 export interface RawSchemaAttributes {
     Namespace: string
+    Alias?: string
 }
 
 export interface RawEntityType {

@@ -46,19 +46,15 @@ export const writeSwagger = (): Swagger => {
         paths: {}
     }
 
-    entityMap.forEach((entityType: EntityType, id: string) => {
-        if(!Config.Instance.EntityTypes.get(id)) // If the entity is not in the config, don't add it to the swagger
-            return
+    Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+        const entity: EntityType = entityMap.get(id)! // Validator already checked this assertion
 
         console.log("Writing swagger for " + id)
 
-        swagger.definitions[id] = entityType.toSwaggerDefinition(Config.Instance.EntityTypes.get(id)!.RequiredOnWrite)
+        swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig.RequiredOnWrite)
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
-        if(! entityMap.get(id)){
-            console.warn(`Entity ${id} from config.yml is not present in the CSDL`)
-        }
         const entityName: string = entityMap.get(id)!.Name
         const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
         const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`

@@ -32,6 +32,195 @@
     }
   },
   "definitions": {
+    "microsoft.graph.group": {
+      "type": "object",
+      "properties": {
+        "assignedLabels": {
+          "type": "graph.assignedLabel"
+        },
+        "assignedLicenses": {
+          "type": "graph.assignedLicense"
+        },
+        "classification": {
+          "type": "string"
+        },
+        "createdByAppId": {
+          "type": "string"
+        },
+        "createdDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "expirationDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "groupTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hasMembersWithLicenseErrors": {
+          "type": "boolean"
+        },
+        "infoCatalogs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAssignableToRole": {
+          "type": "boolean"
+        },
+        "isManagementRestricted": {
+          "type": "boolean"
+        },
+        "licenseProcessingState": {
+          "type": "graph.licenseProcessingState"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "mailEnabled": {
+          "type": "boolean"
+        },
+        "mailNickname": {
+          "type": "string"
+        },
+        "membershipRule": {
+          "type": "string"
+        },
+        "membershipRuleProcessingState": {
+          "type": "string"
+        },
+        "onPremisesDomainName": {
+          "type": "string"
+        },
+        "onPremisesLastSyncDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "onPremisesNetBiosName": {
+          "type": "string"
+        },
+        "onPremisesProvisioningErrors": {
+          "type": "graph.onPremisesProvisioningError"
+        },
+        "onPremisesSamAccountName": {
+          "type": "string"
+        },
+        "onPremisesSecurityIdentifier": {
+          "type": "string"
+        },
+        "onPremisesSyncEnabled": {
+          "type": "boolean"
+        },
+        "organizationId": {
+          "type": "string"
+        },
+        "preferredDataLocation": {
+          "type": "string"
+        },
+        "preferredLanguage": {
+          "type": "string"
+        },
+        "proxyAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "renewedDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "resourceBehaviorOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resourceProvisioningOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "securityEnabled": {
+          "type": "boolean"
+        },
+        "securityIdentifier": {
+          "type": "string"
+        },
+        "serviceProvisioningErrors": {
+          "type": "graph.serviceProvisioningError"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "uniqueName": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "writebackConfiguration": {
+          "type": "graph.groupWritebackConfiguration"
+        },
+        "accessType": {
+          "type": "graph.groupAccessType"
+        },
+        "allowExternalSenders": {
+          "type": "boolean"
+        },
+        "autoSubscribeNewMembers": {
+          "type": "boolean"
+        },
+        "hideFromAddressLists": {
+          "type": "boolean"
+        },
+        "hideFromOutlookClients": {
+          "type": "boolean"
+        },
+        "isFavorite": {
+          "type": "boolean"
+        },
+        "isSubscribedByMail": {
+          "type": "boolean"
+        },
+        "unseenConversationsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unseenCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unseenMessagesCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "membershipRuleProcessingStatus": {
+          "type": "graph.membershipRuleProcessingStatus"
+        },
+        "isArchived": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "displayName",
+        "mailEnabled",
+        "mailNickname",
+        "securityEnabled"
+      ]
+    },
     "microsoft.graph.application": {
       "type": "object",
       "properties": {
@@ -299,41 +488,6 @@
         "appId"
       ]
     },
-    "microsoft.graph.appRoleAssignment": {
-      "type": "object",
-      "properties": {
-        "appRoleId": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "creationTimestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "principalDisplayName": {
-          "type": "string"
-        },
-        "principalId": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "principalType": {
-          "type": "string"
-        },
-        "resourceDisplayName": {
-          "type": "string"
-        },
-        "resourceId": {
-          "type": "string",
-          "format": "uuid"
-        }
-      },
-      "required": [
-        "resourceId",
-        "principalId",
-        "appRoleId"
-      ]
-    },
     "microsoft.graph.oAuth2PermissionGrant": {
       "type": "object",
       "properties": {
@@ -367,193 +521,39 @@
         "consentType"
       ]
     },
-    "microsoft.graph.group": {
+    "microsoft.graph.appRoleAssignment": {
       "type": "object",
       "properties": {
-        "assignedLabels": {
-          "type": "graph.assignedLabel"
+        "appRoleId": {
+          "type": "string",
+          "format": "uuid"
         },
-        "assignedLicenses": {
-          "type": "graph.assignedLicense"
-        },
-        "classification": {
-          "type": "string"
-        },
-        "createdByAppId": {
-          "type": "string"
-        },
-        "createdDateTime": {
+        "creationTimestamp": {
           "type": "string",
           "format": "date-time"
         },
-        "description": {
+        "principalDisplayName": {
           "type": "string"
         },
-        "displayName": {
-          "type": "string"
-        },
-        "expirationDateTime": {
+        "principalId": {
           "type": "string",
-          "format": "date-time"
+          "format": "uuid"
         },
-        "groupTypes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "hasMembersWithLicenseErrors": {
-          "type": "boolean"
-        },
-        "infoCatalogs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "isAssignableToRole": {
-          "type": "boolean"
-        },
-        "isManagementRestricted": {
-          "type": "boolean"
-        },
-        "licenseProcessingState": {
-          "type": "graph.licenseProcessingState"
-        },
-        "mail": {
+        "principalType": {
           "type": "string"
         },
-        "mailEnabled": {
-          "type": "boolean"
-        },
-        "mailNickname": {
+        "resourceDisplayName": {
           "type": "string"
         },
-        "membershipRule": {
-          "type": "string"
-        },
-        "membershipRuleProcessingState": {
-          "type": "string"
-        },
-        "onPremisesDomainName": {
-          "type": "string"
-        },
-        "onPremisesLastSyncDateTime": {
+        "resourceId": {
           "type": "string",
-          "format": "date-time"
-        },
-        "onPremisesNetBiosName": {
-          "type": "string"
-        },
-        "onPremisesProvisioningErrors": {
-          "type": "graph.onPremisesProvisioningError"
-        },
-        "onPremisesSamAccountName": {
-          "type": "string"
-        },
-        "onPremisesSecurityIdentifier": {
-          "type": "string"
-        },
-        "onPremisesSyncEnabled": {
-          "type": "boolean"
-        },
-        "organizationId": {
-          "type": "string"
-        },
-        "preferredDataLocation": {
-          "type": "string"
-        },
-        "preferredLanguage": {
-          "type": "string"
-        },
-        "proxyAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "renewedDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "resourceBehaviorOptions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "resourceProvisioningOptions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "securityEnabled": {
-          "type": "boolean"
-        },
-        "securityIdentifier": {
-          "type": "string"
-        },
-        "serviceProvisioningErrors": {
-          "type": "graph.serviceProvisioningError"
-        },
-        "theme": {
-          "type": "string"
-        },
-        "uniqueName": {
-          "type": "string"
-        },
-        "visibility": {
-          "type": "string"
-        },
-        "writebackConfiguration": {
-          "type": "graph.groupWritebackConfiguration"
-        },
-        "accessType": {
-          "type": "graph.groupAccessType"
-        },
-        "allowExternalSenders": {
-          "type": "boolean"
-        },
-        "autoSubscribeNewMembers": {
-          "type": "boolean"
-        },
-        "hideFromAddressLists": {
-          "type": "boolean"
-        },
-        "hideFromOutlookClients": {
-          "type": "boolean"
-        },
-        "isFavorite": {
-          "type": "boolean"
-        },
-        "isSubscribedByMail": {
-          "type": "boolean"
-        },
-        "unseenConversationsCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "unseenCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "unseenMessagesCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "membershipRuleProcessingStatus": {
-          "type": "graph.membershipRuleProcessingStatus"
-        },
-        "isArchived": {
-          "type": "boolean"
+          "format": "uuid"
         }
       },
       "required": [
-        "displayName",
-        "mailEnabled",
-        "mailNickname",
-        "securityEnabled"
+        "resourceId",
+        "principalId",
+        "appRoleId"
       ]
     }
   },

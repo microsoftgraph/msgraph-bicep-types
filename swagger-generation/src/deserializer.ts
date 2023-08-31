@@ -10,22 +10,29 @@ import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerTypeStruct } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
 import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { AliasTranslator } from "./util/aliasTranslator";
 import { TypeTranslator } from "./util/typeTranslator";
 
 export const constructDataStructure = (csdl: CSDL): void => {
     console.log('Deserializing CSDL')
 
-    const dataServices: DataService[] = csdl['edmx:Edmx']['edmx:DataServices']
+    const dataServices: DataService[] = csdl["edmx:Edmx"]['edmx:DataServices']
 
     dataServices.forEach((dataService: DataService) => {
 
-        const schemas: RawSchema[] = dataService['Schema']
+        const schemas: RawSchema[] = dataService.Schema
 
         schemas.forEach((schema: RawSchema) => {
 
             const namespace: string = schema.$.Namespace
+            const alias: string | undefined = schema.$.Alias 
             const rawEntityTypes: RawEntityType[] = schema.EntityType ? schema.EntityType : []
             const rawComplexTypes: RawEntityType[] = schema.ComplexType ? schema.ComplexType: []
+
+            if(alias){
+                AliasTranslator.Instance.setAlias(alias, namespace)
+            }
+
             //const rawEnumTypes: RawEnumType[] = schema['EnumType'] ? schema['EnumType'] : []
 
             rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(rawComplexType, namespace));
@@ -43,7 +50,7 @@ export const constructDataStructure = (csdl: CSDL): void => {
 }
 
 const propertyHandler = (rawProperty: RawProperty): Property => {
-    const propertyAttributes: RawPropertyAttributes = rawProperty['$']
+    const propertyAttributes: RawPropertyAttributes = rawProperty.$
     const propertyName: string = propertyAttributes.Name
     let propertyType: string = propertyAttributes.Type
     let typedPropertyType: PrimitiveSwaggerTypeStruct | CollectionProperty | string
@@ -74,7 +81,7 @@ const propertyHandler = (rawProperty: RawProperty): Property => {
 }
 
 const navigationPropertiesHandler = (rawNavigationProperty: RawNavigationProperty): NavigationProperty => {
-    const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty['$']
+    const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty.$
     const navigationPropertyName: string = navigationPropertyAttributes.Name
     const navigationPropertyType: string = navigationPropertyAttributes.Type
     const navigationPropertyNullable: boolean = navigationPropertyAttributes.Nullable ? navigationPropertyAttributes.Nullable : false
