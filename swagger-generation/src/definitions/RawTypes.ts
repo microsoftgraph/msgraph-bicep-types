@@ -15,7 +15,7 @@ export interface DataService {
 
 export interface RawSchema {
     $: RawSchemaAttributes,
-    EnumType?: object[],
+    EnumType?: RawEnumType[],
     EntityType?: RawEntityType[],
     ComplexType?: RawEntityType[]
 }
@@ -29,6 +29,24 @@ export interface RawEntityType {
     $: RawEntityTypeAttributes,
     Property: RawProperty[],
     NavigationProperty: RawNavigationProperty[]
+}
+
+export interface RawEnumType {
+    $: RawEnumTypeAttributes,
+    Member: RawEnumMember[]
+}
+
+export interface RawEnumTypeAttributes {
+    Name: string
+}
+
+export interface RawEnumMember {
+    $: RawEnumMemberAttributes
+}
+
+export interface RawEnumMemberAttributes {
+    Name: string,
+    Value: string
 }
 
 export interface RawEntityTypeAttributes {

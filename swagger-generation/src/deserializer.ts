@@ -9,9 +9,10 @@ import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerTypeStruct } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 import { AliasTranslator } from "./util/aliasTranslator";
 import { TypeTranslator } from "./util/typeTranslator";
+import { EnumType } from "./definitions/EnumType";
 
 export const constructDataStructure = (csdl: CSDL): void => {
     console.log('Deserializing CSDL')
@@ -28,6 +29,7 @@ export const constructDataStructure = (csdl: CSDL): void => {
             const alias: string | undefined = schema.$.Alias 
             const rawEntityTypes: RawEntityType[] = schema.EntityType ? schema.EntityType : []
             const rawComplexTypes: RawEntityType[] = schema.ComplexType ? schema.ComplexType: []
+            const rawEnumTypes: RawEnumType[] = schema.EnumType ? schema.EnumType : []
 
             if(alias){
                 AliasTranslator.Instance.setAlias(alias, namespace)
@@ -38,6 +40,8 @@ export const constructDataStructure = (csdl: CSDL): void => {
             rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(rawComplexType, namespace));
 
             rawEntityTypes.forEach((rawEntityType: RawEntityType) => entityHandler(rawEntityType, namespace));
+
+            rawEnumTypes.forEach((rawEnumType: RawEnumType) => enumHandler(rawEnumType, namespace));
        
         });
         
@@ -110,5 +114,23 @@ const entityHandler = (rawEntityType: RawEntityType, namespace: string): void =>
 
     const entityType: EntityType = new EntityType(entityName, abstract, baseType, openType, hasStream, properties, navigationProperties)
     const id = `${namespace}.${entityName}`
+
     DefinitionMap.Instance.EntityMap.set(id, entityType)
+}
+
+const enumHandler = (rawEnumType: RawEnumType, namespace: string): void => {
+    const currentEnumMap: Map<string, string> = new Map<string, string>()
+
+    const enumName: string = rawEnumType.$.Name
+    const enumMembers: RawEnumMember[] = rawEnumType.Member
+    if(!enumMembers) return
+
+    enumMembers.forEach((enumMember: RawEnumMember) => {
+        const enumMemberName: string = enumMember.$.Name
+        const enumMemberValue: string = enumMember.$.Value
+        currentEnumMap.set(enumMemberName, enumMemberValue)
+    });
+    const enumType = new EnumType(enumName, currentEnumMap)
+    const id = `${namespace}.${enumName}`
+    DefinitionMap.Instance.EnumMap.set(id, enumType)
 }

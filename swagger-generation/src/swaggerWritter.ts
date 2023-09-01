@@ -5,11 +5,13 @@
 import { Config, EntityTypeConfig } from "./config";
 import { DefinitionMap, EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
+import { EnumType } from "./definitions/EnumType";
 import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 export const writeSwagger = (): Swagger => {
     const entityMap: EntityMap = DefinitionMap.Instance.EntityMap
+    const enumMap: Map<string, EnumType> = DefinitionMap.Instance.EnumMap
     const swagger: Swagger = {
         swagger: SwaggerVersion.v2,
         info: {
@@ -48,6 +50,7 @@ export const writeSwagger = (): Swagger => {
     }
 
     const entityReferences: Map<string, EntityType> = new Map<string, EntityType>()
+    const enumReferences: Map<string, EnumType> = new Map<string, EnumType>()
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
         const entity: EntityType = entityMap.get(id)! // Validator already checked this assertion
@@ -55,10 +58,15 @@ export const writeSwagger = (): Swagger => {
         console.log("Writing swagger for " + id)
         entity.Property.forEach((property) => {
             const reference: string | undefined = resolvePropertyTypeToReference(property);
+            
             if(reference){ // only references (complex types)
                 const complexType: EntityType | undefined = entityMap.get(reference)
-                if(!complexType){ // There's no Complex Type with this id (not considering aliases)
-                    throw new Error(`Something is wrong: Entity ${entity.Name} references non-existent ${reference} and skipped validator check`);
+                if(!complexType){ // There's no Complex Type with this id 
+                    if(enumMap.has(reference)){ // There's an Enum with this id
+                        enumReferences.set(reference, enumMap.get(reference)!)
+                    } else {
+                        throw new Error(`Something is wrong: Entity ${entity.Name} references non-existent ${reference} and skipped validator check`);
+                    }
                 } else { // There's a ComplexType with this id
                     entityReferences.set(reference, complexType)
                 }
@@ -71,6 +79,10 @@ export const writeSwagger = (): Swagger => {
 
     entityReferences.forEach((entity: EntityType, id: string) => {
         swagger.definitions[id] = entity.toSwaggerDefinition()
+    });
+
+    enumReferences.forEach((enumType: EnumType, id: string) => {
+        swagger.definitions[id] = enumType.toSwaggerDefinition()
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {

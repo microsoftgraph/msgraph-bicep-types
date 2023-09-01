@@ -14,7 +14,7 @@ export enum SwaggerMetaFormat {
     Float = "float",
     Double = "double",
     Byte = "byte",
-    Binary = "binary",
+    Binary = "base64url",
     Boolean = "boolean",
     Date = "date",
     DateTime = "date-time",

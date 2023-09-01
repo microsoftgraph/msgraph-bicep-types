@@ -22,7 +22,7 @@ export interface Swagger{
     produces: string[],
     security: Security[],
     securityDefinitions: SecurityDefinitions,
-    definitions: Definitions,
+    definitions: Definitions | SchemasDefinitions,
     paths: Paths,
 }
 
@@ -92,6 +92,15 @@ export interface Paths{
 
 export interface Path{
     put: Operation
+}
+
+export interface SchemasDefinitions{
+    [key: string]: Schemas
+}
+
+export interface Schemas{
+    type: string,
+    enum: string[],
 }
 
 export interface Operation{
