@@ -1,7 +1,5 @@
- // Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-
-// Type imports
 
 import { CollectionProperty } from "./definitions/CollectionProperty";
 import { DefinitionMap } from "./definitions/DefinitionMap";
@@ -34,8 +32,6 @@ export const constructDataStructure = (csdl: CSDL): void => {
             if(alias){
                 AliasTranslator.Instance.setAlias(alias, namespace)
             }
-
-            //const rawEnumTypes: RawEnumType[] = schema['EnumType'] ? schema['EnumType'] : []
 
             rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(rawComplexType, namespace));
 

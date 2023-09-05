@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Type imports
 import { Config, EntityTypeConfig } from "./config";
 import { DefinitionMap, EntityMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";

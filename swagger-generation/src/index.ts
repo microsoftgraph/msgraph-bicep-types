@@ -1,10 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Type imports
 import { CSDL } from './definitions/RawTypes'
-
-// Library imports
 import { parseXML } from './parser'
 import { constructDataStructure } from './deserializer'
 import { Config } from './config'

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 import { CollectionProperty } from "../definitions/CollectionProperty";
 import { PrimitiveSwaggerTypeStruct } from "../definitions/PrimitiveSwaggerType";
 import { Property } from "../definitions/Property";
