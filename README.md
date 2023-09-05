@@ -1,14 +1,40 @@
-# Project
+# Microsoft Graph Bicep Extension (private preview)
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+The "Microsoft Graph Bicep Extension" enables customers to manage a limited set of Identity/Graph resources (Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
+This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and will close a long-standing platform gap and pain-point.
 
-As the maintainer of this project, please make a few updates:
+Customers can then use `azd` to deploy the Bicep template and their set of Azure and/or Identity resources.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Supported Microsoft Graph Bicep types
+
+* [Group](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta)
+  * Group membership
+  * Group ownership​
+* [Application​](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta)
+* [ServicePrincipal​](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta)
+* [Oauth2PermissionGrant](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta)
+* [AppRoleAssignedTo](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)
+
+## Limitations
+
+* Bicep types for Microsoft Graph /beta version only​.
+* Deployment requires a signed-in user (zero-touch deployment is not possible with this release)​.
+* Deployment in public cloud only.
+* `Oauth2PermissionGrant` and `AppRoleAssignedTo` do not have client-provided keys, so the use of "existing" is not possible for these resources.
+* Group membership and ownership is a non-destructive additive operation:
+  * "Create" can add a maximum of 20 "relationships" (members and/or owners).
+  * "Update" can add a maximum of 20 "relationships" (members and/or owners).
+* Deployment stacks are not supported (they aren't yet supported for the extension framework).
+
+## Known issues
+
+* Removing existing `appRoles` or `oauth2PermissionScopes` from their respective collections (on the `application` resource) and redeploying will fail, as an `appRole` or an `oauth2PermissionScope` needs to first be [disabled (via the `isEnabled` property)](https://learn.microsoft.com/graph/api/resources/approle?view=graph-rest-1.0#properties) before it can be deleted.
+  * Redeploying with additional `appRoles` added to the collection (in the template) is possible.
+* Creating `appRoles` requires the client to provide a GUID identifier in the request payload.
+These will need to be pre-generated and tracked in the template.
+* "Preview save" (pre-flight and what-if functionality) has very limited support:
+  * It has limited validation of the resource type name (and does not compare against API schema).
+  * It only returns the request's resource body in the response, rather than a review of the deployed resource body.
 
 ## Contributing
 
