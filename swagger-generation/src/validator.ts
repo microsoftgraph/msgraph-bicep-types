@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Config } from "./config";
+import { CollectionProperty } from "./definitions/CollectionProperty";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
 import { Property } from "./definitions/Property";
@@ -20,9 +21,10 @@ export const validateReferences = (): void => {
         }
 
         entity.Property.forEach(property => {
+            const isCollection: boolean = property.Type instanceof CollectionProperty;
             const reference: string | undefined = resolvePropertyTypeToReference(property);
             if(reference)
-                propertyHandler(entity, reference); // type is only and always string
+                propertyHandler(entity, reference, isCollection); // type is only and always string
         });
 
     });
@@ -31,16 +33,17 @@ export const validateReferences = (): void => {
 
     definitionMap.EntityMap.forEach(entity => {
         entity.Property.forEach(property => {
+            const isCollection: boolean = property.Type instanceof CollectionProperty;
             const reference: string | undefined = resolvePropertyTypeToReference(property);
             if(reference)
-                propertyHandler(entity, reference); // type is only and always string
+                propertyHandler(entity, reference, isCollection); // type is only and always string
         });
     });
 
     console.log("Finished validating CSDL references")
 }
 
-const propertyHandler = (entity: EntityType, propertyType: string): void => {
+const propertyHandler = (entity: EntityType, propertyType: string, isCollection: boolean): void => {
     const definitionMap: DefinitionMap = DefinitionMap.Instance;
     const isEnum: boolean = definitionMap.EnumMap.has(propertyType);
     const isEntity: boolean = definitionMap.EntityMap.has(propertyType);
@@ -58,7 +61,7 @@ const propertyHandler = (entity: EntityType, propertyType: string): void => {
     if(namespace){ // There's an alias, try again
         const entityName: string = `${namespace}.${namespacelessPropertyType}`
         if(definitionMap.EntityMap.has(entityName) || definitionMap.EnumMap.has(entityName)){ // Replace alias with namespace
-            entity.Property = entity.Property.map((property: Property) => replaceAlias(property, propertyType, entityName));
+            entity.Property = entity.Property.map((property: Property) => replaceAlias(property, propertyType, entityName, isCollection));
             DefinitionMap.Instance.EntityMap.set(entity.Name, entity);
         } else {
             console.error(`Entity ${entity.Name} references ${propertyType} which is not defined in the CSDL. Also tried to resolve ${entityName} but it is not defined in the CSDL either. Property will be removed from definitions`);
@@ -73,9 +76,12 @@ const propertyHandler = (entity: EntityType, propertyType: string): void => {
     
 }
 
-const replaceAlias = (property: Property, propertyType: string, entityName: string) => {
-    if(property.Type === propertyType){
-        property.Type = entityName;
+const replaceAlias = (property: Property, propertyType: string, entityName: string, isCollection: boolean) => {
+    const propertyReference = resolvePropertyTypeToReference(property);
+    if(isCollection && propertyReference === propertyType){  // If property corresponds and is collections
+        property.Type = new CollectionProperty(entityName); // Replace inner type alias with namespace
+    } else if(property.Type === propertyType){ // If property corresponds
+        property.Type = entityName; // Replace alias with namespace
     }
-    return property;
+    return property; // Return property
 }

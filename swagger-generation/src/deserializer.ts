@@ -65,11 +65,12 @@ const propertyHandler = (rawProperty: RawProperty): Property => {
     // Primitive Types
     if(Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyType)){
             typedPropertyType = TypeTranslator.Instance.odataToSwaggerType(propertyType as PrimitivePropertyType)
-        if(isCollection){
-            typedPropertyType = new CollectionProperty(typedPropertyType)
-        }
-    }else { // Other
+    } else { // String references
         typedPropertyType = propertyType
+    }
+
+    if(isCollection){
+        typedPropertyType = new CollectionProperty(typedPropertyType)
     }
      
     const propertyNullable: boolean = propertyAttributes.Nullable ? propertyAttributes.Nullable : false

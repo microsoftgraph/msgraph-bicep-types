@@ -36,10 +36,16 @@
       "type": "object",
       "properties": {
         "assignedLabels": {
-          "$ref": "#/definitions/microsoft.graph.assignedLabel"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.assignedLabel"
+          }
         },
         "assignedLicenses": {
-          "$ref": "#/definitions/microsoft.graph.assignedLicense"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.assignedLicense"
+          }
         },
         "classification": {
           "type": "string"
@@ -111,7 +117,10 @@
           "type": "string"
         },
         "onPremisesProvisioningErrors": {
-          "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
+          }
         },
         "onPremisesSamAccountName": {
           "type": "string"
@@ -160,7 +169,10 @@
           "type": "string"
         },
         "serviceProvisioningErrors": {
-          "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
+          }
         },
         "theme": {
           "type": "string"
@@ -231,7 +243,10 @@
           "type": "string"
         },
         "appRoles": {
-          "$ref": "#/definitions/microsoft.graph.appRole"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.appRole"
+          }
         },
         "authenticationBehaviors": {
           "$ref": "#/definitions/microsoft.graph.authenticationBehaviors"
@@ -274,7 +289,10 @@
           "type": "boolean"
         },
         "keyCredentials": {
-          "$ref": "#/definitions/microsoft.graph.keyCredential"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyCredential"
+          }
         },
         "logo": {
           "type": "string"
@@ -289,7 +307,10 @@
           "$ref": "#/definitions/microsoft.graph.parentalControlSettings"
         },
         "passwordCredentials": {
-          "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          }
         },
         "publicClient": {
           "$ref": "#/definitions/microsoft.graph.publicClientApplication"
@@ -301,7 +322,10 @@
           "$ref": "#/definitions/microsoft.graph.requestSignatureVerification"
         },
         "requiredResourceAccess": {
-          "$ref": "#/definitions/microsoft.graph.requiredResourceAccess"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.requiredResourceAccess"
+          }
         },
         "samlMetadataUrl": {
           "type": "string"
@@ -358,7 +382,10 @@
           "type": "boolean"
         },
         "addIns": {
-          "$ref": "#/definitions/microsoft.graph.addIn"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.addIn"
+          }
         },
         "alternativeNames": {
           "type": "array",
@@ -386,7 +413,10 @@
           "type": "boolean"
         },
         "appRoles": {
-          "$ref": "#/definitions/microsoft.graph.appRole"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.appRole"
+          }
         },
         "customSecurityAttributes": {
           "$ref": "#/definitions/microsoft.graph.customSecurityAttributeValue"
@@ -410,7 +440,10 @@
           "$ref": "#/definitions/microsoft.graph.informationalUrl"
         },
         "keyCredentials": {
-          "$ref": "#/definitions/microsoft.graph.keyCredential"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyCredential"
+          }
         },
         "loginUrl": {
           "type": "string"
@@ -428,7 +461,10 @@
           }
         },
         "passwordCredentials": {
-          "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.passwordCredential"
+          }
         },
         "preferredSingleSignOnMode": {
           "type": "string"
@@ -441,7 +477,10 @@
           "type": "string"
         },
         "publishedPermissionScopes": {
-          "$ref": "#/definitions/microsoft.graph.permissionScope"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.permissionScope"
+          }
         },
         "publisherName": {
           "type": "string"
@@ -661,10 +700,16 @@
           }
         },
         "oauth2PermissionScopes": {
-          "$ref": "#/definitions/microsoft.graph.permissionScope"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.permissionScope"
+          }
         },
         "preAuthorizedApplications": {
-          "$ref": "#/definitions/microsoft.graph.preAuthorizedApplication"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.preAuthorizedApplication"
+          }
         },
         "requestedAccessTokenVersion": {
           "type": "integer",
@@ -793,13 +838,22 @@
       "type": "object",
       "properties": {
         "accessToken": {
-          "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
         },
         "idToken": {
-          "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
         },
         "saml2Token": {
-          "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.optionalClaim"
+          }
         }
       }
     },
@@ -873,7 +927,10 @@
       "type": "object",
       "properties": {
         "resourceAccess": {
-          "$ref": "#/definitions/microsoft.graph.resourceAccess"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.resourceAccess"
+          }
         },
         "resourceAppId": {
           "type": "string"
@@ -948,7 +1005,10 @@
           }
         },
         "redirectUriSettings": {
-          "$ref": "#/definitions/microsoft.graph.redirectUriSettings"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.redirectUriSettings"
+          }
         }
       }
     },
@@ -1015,7 +1075,10 @@
           "type": "boolean"
         },
         "onPremisesApplicationSegments": {
-          "$ref": "#/definitions/microsoft.graph.onPremisesApplicationSegment"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.onPremisesApplicationSegment"
+          }
         },
         "segmentsConfiguration": {
           "$ref": "#/definitions/microsoft.graph.segmentConfiguration"
@@ -1041,7 +1104,10 @@
       "type": "object",
       "properties": {
         "fields": {
-          "$ref": "#/definitions/microsoft.graph.passwordSingleSignOnField"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.passwordSingleSignOnField"
+          }
         }
       }
     },
@@ -1053,7 +1119,10 @@
           "format": "uuid"
         },
         "properties": {
-          "$ref": "#/definitions/microsoft.graph.keyValue"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.keyValue"
+          }
         },
         "type": {
           "type": "string"
@@ -1181,7 +1250,10 @@
           "type": "string"
         },
         "corsConfigurations": {
-          "$ref": "#/definitions/microsoft.graph.corsConfiguration"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/microsoft.graph.corsConfiguration"
+          }
         },
         "externalUrl": {
           "type": "string"

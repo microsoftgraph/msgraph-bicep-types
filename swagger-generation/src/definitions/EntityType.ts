@@ -53,7 +53,7 @@ export class EntityType extends Object {
                 } else { // Property is complex type
                     swaggerProperty.type = "array"
                     swaggerProperty.items = {
-                        $ref: `#/definitions/${property.Type}` // Set swagger reference
+                        $ref: `#/definitions/${propertyType}` // Set swagger reference
                     }
                 }
             } else { // Not collection
