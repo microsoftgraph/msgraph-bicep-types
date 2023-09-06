@@ -3,7 +3,7 @@
 The "Microsoft Graph Bicep Extension" enables customers to manage a limited set of Identity/Graph resources (Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
 This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and will close a long-standing platform gap and pain-point.
 
-Customers can then use `azd` to deploy the Bicep template and their set of Azure and/or Identity resources.
+Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Azure and/or Identity resources.
 
 ## Supported Microsoft Graph Bicep types
 
@@ -29,8 +29,9 @@ Customers can then use `azd` to deploy the Bicep template and their set of Azure
 ## Known issues
 
 * Removing existing `appRoles` or `oauth2PermissionScopes` from their respective collections (on the `application` resource) and redeploying will fail, as an `appRole` or an `oauth2PermissionScope` needs to first be [disabled (via the `isEnabled` property)](https://learn.microsoft.com/graph/api/resources/approle?view=graph-rest-1.0#properties) before it can be deleted.
-  * Redeploying with additional `appRoles` added to the collection (in the template) is possible.
-* Creating `appRoles` requires the client to provide a GUID identifier in the request payload.
+  * Redeploying with additional `appRoles` (or `oauth2PermissionScopes`) added to the collection (in the template) is possible.
+  * If any `appRoles` or `oauth2PermissionScopes` need to be removed disable those items first in the template (and deploy), before removing those items from the collection in the template (and redeploy).
+* Creating `appRoles` or `oauth2PermissionScopes` requires the client to provide a GUID identifier in the request payload.
 These will need to be pre-generated and tracked in the template.
 * "Preview save" (pre-flight and what-if functionality) has very limited support:
   * It has limited validation of the resource type name (and does not compare against API schema).
