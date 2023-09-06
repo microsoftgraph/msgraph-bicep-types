@@ -26,13 +26,24 @@ export const validateReferences = (): void => {
         });
 
     });
+
+    console.log("Finished validating config.yml references")
+
+    definitionMap.EntityMap.forEach(entity => {
+        entity.Property.forEach(property => {
+            const reference: string | undefined = resolvePropertyTypeToReference(property);
+            if(reference)
+                propertyHandler(entity, reference); // type is only and always string
+        });
+    });
+
+    console.log("Finished validating CSDL references")
 }
 
 const propertyHandler = (entity: EntityType, propertyType: string): void => {
     const definitionMap: DefinitionMap = DefinitionMap.Instance;
     const isEnum: boolean = definitionMap.EnumMap.has(propertyType);
     const isEntity: boolean = definitionMap.EntityMap.has(propertyType);
-    console.log(`Handling ${propertyType}`)
 
     if(isEntity) // There's an entity with this id
         return;

@@ -643,7 +643,7 @@
           "format": "date-time"
         },
         "status": {
-          "$ref": "#/definitions/graph.MembershipRuleProcessingStatusDetails"
+          "$ref": "#/definitions/microsoft.graph.MembershipRuleProcessingStatusDetails"
         }
       }
     },
@@ -661,10 +661,10 @@
           }
         },
         "oauth2PermissionScopes": {
-          "$ref": "#/definitions/graph.permissionScope"
+          "$ref": "#/definitions/microsoft.graph.permissionScope"
         },
         "preAuthorizedApplications": {
-          "$ref": "#/definitions/graph.preAuthorizedApplication"
+          "$ref": "#/definitions/microsoft.graph.preAuthorizedApplication"
         },
         "requestedAccessTokenVersion": {
           "type": "integer",
@@ -793,13 +793,13 @@
       "type": "object",
       "properties": {
         "accessToken": {
-          "$ref": "#/definitions/graph.optionalClaim"
+          "$ref": "#/definitions/microsoft.graph.optionalClaim"
         },
         "idToken": {
-          "$ref": "#/definitions/graph.optionalClaim"
+          "$ref": "#/definitions/microsoft.graph.optionalClaim"
         },
         "saml2Token": {
-          "$ref": "#/definitions/graph.optionalClaim"
+          "$ref": "#/definitions/microsoft.graph.optionalClaim"
         }
       }
     },
@@ -862,7 +862,7 @@
       "type": "object",
       "properties": {
         "allowedWeakAlgorithms": {
-          "$ref": "#/definitions/graph.weakAlgorithms"
+          "$ref": "#/definitions/microsoft.graph.weakAlgorithms"
         },
         "isSignedRequestRequired": {
           "type": "boolean"
@@ -873,7 +873,7 @@
       "type": "object",
       "properties": {
         "resourceAccess": {
-          "$ref": "#/definitions/graph.resourceAccess"
+          "$ref": "#/definitions/microsoft.graph.resourceAccess"
         },
         "resourceAppId": {
           "type": "string"
@@ -933,7 +933,7 @@
           "type": "string"
         },
         "implicitGrantSettings": {
-          "$ref": "#/definitions/graph.implicitGrantSettings"
+          "$ref": "#/definitions/microsoft.graph.implicitGrantSettings"
         },
         "logoutUrl": {
           "type": "string"
@@ -948,7 +948,7 @@
           }
         },
         "redirectUriSettings": {
-          "$ref": "#/definitions/graph.redirectUriSettings"
+          "$ref": "#/definitions/microsoft.graph.redirectUriSettings"
         }
       }
     },
@@ -979,7 +979,7 @@
           "type": "string"
         },
         "externalAuthenticationType": {
-          "$ref": "#/definitions/graph.externalAuthenticationType"
+          "$ref": "#/definitions/microsoft.graph.externalAuthenticationType"
         },
         "externalUrl": {
           "type": "string"
@@ -1015,25 +1015,25 @@
           "type": "boolean"
         },
         "onPremisesApplicationSegments": {
-          "$ref": "#/definitions/graph.onPremisesApplicationSegment"
+          "$ref": "#/definitions/microsoft.graph.onPremisesApplicationSegment"
         },
         "segmentsConfiguration": {
-          "$ref": "#/definitions/graph.segmentConfiguration"
+          "$ref": "#/definitions/microsoft.graph.segmentConfiguration"
         },
         "singleSignOnSettings": {
-          "$ref": "#/definitions/graph.onPremisesPublishingSingleSignOn"
+          "$ref": "#/definitions/microsoft.graph.onPremisesPublishingSingleSignOn"
         },
         "useAlternateUrlForTranslationAndRedirect": {
           "type": "boolean"
         },
         "verifiedCustomDomainCertificatesMetadata": {
-          "$ref": "#/definitions/graph.verifiedCustomDomainCertificatesMetadata"
+          "$ref": "#/definitions/microsoft.graph.verifiedCustomDomainCertificatesMetadata"
         },
         "verifiedCustomDomainKeyCredential": {
-          "$ref": "#/definitions/graph.keyCredential"
+          "$ref": "#/definitions/microsoft.graph.keyCredential"
         },
         "verifiedCustomDomainPasswordCredential": {
-          "$ref": "#/definitions/graph.passwordCredential"
+          "$ref": "#/definitions/microsoft.graph.passwordCredential"
         }
       }
     },
@@ -1041,7 +1041,7 @@
       "type": "object",
       "properties": {
         "fields": {
-          "$ref": "#/definitions/graph.passwordSingleSignOnField"
+          "$ref": "#/definitions/microsoft.graph.passwordSingleSignOnField"
         }
       }
     },
@@ -1053,7 +1053,7 @@
           "format": "uuid"
         },
         "properties": {
-          "$ref": "#/definitions/graph.keyValue"
+          "$ref": "#/definitions/microsoft.graph.keyValue"
         },
         "type": {
           "type": "string"
@@ -1105,6 +1105,198 @@
         }
       }
     },
+    "microsoft.graph.preAuthorizedApplication": {
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string"
+        },
+        "permissionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "microsoft.graph.optionalClaim": {
+      "type": "object",
+      "properties": {
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "essential": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.resourceAccess": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.implicitGrantSettings": {
+      "type": "object",
+      "properties": {
+        "enableAccessTokenIssuance": {
+          "type": "boolean"
+        },
+        "enableIdTokenIssuance": {
+          "type": "boolean"
+        }
+      }
+    },
+    "microsoft.graph.redirectUriSettings": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uri": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.onPremisesApplicationSegment": {
+      "type": "object",
+      "properties": {
+        "alternateUrl": {
+          "type": "string"
+        },
+        "corsConfigurations": {
+          "$ref": "#/definitions/microsoft.graph.corsConfiguration"
+        },
+        "externalUrl": {
+          "type": "string"
+        },
+        "internalUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.segmentConfiguration": {
+      "type": "object",
+      "properties": {}
+    },
+    "microsoft.graph.onPremisesPublishingSingleSignOn": {
+      "type": "object",
+      "properties": {
+        "kerberosSignOnSettings": {
+          "$ref": "#/definitions/microsoft.graph.kerberosSignOnSettings"
+        },
+        "singleSignOnMode": {
+          "$ref": "#/definitions/microsoft.graph.singleSignOnMode"
+        }
+      }
+    },
+    "microsoft.graph.verifiedCustomDomainCertificatesMetadata": {
+      "type": "object",
+      "properties": {
+        "expiryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "issueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "issuerName": {
+          "type": "string"
+        },
+        "subjectName": {
+          "type": "string"
+        },
+        "thumbprint": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.passwordSingleSignOnField": {
+      "type": "object",
+      "properties": {
+        "customizedLabel": {
+          "type": "string"
+        },
+        "defaultLabel": {
+          "type": "string"
+        },
+        "fieldId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.keyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.corsConfiguration": {
+      "type": "object",
+      "properties": {
+        "allowedHeaders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedMethods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedOrigins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maxAgeInSeconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "resource": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.kerberosSignOnSettings": {
+      "type": "object",
+      "properties": {
+        "kerberosServicePrincipalName": {
+          "type": "string"
+        },
+        "kerberosSignOnMappingAttributeType": {
+          "$ref": "#/definitions/microsoft.graph.kerberosSignOnMappingAttributeType"
+        }
+      }
+    },
     "microsoft.graph.groupAccessType": {
       "type": "string",
       "enum": [
@@ -1112,6 +1304,52 @@
         "private",
         "secret",
         "public"
+      ]
+    },
+    "microsoft.graph.MembershipRuleProcessingStatusDetails": {
+      "type": "string",
+      "enum": [
+        "NotStarted",
+        "Running",
+        "Failed",
+        "Succeeded",
+        "UnsupportedFutureValue"
+      ]
+    },
+    "microsoft.graph.weakAlgorithms": {
+      "type": "string",
+      "enum": [
+        "rsaSha1",
+        "unknownFutureValue"
+      ]
+    },
+    "microsoft.graph.externalAuthenticationType": {
+      "type": "string",
+      "enum": [
+        "passthru",
+        "aadPreAuthentication"
+      ]
+    },
+    "microsoft.graph.singleSignOnMode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "onPremisesKerberos",
+        "saml",
+        "pingHeaderBased",
+        "aadHeaderBased",
+        "oAuthToken",
+        "unknownFutureValue"
+      ]
+    },
+    "microsoft.graph.kerberosSignOnMappingAttributeType": {
+      "type": "string",
+      "enum": [
+        "userPrincipalName",
+        "onPremisesUserPrincipalName",
+        "userPrincipalUsername",
+        "onPremisesUserPrincipalUsername",
+        "onPremisesSAMAccountName"
       ]
     }
   },

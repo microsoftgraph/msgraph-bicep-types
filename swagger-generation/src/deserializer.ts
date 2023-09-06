@@ -118,8 +118,9 @@ const enumHandler = (rawEnumType: RawEnumType, namespace: string): void => {
     const currentEnumMap: Map<string, string> = new Map<string, string>()
 
     const enumName: string = rawEnumType.$.Name
-    const enumMembers: RawEnumMember[] = rawEnumType.Member
-    if(!enumMembers) return
+    let enumMembers: RawEnumMember[] = rawEnumType.Member
+    if(!enumMembers)
+        enumMembers = []
 
     enumMembers.forEach((enumMember: RawEnumMember) => {
         const enumMemberName: string = enumMember.$.Name
