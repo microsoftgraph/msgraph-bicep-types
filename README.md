@@ -5,37 +5,9 @@ This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and wil
 
 Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Azure and/or Identity resources.
 
-## Supported Microsoft Graph Bicep types
+The [releases page](https://github.com/microsoftgraph/msgraph-bicep-types/releases) provides details on the supported Microsoft Graph Bicep types, limitations and known issues for the private preview.
 
-* [Group](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta)
-  * Group membership
-  * Group ownership​
-* [Application​](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta)
-* [ServicePrincipal​](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta)
-* [Oauth2PermissionGrant](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta)
-* [AppRoleAssignedTo](./generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)
-
-## Limitations
-
-* Bicep types for Microsoft Graph /beta version only​.
-* Deployment requires a signed-in user (zero-touch deployment is not possible with this release)​.
-* Deployment in public cloud only.
-* `Oauth2PermissionGrant` and `AppRoleAssignedTo` do not have client-provided keys, so the use of "existing" is not possible for these resources.
-* Group membership and ownership is a non-destructive additive operation:
-  * "Create" can add a maximum of 20 "relationships" (members and/or owners).
-  * "Update" can add a maximum of 20 "relationships" (members and/or owners).
-* Deployment stacks are not supported (they aren't yet supported for the extension framework).
-
-## Known issues
-
-* Removing existing `appRoles` or `oauth2PermissionScopes` from their respective collections (on the `application` resource) and redeploying will fail, as an `appRole` or an `oauth2PermissionScope` needs to first be [disabled (via the `isEnabled` property)](https://learn.microsoft.com/graph/api/resources/approle?view=graph-rest-1.0#properties) before it can be deleted.
-  * Redeploying with additional `appRoles` (or `oauth2PermissionScopes`) added to the collection (in the template) is possible.
-  * If any `appRoles` or `oauth2PermissionScopes` need to be removed disable those items first in the template (and deploy), before removing those items from the collection in the template (and redeploy).
-* Creating `appRoles` or `oauth2PermissionScopes` requires the client to provide a GUID identifier in the request payload.
-These will need to be pre-generated and tracked in the template.
-* "Preview save" (pre-flight and what-if functionality) has very limited support:
-  * It has limited validation of the resource type name (and does not compare against API schema).
-  * It only returns the request's resource body in the response, rather than a review of the deployed resource body.
+To get going with the private preview, follow the instructions in [getting started](./docs/getting-started.md).
 
 ## Contributing
 
