@@ -7,7 +7,7 @@ import { EntityType } from "./definitions/EntityType";
 import { EnumType } from "./definitions/EnumType";
 import { Property } from "./definitions/Property";
 import { Reference } from "./definitions/Reference";
-import { Path, Product, Scheme, SecurityFlow, SecurityType, Swagger, SwaggerVersion } from "./definitions/Swagger";
+import { Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 export const writeSwagger = (): Swagger => {
@@ -27,24 +27,6 @@ export const writeSwagger = (): Swagger => {
         produces: [
             Product.application_json
         ],
-        security: [
-            {
-                "azure_auth": [
-                    "user_impersonation"
-                ]
-            }
-        ],
-        securityDefinitions: {
-            "azure_auth": {
-                type: SecurityType.oauth2,
-                authorizationUrl: "https://login.microsoftonline.com/common/oauth2/authorize",
-                flow: SecurityFlow.implicit,
-                description: "Azure Active Directory OAuth2 Flow.",
-                scopes: {
-                    "user_impersonation": "impersonate your user account"
-                }
-            }
-        },
         definitions: {},
         paths: {}
     }
@@ -169,7 +151,7 @@ const handleComplexProperties = (entity: EntityType, reference: Reference, entit
     const currentType: EntityType | undefined = DefinitionMap.Instance.EntityMap.get(reference.id)
     if(!currentType){ // There's no Complex Type with this id
         if(!isEnumReference(reference.id)){ // There isn't an Enum with this id
-            throw new Error(`Something is wrong: Entity ${entity.Name} references non-existent ${reference.id} and skipped validator check. Depth: ${reference.depth}`);
+            throw new Error(`Something went wrong: Entity ${entity.Name} references non-existent ${reference.id} and skipped validator check. Depth: ${reference.depth}`);
         } 
         enumReferences.set(reference.id, DefinitionMap.Instance.EnumMap.get(reference.id)!)
         return false;

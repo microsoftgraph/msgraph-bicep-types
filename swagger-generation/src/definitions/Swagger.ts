@@ -20,8 +20,6 @@ export interface Swagger{
     schemes: Scheme[],
     consumes: string[],
     produces: string[],
-    security: Security[],
-    securityDefinitions: SecurityDefinitions,
     definitions: Definitions | SchemasDefinitions,
     paths: Paths,
 }
@@ -33,22 +31,6 @@ export interface Info{
     version: string,
     description?: string,
     termsOfService?: string
-}
-
-export interface Security{
-    [key: string]: string[]
-}
-
-export interface SecurityDefinitions{
-    [key: string]: SecurityDefinition
-}
-
-export interface SecurityDefinition{
-    type: SecurityType,
-    authorizationUrl: string,
-    flow: SecurityFlow,
-    description: string,
-    scopes: Scopes
 }
 
 export interface Scopes{
