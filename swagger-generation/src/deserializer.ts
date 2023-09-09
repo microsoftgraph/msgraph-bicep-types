@@ -76,7 +76,7 @@ const propertyHandler = (rawProperty: RawProperty): Property => {
     const propertyNullable: boolean = propertyAttributes.Nullable ? propertyAttributes.Nullable : false
 
     //todo resolve undefined params
-    const property: Property = new Property(propertyName, typedPropertyType, undefined, propertyNullable, undefined)
+    const property: Property = new Property(propertyName, typedPropertyType, propertyNullable, undefined)
 
     return property
 }
@@ -89,7 +89,7 @@ const navigationPropertiesHandler = (rawNavigationProperty: RawNavigationPropert
     const navigationPropertyContainsTarget: boolean = navigationPropertyAttributes.ContainsTarget ? navigationPropertyAttributes.ContainsTarget : false
     
     //todo resolve undefined params
-    const navigationProperty: NavigationProperty = new NavigationProperty(navigationPropertyName, navigationPropertyType, undefined, navigationPropertyNullable, undefined, navigationPropertyContainsTarget)
+    const navigationProperty: NavigationProperty = new NavigationProperty(navigationPropertyName, navigationPropertyType, navigationPropertyNullable, undefined, navigationPropertyContainsTarget)
 
     return navigationProperty
 }
