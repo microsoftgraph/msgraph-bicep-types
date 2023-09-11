@@ -38,7 +38,7 @@ export interface Scopes{
 }
 
 export interface Definitions{
-    [key: string]: Definition
+    [key: string]: Definition | SwaggerEnum
 }
 
 export interface Definition{
@@ -47,6 +47,12 @@ export interface Definition{
     properties: Properties,
     required?: string[],
 }
+
+export interface SwaggerEnum{
+    type: string,
+    enum: string[],
+}
+
 
 export interface Properties{
     [key: string]: Property

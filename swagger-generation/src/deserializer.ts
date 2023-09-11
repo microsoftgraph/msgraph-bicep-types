@@ -123,6 +123,10 @@ const enumHandler = (definitionMap: DefinitionMap, rawEnumType: RawEnumType, nam
     if(!enumMembers)
         enumMembers = []
 
+    enumMembers = enumMembers.filter((enumMember: RawEnumMember) => {
+        return !(enumMember.$.Name.toLowerCase().includes('futurevalue'))
+    })
+
     enumMembers.forEach((enumMember: RawEnumMember) => {
         const enumMemberName: string = enumMember.$.Name
         const enumMemberValue: string = enumMember.$.Value

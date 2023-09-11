@@ -1366,15 +1366,13 @@
         "NotStarted",
         "Running",
         "Failed",
-        "Succeeded",
-        "UnsupportedFutureValue"
+        "Succeeded"
       ]
     },
     "microsoft.graph.weakAlgorithms": {
       "type": "string",
       "enum": [
-        "rsaSha1",
-        "unknownFutureValue"
+        "rsaSha1"
       ]
     },
     "microsoft.graph.externalAuthenticationType": {
@@ -1392,8 +1390,7 @@
         "saml",
         "pingHeaderBased",
         "aadHeaderBased",
-        "oAuthToken",
-        "unknownFutureValue"
+        "oAuthToken"
       ]
     },
     "microsoft.graph.kerberosSignOnMappingAttributeType": {
