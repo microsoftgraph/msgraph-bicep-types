@@ -10,7 +10,7 @@ import { Reference } from "./definitions/Reference";
 import { Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
-export const writeSwagger = (): Swagger => {
+export const writeSwagger = (definitionMap: DefinitionMap): Swagger => {
     const MAX_DEPTH = 15;
     const swagger: Swagger = {
         swagger: SwaggerVersion.v2,
@@ -41,7 +41,7 @@ export const writeSwagger = (): Swagger => {
     let addedReferences: number = 0
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
-        const entity: EntityType = DefinitionMap.Instance.EntityMap.get(id)! // Validator already checked this assertion
+        const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
         console.log("Writing swagger for " + id)
         entity.Property.forEach((property: Property) => {
@@ -51,7 +51,7 @@ export const writeSwagger = (): Swagger => {
 
             const reference: Reference = new Reference(referenceId, 0)
             
-            if(handleComplexProperties(entity, reference, entityReferences, enumReferences, entityReferencesQueue))
+            if(handleComplexProperties(definitionMap, entity, reference, entityReferences, enumReferences, entityReferencesQueue))
                 addedReferences++;
         });
 
@@ -74,7 +74,7 @@ export const writeSwagger = (): Swagger => {
 
             const reference: Reference = new Reference(referenceId, currentDepth + 1)
             
-            if(handleComplexProperties(currentEntity, reference, entityReferences, enumReferences, entityReferencesQueue))
+            if(handleComplexProperties(definitionMap, currentEntity, reference, entityReferences, enumReferences, entityReferencesQueue))
                 addedReferences++;
         });
     }
@@ -92,7 +92,7 @@ export const writeSwagger = (): Swagger => {
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
-        const entityName: string = DefinitionMap.Instance.EntityMap.get(id)!.Name
+        const entityName: string = definitionMap.EntityMap.get(id)!.Name
         const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
         const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`
         const path: Path = {
@@ -143,17 +143,13 @@ export const writeSwagger = (): Swagger => {
     return swagger
 };
 
-const isEnumReference = (referenceId: string): boolean => {
-    return DefinitionMap.Instance.EnumMap.has(referenceId)
-}
-
-const handleComplexProperties = (entity: EntityType, reference: Reference, entityReferences: Map<string,EntityType>, enumReferences: Map<string, EnumType>, referenceQueue: Reference[]): boolean => {
-    const currentType: EntityType | undefined = DefinitionMap.Instance.EntityMap.get(reference.id)
+const handleComplexProperties = (definitionMap: DefinitionMap, entity: EntityType, reference: Reference, entityReferences: Map<string,EntityType>, enumReferences: Map<string, EnumType>, referenceQueue: Reference[]): boolean => {
+    const currentType: EntityType | undefined = definitionMap.EntityMap.get(reference.id)
     if(!currentType){ // There's no Complex Type with this id
-        if(!isEnumReference(reference.id)){ // There isn't an Enum with this id
+        if(!definitionMap.EnumMap.has(reference.id)){ // There isn't an Enum with this id
             throw new Error(`Something went wrong: Entity ${entity.Name} references non-existent ${reference.id} and skipped validator check. Depth: ${reference.depth}`);
         } 
-        enumReferences.set(reference.id, DefinitionMap.Instance.EnumMap.get(reference.id)!)
+        enumReferences.set(reference.id, definitionMap.EnumMap.get(reference.id)!)
         return false;
     } 
     

@@ -8,11 +8,10 @@ import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerTypeStruct } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
 import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
-import { AliasTranslator } from "./util/aliasTranslator";
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
 
-export const constructDataStructure = (csdl: CSDL): void => {
+export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): DefinitionMap => {
     console.log('Deserializing CSDL')
 
     const dataServices: DataService[] = csdl["edmx:Edmx"]['edmx:DataServices']
@@ -30,23 +29,24 @@ export const constructDataStructure = (csdl: CSDL): void => {
             const rawEnumTypes: RawEnumType[] = schema.EnumType ? schema.EnumType : []
 
             if(alias){
-                AliasTranslator.Instance.setAlias(alias, namespace)
+                definitionMap.AliasMap.set(alias, namespace)
             }
 
-            rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(rawComplexType, namespace));
+            rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(definitionMap, rawComplexType, namespace));
 
-            rawEntityTypes.forEach((rawEntityType: RawEntityType) => entityHandler(rawEntityType, namespace));
+            rawEntityTypes.forEach((rawEntityType: RawEntityType) => entityHandler(definitionMap, rawEntityType, namespace));
 
-            rawEnumTypes.forEach((rawEnumType: RawEnumType) => enumHandler(rawEnumType, namespace));
+            rawEnumTypes.forEach((rawEnumType: RawEnumType) => enumHandler(definitionMap, rawEnumType, namespace));
        
         });
         
     });
 
-    console.log(`Found ${DefinitionMap.Instance.EntityMap.size} entity types in the CSDL`)
+    console.log(`Found ${definitionMap.EntityMap.size} entity types in the CSDL`)
 
-    if(DefinitionMap.Instance.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
-    
+    if(definitionMap.EntityMap.size === 0) throw new Error('No entity types found in the CSDL')
+
+    return definitionMap
 }
 
 const propertyHandler = (rawProperty: RawProperty): Property => {
@@ -94,7 +94,7 @@ const navigationPropertiesHandler = (rawNavigationProperty: RawNavigationPropert
     return navigationProperty
 }
 
-const entityHandler = (rawEntityType: RawEntityType, namespace: string): void => {
+const entityHandler = (definitionMap: DefinitionMap, rawEntityType: RawEntityType, namespace: string): void => {
     const entityAttributes: RawEntityTypeAttributes = rawEntityType.$
     const entityName: string = entityAttributes.Name
 
@@ -112,10 +112,10 @@ const entityHandler = (rawEntityType: RawEntityType, namespace: string): void =>
     const entityType: EntityType = new EntityType(entityName, abstract, baseType, openType, hasStream, properties, navigationProperties)
     const id = `${namespace}.${entityName}`
 
-    DefinitionMap.Instance.EntityMap.set(id, entityType)
+    definitionMap.EntityMap.set(id, entityType)
 }
 
-const enumHandler = (rawEnumType: RawEnumType, namespace: string): void => {
+const enumHandler = (definitionMap: DefinitionMap, rawEnumType: RawEnumType, namespace: string): void => {
     const currentEnumMap: Map<string, string> = new Map<string, string>()
 
     const enumName: string = rawEnumType.$.Name
@@ -130,5 +130,5 @@ const enumHandler = (rawEnumType: RawEnumType, namespace: string): void => {
     });
     const enumType = new EnumType(enumName, currentEnumMap)
     const id = `${namespace}.${enumName}`
-    DefinitionMap.Instance.EnumMap.set(id, enumType)
+    definitionMap.EnumMap.set(id, enumType)
 }

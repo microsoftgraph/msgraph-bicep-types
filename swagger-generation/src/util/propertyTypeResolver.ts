@@ -14,8 +14,9 @@ export const resolvePropertyTypeToReference = (property: Property): string | und
         propertyType = propertyType as PrimitiveSwaggerTypeStruct | string; // Not collection
     }
 
-    if(propertyType instanceof PrimitiveSwaggerTypeStruct) // if type is primitive, can't resolve
+    if(propertyType instanceof PrimitiveSwaggerTypeStruct || typeof propertyType !== "string"){// if type is primitive or any other object, can't resolve
         return undefined
+    }
 
     return propertyType;
 }

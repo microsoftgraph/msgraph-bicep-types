@@ -9,17 +9,19 @@ import { Swagger } from './definitions/Swagger'
 import { writeSwagger } from './swaggerWritter'
 import fs from 'fs'
 import { validateReferences } from './validator'
+import { DefinitionMap } from './definitions/DefinitionMap'
 
 
 console.log("Fetching MSGraph metadata CSDL")
 parseXML(Config.Instance.URL)
     .then((csdl: CSDL) => { // This process uses singletons for Config, DefinitionMap, and AliasTranslator
+        let definitionMap: DefinitionMap = new DefinitionMap()
 
-        constructDataStructure(csdl)
+        definitionMap = constructDataStructure(csdl, definitionMap)
 
-        validateReferences()
+        definitionMap = validateReferences(definitionMap)
 
-        const swagger: Swagger = writeSwagger()
+        const swagger: Swagger = writeSwagger(definitionMap)
 
         const swaggerJson: string = JSON.stringify(swagger, null, 2)
 

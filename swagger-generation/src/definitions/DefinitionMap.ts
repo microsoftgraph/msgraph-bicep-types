@@ -11,20 +11,21 @@ export interface EnumMap extends Map<string, EnumType>{}
 
 export interface EntityTypeConfigMap extends Map<string, EntityTypeConfig>{}
 
+export interface AliasMap extends Map<string, string>{}
+
 export class DefinitionMap{
-    private static _instance: DefinitionMap;
 
     EntityMap: EntityMap;
     EnumMap: EnumMap;
+    AliasMap: AliasMap = new Map<string, string>();
 
-    private constructor() {
+    constructor() {
         const entityMap: EntityMap = new Map<string, EntityType>()
         const enumMap: EnumMap = new Map<string, EnumType>()
+        const aliasMap: AliasMap = new Map<string, string>()
         this.EntityMap = entityMap;
         this.EnumMap = enumMap;
+        this.AliasMap = aliasMap;
     }  
 
-    public static get Instance(): DefinitionMap {
-        return this._instance || (this._instance = new this())
-    }
 }
