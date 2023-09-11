@@ -14,7 +14,7 @@ import { EnumType } from "./definitions/EnumType";
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): DefinitionMap => {
     console.log('Deserializing CSDL')
 
-    const dataServices: DataService[] = csdl["edmx:Edmx"]['edmx:DataServices']
+    const dataServices: DataService[] = csdl['edmx:Edmx']['edmx:DataServices']
 
     dataServices.forEach((dataService: DataService) => {
 

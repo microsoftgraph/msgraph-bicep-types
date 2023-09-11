@@ -47,10 +47,7 @@ export const propertyHandler = (definitionMap: DefinitionMap, entity: EntityType
     const isEnum: boolean = definitionMap.EnumMap.has(propertyType);
     const isEntity: boolean = definitionMap.EntityMap.has(propertyType);
 
-    if(isEntity) // There's an entity with this id
-        return;
-
-    if(isEnum) // There's an enum with this id
+    if(isEntity || isEnum) // There's an entity or enum with this id
         return;
 
     const propertyMetaName: string[] = propertyType.split('.')

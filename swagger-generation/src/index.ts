@@ -12,7 +12,7 @@ import { validateReferences } from './validator'
 import { DefinitionMap } from './definitions/DefinitionMap'
 
 
-console.log("Fetching MSGraph metadata CSDL")
+console.log("Fetching MSGraph metadata CSDL from " + Config.Instance.URL + "...")
 parseXML(Config.Instance.URL)
     .then((csdl: CSDL) => { // This process uses singletons for Config, DefinitionMap, and AliasTranslator
         let definitionMap: DefinitionMap = new DefinitionMap()
