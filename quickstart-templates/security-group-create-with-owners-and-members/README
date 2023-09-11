@@ -5,6 +5,7 @@ This template allows you to create a security group with members and owners. Bot
 - A managed identity is created and added to the members
 
 You can deploy the template with the following Azure CLI command (replace `<resource-group>` with the name of your resource group):
+
 ```
 az deployment group create --resource-group <resource-group> --template-file main.bicep
 ```

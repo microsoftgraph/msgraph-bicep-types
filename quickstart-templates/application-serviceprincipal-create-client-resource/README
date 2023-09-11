@@ -4,6 +4,7 @@ This template allows you to create a client application and a resource applicati
 - The resource application is created with an optional app role. The id for the app role can be passed in as a parameter.
 
 You can deploy the template with the following Azure CLI command (replace `<resource-group>`, `<app-role-id>` and `<cert-key>` with the necessary values for your deployment):
+
 ```
 az deployment group create --resource-group <resource-group> --template-file main.bicep --parameters appRoleId='<app-role-id>' certKey='<cert-key>'
 ```
