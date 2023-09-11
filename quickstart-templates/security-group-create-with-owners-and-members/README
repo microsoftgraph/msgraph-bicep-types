@@ -1,4 +1,4 @@
-<b>Note</b>: This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
+**Note**: This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
 
 This template allows you to create a security group with members and owners. Both `members` and `owners` take a list of object ids.
 - The resource service principal created in [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/) is added to the owners

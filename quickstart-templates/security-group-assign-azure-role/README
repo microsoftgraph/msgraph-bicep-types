@@ -1,4 +1,4 @@
-<b>Note</b>: This template depends on a successful deployment of [security-group-create-with-owners-and-members](../security-group-create-with-owners-and-members)
+**Note**: This template depends on a successful deployment of [security-group-create-with-owners-and-members](../security-group-create-with-owners-and-members)
 
 This template allows you to assign an Azure Reader role to an existing security group.
 - The Reader role definition ID is set as parameter in the template. You can find other Azure built-in roles [here](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles)
