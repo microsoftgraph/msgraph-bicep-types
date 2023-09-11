@@ -190,7 +190,24 @@ const csdl: CSDL = {
                                     Value: 'enumMemberValue'
                                 },
                             },
-
+                            {
+                                $: {
+                                    Name: 'enumMemberName2',
+                                    Value: 'enumMemberValue2'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'unknownFutureValue',
+                                    Value: 'unknownFutureValue'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'UnsupportedFutureValue',
+                                    Value: 'UnsupportedFutureValue'
+                                },
+                            }
                         ],
                     },
                 ],
@@ -315,6 +332,18 @@ describe('constructDataStructure', () => {
         expect(definitionMap.EntityMap.get('namespace.fakeEntityName')).toBeUndefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
+    });
+
+    it('should filter enums with sentinel values', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EnumMap.size).toBe(1);
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.size).toBe(2);
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('enumMemberName')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('enumMemberName2')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('unknownFutureValue')).toBeUndefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('UnsupportedFutureValue')).toBeUndefined();
     });
 });
 
