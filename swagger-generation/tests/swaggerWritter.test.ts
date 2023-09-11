@@ -1,9 +1,10 @@
-import { EntityMap } from '../src/definitions/DefinitionMap';
+import { DefinitionMap, EntityMap } from '../src/definitions/DefinitionMap';
 import { EntityType } from '../src/definitions/EntityType';
 import { Config, EntityTypeConfig } from '../src/config';
 import { Property } from '../src/definitions/Property';
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from '../src/definitions/PrimitiveSwaggerType';
-import { Scheme, Swagger, SwaggerVersion, Product, SecurityType, SecurityFlow } from '../src/definitions/Swagger';
+import { Scheme, Swagger, SwaggerVersion, Product } from '../src/definitions/Swagger';
+import { CollectionProperty } from '../src/definitions/CollectionProperty';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -30,33 +31,38 @@ jest.mock('../src/config', () => {
   return { Config };
 })
 
-describe('writeSwagger', () => {
+describe('generate swagger with primitive types', () => {
+    jest.mock('../src/util/propertyTypeResolver', () => {
+        const mockPropertyType = jest.requireActual('../src/util/propertyTypeResolver');
+        return {
+            resolvePropertyTypeToReference: jest.fn(mockPropertyType.resolvePropertyTypeToReference)
+        }
+    });
+
     let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
-    let definitionMap: typeof import('../src/definitions/DefinitionMap').DefinitionMap;
 
     beforeEach(() => {
         jest.resetModules();
         writeSwagger = require('../src/swaggerWritter').writeSwagger;
-        definitionMap = require('../src/definitions/DefinitionMap').DefinitionMap;
     });
 
-    it('should generate Swagger object', () => {
+    it('should generate swagger for entities with primitive properties', () => {
+        const definitionMap: DefinitionMap = new DefinitionMap();
         const entityMap: EntityMap = new Map<string, EntityType>();
         const properties: Property[] = [
-            new Property('contentBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary), false, false, false),
-            new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), false, false, false),
-            new Property('caseStatus', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte), false, false, false),
-            new Property('startDate', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date), false, false, false),
-            new Property('effectiveDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), false, false, false),
-            new Property('balanceDue', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float), false, false, false),
-            new Property('weight', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double), false, false, false),
-            new Property('duration', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
-            new Property('callChainId', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
-            new Property('disc', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false, false),
-            new Property('version', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false, false),
-            new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), false, false, false),
-            new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false, false),
-            new Property('fakeProp', 'fakeType', false, false, false)
+            new Property('contentBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary), false, false),
+            new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), false, false),
+            new Property('caseStatus', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte), false, false),
+            new Property('startDate', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date), false, false),
+            new Property('effectiveDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), false, false),
+            new Property('balanceDue', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float), false, false),
+            new Property('weight', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double), false, false),
+            new Property('duration', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
+            new Property('callChainId', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
+            new Property('disc', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false),
+            new Property('version', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false),
+            new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), false, false),
+            new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
         ];
 
 
@@ -79,24 +85,6 @@ describe('writeSwagger', () => {
             "produces": [
                 Product.application_json
             ],
-            "security": [
-            {
-                "azure_auth": [
-                "user_impersonation"
-                ]
-            }
-            ],
-            "securityDefinitions": {
-                "azure_auth": {
-                    "type": SecurityType.oauth2,
-                    "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
-                    "flow": SecurityFlow.implicit,
-                    "description": "Azure Active Directory OAuth2 Flow.",
-                    "scopes": {
-                    "user_impersonation": "impersonate your user account"
-                    }
-                }
-            },
             "definitions": {
                 "microsoft.graph.entityNameOne": {
                     "type": "object",
@@ -106,7 +94,7 @@ describe('writeSwagger', () => {
                         },
                         "contentBytes": {
                             "type": "string",
-                            "format": "binary"
+                            "format": "base64url"
                         },
                         "isEnabled": {
                             "type": "boolean"
@@ -149,9 +137,6 @@ describe('writeSwagger', () => {
                             "type": "integer",
                             "format": "int64"
                         },
-                        "fakeProp": {
-                            "type": "fakeType"
-                        }
                     }
                 },
             },
@@ -200,9 +185,329 @@ describe('writeSwagger', () => {
             }
         };
 
-        definitionMap.Instance.EntityMap = entityMap;
+        definitionMap.EntityMap = entityMap;
 
-        expect(writeSwagger()).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
 
     });
+
+    it('should generate swagger for entities with collections of primitive properties', () => {
+        const definitionMap: DefinitionMap = new DefinitionMap();
+        const entityMap: EntityMap = new Map<string, EntityType>();
+        const properties: Property[] = [
+            new Property('contentBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary)), true, false),
+            new Property('isEnabled', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined)), true, false),
+            new Property('caseStatus', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte)), true, false),
+            new Property('startDate', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date)), true, false),
+            new Property('effectiveDateTime', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime)), true, false),
+            new Property('balanceDue', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float)), true, false),
+            new Property('weight', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double)), true, false),
+            new Property('duration', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
+            new Property('callChainId', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
+            new Property('disc', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), true, false),
+            new Property('version', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), true, false),
+            new Property('freeStorageSpaceInBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64)), true, false),
+            new Property('id', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
+        ];
+
+        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+
+        entityMap.set('microsoft.graph.entityNameOne', entity);
+
+        const expectedSwagger: Swagger = {
+            "swagger": SwaggerVersion.v2,
+            "info": {
+            "title": "Microsoft Graph",
+            "version": "beta"
+            },
+            "schemes": [
+                Scheme.https
+            ],
+            "consumes": [
+                Product.application_json
+            ],
+            "produces": [
+                Product.application_json
+            ],
+            "definitions": {
+                "microsoft.graph.entityNameOne": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "contentBytes": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "base64url"
+                            }
+                        },
+                        "isEnabled": {
+                            "type": "array",
+                            "items": {
+                                "type": "boolean"
+                            }
+                        },
+                        "caseStatus": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "byte"
+                            }
+                        },
+                        "startDate": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        },
+                        "effectiveDateTime": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "balanceDue": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "format": "float"
+                            }
+                        },
+                        "weight": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "format": "double"
+                            }
+                        },
+                        "duration": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "callChainId": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "disc": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "version": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "freeStorageSpaceInBytes": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        },
+                    }
+                },
+            },
+            "paths": {
+                "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+                    "put": {
+                        "tags": [
+                            "entityNameOnes"
+                        ],
+                        "description": "Create or update a entityNameOne",
+                        "operationId": "entityNameOnes_Put",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "body",
+                                "name": "entityNameOne",
+                                "description": "The entityNameOne to be created or updated",
+                                "required": true,
+                                "schema": {
+                                    "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            },
+                            {
+                                "in": "path",
+                                "description": "The id of the entityNameOne",
+                                "name": "entityNameOneId",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "entityNameOne created/updated successfully",
+                                "schema": {
+                                    "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+        };
+
+        definitionMap.EntityMap = entityMap;
+
+        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+    });
+});
+
+describe('complexTypes', () => {
+    jest.mock('../src/util/propertyTypeResolver', () => {
+        const mockPropertyType = jest.requireActual('../src/util/propertyTypeResolver');
+        return {
+            resolvePropertyTypeToReference: jest.fn(mockPropertyType.resolvePropertyTypeToReference)
+        }
+    });
+
+    let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
+
+    beforeEach(() => {
+        jest.resetModules();
+        writeSwagger = require('../src/swaggerWritter').writeSwagger;
+    }
+
+    );
+
+    it('should generate swagger for entities with complex nested types', () => {
+        const definitionMap: DefinitionMap = new DefinitionMap();
+        const entityMap: EntityMap = new Map<string, EntityType>();
+        const properties: Property[] = [
+            new Property('contentBytes', 'microsoft.graph.entityNameTwo', false, false),
+            new Property('isEnabled', 'microsoft.graph.entityNameThree', false, false),
+        ];
+        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+
+        const propertiesComplexOne: Property[] = [
+            new Property('propertyOne', 'microsoft.graph.entityNameFour', false, false),
+        ];
+        const complexTypeOne: EntityType = new EntityType('entityNameTwo', false, undefined, undefined, undefined, propertiesComplexOne, [])
+        
+        const entityComplexTwo: EntityType = new EntityType('entityNameThree', false, undefined, undefined, undefined, [], [])
+
+        const entityComplexThree: EntityType = new EntityType('entityNameFour', false, undefined, undefined, undefined, [], [])
+        
+        entityMap.set('microsoft.graph.entityNameOne', entity);
+        entityMap.set('microsoft.graph.entityNameTwo', complexTypeOne);
+        entityMap.set('microsoft.graph.entityNameThree', entityComplexTwo);
+        entityMap.set('microsoft.graph.entityNameFour', entityComplexThree);
+
+        const expectedSwagger: Swagger = {
+            swagger: SwaggerVersion.v2,
+            info: {
+            title: "Microsoft Graph",
+            version: "beta"
+            },
+            schemes: [
+                Scheme.https
+            ],
+            consumes: [
+                Product.application_json
+            ],
+            produces: [
+                Product.application_json
+            ],
+            definitions: {
+                "microsoft.graph.entityNameOne": {
+                    type: "object",
+                    properties: {
+                        "contentBytes": {
+                            $ref: "#/definitions/microsoft.graph.entityNameTwo"
+                        },
+                        "isEnabled": {
+                            $ref: "#/definitions/microsoft.graph.entityNameThree"
+                        }
+                    }
+                },
+                "microsoft.graph.entityNameTwo": {
+                    type: "object",
+                    properties: {
+                        "propertyOne": {
+                            $ref: "#/definitions/microsoft.graph.entityNameFour"
+                        }
+                    }
+                },
+                "microsoft.graph.entityNameThree": {
+                    type: "object",
+                    properties: {}
+                },
+                "microsoft.graph.entityNameFour": {
+                    type: "object",
+                    properties: {}
+                }
+            },
+            paths: {
+                "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+                    put: {
+                        tags: [
+                        "entityNameOnes"
+                        ],
+                        description: "Create or update a entityNameOne",
+                        operationId: "entityNameOnes_Put",
+                        consumes: [
+                            "application/json"
+                        ],
+                        produces: [
+                            "application/json"
+                        ],
+                        parameters: [
+                        {
+                            in: "body",
+                            name: "entityNameOne",
+                            description: "The entityNameOne to be created or updated",
+                            required: true,
+                            schema: {
+                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            }
+                        },
+                        {
+                            in: "path",
+                            description: "The id of the entityNameOne",
+                            name: "entityNameOneId",
+                            required: true,
+                            type: "string"
+                        }
+                        ],
+                        responses: {
+                        "200": {
+                            description: "entityNameOne created/updated successfully",
+                            schema: {
+                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            }
+                        }
+                        }
+                    }
+                },
+            }
+        };
+
+        definitionMap.EntityMap = entityMap;
+
+        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+
+    });
+
+    
 });
