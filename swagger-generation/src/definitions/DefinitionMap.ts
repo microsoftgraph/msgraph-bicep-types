@@ -17,7 +17,7 @@ export class DefinitionMap{
 
     EntityMap: EntityMap;
     EnumMap: EnumMap;
-    AliasMap: AliasMap = new Map<string, string>();
+    AliasMap: AliasMap;
 
     constructor() {
         const entityMap: EntityMap = new Map<string, EntityType>()

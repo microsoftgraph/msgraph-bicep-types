@@ -147,7 +147,7 @@ const handleComplexProperties = (definitionMap: DefinitionMap, entity: EntityTyp
     const currentType: EntityType | undefined = definitionMap.EntityMap.get(reference.id)
     if(!currentType){ // There's no Complex Type with this id
         if(!definitionMap.EnumMap.has(reference.id)){ // There isn't an Enum with this id
-            throw new Error(`Something went wrong: Entity ${entity.Name} references non-existent ${reference.id} and skipped validator check. Depth: ${reference.depth}`);
+            throw new Error(`Reference Error: Entity ${entity.Name} references non-existent ${reference.id} and skipped validator check. Depth: ${reference.depth}`);
         } 
         enumReferences.set(reference.id, definitionMap.EnumMap.get(reference.id)!)
         return false;
