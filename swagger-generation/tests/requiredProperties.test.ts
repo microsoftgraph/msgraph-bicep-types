@@ -1,8 +1,8 @@
-import { DefinitionMap } from "../src/definitions/DefinitionMap";
 import { CSDL } from "../src/definitions/RawTypes";
-import { constructDataStructure } from "../src/deserializer";
 import { Config, EntityTypeConfig } from "../src/config";
-import { Swagger } from "../src/definitions/Swagger";
+import { Definition, Swagger } from "../src/definitions/Swagger";
+import { EntityType } from "../src/definitions/EntityType";
+import { DefinitionMap } from "../src/definitions/DefinitionMap";
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -83,7 +83,21 @@ const csdl: CSDL = {
                                     }
                                 ],
                                 NavigationProperty: []
-                            }
+                            },
+                            {
+                                $: {
+                                    Name: 'entityNameTwo',
+                                },
+                                Property: [
+                                    {
+                                        $: {
+                                            Name: 'propertyName',
+                                            Type: 'Edm.String'
+                                        },
+                                    },
+                                ],
+                                NavigationProperty: []
+                            },
                         ],
                     },
                 ],
@@ -93,25 +107,28 @@ const csdl: CSDL = {
 };
 
 describe("when required properties are not real", () => {
-
-    let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
+    
+    let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;    
 
     beforeEach(() => {
         jest.resetModules();
         writeSwagger = require('../src/swaggerWritter').writeSwagger;
+        constructDataStructure = require('../src/deserializer').constructDataStructure;
     });
 
     it("should throw an error", () => {
-        const definitionMap: DefinitionMap = new DefinitionMap()
+        let definitionMap: DefinitionMap = new DefinitionMap();
 
-        constructDataStructure(csdl, definitionMap)
+        definitionMap = constructDataStructure(csdl, definitionMap)
 
-        expect(() => writeSwagger(definitionMap.EntityMap)).toThrowError("Required property fakeProp not found in entityNameOne")
+        expect(() => writeSwagger(definitionMap)).toThrowError("Something went wrong: Entity entityNameOne references non-existent Edm.Test and skipped validator check. Depth: 0")
     })
 })
 
 describe("when required properties are real", () => {
 
+    let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
     let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
 
     beforeEach(() => {
@@ -129,19 +146,24 @@ describe("when required properties are real", () => {
             return { Config: mockConfiguration };
         })
 
+        constructDataStructure = require('../src/deserializer').constructDataStructure;
         writeSwagger = require('../src/swaggerWritter').writeSwagger;
     });
 
     it("should not throw an error", () => {
-        const definitionMap: DefinitionMap = new DefinitionMap()
+        let definitionMap: DefinitionMap = new DefinitionMap();
 
-        constructDataStructure(csdl, definitionMap)
+        definitionMap.EntityMap.set('Edm.Test', new EntityType('Test', false, undefined, undefined, undefined, [], []))
 
-        expect(() => writeSwagger(definitionMap.EntityMap)).not.toThrowError()
+        definitionMap = constructDataStructure(csdl, definitionMap)
 
-        const swagger: Swagger = writeSwagger(definitionMap.EntityMap)
+        expect(() => writeSwagger(definitionMap)).not.toThrowError()
 
-        expect(swagger.definitions['namespace.entityNameOne'].required).toContain('propertyName')
+        const swagger: Swagger = writeSwagger(definitionMap)
+
+        const definition: Definition = swagger.definitions['namespace.entityNameOne'] as Definition
+
+        expect(definition.required).toContain('propertyName')
 
     })
 })

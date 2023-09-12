@@ -15,38 +15,38 @@ export interface DataService {
 
 export interface RawSchema {
     $: RawSchemaAttributes,
-    EnumType?: object[],
+    EnumType?: RawEnumType[],
     EntityType?: RawEntityType[],
-    ComplexType?: object[],
-    EntityContainer?: EntityContainerRaw[]
-}
-
-export interface EntityContainerRaw {
-    $: EntityContainerRawAttributes,
-    EntitySet?: EntitySetRaw[],
-}
-
-export interface EntityContainerRawAttributes {
-    Name: string
-}
-
-export interface EntitySetRaw {
-    $: EntitySetRawAttributes
-}
-
-export interface EntitySetRawAttributes {
-    Name: string,
-    EntityType: string
+    ComplexType?: RawEntityType[]
 }
 
 export interface RawSchemaAttributes {
     Namespace: string
+    Alias?: string
 }
 
 export interface RawEntityType {
     $: RawEntityTypeAttributes,
     Property: RawProperty[],
     NavigationProperty: RawNavigationProperty[]
+}
+
+export interface RawEnumType {
+    $: RawEnumTypeAttributes,
+    Member: RawEnumMember[]
+}
+
+export interface RawEnumTypeAttributes {
+    Name: string
+}
+
+export interface RawEnumMember {
+    $: RawEnumMemberAttributes
+}
+
+export interface RawEnumMemberAttributes {
+    Name: string,
+    Value: string
 }
 
 export interface RawEntityTypeAttributes {

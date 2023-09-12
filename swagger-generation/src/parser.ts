@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Library imports
 import {parseStringPromise} from 'xml2js'
 import { CSDL } from './definitions/RawTypes'
 
