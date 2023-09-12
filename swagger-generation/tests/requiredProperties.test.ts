@@ -3,43 +3,8 @@ import { Config, EntityTypeConfig } from "../src/config";
 import { Definition, Swagger } from "../src/definitions/Swagger";
 import { EntityType } from "../src/definitions/EntityType";
 import { DefinitionMap } from "../src/definitions/DefinitionMap";
-
-const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-entityTypes.set('namespace.entityNameOne', {
-    Name: 'namespace.entityNameOne',
-    RootUri: '/entityNameOnes',
-    NavigationProperty: [],
-    RequiredOnWrite: [
-        "fakeProp",
-    ],
-} as EntityTypeConfig);
-
-const entityTypesTwo: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-entityTypesTwo.set('namespace.entityNameOne', {
-    Name: 'namespace.entityNameOne',
-    RootUri: '/entityNameOnes',
-    NavigationProperty: [],
-    RequiredOnWrite: [
-        "propertyName",
-    ],
-} as EntityTypeConfig);
-
-
-
-jest.mock('../src/config', () => {
-    const mockConfiguration = class {
-        public static get Instance(): Config {
-            return {
-                EntityTypes: entityTypes,
-                URL: 'https://example.com',
-                APIVersion: 'beta'
-            }
-        }
-    }
-    return { Config: mockConfiguration };
-})
+import { constructDataStructure } from "../src/deserializer";
+import { writeSwagger } from "../src/swaggerWritter";
 
 const csdl: CSDL = {
     'edmx:Edmx': {
@@ -107,59 +72,60 @@ const csdl: CSDL = {
 };
 
 describe("when required properties are not real", () => {
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
     
-    let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
-    let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;    
+    entityTypes.set('namespace.entityNameOne', {
+        Name: 'namespace.entityNameOne',
+        RootUri: '/entityNameOnes',
+        NavigationProperty: [],
+        RequiredOnWrite: [
+            "fakeProp",
+        ],
+    } as EntityTypeConfig);
 
-    beforeEach(() => {
-        jest.resetModules();
-        writeSwagger = require('../src/swaggerWritter').writeSwagger;
-        constructDataStructure = require('../src/deserializer').constructDataStructure;
-    });
+    const config = {
+        EntityTypes: entityTypes,
+        URL: 'https://example.com',
+        APIVersion: 'beta'
+    } as Config;
 
     it("should throw an error", () => {
         let definitionMap: DefinitionMap = new DefinitionMap();
 
-        definitionMap = constructDataStructure(csdl, definitionMap)
+        definitionMap = constructDataStructure(csdl, definitionMap, config)
 
-        expect(() => writeSwagger(definitionMap)).toThrowError("Something went wrong: Entity entityNameOne references non-existent Edm.Test and skipped validator check. Depth: 0")
+        expect(() => writeSwagger(definitionMap, config)).toThrowError("Reference Error: Entity entityNameOne references non-existent Edm.Test and skipped validator check. Depth: 0")
     })
 })
 
 describe("when required properties are real", () => {
+    const entityTypesTwo: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
-    let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
-    let writeSwagger: typeof import('../src/swaggerWritter').writeSwagger;
+    entityTypesTwo.set('namespace.entityNameOne', {
+        Name: 'namespace.entityNameOne',
+        RootUri: '/entityNameOnes',
+        NavigationProperty: [],
+        RequiredOnWrite: [
+            "propertyName",
+        ],
+    } as EntityTypeConfig);
 
-    beforeEach(() => {
-        jest.resetModules();
-        jest.mock('../src/config', () => {
-            const mockConfiguration = class {
-                public static get Instance(): Config {
-                    return {
-                        EntityTypes: entityTypesTwo,
-                        URL: 'https://example.com',
-                        APIVersion: 'beta'
-                    }
-                }
-            }
-            return { Config: mockConfiguration };
-        })
-
-        constructDataStructure = require('../src/deserializer').constructDataStructure;
-        writeSwagger = require('../src/swaggerWritter').writeSwagger;
-    });
+    const config = {
+        EntityTypes: entityTypesTwo,
+        URL: 'https://example.com',
+        APIVersion: 'beta'
+    } as Config;
 
     it("should not throw an error", () => {
         let definitionMap: DefinitionMap = new DefinitionMap();
 
         definitionMap.EntityMap.set('Edm.Test', new EntityType('Test', false, undefined, undefined, undefined, [], []))
 
-        definitionMap = constructDataStructure(csdl, definitionMap)
+        definitionMap = constructDataStructure(csdl, definitionMap, config)
 
-        expect(() => writeSwagger(definitionMap)).not.toThrowError()
+        expect(() => writeSwagger(definitionMap, config)).not.toThrowError()
 
-        const swagger: Swagger = writeSwagger(definitionMap)
+        const swagger: Swagger = writeSwagger(definitionMap, config)
 
         const definition: Definition = swagger.definitions['namespace.entityNameOne'] as Definition
 

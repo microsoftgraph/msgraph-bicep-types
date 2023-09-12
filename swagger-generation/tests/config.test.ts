@@ -25,7 +25,7 @@ describe('Config', () => {
     
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    const config = Config.Instance;
+    const config = new Config();
 
     const map = new Map<string, EntityTypeConfig>();
     map.set('microsoft.graph.EntityTypeOne', {

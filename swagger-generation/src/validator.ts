@@ -8,9 +8,8 @@ import { EntityType } from "./definitions/EntityType";
 import { Property } from "./definitions/Property";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
-export const validateReferences = (definitionMap: DefinitionMap): DefinitionMap => {
+export const validateReferences = (definitionMap: DefinitionMap, config: Config): DefinitionMap => {
     console.log("Validating references")
-    const config: Config = Config.Instance;
 
     config.EntityTypes.forEach(entityType => {
         const entity: EntityType | undefined = definitionMap.EntityMap.get(entityType.Name);

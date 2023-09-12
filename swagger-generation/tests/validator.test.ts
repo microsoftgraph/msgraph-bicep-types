@@ -14,19 +14,12 @@ entityTypes.set('namespace.entityNameOne', {
     NavigationProperty: []
 } as EntityTypeConfig);
 
-jest.mock('../src/config', () => {
-    const mockConfig = class {
-        public static get Instance(): Config {
-            return {
-                EntityTypes: entityTypes,
-                URL: 'https://example.com',
-                APIVersion: 'beta'
-            }
-        }
-    }
+const config = {
+    EntityTypes: entityTypes,
+    URL: 'https://example.com',
+    APIVersion: 'beta'
+} as Config;
 
-    return { Config: mockConfig };
-})
 
 describe("alias need to be resolved", () => {
 
@@ -44,7 +37,6 @@ describe("alias need to be resolved", () => {
             replaceAlias: jest.fn(mockValidator.replaceAlias),
         }
     });
-
 
     beforeEach(() => {
         jest.resetModules();
@@ -80,7 +72,7 @@ describe("alias need to be resolved", () => {
         definitionMap.AliasMap.set('n1', 'namespace');
         definitionMap.AliasMap.set('n2', 'namespaceTwo');
 
-        definitionMap = validateReferences(definitionMap);
+        definitionMap = validateReferences(definitionMap, config);
 
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')!.Property[0].Type).toBe('namespace.entityNameTwo');
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')!.Property[1].Type).toBe(PrimitiveSwaggerType.Instance.Binary);

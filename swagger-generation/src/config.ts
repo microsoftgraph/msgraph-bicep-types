@@ -14,14 +14,11 @@ export interface EntityTypeConfig{
 }
 
 export class Config {
-
-    private static _instance: Config
-
     EntityTypes: EntityTypeConfigMap
     URL: string
     APIVersion: string
 
-    private constructor() {
+    constructor() {
         const configFile = readFileSync('./config.yaml', 'utf8')
         const configFileObj = parse(configFile)
         const entityTypesMap: EntityTypeConfigMap = new Map<string, EntityTypeConfig>()
@@ -34,9 +31,5 @@ export class Config {
         this.EntityTypes = entityTypesMap
         this.URL = configFileObj['URL']
         this.APIVersion = configFileObj['apiVersion']
-    }
-
-    public static get Instance(): Config {
-        return this._instance || (this._instance = new this())
     }
 }
