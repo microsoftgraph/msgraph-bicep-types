@@ -40,10 +40,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
 
     let addedReferences: number = 0
 
-    console.log(definitionMap.EntityMap.size)
-    console.log(definitionMap.EntityMap.keys())
     config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
-        console.log(id)
         const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
         console.log("Writing swagger for " + id)

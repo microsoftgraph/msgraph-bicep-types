@@ -82,7 +82,6 @@ const propertyHandler = (config: Config, rawProperty: RawProperty, entityName: s
         const readOnlyProps: string[] | undefined = entity.ReadOnly
         if(readOnlyProps){
             isReadOnly = readOnlyProps.includes(propertyName)
-            console.log(`Property ${propertyName} is read only: ${isReadOnly}`)
         }
     }
     
