@@ -10,6 +10,7 @@ import { Property } from "./definitions/Property";
 import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
+import { Config, EntityTypeConfig } from "./config";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap): DefinitionMap => {
     console.log('Deserializing CSDL')
@@ -49,7 +50,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap)
     return definitionMap
 }
 
-const propertyHandler = (rawProperty: RawProperty): Property => {
+const propertyHandler = (rawProperty: RawProperty, entityName: string): Property => {
     const propertyAttributes: RawPropertyAttributes = rawProperty.$
     const propertyName: string = propertyAttributes.Name
     let propertyType: string = propertyAttributes.Type
@@ -75,8 +76,16 @@ const propertyHandler = (rawProperty: RawProperty): Property => {
      
     const propertyNullable: boolean = propertyAttributes.Nullable ? propertyAttributes.Nullable : false
 
-    //todo resolve undefined params
-    const property: Property = new Property(propertyName, typedPropertyType, propertyNullable, undefined)
+    let isReadOnly: boolean = false
+    const entity: EntityTypeConfig | undefined = Config.Instance.EntityTypes.get(entityName)
+    if(entity){
+        const readOnlyProps: string[] | undefined = entity.ReadOnly
+        if(readOnlyProps){
+            isReadOnly = readOnlyProps.includes(propertyName)
+        }
+    }
+    
+    const property: Property = new Property(propertyName, typedPropertyType, propertyNullable, isReadOnly)
 
     return property
 }
@@ -105,7 +114,7 @@ const entityHandler = (definitionMap: DefinitionMap, rawEntityType: RawEntityTyp
     const rawProperties: RawProperty[] = rawEntityType.Property ? rawEntityType.Property : []
     const rawNavigationProperties: RawNavigationProperty[] = rawEntityType.NavigationProperty ? rawEntityType.NavigationProperty: []
 
-    const properties: Property[] = rawProperties.map(propertyHandler)
+    const properties: Property[] = rawProperties.map((rawProperty: RawProperty) => propertyHandler(rawProperty, `${namespace}.${entityName}`))
 
     const navigationProperties: NavigationProperty[] = rawNavigationProperties.map(navigationPropertiesHandler);
 

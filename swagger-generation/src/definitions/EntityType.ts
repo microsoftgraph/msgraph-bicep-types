@@ -67,6 +67,9 @@ export class EntityType extends Object {
                 }
             }
 
+            if(property.ReadOnly)
+                swaggerProperty.readOnly = property.ReadOnly
+
             definition.properties[property.Name] = swaggerProperty
         });
 

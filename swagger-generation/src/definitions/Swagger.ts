@@ -64,6 +64,7 @@ export interface Property{
     description?: string,
     format?: string,
     items?: Items,
+    readOnly?: boolean,
 }
 
 export interface Items{

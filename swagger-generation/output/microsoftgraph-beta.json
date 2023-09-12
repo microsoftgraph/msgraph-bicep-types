@@ -37,7 +37,8 @@
         },
         "createdDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "description": {
           "type": "string"
@@ -47,7 +48,8 @@
         },
         "expirationDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "groupTypes": {
           "type": "array",
@@ -74,7 +76,8 @@
           "$ref": "#/definitions/microsoft.graph.licenseProcessingState"
         },
         "mail": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "mailEnabled": {
           "type": "boolean"
@@ -93,7 +96,8 @@
         },
         "onPremisesLastSyncDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "onPremisesNetBiosName": {
           "type": "string"
@@ -105,13 +109,16 @@
           }
         },
         "onPremisesSamAccountName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesSecurityIdentifier": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesSyncEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "readOnly": true
         },
         "organizationId": {
           "type": "string"
@@ -126,11 +133,13 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "readOnly": true
         },
         "renewedDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "resourceBehaviorOptions": {
           "type": "array",
@@ -234,11 +243,13 @@
           "$ref": "#/definitions/microsoft.graph.authenticationBehaviors"
         },
         "certification": {
-          "$ref": "#/definitions/microsoft.graph.certification"
+          "$ref": "#/definitions/microsoft.graph.certification",
+          "readOnly": true
         },
         "createdDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "defaultRedirectUri": {
           "type": "string"
@@ -385,7 +396,8 @@
           "type": "string"
         },
         "applicationTemplateId": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "appOwnerOrganizationId": {
           "type": "string",
@@ -489,7 +501,8 @@
           "type": "string"
         },
         "signInAudience": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "tags": {
           "type": "array",
@@ -554,14 +567,16 @@
           "format": "date-time"
         },
         "principalDisplayName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "principalId": {
           "type": "string",
           "format": "uuid"
         },
         "principalType": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "resourceDisplayName": {
           "type": "string"

@@ -10,13 +10,14 @@ export interface EntityTypeConfig{
     RootUri: string,
     NavigationProperty: string[]
     RequiredOnWrite?: string[]
+    ReadOnly?: string[]
 }
 
 export class Config {
 
     private static _instance: Config
 
-    EntityTypes: Map<string, EntityTypeConfig>
+    EntityTypes: EntityTypeConfigMap
     URL: string
     APIVersion: string
 
