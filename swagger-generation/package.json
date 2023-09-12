@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microsoftgraph/msgraph-arm-bicep.git"
+    "url": "git+https://github.com/microsoftgraph/msgraph-bicep-types.git"
   },
-  "readme": "https://github.com/microsoftgraph/msgraph-arm-bicep/blob/main/README.md",
+  "readme": "https://github.com/microsoftgraph/msgraph-bicep-types/blob/main/README.md",
   "keywords": [
     "swagger",
     "bicep",
@@ -21,9 +21,9 @@
   "author": "Microsoft Corporation",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/microsoftgraph/msgraph-arm-bicep/issues"
+    "url": "https://github.com/microsoftgraph/msgraph-bicep-types/issues"
   },
-  "homepage": "https://github.com/microsoftgraph/msgraph-arm-bicep#readme",
+  "homepage": "https://github.com/microsoftgraph/msgraph-bicep-types#readme",
   "dependencies": {
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6",
