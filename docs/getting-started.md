@@ -24,7 +24,13 @@ When you create a Bicep template, add the following statement, to make Microsoft
 import 'microsoftGraph@1.0.0'
 ```
 
-Now, when creating a Bicep resource, the available Microsoft.Graph types (applications, servicePrinciples, groups, appRoleAssignedTo and oauth2PermissionGrants) will show up.
+Now, when creating a Bicep resource, the available Microsoft.Graph resource types will show up:
+
+* [applications](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta)
+* [servicePrincipals](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta)
+* [groups](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta)
+* [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)
+* [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta)
 
 ## Deploying a Bicep templates
 
