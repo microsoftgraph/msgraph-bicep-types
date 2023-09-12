@@ -40,4 +40,11 @@ Deployment will only work for tenants that have been enrolled to the private pre
 
 ## Next steps
 
-We've created some quick-start templates to get you started.  Feel free to contribute and share your own samples too!
+We've created some quick-start templates to get you started.  
+
+1. [Create an applications and service principals for a client and resource application](../quickstart-templates/application-serviceprincipal-create-client-resource/)
+2. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
+3. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
+4. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
+
+Feel free to contribute and share your own samples too!
