@@ -92,6 +92,9 @@ export const writeSwagger = (definitionMap: DefinitionMap): Swagger => {
     });
 
     Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+        if(!entityTypeConfig.RootUri){ // Entity is not exposed
+            return;
+        }
         const entityName: string = definitionMap.EntityMap.get(id)!.Name
         const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
         const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`

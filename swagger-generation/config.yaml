@@ -62,4 +62,16 @@ EntityTypes:
       - createdDateTime
       - principalDisplayName
       - principalType
-
+  - Name: microsoft.graph.appRole
+    ReadOnly:
+      - origin
+  - Name: microsoft.graph.informationalUrl
+    ReadOnly:
+      - type
+  - Name: microsoft.graph.passwordCredential
+    ReadOnly:
+      - hint
+      - secretText
+  - Name: microsoft.graph.windowsApplication
+    ReadOnly:
+      - packageSid

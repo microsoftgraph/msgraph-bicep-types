@@ -7,8 +7,8 @@ import { readFileSync } from 'fs'
 
 export interface EntityTypeConfig{
     Name: string,
-    RootUri: string,
-    NavigationProperty: string[]
+    RootUri?: string,
+    NavigationProperty?: string[]
     RequiredOnWrite?: string[]
     ReadOnly?: string[]
 }
