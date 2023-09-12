@@ -32,7 +32,7 @@ Now, when creating a Bicep resource, the available Microsoft.Graph resource type
 * [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)
 * [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta)
 
-## Deploying a Bicep templates
+## Deploying Bicep templates
 
 Bicep templates can be deployed using Azure CLI or PowerShell.
 
