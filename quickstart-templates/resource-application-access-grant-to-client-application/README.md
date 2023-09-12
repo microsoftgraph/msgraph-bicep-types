@@ -1,4 +1,3 @@
-
 # Grant a client app access to a resource app
 
 > **Note**: This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
