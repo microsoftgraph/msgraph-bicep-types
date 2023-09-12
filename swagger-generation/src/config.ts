@@ -1,11 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Type definitions
 import { EntityTypeConfigMap } from './definitions/DefinitionMap'
-// Library imports
 import { parse } from 'yaml'
-import {readFileSync } from 'fs'
+import { readFileSync } from 'fs'
 
 export interface EntityTypeConfig{
     Name: string,

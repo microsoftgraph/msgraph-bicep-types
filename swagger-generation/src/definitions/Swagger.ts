@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import { CollectionProperty } from "./CollectionProperty"
 import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType"
 
 /*  
@@ -19,9 +20,7 @@ export interface Swagger{
     schemes: Scheme[],
     consumes: string[],
     produces: string[],
-    security: Security[],
-    securityDefinitions: SecurityDefinitions,
-    definitions: Definitions,
+    definitions: Definitions | SchemasDefinitions,
     paths: Paths,
 }
 
@@ -34,28 +33,12 @@ export interface Info{
     termsOfService?: string
 }
 
-export interface Security{
-    [key: string]: string[]
-}
-
-export interface SecurityDefinitions{
-    [key: string]: SecurityDefinition
-}
-
-export interface SecurityDefinition{
-    type: SecurityType,
-    authorizationUrl: string,
-    flow: SecurityFlow,
-    description: string,
-    scopes: Scopes
-}
-
 export interface Scopes{
     [key: string]: string
 }
 
 export interface Definitions{
-    [key: string]: Definition
+    [key: string]: Definition | SwaggerEnum
 }
 
 export interface Definition{
@@ -65,12 +48,18 @@ export interface Definition{
     required?: string[],
 }
 
+export interface SwaggerEnum{
+    type: string,
+    enum: string[],
+}
+
+
 export interface Properties{
     [key: string]: Property
 }
 
 export interface Property{
-    type?: string | PrimitiveSwaggerTypeStruct,
+    type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     $ref?: string,
     description?: string,
     format?: string,
@@ -78,7 +67,7 @@ export interface Property{
 }
 
 export interface Items{
-    type?: string,
+    type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     format?: string,
     readOnly?: boolean,
     enum?: string[],
@@ -91,6 +80,15 @@ export interface Paths{
 
 export interface Path{
     put: Operation
+}
+
+export interface SchemasDefinitions{
+    [key: string]: Schemas
+}
+
+export interface Schemas{
+    type: string,
+    enum: string[],
 }
 
 export interface Operation{
