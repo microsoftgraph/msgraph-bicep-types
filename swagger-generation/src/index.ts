@@ -1,27 +1,27 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// Type imports
-import { DefinitionMap } from './definitions/DefinitionMap'
 import { CSDL } from './definitions/RawTypes'
-
-// Library imports
 import { parseXML } from './parser'
 import { constructDataStructure } from './deserializer'
 import { Config } from './config'
 import { Swagger } from './definitions/Swagger'
 import { writeSwagger } from './swaggerWritter'
 import fs from 'fs'
+import { validateReferences } from './validator'
+import { DefinitionMap } from './definitions/DefinitionMap'
 
 
-
+console.log("Fetching MSGraph metadata CSDL from " + Config.Instance.URL + "...")
 parseXML(Config.Instance.URL)
-    .then((csdl: CSDL) => {
-        const definitionMap: DefinitionMap = new DefinitionMap()
+    .then((csdl: CSDL) => { // This process uses singletons for Config, DefinitionMap, and AliasTranslator
+        let definitionMap: DefinitionMap = new DefinitionMap()
 
-        constructDataStructure(csdl, definitionMap)
+        definitionMap = constructDataStructure(csdl, definitionMap)
 
-        const swagger: Swagger = writeSwagger(definitionMap.EntityMap)
+        definitionMap = validateReferences(definitionMap)
+
+        const swagger: Swagger = writeSwagger(definitionMap)
 
         const swaggerJson: string = JSON.stringify(swagger, null, 2)
 

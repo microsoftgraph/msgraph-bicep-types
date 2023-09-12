@@ -1,6 +1,6 @@
-//import { constructDataStructure } from '../src/deserializer';
-import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { Config, EntityTypeConfig } from '../src/config';
+import { CollectionProperty } from '../src/definitions/CollectionProperty';
+import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { CSDL } from '../src/definitions/RawTypes';
 
 const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
@@ -8,31 +8,37 @@ const entityTypesNonNamespaced: Map<string, EntityTypeConfig> = new Map<string, 
 
 entityTypes.set('namespace.entityNameOne', {
     Name: 'namespace.entityNameOne',
-    RootUri: 'entityNameOnes',
+    RootUri: '/entityNameOnes',
     NavigationProperty: []
 } as EntityTypeConfig);
 
 entityTypes.set('namespace.entityNameTwo', {
     Name: 'namespace.entityNameTwo',
-    RootUri: 'entityNameTwos',
+    RootUri: '/entityNameTwos',
     NavigationProperty: []
 } as EntityTypeConfig);
 
 entityTypes.set('namespaceTwo.entityNameOne', {
     Name: 'namespaceTwo.entityNameOne',
-    RootUri: 'entityNameOnes',
+    RootUri: '/entityNameOnes',
     NavigationProperty: []
 } as EntityTypeConfig);
 
 entityTypes.set('namespaceThree.entityNameTwo', {
     Name: 'namespaceThree.entityNameTwo',
-    RootUri: 'entityNameTwos',
+    RootUri: '/entityNameTwos',
     NavigationProperty: []
 } as EntityTypeConfig);
 
-entityTypes.set('namespace.fakeEntity', {
-    Name: 'namespace.fakeEntity',
-    RootUri: 'fakeEntities',
+entityTypes.set('namespaceThree.complexTypeName', {
+    Name: 'namespaceThree.complexTypeName',
+    RootUri: '/complexTypeName',
+    NavigationProperty: []
+} as EntityTypeConfig);
+
+entityTypes.set('namespaceFour.entityNameOne', {
+    Name: 'namespaceFour.entityNameOne',
+    RootUri: '/namespaceFour/entityNameOnes',
     NavigationProperty: []
 } as EntityTypeConfig);
 
@@ -139,22 +145,100 @@ const csdl: CSDL = {
                     Namespace: 'namespaceThree',
     
                     },
-                    EntityType: [
+                EntityType: [
+                    {
+                        $: {
+                        Name: 'entityNameTwo',
+                        },
+                        Property: [
                         {
                             $: {
-                            Name: 'entityNameTwo',
+                            Name: 'propertyName',
+                            Type: 'Edm.String'
                             },
-                            Property: [
+                        },
+                        ],
+                        NavigationProperty: []
+                    },
+                ],
+                ComplexType: [
+                    {
+                        $: {
+                            Name: 'complexTypeName',
+                        },
+                        Property: [
                             {
                                 $: {
-                                Name: 'propertyName',
-                                Type: 'Edm.String'
+                                    Name: 'complexPropertyName',
+                                    Type: 'Edm.String'
+                                },
+                                
+                            },
+                        ],
+                        NavigationProperty: []
+                    },
+                ],
+                EnumType: [
+                    {
+                        $: {
+                            Name: 'enumTypeName',
+                        },
+                        Member: [
+                            {
+                                $: {
+                                    Name: 'enumMemberName',
+                                    Value: 'enumMemberValue'
                                 },
                             },
-                            ],
-                            NavigationProperty: []
+                            {
+                                $: {
+                                    Name: 'enumMemberName2',
+                                    Value: 'enumMemberValue2'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'unknownFutureValue',
+                                    Value: 'unknownFutureValue'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'UnsupportedFutureValue',
+                                    Value: 'UnsupportedFutureValue'
+                                },
+                            }
+                        ],
+                    },
+                ],
+            },
+            {
+                $: {
+                    Namespace: 'namespaceFour',
+                },
+                EntityType: [
+                    {
+                        $: {
+                            Name: 'entityNameOne',
                         },
-                    ]
+                        Property: [
+                            {
+                                $: {
+                                    Name: 'propertyName',
+                                    Type: 'Collection(Edm.String)'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'propertyName2',
+                                    Type: 'Collection(namespaceThree.complexTypeName)'
+                                },
+                            }
+                        ],
+                        NavigationProperty: []
+                    },
+                ],
+                
             }
             ],
         },
@@ -166,28 +250,32 @@ const csdl: CSDL = {
 describe('constructDataStructure', () => {
 
     let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    let CollectionPropertyInstance: typeof import('../src/definitions/CollectionProperty').CollectionProperty;
+    let PrimitiveSwaggerTypeStructInstance: typeof import('../src/definitions/PrimitiveSwaggerType').PrimitiveSwaggerTypeStruct;
 
     beforeEach(() => {
         jest.resetModules();
         constructDataStructure = require('../src/deserializer').constructDataStructure;
+        CollectionPropertyInstance = require('../src/definitions/CollectionProperty').CollectionProperty;
+        PrimitiveSwaggerTypeStructInstance = require('../src/definitions/PrimitiveSwaggerType').PrimitiveSwaggerTypeStruct;
     });
 
     it('should construct data structure', () => {
-        const definitionMap = new DefinitionMap();
-        expect(() => constructDataStructure(csdl, definitionMap)).not.toThrow();
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        expect(() => definitionMap = constructDataStructure(csdl, definitionMap)).not.toThrow();
     });
 
     it('should identify namespaces of scope', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
         expect(definitionMap.EntityMap.get('namespaceThree.entityNameTwo')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespaceThree.entityNameOne')).toBeUndefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
     });
 
     it('should differenciate entities with same name in different namespaces', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
@@ -197,30 +285,66 @@ describe('constructDataStructure', () => {
     });
 
     it('should identify properties of entities', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameTwo')?.Property.find((property) => property.Name === 'propertyName')).toBeDefined();
     });
 
-    it('should have integrity between csdl and definitionMap', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.size).toBe(entityTypes.size - 1);
+    it('should identify complex types', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EntityMap.get('namespaceThree.complexTypeName')).toBeDefined();
     });
 
-    it('should not create entities from scope', () => {
-        const definitionMap = new DefinitionMap();
-        constructDataStructure(csdl, definitionMap);
-        expect(definitionMap.EntityMap.size).toBe(entityTypes.size - 1);
+    it('should identify and correctly cassify enum types', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')).toBeDefined();
+    });
+
+    it('should identify and correctly wrap collection types', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        const entity = definitionMap.EntityMap.get('namespaceFour.entityNameOne');
+        expect(entity).toBeDefined();
+        entity!.Property.forEach((property) => {
+            expect(property.Type).toBeInstanceOf(CollectionPropertyInstance);
+            expect((property.Type as CollectionProperty).Type).toBeDefined();
+        });
+        expect((entity!.Property[0].Type as CollectionProperty).Type).toBeInstanceOf(PrimitiveSwaggerTypeStructInstance);
+        expect((entity!.Property[1].Type as CollectionProperty).Type).toBe("namespaceThree.complexTypeName");
+
+    });
+
+    it('should have integrity between csdl and definitionMap', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EntityMap.size).toBe(entityTypes.size);
+    });
+
+    it('should not create entities from config', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EntityMap.size).toBe(entityTypes.size);
         expect(definitionMap.EntityMap.get('namespace.fakeEntityName')).toBeUndefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')).toBeDefined();
         expect(definitionMap.EntityMap.get('namespace.entityNameTwo')).toBeDefined();
     });
-    
-    
+
+    it('should filter enums with sentinel values', () => {
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EnumMap.size).toBe(1);
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.size).toBe(2);
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('enumMemberName')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('enumMemberName2')).toBeDefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('unknownFutureValue')).toBeUndefined();
+        expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')!.Member.get('UnsupportedFutureValue')).toBeUndefined();
+    });
 });
 
 describe('constructDataStructure with non-namespaced entities', () => {
@@ -235,9 +359,9 @@ describe('constructDataStructure with non-namespaced entities', () => {
     });
 
     it('should not relate unnamespaced entities', () => {
-        const definitionMap = new DefinitionMap();
-        expect(() => constructDataStructure(csdl, definitionMap)).toThrowError();
-        expect(definitionMap.EntityMap.size).toBe(0);
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap);
+        expect(definitionMap.EntityMap.size).toBe(6); // constant, update when changing the csdl mock
         expect(definitionMap.EntityMap.get('entityTypeOne')).toBeUndefined();
     });
 });
