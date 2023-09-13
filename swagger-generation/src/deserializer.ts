@@ -99,14 +99,9 @@ const navigationPropertiesHandler = (config: Config, rawNavigationProperty: RawN
     const navigationPropertyContainsTarget: boolean = navigationPropertyAttributes.ContainsTarget ? navigationPropertyAttributes.ContainsTarget : false
 
     const collectionRegex: RegExp = /Collection\((.+)\)/
-    let isCollection: boolean = false
 
-    if(collectionRegex.test(navigationPropertyType)) { // Collection
+    if(collectionRegex.test(navigationPropertyType)) { // Is Collection
         navigationPropertyType = navigationPropertyType.match(collectionRegex)![1]
-        isCollection = true
-    }
-
-    if(isCollection){
         typedNavigationPropertyType = new CollectionProperty(navigationPropertyType)
     } else {
         typedNavigationPropertyType = navigationPropertyType
