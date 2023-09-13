@@ -48,7 +48,6 @@ EntityTypes:
       - appId
     ReadOnly:
       - applicationTemplateId
-      - resourceSpecificApplicationPermissions
       - signInAudience
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
@@ -63,7 +62,7 @@ EntityTypes:
       - principalId
       - appRoleId
     ReadOnly:
-      - createdDateTime
+      - creationTimestamp
       - principalDisplayName
       - principalType
   - Name: microsoft.graph.appRole
@@ -71,7 +70,7 @@ EntityTypes:
       - origin
   - Name: microsoft.graph.informationalUrl
     ReadOnly:
-      - type
+      - logoUrl
   - Name: microsoft.graph.passwordCredential
     ReadOnly:
       - hint

@@ -576,7 +576,8 @@
         },
         "creationTimestamp": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "principalDisplayName": {
           "type": "string",
@@ -639,7 +640,8 @@
       "type": "object",
       "properties": {
         "logoUrl": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "marketingUrl": {
           "type": "string"

@@ -32,6 +32,9 @@ export class Config {
         
         entityTypes.forEach((entityTypeConfig: EntityTypeConfig) => {
             entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig)
+            if(entityTypeConfig.NavigationPropertyMode && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Allow && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Ignore){
+                throw new Error(`Invalid NavigationPropertyMode ${entityTypeConfig.NavigationPropertyMode} for ${entityTypeConfig.Name}. Only ${NavigationPropertyMode.Allow} and ${NavigationPropertyMode.Ignore} are valid values.`)
+            }
         })
 
         this.EntityTypes = entityTypesMap
