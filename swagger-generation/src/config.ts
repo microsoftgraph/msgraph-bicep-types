@@ -5,9 +5,15 @@ import { EntityTypeConfigMap } from './definitions/DefinitionMap'
 import { parse } from 'yaml'
 import { readFileSync } from 'fs'
 
+export enum NavigationPropertyMode {
+    Allow = 'Allow',
+    Ignore = 'Ignore',
+}
+
 export interface EntityTypeConfig{
     Name: string,
     RootUri?: string,
+    NavigationPropertyMode?: NavigationPropertyMode,
     NavigationProperty?: string[]
     RequiredOnWrite?: string[]
     ReadOnly?: string[]
