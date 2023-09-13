@@ -1,4 +1,4 @@
-import 'microsoftGraph@1.0.0' as graph
+import 'microsoftGraph@1.0.0'
 
 @description('Specifies the Reader role definition ID used in the role assignment.')
 param readerRoleDefinitionID string = 'acdd72a7-3385-48ef-bd42-f606fba81ae7'
