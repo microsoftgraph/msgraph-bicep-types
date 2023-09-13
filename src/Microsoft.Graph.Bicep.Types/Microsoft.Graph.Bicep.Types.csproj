@@ -9,7 +9,7 @@
     <RootNamespace>Microsoft.Graph.Bicep.Types</RootNamespace>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://developer.microsoft.com/graph</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/microsoftgraph/msgraph-arm-bicep</RepositoryUrl>
+    <RepositoryUrl>https://github.com/microsoftgraph/msgraph-bicep-types</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <DelaySign>true</DelaySign>
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
