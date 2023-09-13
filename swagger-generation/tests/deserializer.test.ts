@@ -1,4 +1,4 @@
-import { Config, EntityTypeConfig } from '../src/config';
+import { Config, EntityTypeConfig, NavigationPropertyMode } from '../src/config';
 import { CollectionProperty } from '../src/definitions/CollectionProperty';
 import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { PrimitiveSwaggerTypeStruct } from '../src/definitions/PrimitiveSwaggerType';
@@ -85,7 +85,26 @@ const csdl: CSDL = {
                             },
                         },
                         ],
-                        NavigationProperty: []
+                        NavigationProperty: [
+                            {
+                                $: {
+                                    Name: 'navigationPropertyName',
+                                    Type: 'Collection(namespaceTwo.entityNameOne)'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'navigationPropertyName2',
+                                    Type: 'namespaceTwo.complexTypeName'
+                                },
+                            },
+                            {
+                                $: {
+                                    Name: 'navigationPropertyName3',
+                                    Type: 'namespaceThree.enumTypeName'
+                                },
+                            }
+                        ]
                     },
                 ],
                 ComplexType: [
@@ -347,5 +366,160 @@ describe('constructDataStructure with non-namespaced entities', () => {
         definitionMap = constructDataStructure(csdl, definitionMap, config);
         expect(definitionMap.EntityMap.size).toBe(6); // constant, update when changing the csdl mock
         expect(definitionMap.EntityMap.get('entityTypeOne')).toBeUndefined();
+    });
+});
+
+describe('navigation properties modes', () => {
+    it('should allow navigation properties', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+            NavigationPropertyMode: NavigationPropertyMode.Allow,
+            NavigationProperty: ['navigationPropertyName', 'navigationPropertyName2', 'navigationPropertyName3']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(3);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeDefined();
+    });
+
+    it('should only allow some navigation properties', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+            NavigationPropertyMode: NavigationPropertyMode.Allow,
+            NavigationProperty: ['navigationPropertyName', 'navigationPropertyName2']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(2);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeUndefined();
+    });
+
+    it('should ignore navigation properties', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+            NavigationPropertyMode: NavigationPropertyMode.Ignore,
+            NavigationProperty: ['navigationPropertyName', 'navigationPropertyName2', 'navigationPropertyName3']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(0);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeUndefined();
+    });
+
+    it('should ignore some navigation properties', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+            NavigationPropertyMode: NavigationPropertyMode.Ignore,
+            NavigationProperty: ['navigationPropertyName', 'navigationPropertyName2']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(1);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeDefined();
+    });
+
+    it('should ignore all navigation properties by default', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(0);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeUndefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeUndefined();
+    });
+
+    it('should allow some navigation properties by default', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespaceThree.entityNameTwo', {
+            Name: 'namespaceThree.entityNameTwo',
+            RootUri: '/entityNameTwos',
+            NavigationProperty: ['navigationPropertyName', 'navigationPropertyName2']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        let definitionMap: DefinitionMap = new DefinitionMap();
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
+        const entity = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
+        expect(entity).toBeDefined();
+        expect(entity!.NavigationProperty.length).toBe(2);
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeDefined();
+        expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeUndefined();
     });
 });
