@@ -4,7 +4,7 @@ import { Definition, Swagger } from "../src/definitions/Swagger";
 import { EntityType } from "../src/definitions/EntityType";
 import { DefinitionMap } from "../src/definitions/DefinitionMap";
 import { constructDataStructure } from "../src/deserializer";
-import { writeSwagger } from "../src/swaggerWritter";
+import { writeSwagger } from "../src/swaggerWriter";
 
 const csdl: CSDL = {
     'edmx:Edmx': {
