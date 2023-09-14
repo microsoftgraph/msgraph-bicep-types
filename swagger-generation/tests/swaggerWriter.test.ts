@@ -5,7 +5,7 @@ import { Property } from '../src/definitions/Property';
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from '../src/definitions/PrimitiveSwaggerType';
 import { Scheme, Swagger, SwaggerVersion, Product } from '../src/definitions/Swagger';
 import { CollectionProperty } from '../src/definitions/CollectionProperty';
-import { writeSwagger } from '../src/swaggerWritter';
+import { writeSwagger } from '../src/swaggerWriter';
 import { EnumType } from '../src/definitions/EnumType';
 
 
