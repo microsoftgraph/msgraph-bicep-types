@@ -1,4 +1,4 @@
-import 'microsoftGraph@1.0.0' as graph
+import 'microsoftGraph@1.0.0'
 
 @description('Id of the application role to add to the resource app')
 param appRoleId string
