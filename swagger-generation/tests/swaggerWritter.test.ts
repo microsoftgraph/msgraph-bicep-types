@@ -8,30 +8,21 @@ import { CollectionProperty } from '../src/definitions/CollectionProperty';
 import { writeSwagger } from '../src/swaggerWritter';
 import { EnumType } from '../src/definitions/EnumType';
 
-jest.mock('../src/config', () => {
-    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
-    entityTypes.set('microsoft.graph.entityNameOne', {
-        Name: 'microsoft.graph.entityNameOne',
-        RootUri: '/entityNameOnes',
-        NavigationProperty: []
-    } as EntityTypeConfig);
+const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
-    const mockConfig = class {
-        public static get Instance(): Config {
-            return {
-                EntityTypes: entityTypes,
-                URL: 'https://example.com',
-                APIVersion: 'beta'
-            }
-        }
-    
-    }
+entityTypes.set('microsoft.graph.entityNameOne', {
+    Name: 'microsoft.graph.entityNameOne',
+    RootUri: '/entityNameOnes',
+    NavigationProperty: []
+} as EntityTypeConfig);
 
-    const Config = mockConfig;
+const config = {
+    EntityTypes: entityTypes,
+    URL: 'https://example.com',
+    APIVersion: 'beta'
+} as Config;
 
-    return { Config };
-})
 
 describe('generate swagger with primitive types', () => {
     jest.mock('../src/util/propertyTypeResolver', () => {
@@ -186,7 +177,7 @@ describe('generate swagger with primitive types', () => {
 
         definitionMap.EntityMap = entityMap;
 
-        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
 
     });
 
@@ -369,7 +360,7 @@ describe('generate swagger with primitive types', () => {
 
         definitionMap.EntityMap = entityMap;
 
-        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
     });
 });
 
@@ -383,9 +374,7 @@ describe('complexTypes', () => {
 
     beforeEach(() => {
         jest.resetModules();
-    }
-
-    );
+    });
 
     it('should generate swagger for entities with complex nested types', () => {
         const definitionMap: DefinitionMap = new DefinitionMap();
@@ -501,7 +490,7 @@ describe('complexTypes', () => {
 
         definitionMap.EntityMap = entityMap;
 
-        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
 
     });
 
@@ -640,7 +629,7 @@ describe('complex types with collections', () => {
 
         definitionMap.EntityMap = entityMap;
 
-        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
     
     });
 });
@@ -787,7 +776,7 @@ describe('enums', () => {
         definitionMap.EntityMap = entityMap;
         definitionMap.EnumMap = EnumMap;
 
-        expect(writeSwagger(definitionMap)).toEqual(expectedSwagger);
+        expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
     });
 
 });

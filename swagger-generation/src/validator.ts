@@ -5,12 +5,12 @@ import { Config } from "./config";
 import { CollectionProperty } from "./definitions/CollectionProperty";
 import { DefinitionMap } from "./definitions/DefinitionMap";
 import { EntityType } from "./definitions/EntityType";
+import { NavigationProperty } from "./definitions/NavigationProperty";
 import { Property } from "./definitions/Property";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
-export const validateReferences = (definitionMap: DefinitionMap): DefinitionMap => {
+export const validateReferences = (definitionMap: DefinitionMap, config: Config): DefinitionMap => {
     console.log("Validating references")
-    const config: Config = Config.Instance;
 
     config.EntityTypes.forEach(entityType => {
         const entity: EntityType | undefined = definitionMap.EntityMap.get(entityType.Name);
@@ -24,6 +24,25 @@ export const validateReferences = (definitionMap: DefinitionMap): DefinitionMap 
             if(reference)
                 propertyHandler(definitionMap, entity, reference, isCollection); // type is only and always string
         });
+
+        if(entityType.NavigationProperty){
+            entityType.NavigationProperty?.forEach(navigationProperty => {
+                const navProp: NavigationProperty | undefined = entity.NavigationProperty.find(property => property.Name === navigationProperty)
+                if(!navProp){
+                    throw new Error(`Navigation property ${navigationProperty} from config.yml is not present in ${entityType.Name}`);
+                }
+            });
+        }
+
+        if(entityType.ReadOnly){
+            entityType.ReadOnly?.forEach(requiredProperty => {
+                const property: Property | undefined = entity.Property.find(property => property.Name === requiredProperty)
+                if(!property){
+                    throw new Error(`Read Only property ${requiredProperty} from config.yml is not present in ${entityType.Name}`);
+                }
+            });
+        }
+
 
     });
 

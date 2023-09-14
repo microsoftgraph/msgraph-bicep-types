@@ -11,17 +11,18 @@ import fs from 'fs'
 import { validateReferences } from './validator'
 import { DefinitionMap } from './definitions/DefinitionMap'
 
+const config = new Config()
 
-console.log("Fetching MSGraph metadata CSDL from " + Config.Instance.URL + "...")
-parseXML(Config.Instance.URL)
-    .then((csdl: CSDL) => { // This process uses singletons for Config, DefinitionMap, and AliasTranslator
+console.log("Fetching MSGraph metadata CSDL from " + config.URL + "...")
+parseXML(config.URL)
+    .then((csdl: CSDL) => {
         let definitionMap: DefinitionMap = new DefinitionMap()
 
-        definitionMap = constructDataStructure(csdl, definitionMap)
+        definitionMap = constructDataStructure(csdl, definitionMap, config)
 
-        definitionMap = validateReferences(definitionMap)
+        definitionMap = validateReferences(definitionMap, config)
 
-        const swagger: Swagger = writeSwagger(definitionMap)
+        const swagger: Swagger = writeSwagger(definitionMap, config)
 
         const swaggerJson: string = JSON.stringify(swagger, null, 2)
 

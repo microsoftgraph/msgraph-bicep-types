@@ -5,22 +5,26 @@ import { EntityTypeConfigMap } from './definitions/DefinitionMap'
 import { parse } from 'yaml'
 import { readFileSync } from 'fs'
 
+export enum NavigationPropertyMode {
+    Allow = 'Allow',
+    Ignore = 'Ignore',
+}
+
 export interface EntityTypeConfig{
     Name: string,
-    RootUri: string,
-    NavigationProperty: string[]
+    RootUri?: string,
+    NavigationPropertyMode?: NavigationPropertyMode,
+    NavigationProperty?: string[]
     RequiredOnWrite?: string[]
+    ReadOnly?: string[]
 }
 
 export class Config {
-
-    private static _instance: Config
-
-    EntityTypes: Map<string, EntityTypeConfig>
+    EntityTypes: EntityTypeConfigMap
     URL: string
     APIVersion: string
 
-    private constructor() {
+    constructor() {
         const configFile = readFileSync('./config.yaml', 'utf8')
         const configFileObj = parse(configFile)
         const entityTypesMap: EntityTypeConfigMap = new Map<string, EntityTypeConfig>()
@@ -28,14 +32,13 @@ export class Config {
         
         entityTypes.forEach((entityTypeConfig: EntityTypeConfig) => {
             entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig)
+            if(entityTypeConfig.NavigationPropertyMode && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Allow && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Ignore){
+                throw new Error(`Invalid NavigationPropertyMode ${entityTypeConfig.NavigationPropertyMode} for ${entityTypeConfig.Name}. Only ${NavigationPropertyMode.Allow} and ${NavigationPropertyMode.Ignore} are valid values.`)
+            }
         })
 
         this.EntityTypes = entityTypesMap
         this.URL = configFileObj['URL']
         this.APIVersion = configFileObj['apiVersion']
-    }
-
-    public static get Instance(): Config {
-        return this._instance || (this._instance = new this())
     }
 }

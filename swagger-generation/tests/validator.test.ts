@@ -6,29 +6,21 @@ import { PrimitiveSwaggerType } from "../src/definitions/PrimitiveSwaggerType";
 import { Property } from "../src/definitions/Property";
 import { validateReferences } from "../src/validator";
 
-const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-entityTypes.set('namespace.entityNameOne', {
-    Name: 'namespace.entityNameOne',
-    RootUri: '/entityNameOnes',
-    NavigationProperty: []
-} as EntityTypeConfig);
-
-jest.mock('../src/config', () => {
-    const mockConfig = class {
-        public static get Instance(): Config {
-            return {
-                EntityTypes: entityTypes,
-                URL: 'https://example.com',
-                APIVersion: 'beta'
-            }
-        }
-    }
-
-    return { Config: mockConfig };
-})
-
 describe("alias need to be resolved", () => {
+
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+    entityTypes.set('namespace.entityNameOne', {
+        Name: 'namespace.entityNameOne',
+        RootUri: '/entityNameOnes',
+        NavigationProperty: []
+    } as EntityTypeConfig);
+
+    const config = {
+        EntityTypes: entityTypes,
+        URL: 'https://example.com',
+        APIVersion: 'beta'
+    } as Config;
 
     jest.mock('../src/util/propertyTypeResolver', () => {
         const mockPropertyType = jest.requireActual('../src/util/propertyTypeResolver');
@@ -44,7 +36,6 @@ describe("alias need to be resolved", () => {
             replaceAlias: jest.fn(mockValidator.replaceAlias),
         }
     });
-
 
     beforeEach(() => {
         jest.resetModules();
@@ -80,7 +71,7 @@ describe("alias need to be resolved", () => {
         definitionMap.AliasMap.set('n1', 'namespace');
         definitionMap.AliasMap.set('n2', 'namespaceTwo');
 
-        definitionMap = validateReferences(definitionMap);
+        definitionMap = validateReferences(definitionMap, config);
 
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')!.Property[0].Type).toBe('namespace.entityNameTwo');
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')!.Property[1].Type).toBe(PrimitiveSwaggerType.Instance.Binary);
@@ -88,5 +79,63 @@ describe("alias need to be resolved", () => {
         expect(definitionMap.EntityMap.get('namespaceTwo.complexTypeName')!.Property[0].Type).toBe('namespaceTwo.entityNameOne');
         expect((definitionMap.EntityMap.get('namespaceTwo.complexTypeName')!.Property[1].Type as CollectionProperty).Type).toBe(PrimitiveSwaggerType.Instance.Long);
         
+    });   
+});
+
+describe("configurations need to be validated", () => {
+    it('should throw if wrong navigation property', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespace.entityNameOne', {
+            Name: 'namespace.entityNameOne',
+            RootUri: '/entityNameOnes',
+            NavigationProperty: ['navOne']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        const definitionMap: DefinitionMap = new DefinitionMap();
+
+        const entityProperties: Property[] = [
+            new Property('propertyOne', PrimitiveSwaggerType.Instance.String, true, false),
+            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, true, false)
+        ];
+        const entity: EntityType = new EntityType('entityNameOne', false, undefined, false, false, entityProperties, [])
+
+        definitionMap.EntityMap.set('namespace.entityNameOne', entity);
+
+        expect(() => validateReferences(definitionMap, config)).toThrowError(`Navigation property navOne from config.yml is not present in namespace.entityNameOne`);
     });
+
+    it('should throw if wrong read only property', () => {
+        const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+        entityTypes.set('namespace.entityNameOne', {
+            Name: 'namespace.entityNameOne',
+            RootUri: '/entityNameOnes',
+            ReadOnly: ['propertyOne']
+        } as EntityTypeConfig);
+
+        const config = {
+            EntityTypes: entityTypes,
+            URL: 'https://example.com',
+            APIVersion: 'beta'
+        } as Config;
+
+        const definitionMap: DefinitionMap = new DefinitionMap();
+
+        const entityProperties: Property[] = [
+            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, true, false)
+        ];
+        const entity: EntityType = new EntityType('entityNameOne', false, undefined, false, false, entityProperties, [])
+
+        definitionMap.EntityMap.set('namespace.entityNameOne', entity);
+
+        expect(() => validateReferences(definitionMap, config)).toThrowError(`Read Only property propertyOne from config.yml is not present in namespace.entityNameOne`);
+    });
+
 });

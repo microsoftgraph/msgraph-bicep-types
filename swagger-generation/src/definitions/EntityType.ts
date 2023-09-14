@@ -67,7 +67,28 @@ export class EntityType extends Object {
                 }
             }
 
+            if(property.ReadOnly)
+                swaggerProperty.readOnly = property.ReadOnly
+
             definition.properties[property.Name] = swaggerProperty
+        });
+
+        this.NavigationProperty.forEach((navigationProperty: NavigationProperty) => {
+            const swaggerProperty: SwaggerProperty = {}
+
+            let propertyType: CollectionProperty | string = navigationProperty.Type as CollectionProperty | string;
+
+            if(propertyType instanceof CollectionProperty){ // Collection unwrap
+                propertyType = propertyType.Type as string;
+                swaggerProperty.type = "array"
+                swaggerProperty.items = {
+                    type: "string" // id of the entity
+                }
+            } else { // Not collection
+                swaggerProperty.type = "string" // id of the entity
+            }
+            
+            definition.properties[navigationProperty.Name] = swaggerProperty
         });
 
         if(required){

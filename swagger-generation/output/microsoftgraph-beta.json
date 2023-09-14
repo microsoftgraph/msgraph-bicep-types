@@ -37,7 +37,8 @@
         },
         "createdDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "description": {
           "type": "string"
@@ -47,7 +48,8 @@
         },
         "expirationDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "groupTypes": {
           "type": "array",
@@ -74,7 +76,8 @@
           "$ref": "#/definitions/microsoft.graph.licenseProcessingState"
         },
         "mail": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "mailEnabled": {
           "type": "boolean"
@@ -93,7 +96,8 @@
         },
         "onPremisesLastSyncDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "onPremisesNetBiosName": {
           "type": "string"
@@ -105,13 +109,16 @@
           }
         },
         "onPremisesSamAccountName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesSecurityIdentifier": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesSyncEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "readOnly": true
         },
         "organizationId": {
           "type": "string"
@@ -126,11 +133,13 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "readOnly": true
         },
         "renewedDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "resourceBehaviorOptions": {
           "type": "array",
@@ -206,6 +215,18 @@
         },
         "isArchived": {
           "type": "boolean"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -234,11 +255,13 @@
           "$ref": "#/definitions/microsoft.graph.authenticationBehaviors"
         },
         "certification": {
-          "$ref": "#/definitions/microsoft.graph.certification"
+          "$ref": "#/definitions/microsoft.graph.certification",
+          "readOnly": true
         },
         "createdDateTime": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "defaultRedirectUri": {
           "type": "string"
@@ -385,7 +408,8 @@
           "type": "string"
         },
         "applicationTemplateId": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "appOwnerOrganizationId": {
           "type": "string",
@@ -489,7 +513,8 @@
           "type": "string"
         },
         "signInAudience": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "tags": {
           "type": "array",
@@ -551,17 +576,20 @@
         },
         "creationTimestamp": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "readOnly": true
         },
         "principalDisplayName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "principalId": {
           "type": "string",
           "format": "uuid"
         },
         "principalType": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "resourceDisplayName": {
           "type": "string"
@@ -576,6 +604,105 @@
         "principalId",
         "appRoleId"
       ]
+    },
+    "microsoft.graph.appRole": {
+      "type": "object",
+      "properties": {
+        "allowedMemberTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "origin": {
+          "type": "string",
+          "readOnly": true
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.informationalUrl": {
+      "type": "object",
+      "properties": {
+        "logoUrl": {
+          "type": "string",
+          "readOnly": true
+        },
+        "marketingUrl": {
+          "type": "string"
+        },
+        "privacyStatementUrl": {
+          "type": "string"
+        },
+        "supportUrl": {
+          "type": "string"
+        },
+        "termsOfServiceUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "microsoft.graph.passwordCredential": {
+      "type": "object",
+      "properties": {
+        "customKeyIdentifier": {
+          "type": "string",
+          "format": "base64url"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "keyId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "secretText": {
+          "type": "string",
+          "readOnly": true
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "microsoft.graph.windowsApplication": {
+      "type": "object",
+      "properties": {
+        "packageSid": {
+          "type": "string",
+          "readOnly": true
+        },
+        "redirectUris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "microsoft.graph.assignedLabel": {
       "type": "object",
@@ -699,36 +826,6 @@
         }
       }
     },
-    "microsoft.graph.appRole": {
-      "type": "object",
-      "properties": {
-        "allowedMemberTypes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "description": {
-          "type": "string"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "isEnabled": {
-          "type": "boolean"
-        },
-        "origin": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        }
-      }
-    },
     "microsoft.graph.authenticationBehaviors": {
       "type": "object",
       "properties": {
@@ -759,26 +856,6 @@
         "lastCertificationDateTime": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "microsoft.graph.informationalUrl": {
-      "type": "object",
-      "properties": {
-        "logoUrl": {
-          "type": "string"
-        },
-        "marketingUrl": {
-          "type": "string"
-        },
-        "privacyStatementUrl": {
-          "type": "string"
-        },
-        "supportUrl": {
-          "type": "string"
-        },
-        "termsOfServiceUrl": {
-          "type": "string"
         }
       }
     },
@@ -850,36 +927,6 @@
         },
         "legalAgeGroupRule": {
           "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.passwordCredential": {
-      "type": "object",
-      "properties": {
-        "customKeyIdentifier": {
-          "type": "string",
-          "format": "base64url"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "endDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "hint": {
-          "type": "string"
-        },
-        "keyId": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "secretText": {
-          "type": "string"
-        },
-        "startDateTime": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
@@ -990,20 +1037,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.redirectUriSettings"
-          }
-        }
-      }
-    },
-    "microsoft.graph.windowsApplication": {
-      "type": "object",
-      "properties": {
-        "packageSid": {
-          "type": "string"
-        },
-        "redirectUris": {
-          "type": "array",
-          "items": {
-            "type": "string"
           }
         }
       }

@@ -10,13 +10,13 @@ import { Reference } from "./definitions/Reference";
 import { Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
-export const writeSwagger = (definitionMap: DefinitionMap): Swagger => {
+export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swagger => {
     const MAX_DEPTH = 15;
     const swagger: Swagger = {
         swagger: SwaggerVersion.v2,
         info: {
             title: "Microsoft Graph",
-            version: Config.Instance.APIVersion,
+            version: config.APIVersion,
         },
         schemes: [
             Scheme.https
@@ -40,7 +40,7 @@ export const writeSwagger = (definitionMap: DefinitionMap): Swagger => {
 
     let addedReferences: number = 0
 
-    Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+    config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
         const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
         console.log("Writing swagger for " + id)
@@ -91,7 +91,10 @@ export const writeSwagger = (definitionMap: DefinitionMap): Swagger => {
         swagger.definitions[id] = enumType.toSwaggerDefinition()
     });
 
-    Config.Instance.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+    config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
+        if(!entityTypeConfig.RootUri){ // Entity is not exposed
+            return;
+        }
         const entityName: string = definitionMap.EntityMap.get(id)!.Name
         const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
         const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`

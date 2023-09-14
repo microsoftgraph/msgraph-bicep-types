@@ -4,7 +4,16 @@ URL: https://graph.microsoft.com/beta/$metadata
 # Version with which the api will be generated in the swagger document
 apiVersion: beta
 
-# List of entity types to be exposed in the swagger document
+# List of entity types to generate swagger from.
+# - Name: Name of the entity type
+#   RootUri: Path to the entity in swagger document. If missing, the entity will not be exposed
+#   NavigationPropertyMode: Mode to generate navigation properties. Possible values are:
+#     - Allow: All properties from the list will be generated, properties not in the list will be ignored
+#     - Ignore: All properties from the list will be ignored, properties not in the list will be generated
+#     If missing, the default value is Allow
+#   NavigationProperty: List of navigation properties used in the option before
+#   RequiredOnWrite: List of properties that are required on write
+#   ReadOnly: List of properties that are read only
 EntityTypes:
   - Name: microsoft.graph.group
     RootUri: /groups
@@ -16,14 +25,30 @@ EntityTypes:
       - mailEnabled
       - mailNickname
       - securityEnabled
+    ReadOnly:
+      - createdDateTime
+      - expirationDateTime
+      - mail
+      - onPremisesLastSyncDateTime
+      - onPremisesSamAccountName
+      - onPremisesSecurityIdentifier
+      - onPremisesSyncEnabled
+      - proxyAddresses
+      - renewedDateTime
   - Name: microsoft.graph.application
     RootUri: /applications
     RequiredOnWrite:
       - displayName
+    ReadOnly:
+      - certification
+      - createdDateTime
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     RequiredOnWrite:
       - appId
+    ReadOnly:
+      - applicationTemplateId
+      - signInAudience
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
     RequiredOnWrite:
@@ -36,3 +61,20 @@ EntityTypes:
       - resourceId
       - principalId
       - appRoleId
+    ReadOnly:
+      - creationTimestamp
+      - principalDisplayName
+      - principalType
+  - Name: microsoft.graph.appRole
+    ReadOnly:
+      - origin
+  - Name: microsoft.graph.informationalUrl
+    ReadOnly:
+      - logoUrl
+  - Name: microsoft.graph.passwordCredential
+    ReadOnly:
+      - hint
+      - secretText
+  - Name: microsoft.graph.windowsApplication
+    ReadOnly:
+      - packageSid

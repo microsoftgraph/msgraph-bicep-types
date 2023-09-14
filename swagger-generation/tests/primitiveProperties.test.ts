@@ -1,32 +1,8 @@
-import { Config, EntityTypeConfig } from "../src/config";
+import { EntityTypeConfig } from "../src/config";
 import { DefinitionMap } from "../src/definitions/DefinitionMap";
 import { PrimitiveSwaggerTypeStruct } from "../src/definitions/PrimitiveSwaggerType";
 import { CSDL } from "../src/definitions/RawTypes";
-
-
-const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-entityTypes.set('namespace.entityNameOne', {
-    Name: 'namespace.entityNameOne',
-    RootUri: 'entityNameOnes',
-    NavigationProperty: []
-} as EntityTypeConfig);
-
-entityTypes.set('namespace.entityNameTwo', {
-    Name: 'namespace.entityNameTwo',
-    RootUri: 'entityNameTwos',
-    NavigationProperty: []
-})
-
-const mockConfig = class {
-    public static get Instance(): Config {
-        return {
-            EntityTypes: entityTypes,
-            URL: 'https://example.com',
-            APIVersion: 'beta'
-        }
-    }
-}
+import { constructDataStructure } from "../src/deserializer";
 
 const csdl: CSDL = {
     'edmx:Edmx': {
@@ -105,25 +81,33 @@ const csdl: CSDL = {
     },
 };
 
-jest.mock('../src/config', () => {
-    return { Config: mockConfig };
-})
-
 describe("when csdl contains not mapped types", () =>{
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
-    let constructDataStructure: typeof import('../src/deserializer').constructDataStructure;
+    entityTypes.set('namespace.entityNameOne', {
+        Name: 'namespace.entityNameOne',
+        RootUri: 'entityNameOnes',
+        NavigationProperty: []
+    } as EntityTypeConfig);
 
-    beforeEach(() => {
-        jest.resetModules();
-        constructDataStructure = require('../src/deserializer').constructDataStructure;
+    entityTypes.set('namespace.entityNameTwo', {
+        Name: 'namespace.entityNameTwo',
+        RootUri: 'entityNameTwos',
+        NavigationProperty: []
     });
+
+    const config = {
+        EntityTypes: entityTypes,
+        URL: 'https://example.com',
+        APIVersion: 'beta'
+    }
 
     it("should return the correct properties", () => {
         let definitionMap: DefinitionMap = new DefinitionMap();
     
-        expect(() => constructDataStructure(csdl, definitionMap)).not.toThrow();
+        expect(() => constructDataStructure(csdl, definitionMap, config)).not.toThrow();
 
-        definitionMap = constructDataStructure(csdl, definitionMap);
+        definitionMap = constructDataStructure(csdl, definitionMap, config);
     
         expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.length).toBe(4)
 
