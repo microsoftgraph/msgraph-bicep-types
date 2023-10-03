@@ -25,6 +25,13 @@ steps:
       workingDir: "$(SwaggerGenerationWorkingDir)"
 
   - task: NPM@1
+    displayName: "Install swagger-generation"
+    inputs:
+      command: "custom"
+      workingDir: "$(SwaggerGenerationWorkingDir)"
+      customCommand: "test"
+
+  - task: NPM@1
     displayName: "Generate Swagger File"
     inputs:
       command: "custom"
