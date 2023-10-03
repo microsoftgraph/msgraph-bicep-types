@@ -25,7 +25,7 @@ steps:
       workingDir: "$(SwaggerGenerationWorkingDir)"
 
   - task: NPM@1
-    displayName: "Install swagger-generation"
+    displayName: "Test swagger-generation"
     inputs:
       command: "custom"
       workingDir: "$(SwaggerGenerationWorkingDir)"
