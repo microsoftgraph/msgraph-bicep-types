@@ -1,0 +1,13 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+variables:
+  BuildPlatform: "Any CPU"
+  BuildConfiguration: "Release"
+  ProductBinPath: '$(Build.SourcesDirectory)/src/Microsoft.Graph.Bicep.Types/bin/$(BuildConfiguration)'
+  BuildSolution: '$(Build.SourcesDirectory)/Microsoft.Graph.Bicep.Types.sln'
+  SwaggerFilePath: '$(Build.SourcesDirectory)/swagger/specification/microsoftgraph/resource-manager/microsoftgraph/preview/2023-09-15-preview'
+  AutoRestWorkingDir: "$(Build.SourcesDirectory)/src/autorest.bicep"
+  BicepTypesWorkingDir: "$(Build.SourcesDirectory)/bicep-types/src/bicep-types"
+  GeneratorWorkingdir: "$(Build.SourcesDirectory)/src/generator"
+  SwaggerGenerationWorkingDir: "$(Build.SourcesDirectory)/src/swagger-generation"
