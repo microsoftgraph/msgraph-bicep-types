@@ -4,16 +4,7 @@
 name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 # Create a production build artifact from the HEAD of the master branch.
-trigger:  
-  paths: # File paths to include or exclude for triggering a run.
-    include: 
-      - src/*
-      - generated/*
-  branches:
-    include:
-      - master
-      - main
-
+trigger: none
 pr: none
 
 pool:
