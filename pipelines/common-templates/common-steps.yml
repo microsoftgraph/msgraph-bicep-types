@@ -1,0 +1,85 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+parameters:
+  - name: Official
+    displayName: "Official Release"
+    type: boolean
+    default: false
+
+steps:
+  - template: ./generate-types.yml
+
+  # Build the solution
+  - task: DotNetCoreCLI@2
+    displayName: "Build Typeloader"
+    inputs:
+      projects: "$(BuildSolution)"
+      arguments: "--configuration $(BuildConfiguration) --no-incremental"
+
+  # Run unit tests
+  - task: DotNetCoreCLI@2
+    displayName: "Test Typeloader"
+    inputs:
+      command: "test"
+      projects: "$(BuildSolution)"
+      arguments: "--configuration $(BuildConfiguration) --no-build"
+
+  - task: BinSkim@3
+    displayName: "Run BinSkim - Product Binaries"
+    inputs:
+      InputType: Basic
+      AnalyzeTarget: '$(ProductBinPath)/**/Microsoft.Graph.Bicep.Types.dll'
+      AnalyzeSymPath: "$(ProductBinPath)"
+      AnalyzeVerbose: true
+      AnalyzeHashes: true
+      AnalyzeEnvironment: true
+
+  - ${{ if eq(parameters.Official, true) }}:
+    - template: ./esrp/codesign.yml
+
+  - task: DotNetCoreCLI@2
+    displayName: "Pack Typeloader"
+    inputs:
+      command: pack
+      projects: src/Microsoft.Graph.Bicep.Types/Microsoft.Graph.Bicep.Types.csproj
+      arguments: "-o $(Build.ArtifactStagingDirectory) --configuration $(BuildConfiguration) --no-build --include-symbols --include-source /p:SymbolPackageFormat=snupkg"
+
+  - task: PowerShell@2
+    displayName: "Validate project version has been incremented"
+    condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
+    enabled: ${{ parameters.Official }}
+    inputs:
+      targetType: "filePath"
+      filePath: $(System.DefaultWorkingDirectory)/scripts/ValidateProjectVersionUpdated.ps1
+      pwsh: true
+
+  - ${{ if eq(parameters.Official, true) }}:
+    - template: ./esrp/codesign-nuget.yml
+
+  - task: CopyFiles@2
+    displayName: "Copy Product Binaries"
+    inputs:
+      SourceFolder: "$(ProductBinPath)"
+      Contents: '**/Microsoft.Graph.Bicep.Types.dll'
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/ProductBinaries"
+
+  - task: CopyFiles@2
+    displayName: "Copy Swagger Dir"
+    inputs:
+      SourceFolder: "$(Build.SourcesDirectory)/swagger"
+      Contents: "**"
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/swagger"
+  
+  - task: CopyFiles@2
+    displayName: "Copy generated Dir"
+    inputs:
+      SourceFolder: "$(Build.SourcesDirectory)/generated"
+      Contents: "**"
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/generated"
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Files'
+    inputs:
+      ArtifactName: 'GeneratedFiles'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'

@@ -1,0 +1,73 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+steps:
+  - script: git submodule update --init --recursive
+    displayName: "Initialize Submodules"
+
+  - task: NPM@1
+    displayName: "Install bicep-types"
+    inputs:
+      command: "ci"
+      workingDir: "$(BicepTypesWorkingDir)"
+
+  - task: NPM@1
+    displayName: "Build bicep-types"
+    inputs:
+      command: "custom"
+      workingDir: "$(BicepTypesWorkingDir)"
+      customCommand: "run build"
+
+  - task: NPM@1
+    displayName: "Install swagger-generation"
+    inputs:
+      command: "ci"
+      workingDir: "$(SwaggerGenerationWorkingDir)"
+
+  - task: NPM@1
+    displayName: "Test swagger-generation"
+    inputs:
+      command: "custom"
+      workingDir: "$(SwaggerGenerationWorkingDir)"
+      customCommand: "test"
+
+  - task: NPM@1
+    displayName: "Generate Swagger File"
+    inputs:
+      command: "custom"
+      workingDir: "$(SwaggerGenerationWorkingDir)"
+      customCommand: "run start"
+
+  - task: CopyFiles@2
+    displayName: "Copy Swagger File"
+    inputs:
+      SourceFolder: "$(SwaggerGenerationWorkingDir)/output"
+      Contents: "**"
+      TargetFolder: "$(SwaggerFilePath)"
+      OverWrite: true
+
+  - task: NPM@1
+    displayName: "Install autorest.bicep"
+    inputs:
+      command: "ci"
+      workingDir: "$(AutoRestWorkingDir)"
+
+  - task: NPM@1
+    displayName: "Build autorest.bicep"
+    inputs:
+      command: "custom"
+      workingDir: "$(AutoRestWorkingDir)"
+      customCommand: "run build"
+
+  - task: NPM@1
+    displayName: "Install generator"
+    inputs:
+      command: "ci"
+      workingDir: "$(GeneratorWorkingdir)"
+
+  - task: NPM@1
+    displayName: "Generate Bicep Files"
+    inputs:
+      command: "custom"
+      workingDir: "$(GeneratorWorkingdir)"
+      customCommand: "run generate -- --specs-dir ../../swagger/ --single-path microsoftgraph"

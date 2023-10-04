@@ -1,0 +1,39 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+name: $(BuildDefinitionName)_$(SourceBranchName)_BUILD_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+pr:
+  - main
+schedules:
+  - cron: "0 21 * * *"
+    displayName: Daily Build
+    branches:
+      include:
+        - main
+    always: false
+
+pool:
+  name: Azure Pipelines
+  vmImage: windows-latest
+  demands:
+    - msbuild
+    - vstest
+
+variables:
+  - template: ./common-variables.yml
+
+jobs:
+  - job: MsGraphBicepTypesBuild
+    displayName: Microsoft Graph Bicep Types Build
+    steps:
+      - template: ./common-templates/install-tools.yml
+
+      - template: ./common-templates/security-pre-checks.yml
+
+      - template: ./common-templates/common-steps.yml
+        parameters:
+          Official: false
+
+      - template: ./common-templates/security-post-checks.yml
