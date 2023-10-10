@@ -2,7 +2,7 @@
 
 ## Scenario
 
-You want to track and manage existing Microsoft Graph resources (like applications or groups) using a Bicep template (and the new Graph Bicep Extension) using the `existing` keyword.
+You want to track/reference existing Microsoft Graph resources (like applications or groups) using the `existing` keyword and manage (update) existing resources using a Bicep template (and the new Graph Bicep Extension).
 
 ## Problem
 
