@@ -17,23 +17,12 @@
     "microsoft.graph.group": {
       "type": "object",
       "properties": {
-        "assignedLabels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.assignedLabel"
-          }
-        },
-        "assignedLicenses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.assignedLicense"
-          }
-        },
         "classification": {
           "type": "string"
         },
         "createdByAppId": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "createdDateTime": {
           "type": "string",
@@ -57,9 +46,6 @@
             "type": "string"
           }
         },
-        "hasMembersWithLicenseErrors": {
-          "type": "boolean"
-        },
         "infoCatalogs": {
           "type": "array",
           "items": {
@@ -70,10 +56,8 @@
           "type": "boolean"
         },
         "isManagementRestricted": {
-          "type": "boolean"
-        },
-        "licenseProcessingState": {
-          "$ref": "#/definitions/microsoft.graph.licenseProcessingState"
+          "type": "boolean",
+          "readOnly": true
         },
         "mail": {
           "type": "string",
@@ -168,53 +152,16 @@
         "theme": {
           "type": "string"
         },
-        "uniqueName": {
-          "type": "string"
-        },
         "visibility": {
           "type": "string"
         },
         "writebackConfiguration": {
           "$ref": "#/definitions/microsoft.graph.groupWritebackConfiguration"
         },
-        "accessType": {
-          "$ref": "#/definitions/microsoft.graph.groupAccessType"
-        },
-        "allowExternalSenders": {
-          "type": "boolean"
-        },
-        "autoSubscribeNewMembers": {
-          "type": "boolean"
-        },
-        "hideFromAddressLists": {
-          "type": "boolean"
-        },
-        "hideFromOutlookClients": {
-          "type": "boolean"
-        },
-        "isFavorite": {
-          "type": "boolean"
-        },
-        "isSubscribedByMail": {
-          "type": "boolean"
-        },
-        "unseenConversationsCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "unseenCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "unseenMessagesCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "membershipRuleProcessingStatus": {
-          "$ref": "#/definitions/microsoft.graph.membershipRuleProcessingStatus"
-        },
-        "isArchived": {
-          "type": "boolean"
+        "deletedDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
         },
         "members": {
           "type": "array",
@@ -300,7 +247,8 @@
           }
         },
         "logo": {
-          "type": "string"
+          "type": "string",
+          "format": "base64url"
         },
         "notes": {
           "type": "string"
@@ -357,9 +305,6 @@
           "type": "string",
           "format": "uuid"
         },
-        "uniqueName": {
-          "type": "string"
-        },
         "verifiedPublisher": {
           "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
         },
@@ -369,8 +314,10 @@
         "windows": {
           "$ref": "#/definitions/microsoft.graph.windowsApplication"
         },
-        "onPremisesPublishing": {
-          "$ref": "#/definitions/microsoft.graph.onPremisesPublishing"
+        "deletedDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
         }
       },
       "required": [
@@ -380,9 +327,6 @@
     "microsoft.graph.servicePrincipal": {
       "type": "object",
       "properties": {
-        "passwordSingleSignOnSettings": {
-          "$ref": "#/definitions/microsoft.graph.passwordSingleSignOnSettings"
-        },
         "accountEnabled": {
           "type": "boolean"
         },
@@ -424,9 +368,6 @@
             "$ref": "#/definitions/microsoft.graph.appRole"
           }
         },
-        "customSecurityAttributes": {
-          "$ref": "#/definitions/microsoft.graph.customSecurityAttributeValue"
-        },
         "description": {
           "type": "string"
         },
@@ -434,9 +375,6 @@
           "type": "string"
         },
         "displayName": {
-          "type": "string"
-        },
-        "errorUrl": {
           "type": "string"
         },
         "homepage": {
@@ -528,6 +466,11 @@
         },
         "verifiedPublisher": {
           "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
+        },
+        "deletedDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
         }
       },
       "required": [
@@ -543,10 +486,6 @@
         "consentType": {
           "type": "string"
         },
-        "expiryTime": {
-          "type": "string",
-          "format": "date-time"
-        },
         "principalId": {
           "type": "string"
         },
@@ -555,10 +494,6 @@
         },
         "scope": {
           "type": "string"
-        },
-        "startTime": {
-          "type": "string",
-          "format": "date-time"
         }
       },
       "required": [
@@ -660,10 +595,6 @@
     "microsoft.graph.passwordCredential": {
       "type": "object",
       "properties": {
-        "customKeyIdentifier": {
-          "type": "string",
-          "format": "base64url"
-        },
         "displayName": {
           "type": "string"
         },
@@ -701,41 +632,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "microsoft.graph.assignedLabel": {
-      "type": "object",
-      "properties": {
-        "displayName": {
-          "type": "string"
-        },
-        "labelId": {
-          "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.assignedLicense": {
-      "type": "object",
-      "properties": {
-        "disabledPlans": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uuid"
-          }
-        },
-        "skuId": {
-          "type": "string",
-          "format": "uuid"
-        }
-      }
-    },
-    "microsoft.graph.licenseProcessingState": {
-      "type": "object",
-      "properties": {
-        "state": {
-          "type": "string"
         }
       }
     },
@@ -777,21 +673,9 @@
       "properties": {
         "onPremisesGroupType": {
           "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.membershipRuleProcessingStatus": {
-      "type": "object",
-      "properties": {
-        "errorMessage": {
-          "type": "string"
         },
-        "lastMembershipUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "$ref": "#/definitions/microsoft.graph.MembershipRuleProcessingStatusDetails"
+        "isEnabled": {
+          "type": "boolean"
         }
       }
     },
@@ -1041,91 +925,6 @@
         }
       }
     },
-    "microsoft.graph.onPremisesPublishing": {
-      "type": "object",
-      "properties": {
-        "alternateUrl": {
-          "type": "string"
-        },
-        "applicationServerTimeout": {
-          "type": "string"
-        },
-        "applicationType": {
-          "type": "string"
-        },
-        "externalAuthenticationType": {
-          "$ref": "#/definitions/microsoft.graph.externalAuthenticationType"
-        },
-        "externalUrl": {
-          "type": "string"
-        },
-        "internalUrl": {
-          "type": "string"
-        },
-        "isAccessibleViaZTNAClient": {
-          "type": "boolean"
-        },
-        "isBackendCertificateValidationEnabled": {
-          "type": "boolean"
-        },
-        "isHttpOnlyCookieEnabled": {
-          "type": "boolean"
-        },
-        "isOnPremPublishingEnabled": {
-          "type": "boolean"
-        },
-        "isPersistentCookieEnabled": {
-          "type": "boolean"
-        },
-        "isSecureCookieEnabled": {
-          "type": "boolean"
-        },
-        "isStateSessionEnabled": {
-          "type": "boolean"
-        },
-        "isTranslateHostHeaderEnabled": {
-          "type": "boolean"
-        },
-        "isTranslateLinksInBodyEnabled": {
-          "type": "boolean"
-        },
-        "onPremisesApplicationSegments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.onPremisesApplicationSegment"
-          }
-        },
-        "segmentsConfiguration": {
-          "$ref": "#/definitions/microsoft.graph.segmentConfiguration"
-        },
-        "singleSignOnSettings": {
-          "$ref": "#/definitions/microsoft.graph.onPremisesPublishingSingleSignOn"
-        },
-        "useAlternateUrlForTranslationAndRedirect": {
-          "type": "boolean"
-        },
-        "verifiedCustomDomainCertificatesMetadata": {
-          "$ref": "#/definitions/microsoft.graph.verifiedCustomDomainCertificatesMetadata"
-        },
-        "verifiedCustomDomainKeyCredential": {
-          "$ref": "#/definitions/microsoft.graph.keyCredential"
-        },
-        "verifiedCustomDomainPasswordCredential": {
-          "$ref": "#/definitions/microsoft.graph.passwordCredential"
-        }
-      }
-    },
-    "microsoft.graph.passwordSingleSignOnSettings": {
-      "type": "object",
-      "properties": {
-        "fields": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.passwordSingleSignOnField"
-          }
-        }
-      }
-    },
     "microsoft.graph.addIn": {
       "type": "object",
       "properties": {
@@ -1143,10 +942,6 @@
           "type": "string"
         }
       }
-    },
-    "microsoft.graph.customSecurityAttributeValue": {
-      "type": "object",
-      "properties": {}
     },
     "microsoft.graph.permissionScope": {
       "type": "object",
@@ -1258,80 +1053,6 @@
         }
       }
     },
-    "microsoft.graph.onPremisesApplicationSegment": {
-      "type": "object",
-      "properties": {
-        "alternateUrl": {
-          "type": "string"
-        },
-        "corsConfigurations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/microsoft.graph.corsConfiguration"
-          }
-        },
-        "externalUrl": {
-          "type": "string"
-        },
-        "internalUrl": {
-          "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.segmentConfiguration": {
-      "type": "object",
-      "properties": {}
-    },
-    "microsoft.graph.onPremisesPublishingSingleSignOn": {
-      "type": "object",
-      "properties": {
-        "kerberosSignOnSettings": {
-          "$ref": "#/definitions/microsoft.graph.kerberosSignOnSettings"
-        },
-        "singleSignOnMode": {
-          "$ref": "#/definitions/microsoft.graph.singleSignOnMode"
-        }
-      }
-    },
-    "microsoft.graph.verifiedCustomDomainCertificatesMetadata": {
-      "type": "object",
-      "properties": {
-        "expiryDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "issueDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "issuerName": {
-          "type": "string"
-        },
-        "subjectName": {
-          "type": "string"
-        },
-        "thumbprint": {
-          "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.passwordSingleSignOnField": {
-      "type": "object",
-      "properties": {
-        "customizedLabel": {
-          "type": "string"
-        },
-        "defaultLabel": {
-          "type": "string"
-        },
-        "fieldId": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
     "microsoft.graph.keyValue": {
       "type": "object",
       "properties": {
@@ -1343,97 +1064,10 @@
         }
       }
     },
-    "microsoft.graph.corsConfiguration": {
-      "type": "object",
-      "properties": {
-        "allowedHeaders": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "allowedMethods": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "allowedOrigins": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "maxAgeInSeconds": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "resource": {
-          "type": "string"
-        }
-      }
-    },
-    "microsoft.graph.kerberosSignOnSettings": {
-      "type": "object",
-      "properties": {
-        "kerberosServicePrincipalName": {
-          "type": "string"
-        },
-        "kerberosSignOnMappingAttributeType": {
-          "$ref": "#/definitions/microsoft.graph.kerberosSignOnMappingAttributeType"
-        }
-      }
-    },
-    "microsoft.graph.groupAccessType": {
-      "type": "string",
-      "enum": [
-        "none",
-        "private",
-        "secret",
-        "public"
-      ]
-    },
-    "microsoft.graph.MembershipRuleProcessingStatusDetails": {
-      "type": "string",
-      "enum": [
-        "NotStarted",
-        "Running",
-        "Failed",
-        "Succeeded"
-      ]
-    },
     "microsoft.graph.weakAlgorithms": {
       "type": "string",
       "enum": [
         "rsaSha1"
-      ]
-    },
-    "microsoft.graph.externalAuthenticationType": {
-      "type": "string",
-      "enum": [
-        "passthru",
-        "aadPreAuthentication"
-      ]
-    },
-    "microsoft.graph.singleSignOnMode": {
-      "type": "string",
-      "enum": [
-        "none",
-        "onPremisesKerberos",
-        "saml",
-        "pingHeaderBased",
-        "aadHeaderBased",
-        "oAuthToken"
-      ]
-    },
-    "microsoft.graph.kerberosSignOnMappingAttributeType": {
-      "type": "string",
-      "enum": [
-        "userPrincipalName",
-        "onPremisesUserPrincipalName",
-        "userPrincipalUsername",
-        "onPremisesUserPrincipalUsername",
-        "onPremisesSAMAccountName"
       ]
     }
   },
@@ -1602,7 +1236,7 @@
         }
       }
     },
-    "/{rootScope}/providers/Microsoft.Graph/servicePrincipals/{resourceId}/appRoleAssignedTo/{appRoleAssignmentId}": {
+    "/{rootScope}/providers/Microsoft.Graph/appRoleAssignedTo/{appRoleAssignmentId}": {
       "put": {
         "tags": [
           "appRoleAssignedTo"
