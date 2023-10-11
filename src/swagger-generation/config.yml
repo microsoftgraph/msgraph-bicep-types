@@ -1,0 +1,212 @@
+# URL to fetch the metadata document
+URL: https://graph.microsoft.com/beta/$metadata
+
+# Version with which the api will be generated in the swagger document
+apiVersion: beta
+
+# List of entity types to generate swagger from.
+# - Name: Name of the entity type
+#   RootUri: Path to the entity in swagger document. If missing, the entity will not be exposed
+#   AvailableProperty: List of properties that will be generated in the swagger document. If missing, all properties will be generated
+#   NavigationPropertyMode: Mode to generate navigation properties. Possible values are:
+#     - Allow: All properties from the list will be generated, properties not in the list will be ignored
+#     - Ignore: All properties from the list will be ignored, properties not in the list will be generated
+#     If missing, the default value is Allow
+#   NavigationProperty: List of navigation properties used in the option before
+#   RequiredOnWrite: List of properties that are required on write
+#   ReadOnly: List of properties that are read only
+EntityTypes:
+  - Name: microsoft.graph.group
+    RootUri: /groups
+    AvailableProperty:
+      - classification
+      - createdByAppId
+      - createdDateTime
+      - description
+      - displayName
+      - expirationDateTime
+      - groupTypes
+      - infoCatalogs
+      - isAssignableToRole
+      - isManagementRestricted
+      - mail
+      - mailEnabled
+      - mailNickname
+      - membershipRule
+      - membershipRuleProcessingState
+      - onPremisesDomainName
+      - onPremisesLastSyncDateTime
+      - onPremisesNetBiosName
+      - onPremisesProvisioningErrors
+      - onPremisesSamAccountName
+      - onPremisesSecurityIdentifier
+      - onPremisesSyncEnabled
+      - organizationId
+      - preferredDataLocation
+      - preferredLanguage
+      - proxyAddresses
+      - renewedDateTime
+      - resourceBehaviorOptions
+      - resourceProvisioningOptions
+      - securityEnabled
+      - securityIdentifier
+      - serviceProvisioningErrors
+      - theme
+      - visibility
+      - writebackConfiguration
+    NavigationProperty:
+      - members
+      - owners
+    RequiredOnWrite:
+      - displayName
+      - mailEnabled
+      - mailNickname
+      - securityEnabled
+    ReadOnly:
+      - createdByAppId
+      - createdDateTime
+      - expirationDateTime
+      - isManagementRestricted
+      - mail
+      - onPremisesLastSyncDateTime
+      - onPremisesSamAccountName
+      - onPremisesSecurityIdentifier
+      - onPremisesSyncEnabled
+      - proxyAddresses
+      - renewedDateTime
+  - Name: microsoft.graph.application
+    RootUri: /applications
+    AvailableProperty:
+      - api
+      - appId
+      - appRoles
+      - authenticationBehaviors
+      - certification
+      - createdDateTime
+      - defaultRedirectUri
+      - description
+      - disabledByMicrosoftStatus
+      - displayName
+      - groupMembershipClaims
+      - identifierUris
+      - info
+      - isDeviceOnlyAuthSupported
+      - isFallbackPublicClient
+      - keyCredentials
+      - logo
+      - notes
+      - optionalClaims
+      - parentalControlSettings
+      - passwordCredentials
+      - publicClient
+      - publisherDomain
+      - requestSignatureVerification
+      - requiredResourceAccess
+      - samlMetadataUrl
+      - serviceManagementReference
+      - servicePrincipalLockConfiguration
+      - signInAudience
+      - spa
+      - tags
+      - tokenEncryptionKeyId
+      - verifiedPublisher
+      - web
+      - windows
+    RequiredOnWrite:
+      - displayName
+    ReadOnly:
+      - certification
+      - createdDateTime
+  - Name: microsoft.graph.servicePrincipal
+    RootUri: /servicePrincipals
+    AvailableProperty:
+      - accountEnabled
+      - addIns
+      - alternativeNames
+      - appDescription
+      - appDisplayName
+      - appId
+      - appOwnerOrganizationId
+      - appRoleAssignmentRequired
+      - appRoles
+      - applicationTemplateId
+      - description
+      - disabledByMicrosoftStatus
+      - displayName
+      - homepage
+      - info
+      - keyCredentials
+      - loginUrl
+      - logoutUrl
+      - notes
+      - notificationEmailAddresses
+      - passwordCredentials
+      - publishedPermissionScopes
+      - preferredSingleSignOnMode
+      - preferredTokenSigningKeyThumbprint
+      - preferredTokenSigningKeyEndDateTime
+      - publisherName
+      - replyUrls
+      - samlMetadataUrl
+      - samlSingleSignOnSettings
+      - servicePrincipalNames
+      - servicePrincipalType
+      - signInAudience
+      - tags
+      - tokenEncryptionKeyId
+      - verifiedPublisher
+    RequiredOnWrite:
+      - appId
+    ReadOnly:
+      - applicationTemplateId
+      - signInAudience
+  - Name: microsoft.graph.oAuth2PermissionGrant
+    RootUri: /oauth2PermissionGrants
+    AvailableProperty:
+      - clientId
+      - consentType
+      - principalId
+      - resourceId
+      - scope
+    RequiredOnWrite:
+      - clientId
+      - resourceId
+      - consentType
+  - Name: microsoft.graph.appRoleAssignment
+    RootUri: /appRoleAssignedTo
+    AvailableProperty:
+      - appRoleId
+      - creationTimestamp
+      - principalDisplayName
+      - principalId
+      - principalType
+      - resourceDisplayName
+      - resourceId
+    RequiredOnWrite:
+      - resourceId
+      - principalId
+      - appRoleId
+    ReadOnly:
+      - creationTimestamp
+      - principalDisplayName
+      - principalType
+  - Name: microsoft.graph.appRole
+    ReadOnly:
+      - origin
+  - Name: microsoft.graph.informationalUrl
+    ReadOnly:
+      - logoUrl
+  - Name: microsoft.graph.passwordCredential
+    AvailableProperty:
+      - displayName
+      - endDateTime
+      - hint
+      - keyId
+      - secretText
+      - startDateTime
+    ReadOnly:
+      - hint
+      - secretText
+  - Name: microsoft.graph.windowsApplication
+    ReadOnly:
+      - packageSid

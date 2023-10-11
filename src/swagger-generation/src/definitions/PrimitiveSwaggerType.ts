@@ -20,11 +20,13 @@ export enum SwaggerMetaFormat {
     DateTime = "date-time",
     Password = "password",
     Uuid = "uuid",
+    Base64Url = "base64url",
 }
 
 export class PrimitiveSwaggerTypeStruct {
     type: SwaggerMetaType
     format?: SwaggerMetaFormat
+
     constructor(type: SwaggerMetaType, format: SwaggerMetaFormat | undefined) {
         this.type = type
         if (format)
@@ -48,6 +50,7 @@ export class PrimitiveSwaggerType {
     Date: PrimitiveSwaggerTypeStruct
     DateTime: PrimitiveSwaggerTypeStruct
     Password: PrimitiveSwaggerTypeStruct
+    Stream: PrimitiveSwaggerTypeStruct
     Uuid: PrimitiveSwaggerTypeStruct
 
     private constructor() {
@@ -62,6 +65,7 @@ export class PrimitiveSwaggerType {
         this.Date = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date)
         this.DateTime = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime)
         this.Password = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Password)
+        this.Stream = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Base64Url)
         this.Uuid = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Uuid)
     }
 

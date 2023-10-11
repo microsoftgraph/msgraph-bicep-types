@@ -4,7 +4,7 @@
   "description": "The MSGraph swagger specification auto-generation tool using CSDL",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "jest",
+    "test": "jest --verbose",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
