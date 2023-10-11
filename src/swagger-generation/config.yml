@@ -68,7 +68,9 @@ EntityTypes:
       - expirationDateTime
       - isManagementRestricted
       - mail
+      - onPremisesDomainName
       - onPremisesLastSyncDateTime
+      - onPremisesNetBiosName
       - onPremisesSamAccountName
       - onPremisesSecurityIdentifier
       - onPremisesSyncEnabled
@@ -115,8 +117,10 @@ EntityTypes:
     RequiredOnWrite:
       - displayName
     ReadOnly:
+      - appId
       - certification
       - createdDateTime
+      - publisherDomain
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     AvailableProperty:
