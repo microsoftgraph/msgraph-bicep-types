@@ -26,6 +26,13 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             "Microsoft.Graph/groups@beta",
         };
 
+        private IReadOnlySet<string> directoryObjects = new HashSet<string>
+        {
+            "Microsoft.Graph/applications@beta",
+            "Microsoft.Graph/servicePrincipals@beta",
+            "Microsoft.Graph/groups@beta",
+        };
+
         [TestMethod]
         public void MSGraphTypeLoader_can_load_all_types_without_throwing()
         {
@@ -72,8 +79,16 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
                 properties.Should().NotBeNull();
                 properties.Should().HaveCountGreaterThan(4); // Should at least have id, name, type, and apiVersion
 
+                // Check "name" has correct flags
                 var nameFlags = typesWithRequiredName.Contains(kvp.Key) ? ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant : ObjectTypePropertyFlags.None;
                 properties["name"].Flags.Should().HaveFlag(nameFlags);
+
+                // Check directory objects have "id" and "deletedDateTime" properties
+                if (directoryObjects.Contains(kvp.Key))
+                {
+                    properties["id"].Flags.Should().HaveFlag(ObjectTypePropertyFlags.ReadOnly);
+                    properties["deletedDateTime"].Flags.Should().HaveFlag(ObjectTypePropertyFlags.ReadOnly);
+                }
             }
         }
 
