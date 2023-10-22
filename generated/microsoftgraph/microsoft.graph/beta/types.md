@@ -47,15 +47,15 @@
 * **Valid Scope(s)**: Unknown
 ### Properties
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
-* **appRoleId**: string (Required)
+* **appRoleId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required)
 * **creationTimestamp**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **name**: string: The resource name
 * **principalDisplayName**: string (ReadOnly)
-* **principalId**: string (Required)
+* **principalId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required)
 * **principalType**: string (ReadOnly)
 * **resourceDisplayName**: string
-* **resourceId**: string (Required)
+* **resourceId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required)
 * **type**: 'Microsoft.Graph/appRoleAssignedTo' (ReadOnly, DeployTimeConstant): The resource type
 
 ## Resource Microsoft.Graph/groups@beta
@@ -125,7 +125,7 @@
 * **appDisplayName**: string
 * **appId**: string (Required)
 * **applicationTemplateId**: string (ReadOnly)
-* **appOwnerOrganizationId**: string
+* **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **appRoleAssignmentRequired**: bool
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]
 * **customSecurityAttributes**: any: An open complex type that holds the value of a custom security attribute that is assigned to a directory object.
@@ -160,14 +160,14 @@
 
 ## MicrosoftGraphAddIn
 ### Properties
-* **id**: string
+* **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **properties**: [MicrosoftGraphKeyValue](#microsoftgraphkeyvalue)[]
 * **type**: string
 
 ## MicrosoftGraphApiApplication
 ### Properties
 * **acceptMappedClaims**: bool
-* **knownClientApplications**: string[]
+* **knownClientApplications**: (string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"})[]
 * **oauth2PermissionScopes**: [MicrosoftGraphPermissionScope](#microsoftgraphpermissionscope)[]
 * **preAuthorizedApplications**: [MicrosoftGraphPreAuthorizedApplication](#microsoftgraphpreauthorizedapplication)[]
 * **requestedAccessTokenVersion**: int
@@ -177,7 +177,7 @@
 * **allowedMemberTypes**: string[]
 * **description**: string
 * **displayName**: string
-* **id**: string
+* **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **isEnabled**: bool
 * **origin**: string (ReadOnly)
 * **value**: string
@@ -219,7 +219,7 @@
 * **displayName**: string
 * **endDateTime**: string
 * **key**: string
-* **keyId**: string
+* **keyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **startDateTime**: string
 * **type**: string
 * **usage**: string
@@ -259,7 +259,7 @@
 * **displayName**: string
 * **endDateTime**: string
 * **hint**: string (ReadOnly)
-* **keyId**: string
+* **keyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **secretText**: string (ReadOnly)
 * **startDateTime**: string
 
@@ -267,7 +267,7 @@
 ### Properties
 * **adminConsentDescription**: string
 * **adminConsentDisplayName**: string
-* **id**: string
+* **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **isEnabled**: bool
 * **origin**: string
 * **type**: string
@@ -301,7 +301,7 @@
 
 ## MicrosoftGraphResourceAccess
 ### Properties
-* **id**: string
+* **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **type**: string
 
 ## MicrosoftGraphSamlSingleSignOnSettings
