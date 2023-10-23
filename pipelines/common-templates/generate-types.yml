@@ -36,15 +36,7 @@ steps:
     inputs:
       command: "custom"
       workingDir: "$(SwaggerGenerationWorkingDir)"
-      customCommand: "run start"
-
-  - task: CopyFiles@2
-    displayName: "Copy Swagger File"
-    inputs:
-      SourceFolder: "$(SwaggerGenerationWorkingDir)/output"
-      Contents: "**"
-      TargetFolder: "$(SwaggerFilePath)"
-      OverWrite: true
+      customCommand: "run start -- --output $(SwaggerFilePath)"
 
   - task: NPM@1
     displayName: "Install autorest.bicep"

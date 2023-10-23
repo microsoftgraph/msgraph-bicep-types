@@ -3,45 +3,46 @@
 ## Resource Microsoft.Graph/applications@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
-* **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication): Properties of an API Application.
+* **api**: [MicrosoftGraphApiApplication](#microsoftgraphapiapplication)
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
-* **appId**: string
+* **appId**: string (ReadOnly)
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]
-* **authenticationBehaviors**: [MicrosoftGraphAuthenticationBehaviors](#microsoftgraphauthenticationbehaviors): Properties of authencation behaviors.
-* **certification**: [MicrosoftGraphCertification](#microsoftgraphcertification) (ReadOnly): Properties of a Certification.
+* **authenticationBehaviors**: [MicrosoftGraphAuthenticationBehaviors](#microsoftgraphauthenticationbehaviors)
+* **certification**: [MicrosoftGraphCertification](#microsoftgraphcertification) (ReadOnly)
 * **createdDateTime**: string (ReadOnly)
 * **defaultRedirectUri**: string
+* **deletedDateTime**: string (ReadOnly)
 * **description**: string
 * **disabledByMicrosoftStatus**: string
 * **displayName**: string (Required)
 * **groupMembershipClaims**: string
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **identifierUris**: string[]
-* **info**: [MicrosoftGraphInformationalUrl](#microsoftgraphinformationalurl): Properties of an informational URL.
+* **info**: [MicrosoftGraphInformationalUrl](#microsoftgraphinformationalurl)
 * **isDeviceOnlyAuthSupported**: bool
 * **isFallbackPublicClient**: bool
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **logo**: string
 * **name**: string (Required, DeployTimeConstant): The resource name
 * **notes**: string
-* **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Properties of an optional claim.
-* **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Parental control settings for a device.
+* **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims)
+* **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings)
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]
-* **publicClient**: [MicrosoftGraphPublicClientApplication](#microsoftgraphpublicclientapplication): Properties of a public client application.
-* **publisherDomain**: string
-* **requestSignatureVerification**: [MicrosoftGraphRequestSignatureVerification](#microsoftgraphrequestsignatureverification): Properties of a request signature verification.
+* **publicClient**: [MicrosoftGraphPublicClientApplication](#microsoftgraphpublicclientapplication)
+* **publisherDomain**: string (ReadOnly)
+* **requestSignatureVerification**: [MicrosoftGraphRequestSignatureVerification](#microsoftgraphrequestsignatureverification)
 * **requiredResourceAccess**: [MicrosoftGraphRequiredResourceAccess](#microsoftgraphrequiredresourceaccess)[]
 * **samlMetadataUrl**: string
 * **serviceManagementReference**: string
-* **servicePrincipalLockConfiguration**: [MicrosoftGraphServicePrincipalLockConfiguration](#microsoftgraphserviceprincipallockconfiguration): Specifies the sensitive properties of the app that are locked for editing on the service principal.
+* **servicePrincipalLockConfiguration**: [MicrosoftGraphServicePrincipalLockConfiguration](#microsoftgraphserviceprincipallockconfiguration)
 * **signInAudience**: string
-* **spa**: [MicrosoftGraphSpaApplication](#microsoftgraphspaapplication): Properties of a spa application.
+* **spa**: [MicrosoftGraphSpaApplication](#microsoftgraphspaapplication)
 * **tags**: string[]
 * **tokenEncryptionKeyId**: string
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
-* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
-* **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Properties of a web application.
-* **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication): Represents settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store.
+* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher)
+* **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication)
+* **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication)
 
 ## Resource Microsoft.Graph/appRoleAssignedTo@beta
 * **Valid Scope(s)**: Unknown
@@ -65,6 +66,7 @@
 * **classification**: string
 * **createdByAppId**: string (ReadOnly)
 * **createdDateTime**: string (ReadOnly)
+* **deletedDateTime**: string (ReadOnly)
 * **description**: string
 * **displayName**: string (Required)
 * **expirationDateTime**: string (ReadOnly)
@@ -80,9 +82,9 @@
 * **membershipRule**: string
 * **membershipRuleProcessingState**: string
 * **name**: string (Required, DeployTimeConstant): The resource name
-* **onPremisesDomainName**: string
+* **onPremisesDomainName**: string (ReadOnly)
 * **onPremisesLastSyncDateTime**: string (ReadOnly)
-* **onPremisesNetBiosName**: string
+* **onPremisesNetBiosName**: string (ReadOnly)
 * **onPremisesProvisioningErrors**: [MicrosoftGraphOnPremisesProvisioningError](#microsoftgraphonpremisesprovisioningerror)[]
 * **onPremisesSamAccountName**: string (ReadOnly)
 * **onPremisesSecurityIdentifier**: string (ReadOnly)
@@ -93,13 +95,15 @@
 * **preferredLanguage**: string
 * **proxyAddresses**: string[] (ReadOnly)
 * **renewedDateTime**: string (ReadOnly)
+* **resourceBehaviorOptions**: string[]
+* **resourceProvisioningOptions**: string[]
 * **securityEnabled**: bool (Required)
 * **securityIdentifier**: string
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]
 * **theme**: string
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **visibility**: string
-* **writebackConfiguration**: [MicrosoftGraphGroupWritebackConfiguration](#microsoftgraphgroupwritebackconfiguration): Indicates whether writeback of cloud groups to on-premise Active Directory is enabled and the target group type for the on-premise group.
+* **writebackConfiguration**: [MicrosoftGraphGroupWritebackConfiguration](#microsoftgraphgroupwritebackconfiguration)
 
 ## Resource Microsoft.Graph/oauth2PermissionGrants@beta
 * **Valid Scope(s)**: Unknown
@@ -128,13 +132,13 @@
 * **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **appRoleAssignmentRequired**: bool
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]
-* **customSecurityAttributes**: any: An open complex type that holds the value of a custom security attribute that is assigned to a directory object.
+* **deletedDateTime**: string (ReadOnly)
 * **description**: string
 * **disabledByMicrosoftStatus**: string
 * **displayName**: string
 * **homepage**: string
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **info**: [MicrosoftGraphInformationalUrl](#microsoftgraphinformationalurl): Properties of an informational URL.
+* **info**: [MicrosoftGraphInformationalUrl](#microsoftgraphinformationalurl)
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **loginUrl**: string
 * **logoutUrl**: string
@@ -149,14 +153,14 @@
 * **publisherName**: string
 * **replyUrls**: string[]
 * **samlMetadataUrl**: string
-* **samlSingleSignOnSettings**: [MicrosoftGraphSamlSingleSignOnSettings](#microsoftgraphsamlsinglesignonsettings)[]
+* **samlSingleSignOnSettings**: [MicrosoftGraphSamlSingleSignOnSettings](#microsoftgraphsamlsinglesignonsettings)
 * **servicePrincipalNames**: string[]
 * **servicePrincipalType**: string
 * **signInAudience**: string (ReadOnly)
 * **tags**: string[]
 * **tokenEncryptionKeyId**: string
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
-* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Properties of a verified publisher.
+* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher)
 
 ## MicrosoftGraphAddIn
 ### Properties
@@ -278,7 +282,7 @@
 ## MicrosoftGraphPreAuthorizedApplication
 ### Properties
 * **appId**: string
-* **delegatedPermissionIds**: string[]
+* **permissionIds**: string[]
 
 ## MicrosoftGraphPublicClientApplication
 ### Properties
@@ -291,7 +295,7 @@
 
 ## MicrosoftGraphRequestSignatureVerification
 ### Properties
-* **allowedWeakAlgorithms**: 'rsaSha1' | 'unknownFutureValue' | string
+* **allowedWeakAlgorithms**: 'rsaSha1' | string
 * **isSignedRequestRequired**: bool
 
 ## MicrosoftGraphRequiredResourceAccess
@@ -335,7 +339,7 @@
 ## MicrosoftGraphWebApplication
 ### Properties
 * **homePageUrl**: string
-* **implicitGrantSettings**: [MicrosoftGraphImplicitGrantSettings](#microsoftgraphimplicitgrantsettings): Represents the implicit grant settings for OAuth2PermissionGrant.
+* **implicitGrantSettings**: [MicrosoftGraphImplicitGrantSettings](#microsoftgraphimplicitgrantsettings)
 * **logoutUrl**: string
 * **oauth2AllowImplicitFlow**: bool
 * **redirectUris**: string[]
