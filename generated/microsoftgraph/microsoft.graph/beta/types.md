@@ -38,7 +38,7 @@
 * **signInAudience**: string
 * **spa**: [MicrosoftGraphSpaApplication](#microsoftgraphspaapplication)
 * **tags**: string[]
-* **tokenEncryptionKeyId**: string
+* **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher)
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication)
@@ -158,7 +158,7 @@
 * **servicePrincipalType**: string
 * **signInAudience**: string (ReadOnly)
 * **tags**: string[]
-* **tokenEncryptionKeyId**: string
+* **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher)
 
