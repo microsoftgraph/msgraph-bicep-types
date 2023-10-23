@@ -76,7 +76,8 @@
           "type": "string"
         },
         "onPremisesDomainName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesLastSyncDateTime": {
           "type": "string",
@@ -84,7 +85,8 @@
           "readOnly": true
         },
         "onPremisesNetBiosName": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "onPremisesProvisioningErrors": {
           "type": "array",
@@ -190,7 +192,8 @@
           "$ref": "#/definitions/microsoft.graph.apiApplication"
         },
         "appId": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "appRoles": {
           "type": "array",
@@ -269,7 +272,8 @@
           "$ref": "#/definitions/microsoft.graph.publicClientApplication"
         },
         "publisherDomain": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "requestSignatureVerification": {
           "$ref": "#/definitions/microsoft.graph.requestSignatureVerification"
