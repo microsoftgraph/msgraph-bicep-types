@@ -13,11 +13,17 @@ export enum NavigationPropertyMode {
 export interface EntityTypeConfig {
   Name: string,
   RootUri?: string,
+  Upsertable?: boolean,
+  Updatable?: boolean,
+  ContainerEntitySet?: string,
+  ContainerKeyProperty?: string,
   AvailableProperty?: string[],
   NavigationPropertyMode?: NavigationPropertyMode,
   NavigationProperty?: string[]
   RequiredOnWrite?: string[]
   ReadOnly?: string[]
+  FilterProperty?: string[]
+  CompositeKey?: string[]
 }
 
 export class Config {
@@ -32,10 +38,11 @@ export class Config {
     const entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
 
     entityTypes.forEach((entityTypeConfig: EntityTypeConfig) => {
-      entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig)
       if (entityTypeConfig.NavigationPropertyMode && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Allow && entityTypeConfig.NavigationPropertyMode !== NavigationPropertyMode.Ignore) {
         throw new Error(`Invalid NavigationPropertyMode ${entityTypeConfig.NavigationPropertyMode} for ${entityTypeConfig.Name}. Only ${NavigationPropertyMode.Allow} and ${NavigationPropertyMode.Ignore} are valid values.`)
       }
+
+      entityTypesMap.set(`${entityTypeConfig.Name}`, entityTypeConfig);
     })
 
     this.EntityTypes = entityTypesMap

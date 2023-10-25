@@ -7,7 +7,7 @@ import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, PrimitivePropertyType, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, PrimitivePropertyType, RawAnnotation, RawPropertyValue, RawRecord, RawCollectionItem, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
 import { Config, EntityTypeConfig, NavigationPropertyMode } from "./config";
@@ -118,6 +118,7 @@ const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined,
 
 const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityType: RawEntityType, namespace: string): void => {
   const entityAttributes: RawEntityTypeAttributes = rawEntityType.$
+  const alternateKey: string | undefined = getAlternateKey(rawEntityType);
   const entityName: string = entityAttributes.Name
   const abstract: boolean = entityAttributes.Abstract ? entityAttributes.Abstract : false
   const baseType: string = entityAttributes.BaseType ? entityAttributes.BaseType : ''
@@ -151,7 +152,7 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
       navigationPropertyFilter(entityConfig, navigationProperty)
     );
 
-  const entityType: EntityType = new EntityType(entityName, abstract, baseType, openType, hasStream, properties, navigationProperties)
+  const entityType: EntityType = new EntityType(entityName, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties)
 
   definitionMap.EntityMap.set(fullEntityName, entityType)
 }
@@ -215,4 +216,56 @@ const navigationPropertyFilter = (entityConfig: EntityTypeConfig | undefined, na
   }
 
   return true // Not ignored either because it's not listed or there's no list
+}
+
+// Find the alternate key for both core and community term
+// Return core alternate key if it exists, otherwise return community alternate key
+const getAlternateKey = (rawEntityType: RawEntityType): string | undefined => {
+  const coreTermPrefix = 'Org.OData.Core.V1';
+  const communityTermPrefix = 'OData.Community.Keys.V1';
+
+  const coreAlternateKey = tryGetAlternateKey(rawEntityType, coreTermPrefix);
+  const communityAlternateKey = tryGetAlternateKey(rawEntityType, communityTermPrefix);
+
+  return coreAlternateKey ?? communityAlternateKey;
+}
+
+// Find the alternate key for the entity type
+// Return uniqueName if it exists, otherwise another alternate key
+const tryGetAlternateKey = (rawEntityType: RawEntityType, termPrefix: string): string | undefined => {
+  let alternateKey: string | undefined = undefined;
+
+  rawEntityType.Annotation
+    ?.find((annotation: RawAnnotation) => annotation.$.Term === `${termPrefix}.AlternateKeys`)
+    ?.Collection
+    ?.forEach((alternateKeysCollectionItem: RawCollectionItem) => {
+
+      alternateKeysCollectionItem.Record
+        ?.filter((record: RawRecord) => record.$.Type === `${termPrefix}.AlternateKey`)
+        .forEach((alternateKeyRecord: RawRecord) => {
+
+          alternateKeyRecord.PropertyValue
+            ?.filter((propertyValue: RawPropertyValue) => propertyValue.$.Property === 'Key')
+            .forEach((keyPropertyValue: RawPropertyValue) => {
+
+              keyPropertyValue.Collection?.forEach((keyCollectionItem: RawCollectionItem) => {
+                keyCollectionItem.Record
+                  ?.filter((record: RawRecord) => record.$.Type === `${termPrefix}.PropertyRef`)
+                  .forEach((propertyRefRecord: RawRecord) => {
+
+                    alternateKey = propertyRefRecord.PropertyValue
+                      ?.find((propertyValue: RawPropertyValue) =>
+                        propertyValue.$.PropertyPath === 'uniqueName' || propertyValue.$.Property === 'Name')
+                      ?.$.PropertyPath;
+
+                    if (alternateKey !== undefined) {
+                      return;
+                    }
+                  });
+              });
+            })
+        })
+    });
+
+  return alternateKey;
 }

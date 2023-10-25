@@ -7,6 +7,7 @@ import { Property } from "../../src/definitions/Property";
 describe('EntityType', () => {
   it('should create an instance with the correct properties', () => {
     const name = 'TestEntityType';
+    const alternateKey = 'alternateKey';
     const abstract = true;
     const baseType = 'BaseEntityType';
     const openType = false;
@@ -20,9 +21,10 @@ describe('EntityType', () => {
       new NavigationProperty('NavigationProperty2', 'namespace.one.EntityType2', true, false, false),
     ];
 
-    const entityType = new EntityType(name, abstract, baseType, openType, hasStream, properties, navigationProperties);
+    const entityType = new EntityType(name, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties);
 
     expect(entityType.Name).toBe(name);
+    expect(entityType.AlternateKey).toBe(alternateKey);
     expect(entityType.Abstract).toBe(abstract);
     expect(entityType.BaseType).toBe(baseType);
     expect(entityType.OpenType).toBe(openType);
@@ -33,12 +35,12 @@ describe('EntityType', () => {
 
   it('should convert primitive types to a Swagger definition', () => {
     const name = 'TestEntityType';
-    
+
     const properties = [
-        new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
-        new Property('Property2', PrimitiveSwaggerType.Instance.Double, true, false),
+      new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
+      new Property('Property2', PrimitiveSwaggerType.Instance.Double, true, false),
     ];
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     const definition = entityType.toSwaggerDefinition();
 
@@ -53,10 +55,10 @@ describe('EntityType', () => {
     const name = 'TestEntityType';
 
     const properties = [
-        new Property('Property1', new CollectionProperty('namespace.one.EntityType1'), true, false),
-        new Property('Property2', new CollectionProperty('namespace.one.EntityType2'), true, false),
+      new Property('Property1', new CollectionProperty('namespace.one.EntityType1'), true, false),
+      new Property('Property2', new CollectionProperty('namespace.one.EntityType2'), true, false),
     ];
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     const definition = entityType.toSwaggerDefinition();
 
@@ -73,11 +75,11 @@ describe('EntityType', () => {
     const name = 'TestEntityType';
 
     const properties = [
-        new Property('Property1', 'namespace.one.EntityType1', true, false),
-        new Property('Property2', 'namespace.one.EntityType2', true, false),
+      new Property('Property1', 'namespace.one.EntityType1', true, false),
+      new Property('Property2', 'namespace.one.EntityType2', true, false),
     ];
 
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     const definition = entityType.toSwaggerDefinition();
 
@@ -91,13 +93,13 @@ describe('EntityType', () => {
   it('should convert to swagger definition with required values', () => {
     const name = 'TestEntityType';
     const properties = [
-        new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
-        new Property('Property2', PrimitiveSwaggerType.Instance.String, true, false),
-        new Property('Property3', 'namespace.one.EntityType1', false, false),
-        new Property('Property4', new CollectionProperty('namespace.one.EntityType2'), false, false),
+      new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
+      new Property('Property2', PrimitiveSwaggerType.Instance.String, true, false),
+      new Property('Property3', 'namespace.one.EntityType1', false, false),
+      new Property('Property4', new CollectionProperty('namespace.one.EntityType2'), false, false),
     ];
 
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     const definition = entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property4']);
 
@@ -118,16 +120,16 @@ describe('EntityType', () => {
   it('should throw error if a required property is not found', () => {
     const name = 'TestEntityType';
     const properties = [
-        new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
-        new Property('Property2', PrimitiveSwaggerType.Instance.String, true, false),
-        new Property('Property3', 'namespace.one.EntityType1', false, false),
-        new Property('Property4', new CollectionProperty('namespace.one.EntityType2'), false, false),
+      new Property('Property1', new CollectionProperty(PrimitiveSwaggerType.Instance.String), true, false),
+      new Property('Property2', PrimitiveSwaggerType.Instance.String, true, false),
+      new Property('Property3', 'namespace.one.EntityType1', false, false),
+      new Property('Property4', new CollectionProperty('namespace.one.EntityType2'), false, false),
     ];
 
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     expect(() => {
-        entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property5']);
+      entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property5']);
     }).toThrowError('Required property Property5 not found in TestEntityType');
   });
 
@@ -137,7 +139,7 @@ describe('EntityType', () => {
       new Property('Property1', new CollectionProperty('Edm.String'), true, false),
       new Property('Property2', 'Edm.Int32', true, false),
     ];
-    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, properties, []);
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
     expect(() => {
       entityType.toSwaggerDefinition(['Property1', 'MissingProperty']);

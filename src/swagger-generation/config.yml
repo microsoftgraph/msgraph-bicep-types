@@ -18,6 +18,7 @@ apiVersion: beta
 EntityTypes:
   - Name: microsoft.graph.group
     RootUri: /groups
+    Upsertable: true
     AvailableProperty:
       - classification
       - createdByAppId
@@ -78,6 +79,7 @@ EntityTypes:
       - renewedDateTime
   - Name: microsoft.graph.application
     RootUri: /applications
+    Upsertable: true
     AvailableProperty:
       - api
       - appId
@@ -123,6 +125,7 @@ EntityTypes:
       - publisherDomain
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
+    Upsertable: true
     AvailableProperty:
       - accountEnabled
       - addIns
@@ -166,6 +169,8 @@ EntityTypes:
       - signInAudience
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
+    Upsertable: false
+    Updatable: true
     AvailableProperty:
       - clientId
       - consentType
@@ -174,10 +179,22 @@ EntityTypes:
       - scope
     RequiredOnWrite:
       - clientId
-      - resourceId
       - consentType
+      - resourceId
+    FilterProperty:
+      - clientId
+      - consentType
+      - resourceId
+    CompositeKey:
+      - clientId
+      - consentType
+      - resourceId
   - Name: microsoft.graph.appRoleAssignment
     RootUri: /appRoleAssignedTo
+    Upsertable: false
+    Updatable: false
+    ContainerEntitySet: servicePrincipals
+    ContainerKeyProperty: resourceId
     AvailableProperty:
       - appRoleId
       - creationTimestamp
@@ -187,13 +204,18 @@ EntityTypes:
       - resourceDisplayName
       - resourceId
     RequiredOnWrite:
-      - resourceId
-      - principalId
       - appRoleId
+      - principalId
+      - resourceId
     ReadOnly:
       - creationTimestamp
       - principalDisplayName
       - principalType
+    FilterProperty:
+      - resourceId
+    CompositeKey:
+      - appRoleId
+      - resourceId
   - Name: microsoft.graph.appRole
     ReadOnly:
       - origin
