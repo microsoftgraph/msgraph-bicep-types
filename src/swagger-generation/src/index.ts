@@ -35,8 +35,8 @@ parseXML(config.URL)
     definitionMap = constructDataStructure(csdl, definitionMap, config)
     definitionMap = validateReferences(definitionMap, config)
 
-    // const swagger: Swagger = writeSwagger(definitionMap, config)
-    // const swaggerJson: string = JSON.stringify(swagger, null, 2)
+    const swagger: Swagger = writeSwagger(definitionMap, config)
+    const swaggerJson: string = JSON.stringify(swagger, null, 2)
 
     const metadata: Metadata = writeMetadata(definitionMap, config);
     const metadataJson: string = JSON.stringify(metadata, null, 2);
@@ -45,14 +45,14 @@ parseXML(config.URL)
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    // fs.writeFile(`${outputPath}/microsoftgraph-beta.json`, swaggerJson, (err) => {
-    //   if (err) throw err;
-    //   console.log('The file has been saved!');
-    // });
+    fs.writeFile(`${outputPath}/microsoftgraph-beta.json`, swaggerJson, (err) => {
+      if (err) throw err;
+      console.log('The swagger file has been saved!');
+    });
 
     fs.writeFile(`${outputPath}/metadata-beta.json`, metadataJson, (err) => {
       if (err) throw err;
-      console.log('The file has been saved!');
+      console.log('The metadata file has been saved!');
     });
 
   }).catch(console.log);

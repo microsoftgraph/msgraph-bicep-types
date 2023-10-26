@@ -502,8 +502,8 @@
       },
       "required": [
         "clientId",
-        "resourceId",
-        "consentType"
+        "consentType",
+        "resourceId"
       ]
     },
     "microsoft.graph.appRoleAssignment": {
@@ -539,9 +539,9 @@
         }
       },
       "required": [
-        "resourceId",
+        "appRoleId",
         "principalId",
-        "appRoleId"
+        "resourceId"
       ]
     },
     "microsoft.graph.appRole": {
