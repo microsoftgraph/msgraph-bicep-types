@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-export interface CSDL{
+export interface CSDL {
     "edmx:Edmx": DataServices
 }
 
@@ -28,7 +28,8 @@ export interface RawSchemaAttributes {
 export interface RawEntityType {
     $: RawEntityTypeAttributes,
     Property: RawProperty[],
-    NavigationProperty: RawNavigationProperty[]
+    NavigationProperty: RawNavigationProperty[],
+    Annotation?: RawAnnotation[],
 }
 
 export interface RawEnumType {
@@ -73,6 +74,41 @@ export interface RawNavigationPropertyAttributes extends RawPropertyAttributes {
 
 export interface RawNavigationProperty {
     $: RawNavigationPropertyAttributes
+}
+
+export interface RawAnnotation {
+    $: RawAnnotationAttributes
+    Record?: RawRecord
+    Collection?: RawCollectionItem[]
+}
+
+export interface RawAnnotationAttributes {
+    Term: string,
+    Qualifier?: string,
+}
+
+export interface RawCollectionItem {
+    Record?: RawRecord[]
+}
+
+export interface RawRecord {
+    $: RawRecordAttributes,
+    PropertyValue?: RawPropertyValue[]
+}
+
+export interface RawRecordAttributes {
+    Type?: string
+}
+
+export interface RawPropertyValue {
+    $: RawPropertyValueAttributes
+    Collection?: RawCollectionItem[]
+}
+
+export interface RawPropertyValueAttributes {
+    Property: string
+    PropertyPath?: string
+    String?: string
 }
 
 export enum PrimitivePropertyType {

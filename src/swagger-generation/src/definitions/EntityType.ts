@@ -10,6 +10,7 @@ import { CollectionProperty } from "./CollectionProperty";
 
 export class EntityType extends Object {
   Name: string;
+  AlternateKey?: string;
   Abstract?: boolean;
   BaseType?: string;
   OpenType?: boolean;
@@ -17,9 +18,10 @@ export class EntityType extends Object {
   Property: Property[];
   NavigationProperty: NavigationProperty[];
 
-  constructor(name: string, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[]) {
+  constructor(name: string, alternateKey: string | undefined, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[]) {
     super();
     this.Name = name;
+    this.AlternateKey = alternateKey;
     this.Abstract = abstract;
     this.BaseType = baseType;
     this.OpenType = openType;

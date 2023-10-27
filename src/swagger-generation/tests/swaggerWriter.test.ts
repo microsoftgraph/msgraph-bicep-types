@@ -56,15 +56,15 @@ describe('generate swagger with primitive types', () => {
         ];
 
 
-        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+        const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
         entityMap.set('microsoft.graph.entityNameOne', entity);
 
         const expectedSwagger: Swagger = {
             "swagger": SwaggerVersion.v2,
             "info": {
-            "title": "Microsoft Graph",
-            "version": "beta"
+                "title": "Microsoft Graph",
+                "version": "beta"
             },
             "schemes": [
                 Scheme.https
@@ -134,41 +134,41 @@ describe('generate swagger with primitive types', () => {
                 "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
                     "put": {
                         "tags": [
-                        "entityNameOnes"
+                            "entityNameOnes"
                         ],
                         "description": "Create or update a entityNameOne",
                         "operationId": "entityNameOnes_Put",
                         "consumes": [
-                        "application/json"
+                            "application/json"
                         ],
                         "produces": [
-                        "application/json"
+                            "application/json"
                         ],
                         "parameters": [
-                        {
-                            "in": "body",
-                            "name": "entityNameOne",
-                            "description": "The entityNameOne to be created or updated",
-                            "required": true,
-                            "schema": {
-                            "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                            {
+                                "in": "body",
+                                "name": "entityNameOne",
+                                "description": "The entityNameOne to be created or updated",
+                                "required": true,
+                                "schema": {
+                                    "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            },
+                            {
+                                "in": "path",
+                                "description": "The id of the entityNameOne",
+                                "name": "entityNameOneId",
+                                "required": true,
+                                "type": "string"
                             }
-                        },
-                        {
-                            "in": "path",
-                            "description": "The id of the entityNameOne",
-                            "name": "entityNameOneId",
-                            "required": true,
-                            "type": "string"
-                        }
                         ],
                         "responses": {
-                        "200": {
-                            "description": "entityNameOne created/updated successfully",
-                            "schema": {
-                            "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                            "200": {
+                                "description": "entityNameOne created/updated successfully",
+                                "schema": {
+                                    "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                                }
                             }
-                        }
                         }
                     }
                 },
@@ -200,15 +200,15 @@ describe('generate swagger with primitive types', () => {
             new Property('id', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
         ];
 
-        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+        const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
         entityMap.set('microsoft.graph.entityNameOne', entity);
 
         const expectedSwagger: Swagger = {
             "swagger": SwaggerVersion.v2,
             "info": {
-            "title": "Microsoft Graph",
-            "version": "beta"
+                "title": "Microsoft Graph",
+                "version": "beta"
             },
             "schemes": [
                 Scheme.https
@@ -383,17 +383,17 @@ describe('complexTypes', () => {
             new Property('contentBytes', 'microsoft.graph.entityNameTwo', false, false),
             new Property('isEnabled', 'microsoft.graph.entityNameThree', false, false),
         ];
-        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+        const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
         const propertiesComplexOne: Property[] = [
             new Property('propertyOne', 'microsoft.graph.entityNameFour', false, false),
         ];
-        const complexTypeOne: EntityType = new EntityType('entityNameTwo', false, undefined, undefined, undefined, propertiesComplexOne, [])
-        
-        const entityComplexTwo: EntityType = new EntityType('entityNameThree', false, undefined, undefined, undefined, [], [])
+        const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
-        const entityComplexThree: EntityType = new EntityType('entityNameFour', false, undefined, undefined, undefined, [], [])
-        
+        const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [], [])
+
+        const entityComplexThree: EntityType = new EntityType('entityNameFour', undefined, false, undefined, undefined, undefined, [], [])
+
         entityMap.set('microsoft.graph.entityNameOne', entity);
         entityMap.set('microsoft.graph.entityNameTwo', complexTypeOne);
         entityMap.set('microsoft.graph.entityNameThree', entityComplexTwo);
@@ -402,8 +402,8 @@ describe('complexTypes', () => {
         const expectedSwagger: Swagger = {
             swagger: SwaggerVersion.v2,
             info: {
-            title: "Microsoft Graph",
-            version: "beta"
+                title: "Microsoft Graph",
+                version: "beta"
             },
             schemes: [
                 Scheme.https
@@ -447,7 +447,7 @@ describe('complexTypes', () => {
                 "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
                     put: {
                         tags: [
-                        "entityNameOnes"
+                            "entityNameOnes"
                         ],
                         description: "Create or update a entityNameOne",
                         operationId: "entityNameOnes_Put",
@@ -458,30 +458,30 @@ describe('complexTypes', () => {
                             "application/json"
                         ],
                         parameters: [
-                        {
-                            in: "body",
-                            name: "entityNameOne",
-                            description: "The entityNameOne to be created or updated",
-                            required: true,
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            {
+                                in: "body",
+                                name: "entityNameOne",
+                                description: "The entityNameOne to be created or updated",
+                                required: true,
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            },
+                            {
+                                in: "path",
+                                description: "The id of the entityNameOne",
+                                name: "entityNameOneId",
+                                required: true,
+                                type: "string"
                             }
-                        },
-                        {
-                            in: "path",
-                            description: "The id of the entityNameOne",
-                            name: "entityNameOneId",
-                            required: true,
-                            type: "string"
-                        }
                         ],
                         responses: {
-                        "200": {
-                            description: "entityNameOne created/updated successfully",
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            "200": {
+                                description: "entityNameOne created/updated successfully",
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
                             }
-                        }
                         }
                     }
                 },
@@ -494,7 +494,7 @@ describe('complexTypes', () => {
 
     });
 
-    
+
 });
 
 describe('complex types with collections', () => {
@@ -513,17 +513,17 @@ describe('complex types with collections', () => {
             new Property('contentBytes', new CollectionProperty('microsoft.graph.entityNameTwo'), false, false),
             new Property('isEnabled', new CollectionProperty('microsoft.graph.entityNameThree'), false, false),
         ];
-        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+        const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
         const propertiesComplexOne: Property[] = [
             new Property('propertyOne', new CollectionProperty('microsoft.graph.entityNameFour'), false, false),
         ];
-        const complexTypeOne: EntityType = new EntityType('entityNameTwo', false, undefined, undefined, undefined, propertiesComplexOne, [])
-        
-        const entityComplexTwo: EntityType = new EntityType('entityNameThree', false, undefined, undefined, undefined, [], [])
+        const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
-        const entityComplexThree: EntityType = new EntityType('entityNameFour', false, undefined, undefined, undefined, [], [])
-        
+        const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [], [])
+
+        const entityComplexThree: EntityType = new EntityType('entityNameFour', undefined, false, undefined, undefined, undefined, [], [])
+
         entityMap.set('microsoft.graph.entityNameOne', entity);
         entityMap.set('microsoft.graph.entityNameTwo', complexTypeOne);
         entityMap.set('microsoft.graph.entityNameThree', entityComplexTwo);
@@ -532,8 +532,8 @@ describe('complex types with collections', () => {
         const expectedSwagger: Swagger = {
             swagger: SwaggerVersion.v2,
             info: {
-            title: "Microsoft Graph",
-            version: "beta"
+                title: "Microsoft Graph",
+                version: "beta"
             },
             schemes: [
                 Scheme.https
@@ -586,7 +586,7 @@ describe('complex types with collections', () => {
                 "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
                     put: {
                         tags: [
-                        "entityNameOnes"
+                            "entityNameOnes"
                         ],
                         description: "Create or update a entityNameOne",
                         operationId: "entityNameOnes_Put",
@@ -597,30 +597,30 @@ describe('complex types with collections', () => {
                             "application/json"
                         ],
                         parameters: [
-                        {
-                            in: "body",
-                            name: "entityNameOne",
-                            description: "The entityNameOne to be created or updated",
-                            required: true,
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            {
+                                in: "body",
+                                name: "entityNameOne",
+                                description: "The entityNameOne to be created or updated",
+                                required: true,
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            },
+                            {
+                                in: "path",
+                                description: "The id of the entityNameOne",
+                                name: "entityNameOneId",
+                                required: true,
+                                type: "string"
                             }
-                        },
-                        {
-                            in: "path",
-                            description: "The id of the entityNameOne",
-                            name: "entityNameOneId",
-                            required: true,
-                            type: "string"
-                        }
                         ],
                         responses: {
-                        "200": {
-                            description: "entityNameOne created/updated successfully",
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            "200": {
+                                description: "entityNameOne created/updated successfully",
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
                             }
-                        }
                         }
                     }
                 },
@@ -630,7 +630,7 @@ describe('complex types with collections', () => {
         definitionMap.EntityMap = entityMap;
 
         expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
-    
+
     });
 });
 
@@ -661,19 +661,19 @@ describe('enums', () => {
         const properties: Property[] = [
             new Property('contentBytes', 'microsoft.graph.entityNameTwo', false, false),
         ];
-        const entity: EntityType = new EntityType('entityNameOne', false, undefined, undefined, undefined, properties, [])
+        const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
         const propertiesComplexOne: Property[] = [
             new Property('propertyOne', 'microsoft.graph.entityNameThree', false, false),
         ];
 
-        const complexTypeOne: EntityType = new EntityType('entityNameTwo', false, undefined, undefined, undefined, propertiesComplexOne, [])
+        const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
         const propertiesComplexTwo: Property[] = [
             new Property('propertyOne', 'microsoft.graph.entityNameFour', false, false),
         ];
-        
-        const entityComplexTwo: EntityType = new EntityType('entityNameThree', false, undefined, undefined, undefined, propertiesComplexTwo, [])
+
+        const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, propertiesComplexTwo, [])
 
         entityMap.set('microsoft.graph.entityNameOne', entity);
         entityMap.set('microsoft.graph.entityNameTwo', complexTypeOne);
@@ -682,8 +682,8 @@ describe('enums', () => {
         const expectedSwagger: Swagger = {
             swagger: SwaggerVersion.v2,
             info: {
-            title: "Microsoft Graph",
-            version: "beta"
+                title: "Microsoft Graph",
+                version: "beta"
             },
             schemes: [
                 Scheme.https
@@ -732,7 +732,7 @@ describe('enums', () => {
                 "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
                     put: {
                         tags: [
-                        "entityNameOnes"
+                            "entityNameOnes"
                         ],
                         description: "Create or update a entityNameOne",
                         operationId: "entityNameOnes_Put",
@@ -743,30 +743,30 @@ describe('enums', () => {
                             "application/json"
                         ],
                         parameters: [
-                        {
-                            in: "body",
-                            name: "entityNameOne",
-                            description: "The entityNameOne to be created or updated",
-                            required: true,
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            {
+                                in: "body",
+                                name: "entityNameOne",
+                                description: "The entityNameOne to be created or updated",
+                                required: true,
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
+                            },
+                            {
+                                in: "path",
+                                description: "The id of the entityNameOne",
+                                name: "entityNameOneId",
+                                required: true,
+                                type: "string"
                             }
-                        },
-                        {
-                            in: "path",
-                            description: "The id of the entityNameOne",
-                            name: "entityNameOneId",
-                            required: true,
-                            type: "string"
-                        }
                         ],
                         responses: {
-                        "200": {
-                            description: "entityNameOne created/updated successfully",
-                            schema: {
-                                $ref: "#/definitions/microsoft.graph.entityNameOne"
+                            "200": {
+                                description: "entityNameOne created/updated successfully",
+                                schema: {
+                                    $ref: "#/definitions/microsoft.graph.entityNameOne"
+                                }
                             }
-                        }
                         }
                     }
                 },

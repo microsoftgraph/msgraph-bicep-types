@@ -9,6 +9,7 @@ describe('Config', () => {
       EntityTypes:
         - Name: microsoft.graph.EntityTypeOne
           RootUri: /entityTypeOnes
+          Upsertable: true
           AvailableProperty:
             - propOne
             - propTwo
@@ -27,6 +28,14 @@ describe('Config', () => {
         - Name: microsoft.graph.EntityTypeTwo
           RootUri: /entityTypeTwos
           NavigationProperty: []
+        - Name: microsoft.graph.EntityTypeThree
+          RootUri: /entityTypeThrees
+          Upsertable: false
+          Updatable: true
+          ContainerEntitySet: containerEntitySet
+          ContainerKeyProperty: containerKeyProperty
+          FilterProperty: [filter1, filter2]
+          CompositeKey: [key1, key2]
 
       URL: https://example.com
       apiVersion: beta
@@ -40,6 +49,7 @@ describe('Config', () => {
     map.set('microsoft.graph.EntityTypeOne', {
       Name: 'microsoft.graph.EntityTypeOne',
       RootUri: '/entityTypeOnes',
+      Upsertable: true,
       AvailableProperty: ['propOne', 'propTwo', 'propThree', 'propFour'],
       NavigationPropertyMode: NavigationPropertyMode.Allow,
       NavigationProperty: ['navOne', 'navTwo'],
@@ -51,6 +61,17 @@ describe('Config', () => {
       Name: 'microsoft.graph.EntityTypeTwo',
       RootUri: '/entityTypeTwos',
       NavigationProperty: []
+    } as EntityTypeConfig);
+
+    map.set('microsoft.graph.EntityTypeThree', {
+      Name: 'microsoft.graph.EntityTypeThree',
+      RootUri: '/entityTypeThrees',
+      Upsertable: false,
+      Updatable: true,
+      ContainerEntitySet: 'containerEntitySet',
+      ContainerKeyProperty: 'containerKeyProperty',
+      FilterProperty: ['filter1', 'filter2'],
+      CompositeKey: ['key1', 'key2']
     } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);

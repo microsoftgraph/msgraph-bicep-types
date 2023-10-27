@@ -73,7 +73,7 @@ const csdl: CSDL = {
 
 describe("when required properties are not real", () => {
     const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-    
+
     entityTypes.set('namespace.entityNameOne', {
         Name: 'namespace.entityNameOne',
         RootUri: '/entityNameOnes',
@@ -119,7 +119,7 @@ describe("when required properties are real", () => {
     it("should not throw an error", () => {
         let definitionMap: DefinitionMap = new DefinitionMap();
 
-        definitionMap.EntityMap.set('Edm.Test', new EntityType('Test', false, undefined, undefined, undefined, [], []))
+        definitionMap.EntityMap.set('Edm.Test', new EntityType('Test', undefined, false, undefined, undefined, undefined, [], []))
 
         definitionMap = constructDataStructure(csdl, definitionMap, config)
 

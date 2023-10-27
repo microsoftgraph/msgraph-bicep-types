@@ -4,6 +4,7 @@ import { DefinitionMap } from '../src/definitions/DefinitionMap';
 import { PrimitiveSwaggerTypeStruct } from '../src/definitions/PrimitiveSwaggerType';
 import { CSDL } from '../src/definitions/RawTypes';
 import { constructDataStructure } from '../src/deserializer';
+import { constructAlternateKeyRecord } from './testUtilities';
 
 const csdl: CSDL = {
   'edmx:Edmx': {
@@ -33,7 +34,22 @@ const csdl: CSDL = {
                     },
                   },
                 ],
-                NavigationProperty: []
+                NavigationProperty: [],
+                Annotation: [
+                  {
+                    $: {
+                      Term: 'Org.OData.Core.V1.AlternateKeys',
+                    },
+                    Collection: [
+                      {
+                        Record: [
+                          constructAlternateKeyRecord('propertyNameTwo', 'Org.OData.Core.V1'),
+                          constructAlternateKeyRecord('uniqueName', 'Org.OData.Core.V1'),
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
               {
                 $: {
@@ -48,7 +64,21 @@ const csdl: CSDL = {
                     },
                   },
                 ],
-                NavigationProperty: []
+                NavigationProperty: [],
+                Annotation: [
+                  {
+                    $: {
+                      Term: 'Org.OData.Core.V1.AlternateKeys',
+                    },
+                    Collection: [
+                      {
+                        Record: [
+                          constructAlternateKeyRecord('propertyNameTwo', 'Org.OData.Core.V1'),
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },
@@ -69,7 +99,21 @@ const csdl: CSDL = {
                     },
                   },
                 ],
-                NavigationProperty: []
+                NavigationProperty: [],
+                Annotation: [
+                  {
+                    $: {
+                      Term: 'OData.Community.Keys.V1.AlternateKeys',
+                    },
+                    Collection: [
+                      {
+                        Record: [
+                          constructAlternateKeyRecord('propertyNameDiff', 'OData.Community.Keys.V1'),
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
             ],
           },
@@ -110,7 +154,8 @@ const csdl: CSDL = {
                       Type: 'namespaceThree.enumTypeName'
                     },
                   }
-                ]
+                ],
+                Annotation: []
               },
             ],
             ComplexType: [
@@ -346,6 +391,17 @@ describe('constructDataStructure', () => {
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1]).toBeDefined();
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1].Name).toBe("propertyName2");
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1].ReadOnly).toBeTruthy();
+  });
+
+  it('should deserialize alternate keys', () => {
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+
+    expect(definitionMap.EntityMap.get('namespace.entityNameOne')?.AlternateKey).toEqual('uniqueName');
+    expect(definitionMap.EntityMap.get('namespace.entityNameTwo')?.AlternateKey).toEqual('propertyNameTwo');
+    expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')?.AlternateKey).toEqual('propertyNameDiff');
+    expect(definitionMap.EntityMap.get('namespaceThree.entityNameTwo')?.AlternateKey).toBeUndefined();
+    expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')?.AlternateKey).toBeUndefined();
   });
 });
 

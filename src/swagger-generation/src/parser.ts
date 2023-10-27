@@ -1,14 +1,26 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import fs from 'fs'
 import { parseStringPromise } from 'xml2js'
 import { CSDL } from './definitions/RawTypes'
 
 export const parseXML = async (source: string): Promise<CSDL> => {
-  const text: Response = await fetch(source)
-  const xml: string = await text.text()
-  // To object
-  const obj: Promise<CSDL> = parseStringPromise(xml)
+  console.log(`Fetching MSGraph metadata CSDL from ${source}`);
 
-  return obj
+  let xmlText: string;
+
+  try {
+    const text: Response = await fetch(source);
+    xmlText = await text.text();
+  } catch (error) {
+    console.log(`Error fetching from ${source}: ${error}`);
+    console.log(`Reading from local file instead`);
+    xmlText = fs.readFileSync(`./msgraph-metadata/beta-Prod.csdl`, 'utf8');
+  }
+
+  // To object
+  const obj: Promise<CSDL> = parseStringPromise(xmlText);
+
+  return obj;
 }
