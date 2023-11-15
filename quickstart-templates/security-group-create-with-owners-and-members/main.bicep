@@ -1,4 +1,4 @@
-import 'microsoftGraph@1.0.0'
+provider 'microsoftGraph@1.0.0'
 
 @description('location of the resource group')
 param location string = resourceGroup().location
