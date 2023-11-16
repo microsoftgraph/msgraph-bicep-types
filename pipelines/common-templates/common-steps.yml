@@ -79,7 +79,7 @@ steps:
       TargetFolder: "$(Build.ArtifactStagingDirectory)/generated"
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Files'
+    displayName: 'Publish Files: $(ArtifactName)'
     inputs:
-      ArtifactName: 'GeneratedFiles'
+      ArtifactName: '$(ArtifactName)'
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
