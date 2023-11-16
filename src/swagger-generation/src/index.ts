@@ -50,7 +50,7 @@ parseXML(config.URL)
       console.log('The swagger file has been saved!');
     });
 
-    fs.writeFile(`${outputPath}/metadata-beta.json`, metadataJson, (err) => {
+    fs.writeFile(`output/metadata-beta.json`, metadataJson, (err) => {
       if (err) throw err;
       console.log('The metadata file has been saved!');
     });
