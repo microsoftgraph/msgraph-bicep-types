@@ -15,8 +15,9 @@ $packageName = "Microsoft.Graph.Bicep.Types"
 $csprojPath = Join-Path $PSScriptRoot "..\src\Microsoft.Graph.Bicep.Types\Microsoft.Graph.Bicep.Types.csproj"
 
 [XML]$csprojFile = Get-Content $csprojPath
-$versionNode = Select-Xml $csprojFile -XPath "//Project/PropertyGroup/Version" | Select-Object -ExpandProperty Node
-$projectVersion = $versionNode.InnerText
+$versionPrefix = $csprojFile.Project.PropertyGroup.VersionPrefix
+$versionSuffix = $csprojFile.Project.PropertyGroup.VersionSuffix
+$projectVersion = "$versionPrefix-$versionSuffix"
 
 # Cast the project version string to System.Version
 $currentProjectVersion = ConvertTo-SemVer -Version $projectVersion
