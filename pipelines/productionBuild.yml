@@ -47,12 +47,12 @@ stages:
                 - task: DownloadPipelineArtifact@2
                   displayName: Download nupkg from artifacts
                   inputs:
-                    artifact: Nugets
+                    artifact: "$(ArtifactName)"
                     source: current
                 - task: NuGetCommand@2
                   displayName: "NuGet push"
                   inputs:
                     command: push
-                    packagesToPush: "$(Pipeline.Workspace)/Nugets/Microsoft.Graph.Bicep.Types.*.nupkg"
+                    packagesToPush: "$(Pipeline.Workspace)/$(ArtifactName)/Microsoft.Graph.Bicep.Types.*.nupkg"
                     nuGetFeedType: external
                     publishFeedCredentials: "microsoftgraph NuGet connection"
