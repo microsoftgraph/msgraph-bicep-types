@@ -26,9 +26,11 @@ When you create a Bicep template, add the following statement, to make Microsoft
 import 'microsoftGraph@1.0.0'
 ```
 
-Now, when creating a Bicep resource, the available Microsoft.Graph resource types will show up:
+Now, when creating a Bicep resource, the available Microsoft.Graph resource types will show up.
 
-| Bicep type definitions | Microsoft Graph API reference |
+![image](./VS%20code%20graph%20types%20in%20bicep.jpg)
+
+| Bicep type definitions | Microsoft Graph API (beta) reference |
 |--------------|-----------|
 | [applications](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta) | [application resource](https://learn.microsoft.com/graph/api/resources/application?view=graph-rest-beta) |
 | [servicePrincipals](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta) | [servicePrincipal resource](https://learn.microsoft.com/graph/api/resources/serviceprincipal?view=graph-rest-beta) |
