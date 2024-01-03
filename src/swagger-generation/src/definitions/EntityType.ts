@@ -72,6 +72,9 @@ export class EntityType extends Object {
       if (property.ReadOnly)
         swaggerProperty.readOnly = property.ReadOnly
 
+      if (this.AlternateKey && this.Name.toLowerCase() !== "serviceprincipal" && property.Name === this.AlternateKey)
+        swaggerProperty["x-constant-key"] = true
+
       definition.properties[property.Name] = swaggerProperty
     });
 

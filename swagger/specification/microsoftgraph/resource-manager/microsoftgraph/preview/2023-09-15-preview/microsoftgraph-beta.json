@@ -154,6 +154,10 @@
         "theme": {
           "type": "string"
         },
+        "uniqueName": {
+          "type": "string",
+          "x-constant-key": true
+        },
         "visibility": {
           "type": "string"
         },
@@ -182,7 +186,8 @@
         "displayName",
         "mailEnabled",
         "mailNickname",
-        "securityEnabled"
+        "securityEnabled",
+        "uniqueName"
       ]
     },
     "microsoft.graph.application": {
@@ -309,6 +314,10 @@
           "type": "string",
           "format": "uuid"
         },
+        "uniqueName": {
+          "type": "string",
+          "x-constant-key": true
+        },
         "verifiedPublisher": {
           "$ref": "#/definitions/microsoft.graph.verifiedPublisher"
         },
@@ -325,7 +334,8 @@
         }
       },
       "required": [
-        "displayName"
+        "displayName",
+        "uniqueName"
       ]
     },
     "microsoft.graph.servicePrincipal": {
@@ -717,6 +727,9 @@
     "microsoft.graph.authenticationBehaviors": {
       "type": "object",
       "properties": {
+        "blockAzureADGraphAccess": {
+          "type": "boolean"
+        },
         "removeUnverifiedEmailClaim": {
           "type": "boolean"
         },

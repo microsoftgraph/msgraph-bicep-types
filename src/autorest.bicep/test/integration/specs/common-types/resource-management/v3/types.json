@@ -265,7 +265,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "A user defined name of the 3rd Party Artifact that is being procured."
+          "description": "A user defined name of the 3rd Party Artifact that is being procured.",
+          "x-constant-key": true
         },
         "publisher": {
           "type": "string",

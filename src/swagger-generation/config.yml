@@ -53,6 +53,7 @@ EntityTypes:
       - securityIdentifier
       - serviceProvisioningErrors
       - theme
+      - uniqueName
       - visibility
       - writebackConfiguration
     NavigationProperty:
@@ -63,6 +64,7 @@ EntityTypes:
       - mailEnabled
       - mailNickname
       - securityEnabled
+      - uniqueName
     ReadOnly:
       - createdByAppId
       - createdDateTime
@@ -113,11 +115,13 @@ EntityTypes:
       - spa
       - tags
       - tokenEncryptionKeyId
+      - uniqueName
       - verifiedPublisher
       - web
       - windows
     RequiredOnWrite:
       - displayName
+      - uniqueName
     ReadOnly:
       - appId
       - certification

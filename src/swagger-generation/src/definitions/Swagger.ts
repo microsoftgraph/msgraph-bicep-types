@@ -14,7 +14,7 @@ import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType"
     For more info, see https://swagger.io/specification/v2/
 */
 
-export interface Swagger{
+export interface Swagger {
     swagger: SwaggerVersion,
     info: Info,
     schemes: Scheme[],
@@ -26,48 +26,49 @@ export interface Swagger{
 
 // Child Interfaces
 
-export interface Info{
+export interface Info {
     title: string,
     version: string,
     description?: string,
     termsOfService?: string
 }
 
-export interface Scopes{
+export interface Scopes {
     [key: string]: string
 }
 
-export interface Definitions{
+export interface Definitions {
     [key: string]: Definition | SwaggerEnum
 }
 
-export interface Definition{
+export interface Definition {
     description?: string,
     type: string,
     properties: Properties,
     required?: string[],
 }
 
-export interface SwaggerEnum{
+export interface SwaggerEnum {
     type: string,
     enum: string[],
 }
 
 
-export interface Properties{
+export interface Properties {
     [key: string]: Property
 }
 
-export interface Property{
+export interface Property {
     type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     $ref?: string,
     description?: string,
     format?: string,
     items?: Items,
     readOnly?: boolean,
+    "x-constant-key"?: boolean,
 }
 
-export interface Items{
+export interface Items {
     type?: string | PrimitiveSwaggerTypeStruct | CollectionProperty,
     format?: string,
     readOnly?: boolean,
@@ -75,24 +76,24 @@ export interface Items{
     $ref?: string
 }
 
-export interface Paths{
+export interface Paths {
     [key: string]: Path
 }
 
-export interface Path{
+export interface Path {
     put: Operation
 }
 
-export interface SchemasDefinitions{
+export interface SchemasDefinitions {
     [key: string]: Schemas
 }
 
-export interface Schemas{
+export interface Schemas {
     type: string,
     enum: string[],
 }
 
-export interface Operation{
+export interface Operation {
     tags: string[],
     description: string,
     operationId: string,
@@ -102,7 +103,7 @@ export interface Operation{
     responses: Responses,
 }
 
-export interface Parameter{
+export interface Parameter {
     name: string,
     in: string,
     description: string,
@@ -111,15 +112,15 @@ export interface Parameter{
     schema?: Schema
 }
 
-export interface Schema{
+export interface Schema {
     $ref: string
 }
 
-export interface Responses{
+export interface Responses {
     [key: string]: Response
 }
 
-export interface Response{
+export interface Response {
     description: string,
     schema: Schema
 }
@@ -127,25 +128,25 @@ export interface Response{
 // Enums
 
 
-export enum SwaggerVersion{
+export enum SwaggerVersion {
     v2 = "2.0",
     v12 = "1.2",
     v11 = "1.1",
     v10 = "1.0"
 }
 
-export enum Scheme{
+export enum Scheme {
     https = "https",
     http = "http",
     ws = "ws",
     wss = "wss"
 }
 
-export enum Product{
+export enum Product {
     application_json = "application/json",
 }
 
-export enum Type{
+export enum Type {
     integer = "integer",
     long = "long",
     float = "float",
@@ -159,13 +160,13 @@ export enum Type{
     password = "password",
 }
 
-export enum SecurityType{
+export enum SecurityType {
     basic = "basic",
     apiKey = "apiKey",
     oauth2 = "oauth2"
 }
 
-export enum SecurityFlow{
+export enum SecurityFlow {
     implicit = "implicit",
     password = "password",
     application = "application",

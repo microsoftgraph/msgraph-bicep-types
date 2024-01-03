@@ -23,7 +23,6 @@
 * **isFallbackPublicClient**: bool
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **logo**: string
-* **name**: string (Required, DeployTimeConstant): The resource name
 * **notes**: string
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims)
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings)
@@ -40,6 +39,7 @@
 * **tags**: string[]
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
+* **uniqueName**: string (Required, DeployTimeConstant)
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher)
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication)
 * **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication)
@@ -51,7 +51,6 @@
 * **appRoleId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required)
 * **creationTimestamp**: string (ReadOnly)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string: The resource name
 * **principalDisplayName**: string (ReadOnly)
 * **principalId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required)
 * **principalType**: string (ReadOnly)
@@ -81,7 +80,6 @@
 * **members**: string[]
 * **membershipRule**: string
 * **membershipRuleProcessingState**: string
-* **name**: string (Required, DeployTimeConstant): The resource name
 * **onPremisesDomainName**: string (ReadOnly)
 * **onPremisesLastSyncDateTime**: string (ReadOnly)
 * **onPremisesNetBiosName**: string (ReadOnly)
@@ -102,6 +100,7 @@
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]
 * **theme**: string
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
+* **uniqueName**: string (Required, DeployTimeConstant)
 * **visibility**: string
 * **writebackConfiguration**: [MicrosoftGraphGroupWritebackConfiguration](#microsoftgraphgroupwritebackconfiguration)
 
@@ -112,7 +111,6 @@
 * **clientId**: string (Required)
 * **consentType**: string (Required)
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string: The resource name
 * **principalId**: string
 * **resourceId**: string (Required)
 * **scope**: string
@@ -142,7 +140,6 @@
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]
 * **loginUrl**: string
 * **logoutUrl**: string
-* **name**: string: The resource name
 * **notes**: string
 * **notificationEmailAddresses**: string[]
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]
@@ -188,6 +185,7 @@
 
 ## MicrosoftGraphAuthenticationBehaviors
 ### Properties
+* **blockAzureADGraphAccess**: bool
 * **removeUnverifiedEmailClaim**: bool
 * **requireClientServicePrincipal**: bool
 

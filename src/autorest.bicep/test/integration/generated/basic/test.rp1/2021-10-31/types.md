@@ -9,7 +9,6 @@
 * **bar**: string: The bar property
 * **foo**: string: The foo property
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
-* **name**: string (Required, DeployTimeConstant): The resource name
 * **type**: 'Test.Rp1/discriminatedUnionTestType' (ReadOnly, DeployTimeConstant): The resource type
 
 ### DiscriminatedUnionTestTypeBranchWithInheritedProps
@@ -37,7 +36,7 @@
 * **apiVersion**: '2021-10-31' (ReadOnly, DeployTimeConstant): The resource api version
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **location**: string (Required): The geo-location where the resource lives
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string (ReadOnly): The name of the resource
 * **properties**: [TestType1Properties](#testtype1properties)
 * **systemData**: [SystemData](#systemdata) (ReadOnly): Azure Resource Manager metadata containing createdBy and modifiedBy information.
 * **tags**: [TrackedResourceTags](#trackedresourcetags): Resource tags.
@@ -49,7 +48,7 @@
 * **apiVersion**: '2021-10-31' (ReadOnly, DeployTimeConstant): The resource api version
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **location**: string (ReadOnly): The geo-location where the resource lives
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string (ReadOnly): The name of the resource
 * **properties**: [ReadOnlyTestTypeProperties](#readonlytesttypeproperties) (ReadOnly)
 * **systemData**: [SystemData](#systemdata) (ReadOnly): Azure Resource Manager metadata containing createdBy and modifiedBy information.
 * **tags**: [TrackedResourceTags](#trackedresourcetags) (ReadOnly): Resource tags.
@@ -61,7 +60,7 @@
 * **apiVersion**: '2021-10-31' (ReadOnly, DeployTimeConstant): The resource api version
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **location**: string (Required): The geo-location where the resource lives
-* **name**: 'constantName' | 'yetAnotherName' | string (Required, DeployTimeConstant): The resource name
+* **name**: string (ReadOnly): The name of the resource
 * **properties**: [TestType1CreateOrUpdatePropertiesOrTestType1Properties](#testtype1createorupdatepropertiesortesttype1properties): The resource properties.
 * **systemData**: [SystemData](#systemdata) (ReadOnly): Azure Resource Manager metadata containing createdBy and modifiedBy information.
 * **tags**: [TrackedResourceTags](#trackedresourcetags): Resource tags.
@@ -73,7 +72,7 @@
 * **apiVersion**: '2021-10-31' (ReadOnly, DeployTimeConstant): The resource api version
 * **id**: string (ReadOnly, DeployTimeConstant): The resource id
 * **location**: string (Required): The geo-location where the resource lives
-* **name**: string (Required, DeployTimeConstant): The resource name
+* **name**: string (ReadOnly): The name of the resource
 * **properties**: [TestType1CreateOrUpdatePropertiesOrTestType1Properties](#testtype1createorupdatepropertiesortesttype1properties): The resource properties.
 * **systemData**: [SystemData](#systemdata) (ReadOnly): Azure Resource Manager metadata containing createdBy and modifiedBy information.
 * **tags**: [TrackedResourceTags](#trackedresourcetags): Resource tags.
@@ -82,7 +81,7 @@
 ## Function listArrayOfFoos (Test.Rp1/testType1@2021-10-31)
 * **Resource**: Test.Rp1/testType1
 * **ApiVersion**: 2021-10-31
-* **Output**: [FoosResponse](#foosresponse)[]
+* **Output**: [FoosResponse](#foosresponse)[] {minLength: 1, maxLength: 10}
 
 ## Function listFoos (Test.Rp1/testType1@2021-10-31)
 * **Resource**: Test.Rp1/testType1
@@ -118,11 +117,11 @@
 * **city**: string: The city or locality where the resource is located.
 * **countryOrRegion**: string: The country or region where the resource is located
 * **district**: string: The district, state, or province where the resource is located.
-* **name**: string (Required): A canonical name for the geographic or physical location.
+* **name**: string {maxLength: 256} (Required): A canonical name for the geographic or physical location.
 
 ## Plan
 ### Properties
-* **name**: string (Required): A user defined name of the 3rd Party Artifact that is being procured.
+* **name**: string (Required, DeployTimeConstant): A user defined name of the 3rd Party Artifact that is being procured.
 * **product**: string (Required): The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact at the time of Data Market onboarding.
 * **promotionCode**: string: A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
 * **publisher**: string (Required): The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
@@ -148,9 +147,12 @@
 * **binaryBuffer**: any (ReadOnly)
 * **encryptionProperties**: [EncryptionProperties](#encryptionproperties): TestType1 encryption properties
 * **locationData**: [LocationData](#locationdata) (ReadOnly): Metadata pertaining to the geographic location of the resource.
+* **password**: string {sensitive, pattern: "^[a-zA-Z0-9\.]$"}
+* **percentageProperty**: int {minValue: 0, maxValue: 100} (ReadOnly)
 * **skuTier**: 'Basic' | 'Free' | 'Premium' | 'Standard': This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required on a PUT.
 * **stringEnum**: 'Bar' | 'Foo' | string: Description for a basic enum property.
 * **subnetId**: string (ReadOnly): A fully-qualified resource ID
+* **uuidProperty**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 
 ## TestType1Properties
 ### Properties
@@ -159,9 +161,12 @@
 * **binaryBuffer**: any
 * **encryptionProperties**: [EncryptionProperties](#encryptionproperties): TestType1 encryption properties
 * **locationData**: [LocationData](#locationdata): Metadata pertaining to the geographic location of the resource.
+* **password**: string {sensitive, pattern: "^[a-zA-Z0-9\.]$"}
+* **percentageProperty**: int {minValue: 0, maxValue: 100}
 * **skuTier**: 'Basic' | 'Free' | 'Premium' | 'Standard': This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required on a PUT.
 * **stringEnum**: 'Bar' | 'Foo' | string: Description for a basic enum property.
 * **subnetId**: string: A fully-qualified resource ID
+* **uuidProperty**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}
 
 ## TrackedResourceTags
 ### Properties
