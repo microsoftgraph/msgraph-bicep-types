@@ -11,11 +11,6 @@ import { failure, success } from "./utils";
 export function generateTypes(host: AutorestExtensionHost, definition: ProviderDefinition) {
   const factory = new TypeFactory();
   const namedDefinitions: Dictionary<TypeReference> = {};
-  const typesWithoutRequiredName: Set<string> = new Set([
-    'Microsoft.Graph/servicePrincipals',
-    'Microsoft.Graph/oauth2PermissionGrants',
-    'Microsoft.Graph/appRoleAssignedTo',
-  ]);
 
   function logWarning(message: string) {
     host.message({ Channel: Channel.Warning, Text: message, });
@@ -241,13 +236,9 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
   function getStandardizedResourceProperties(descriptor: ResourceDescriptor, resourceName: TypeReference): Dictionary<ObjectTypeProperty> {
     const fullyQualifiedType = getFullyQualifiedType(descriptor);
     const type = factory.addStringLiteralType(fullyQualifiedType);
-    const nameFlag = typesWithoutRequiredName.has(fullyQualifiedType)
-      ? ObjectTypePropertyFlags.None
-      : ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant;
 
     return {
       id: createObjectTypeProperty(factory.addStringType(), ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource id'),
-      name: createObjectTypeProperty(resourceName, nameFlag, 'The resource name'),
       type: createObjectTypeProperty(type, ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource type'),
       apiVersion: createObjectTypeProperty(factory.addStringLiteralType(descriptor.apiVersion), ObjectTypePropertyFlags.ReadOnly | ObjectTypePropertyFlags.DeployTimeConstant, 'The resource api version'),
     };
@@ -438,6 +429,10 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
 
     if (!getProperty) {
       flags |= ObjectTypePropertyFlags.WriteOnly;
+    }
+
+    if (putProperty && putProperty.extensions?.['x-constant-key']) {
+      flags |= ObjectTypePropertyFlags.DeployTimeConstant;
     }
 
     return flags;
