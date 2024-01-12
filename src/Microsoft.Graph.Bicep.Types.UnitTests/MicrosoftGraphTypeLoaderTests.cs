@@ -11,6 +11,8 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
     [TestClass]
     public class MicrosoftGraphTypeLoaderTests
     {
+        private string keyPropertyName = "uniqueName";
+
         private IReadOnlySet<string> availableTypes = new HashSet<string>
         {
             "Microsoft.Graph/applications@beta",
@@ -20,7 +22,7 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             "Microsoft.Graph/oauth2PermissionGrants@beta",
         };
 
-        private IReadOnlySet<string> typesWithRequiredName = new HashSet<string>
+        private IReadOnlySet<string> typesWithRequiredKey = new HashSet<string>
         {
             "Microsoft.Graph/applications@beta",
             "Microsoft.Graph/groups@beta",
@@ -79,9 +81,11 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
                 properties.Should().NotBeNull();
                 properties.Should().HaveCountGreaterThan(4); // Should at least have id, name, type, and apiVersion
 
-                // Check "name" has correct flags
-                var nameFlags = typesWithRequiredName.Contains(kvp.Key) ? ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant : ObjectTypePropertyFlags.None;
-                properties["name"].Flags.Should().HaveFlag(nameFlags);
+                // Check "uniqueName" has correct flags
+                if (typesWithRequiredKey.Contains(kvp.Key))
+                {
+                    properties[keyPropertyName].Flags.Should().HaveFlag(ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant);
+                }
 
                 // Check directory objects have "id" and "deletedDateTime" properties
                 if (directoryObjects.Contains(kvp.Key))
