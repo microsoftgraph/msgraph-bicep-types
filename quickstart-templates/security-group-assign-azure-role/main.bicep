@@ -4,7 +4,7 @@ provider 'microsoftGraph@1.0.0'
 param readerRoleDefinitionID string = 'acdd72a7-3385-48ef-bd42-f606fba81ae7'
 
 resource group 'Microsoft.Graph/groups@beta' existing = {
-  name: 'ExampleGroup'
+  uniqueName: 'ExampleGroup'
 }
 
 var roleAssignmentName = guid('ExampleGroup', readerRoleDefinitionID, resourceGroup().id)

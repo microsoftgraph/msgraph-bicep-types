@@ -4,7 +4,7 @@ provider 'microsoftGraph@1.0.0'
 param location string = resourceGroup().location
 
 resource resourceApp 'Microsoft.Graph/applications@beta' existing = {
-  name: 'ExampleResourceApp'
+  uniqueName: 'ExampleResourceApp'
 }
 
 resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' existing = {
@@ -17,7 +17,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-
 }
 
 resource group 'Microsoft.Graph/groups@beta' = {
-  name: 'ExampleGroup'
+  uniqueName: 'ExampleGroup'
   displayName: 'Example Group'
   mailEnabled: false
   mailNickname: 'exampleGroup'
