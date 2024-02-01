@@ -4,7 +4,7 @@ provider 'microsoftGraph@1.0.0'
 param appRoleId string
 
 resource resourceApp 'Microsoft.Graph/applications@beta' existing = {
-  name: 'ExampleResourceApp'
+  uniqueName: 'ExampleResourceApp'
 }
 
 resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' existing = {
@@ -12,7 +12,7 @@ resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' existing = {
 }
 
 resource clientApp 'Microsoft.Graph/applications@beta' existing = {
-  name: 'ExampleClientApp'
+  uniqueName: 'ExampleClientApp'
 }
 
 resource clientSp 'Microsoft.Graph/servicePrincipals@beta' existing = {
