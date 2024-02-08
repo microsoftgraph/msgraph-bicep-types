@@ -31,8 +31,8 @@ export class Config {
   URL: string
   APIVersion: string
 
-  constructor() {
-    const configFile = readFileSync('./config.yml', 'utf8')
+  constructor(apiVersion: string) {
+    const configFile = readFileSync(`./config-${apiVersion}.yml`, 'utf8')
     const configFileObj = parse(configFile)
     const entityTypesMap: EntityTypeConfigMap = new Map<string, EntityTypeConfig>()
     const entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
@@ -47,6 +47,6 @@ export class Config {
 
     this.EntityTypes = entityTypesMap
     this.URL = configFileObj['URL']
-    this.APIVersion = configFileObj['apiVersion']
+    this.APIVersion = apiVersion
   }
 }

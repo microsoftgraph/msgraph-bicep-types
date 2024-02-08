@@ -28,11 +28,11 @@ description: MicrosoftGraph
 openapi-type: arm
 ```
 
-### Tag: microsoftgraph-2023-09-15-preview
+### Tag: microsoftgraph-preview
 
-These settings apply only when `--tag=microsoftgraph-2023-09-15-preview` is specified on the command line.
+These settings apply only when `--tag=microsoftgraph-preview` is specified on the command line.
 
-```yaml $(tag) == 'microsoftgraph-2023-09-15-preview'
+```yaml $(tag) == 'microsoftgraph-beta'
 input-file: 
-  - microsoftgraph/preview/2023-09-15-preview/microsoftgraph-beta.json
+  - microsoftgraph/preview/beta/microsoftgraph-beta.json
 ```
