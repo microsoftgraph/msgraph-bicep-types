@@ -27,6 +27,15 @@
       "isContainment": false
     }
   },
+  "applications/federatedIdentityCredentials": {
+    "beta": {
+      "isIdempotent": true,
+      "updatable": true,
+      "alternateKey": "name",
+      "isContainment": true,
+      "containerEntitySet": "applications"
+    }
+  },
   "oauth2PermissionGrants": {
     "beta": {
       "isIdempotent": false,

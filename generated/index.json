@@ -9,11 +9,14 @@
     "Microsoft.Graph/servicePrincipals@beta": {
       "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/88"
     },
+    "Microsoft.Graph/applications/federatedIdentityCredentials@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/93"
+    },
     "Microsoft.Graph/oauth2PermissionGrants@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/92"
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/97"
     },
     "Microsoft.Graph/appRoleAssignedTo@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/96"
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/101"
     }
   },
   "resourceFunctions": {}

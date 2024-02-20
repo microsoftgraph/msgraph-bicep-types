@@ -491,6 +491,35 @@
         "appId"
       ]
     },
+    "microsoft.graph.federatedIdentityCredential": {
+      "type": "object",
+      "properties": {
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "audiences",
+        "issuer",
+        "name",
+        "subject"
+      ]
+    },
     "microsoft.graph.oAuth2PermissionGrant": {
       "type": "object",
       "properties": {
@@ -1207,6 +1236,54 @@
             "description": "servicePrincipal created/updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/applications/{applicationsId}/federatedIdentityCredentials/{federatedIdentityCredentialId}": {
+      "put": {
+        "tags": [
+          "federatedIdentityCredentials"
+        ],
+        "description": "Create or update a federatedIdentityCredential",
+        "operationId": "federatedIdentityCredentials_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "federatedIdentityCredential",
+            "description": "The federatedIdentityCredential to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the federatedIdentityCredential",
+            "name": "federatedIdentityCredentialId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "description": "The id of the applications",
+            "name": "applicationsId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "federatedIdentityCredential created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
             }
           }
         }
