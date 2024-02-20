@@ -27,32 +27,67 @@ const argv = yargs
 
 const outputPath = argv.output;
 
-const config = new Config()
+async function parse(config: Config): Promise<[Metadata, Swagger]> {
+  const csdl: CSDL = await parseXML(config.URL)
 
-parseXML(config.URL)
-  .then((csdl: CSDL) => {
-    let definitionMap: DefinitionMap = new DefinitionMap()
-    definitionMap = constructDataStructure(csdl, definitionMap, config)
-    definitionMap = validateReferences(definitionMap, config)
+  let definitionMap: DefinitionMap = new DefinitionMap();
+  definitionMap = constructDataStructure(csdl, definitionMap, config);
+  definitionMap = validateReferences(definitionMap, config);
 
-    const swagger: Swagger = writeSwagger(definitionMap, config)
-    const swaggerJson: string = JSON.stringify(swagger, null, 2)
+  const swagger: Swagger = writeSwagger(definitionMap, config);
+  const metadata: Metadata = writeMetadata(definitionMap, config);
 
-    const metadata: Metadata = writeMetadata(definitionMap, config);
-    const metadataJson: string = JSON.stringify(metadata, null, 2);
+  return [metadata, swagger];
+}
 
-    if (!fs.existsSync(outputPath)) {
-      fs.mkdirSync(outputPath, { recursive: true });
+function writeSwaggerFile(swagger: Swagger, apiVersion: string) {
+  const swaggerJson: string = JSON.stringify(swagger, null, 2);
+  const fullOutputPath = `${outputPath}/${apiVersion}`;
+
+  if (outputPath !== 'output') {
+    if (!fs.existsSync(fullOutputPath)) {
+      fs.mkdirSync(fullOutputPath, { recursive: true });
     }
 
-    fs.writeFile(`${outputPath}/microsoftgraph-beta.json`, swaggerJson, (err) => {
+    fs.writeFile(`${fullOutputPath}/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
       if (err) throw err;
-      console.log('The swagger file has been saved!');
+      console.log(`The swagger file for ${apiVersion} has been saved!`);
     });
+  }
 
-    fs.writeFile(`output/metadata-beta.json`, metadataJson, (err) => {
-      if (err) throw err;
-      console.log('The metadata file has been saved!');
-    });
+  fs.writeFile(`output/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
+    if (err) throw err;
+    console.log(`The swagger file for ${apiVersion} has been saved!`);
+  });
+}
 
-  }).catch(console.log);
+function writeMetadataFile(metadata: Metadata) {
+  const metadataJson: string = JSON.stringify(metadata, null, 2);
+
+  fs.writeFile(`output/metadata.json`, metadataJson, (err) => {
+    if (err) throw err;
+    console.log(`The metadata file has been saved!`);
+  });
+}
+
+async function main() {
+  const apiVersions = ["beta"]
+  let metadata: Metadata = {};
+
+  for (const apiVersion of apiVersions) {
+    const config = new Config(apiVersion);
+    const [curMetadata, curSwagger] = await parse(config);
+
+    // Merge the metadata for current api version with the existing metadata
+    for (const entityName in curMetadata) {
+      metadata[entityName] ??= { };
+      metadata[entityName][apiVersion] = curMetadata[entityName][apiVersion];
+    }
+
+    writeSwaggerFile(curSwagger, apiVersion);
+  }
+
+  writeMetadataFile(metadata);
+}
+
+main();

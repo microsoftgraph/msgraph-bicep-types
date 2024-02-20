@@ -1,8 +1,5 @@
 # URL to fetch the metadata document
-URL: https://graph.microsoft.com/beta/$metadata
-
-# Version with which the api will be generated in the swagger document
-apiVersion: beta
+URL: https://graph.microsoft.com/v1.0/$metadata
 
 # List of entity types to generate swagger from.
 # - Name: Name of the entity type
@@ -21,15 +18,12 @@ EntityTypes:
     Upsertable: true
     AvailableProperty:
       - classification
-      - createdByAppId
       - createdDateTime
       - description
       - displayName
       - expirationDateTime
       - groupTypes
-      - infoCatalogs
       - isAssignableToRole
-      - isManagementRestricted
       - mail
       - mailEnabled
       - mailNickname
@@ -42,20 +36,16 @@ EntityTypes:
       - onPremisesSamAccountName
       - onPremisesSecurityIdentifier
       - onPremisesSyncEnabled
-      - organizationId
       - preferredDataLocation
       - preferredLanguage
       - proxyAddresses
       - renewedDateTime
-      - resourceBehaviorOptions
-      - resourceProvisioningOptions
       - securityEnabled
       - securityIdentifier
       - serviceProvisioningErrors
       - theme
       - uniqueName
       - visibility
-      - writebackConfiguration
     NavigationProperty:
       - members
       - owners
@@ -66,10 +56,8 @@ EntityTypes:
       - securityEnabled
       - uniqueName
     ReadOnly:
-      - createdByAppId
       - createdDateTime
       - expirationDateTime
-      - isManagementRestricted
       - mail
       - onPremisesDomainName
       - onPremisesLastSyncDateTime
@@ -83,10 +71,11 @@ EntityTypes:
     RootUri: /applications
     Upsertable: true
     AvailableProperty:
+      - addIns
       - api
       - appId
+      - applicationTemplateId
       - appRoles
-      - authenticationBehaviors
       - certification
       - createdDateTime
       - defaultRedirectUri
@@ -101,6 +90,7 @@ EntityTypes:
       - keyCredentials
       - logo
       - notes
+      - oauth2RequirePostResponse
       - optionalClaims
       - parentalControlSettings
       - passwordCredentials
@@ -118,7 +108,6 @@ EntityTypes:
       - uniqueName
       - verifiedPublisher
       - web
-      - windows
     RequiredOnWrite:
       - displayName
       - uniqueName
@@ -141,6 +130,7 @@ EntityTypes:
       - appRoleAssignmentRequired
       - appRoles
       - applicationTemplateId
+      - customSecurityAttributes
       - description
       - disabledByMicrosoftStatus
       - displayName
@@ -151,14 +141,14 @@ EntityTypes:
       - logoutUrl
       - notes
       - notificationEmailAddresses
+      - oauth2PermissionScopes
       - passwordCredentials
       - publishedPermissionScopes
       - preferredSingleSignOnMode
       - preferredTokenSigningKeyThumbprint
       - preferredTokenSigningKeyEndDateTime
-      - publisherName
       - replyUrls
-      - samlMetadataUrl
+      - resourceSpecificApplicationPermissions
       - samlSingleSignOnSettings
       - servicePrincipalNames
       - servicePrincipalType
@@ -170,6 +160,7 @@ EntityTypes:
       - appId
     ReadOnly:
       - applicationTemplateId
+      - resourceSpecificApplicationPermissions
       - signInAudience
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
@@ -201,7 +192,7 @@ EntityTypes:
     ContainerKeyProperty: resourceId
     AvailableProperty:
       - appRoleId
-      - creationTimestamp
+      - createdDateTime
       - principalDisplayName
       - principalId
       - principalType
@@ -212,7 +203,7 @@ EntityTypes:
       - principalId
       - resourceId
     ReadOnly:
-      - creationTimestamp
+      - createdDateTime
       - principalDisplayName
       - principalType
     FilterProperty:
@@ -237,6 +228,3 @@ EntityTypes:
     ReadOnly:
       - hint
       - secretText
-  - Name: microsoft.graph.windowsApplication
-    ReadOnly:
-      - packageSid

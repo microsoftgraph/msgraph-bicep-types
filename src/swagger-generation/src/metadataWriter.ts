@@ -7,8 +7,7 @@ import { EntityType } from "./definitions/EntityType";
 import { Metadata } from './definitions/Metadata';
 
 export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Metadata => {
-  const metadata: Metadata = {};
-  const apiVersion: string = config.APIVersion;
+  let metadata: Metadata = {};
 
   config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
     const rootUri = entityTypeConfig.RootUri;
@@ -20,7 +19,7 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
       const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
       metadata[relativeUri] = {
-        [apiVersion]: {
+        [config.APIVersion]: {
           isIdempotent: entityTypeConfig.Upsertable ?? false,
           updatable: (entityTypeConfig.Upsertable ?? false) || (entityTypeConfig.Updatable ?? false),
           alternateKey: entity.AlternateKey,
@@ -30,8 +29,8 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           keyProperty: entityTypeConfig.ContainerKeyProperty,
           temporaryFilterKeys: entityTypeConfig.FilterProperty,
           compositeKeyProperties: entityTypeConfig.CompositeKey,
-        }
-      }
+        },
+      };
     }
   });
 
