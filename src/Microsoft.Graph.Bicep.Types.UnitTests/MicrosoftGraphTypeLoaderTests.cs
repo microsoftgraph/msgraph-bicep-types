@@ -48,7 +48,7 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
                 var resourceType = typeLoader.LoadResourceType(kvp.Value);
             }
 
-            foreach (var (resourceType, functionsByApiVersion) in index.Functions)
+            foreach (var (resourceType, functionsByApiVersion) in index.ResourceFunctions)
             {
                 foreach (var (apiVersion, functions) in functionsByApiVersion)
                 {
@@ -103,8 +103,8 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             var index = typeLoader.LoadTypeIndex();
 
             index.Resources.Keys.Select(x => x.ToLowerInvariant()).Should().OnlyHaveUniqueItems();
-            index.Functions.Keys.Select(x => x.ToLowerInvariant()).Should().OnlyHaveUniqueItems();
-            foreach (var functionsByApiVersion in index.Functions.Values)
+            index.ResourceFunctions.Keys.Select(x => x.ToLowerInvariant()).Should().OnlyHaveUniqueItems();
+            foreach (var functionsByApiVersion in index.ResourceFunctions.Values)
             {
                 functionsByApiVersion.Keys.Select(x => x.ToLowerInvariant()).Should().OnlyHaveUniqueItems();
             }
