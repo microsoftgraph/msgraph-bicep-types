@@ -1,1 +1,20 @@
-{"Resources":{"Microsoft.Graph/groups@beta":{"RelativePath":"microsoftgraph/microsoft.graph/beta/types.json","Index":17},"Microsoft.Graph/applications@beta":{"RelativePath":"microsoftgraph/microsoft.graph/beta/types.json","Index":70},"Microsoft.Graph/servicePrincipals@beta":{"RelativePath":"microsoftgraph/microsoft.graph/beta/types.json","Index":88},"Microsoft.Graph/oauth2PermissionGrants@beta":{"RelativePath":"microsoftgraph/microsoft.graph/beta/types.json","Index":92},"Microsoft.Graph/appRoleAssignedTo@beta":{"RelativePath":"microsoftgraph/microsoft.graph/beta/types.json","Index":96}},"Functions":{}}
+{
+  "resources": {
+    "Microsoft.Graph/groups@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/17"
+    },
+    "Microsoft.Graph/applications@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/70"
+    },
+    "Microsoft.Graph/servicePrincipals@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/88"
+    },
+    "Microsoft.Graph/oauth2PermissionGrants@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/92"
+    },
+    "Microsoft.Graph/appRoleAssignedTo@beta": {
+      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/96"
+    }
+  },
+  "resourceFunctions": {}
+}

@@ -1,1 +1,2034 @@
-[{"13":{}},{"6":{"Value":"Microsoft.Graph/groups"}},{"6":{"Value":"beta"}},{"2":{"Name":"Microsoft.Graph/groups","Properties":{"id":{"Type":0,"Flags":10,"Description":"The resource id"},"type":{"Type":1,"Flags":10,"Description":"The resource type"},"apiVersion":{"Type":2,"Flags":10,"Description":"The resource api version"},"classification":{"Type":0,"Flags":0},"createdByAppId":{"Type":0,"Flags":2},"createdDateTime":{"Type":0,"Flags":2},"description":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":1},"expirationDateTime":{"Type":0,"Flags":2},"groupTypes":{"Type":4,"Flags":0},"infoCatalogs":{"Type":5,"Flags":0},"isAssignableToRole":{"Type":6,"Flags":0},"isManagementRestricted":{"Type":6,"Flags":2},"mail":{"Type":0,"Flags":2},"mailEnabled":{"Type":6,"Flags":1},"mailNickname":{"Type":0,"Flags":1},"membershipRule":{"Type":0,"Flags":0},"membershipRuleProcessingState":{"Type":0,"Flags":0},"onPremisesDomainName":{"Type":0,"Flags":2},"onPremisesLastSyncDateTime":{"Type":0,"Flags":2},"onPremisesNetBiosName":{"Type":0,"Flags":2},"onPremisesProvisioningErrors":{"Type":8,"Flags":0},"onPremisesSamAccountName":{"Type":0,"Flags":2},"onPremisesSecurityIdentifier":{"Type":0,"Flags":2},"onPremisesSyncEnabled":{"Type":6,"Flags":2},"organizationId":{"Type":0,"Flags":0},"preferredDataLocation":{"Type":0,"Flags":0},"preferredLanguage":{"Type":0,"Flags":0},"proxyAddresses":{"Type":9,"Flags":2},"renewedDateTime":{"Type":0,"Flags":2},"resourceBehaviorOptions":{"Type":10,"Flags":0},"resourceProvisioningOptions":{"Type":11,"Flags":0},"securityEnabled":{"Type":6,"Flags":1},"securityIdentifier":{"Type":0,"Flags":0},"serviceProvisioningErrors":{"Type":13,"Flags":0},"theme":{"Type":0,"Flags":0},"uniqueName":{"Type":0,"Flags":9},"visibility":{"Type":0,"Flags":0},"writebackConfiguration":{"Type":14,"Flags":0},"deletedDateTime":{"Type":0,"Flags":2},"members":{"Type":15,"Flags":0},"owners":{"Type":16,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"11":{}},{"2":{"Name":"MicrosoftGraphOnPremisesProvisioningError","Properties":{"category":{"Type":0,"Flags":0},"occurredDateTime":{"Type":0,"Flags":0},"propertyCausingError":{"Type":0,"Flags":0},"value":{"Type":0,"Flags":0}}}},{"3":{"ItemType":7}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphServiceProvisioningError","Properties":{"createdDateTime":{"Type":0,"Flags":0},"isResolved":{"Type":6,"Flags":0},"serviceInstance":{"Type":0,"Flags":0}}}},{"3":{"ItemType":12}},{"2":{"Name":"MicrosoftGraphGroupWritebackConfiguration","Properties":{"onPremisesGroupType":{"Type":0,"Flags":0},"isEnabled":{"Type":6,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"4":{"Name":"Microsoft.Graph/groups@beta","ScopeType":0,"Body":3,"Flags":0}},{"6":{"Value":"Microsoft.Graph/applications"}},{"6":{"Value":"beta"}},{"2":{"Name":"Microsoft.Graph/applications","Properties":{"id":{"Type":0,"Flags":10,"Description":"The resource id"},"type":{"Type":18,"Flags":10,"Description":"The resource type"},"apiVersion":{"Type":19,"Flags":10,"Description":"The resource api version"},"api":{"Type":21,"Flags":0},"appId":{"Type":0,"Flags":2},"appRoles":{"Type":32,"Flags":0},"authenticationBehaviors":{"Type":33,"Flags":0},"certification":{"Type":34,"Flags":2},"createdDateTime":{"Type":0,"Flags":2},"defaultRedirectUri":{"Type":0,"Flags":0},"description":{"Type":0,"Flags":0},"disabledByMicrosoftStatus":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":1},"groupMembershipClaims":{"Type":0,"Flags":0},"identifierUris":{"Type":35,"Flags":0},"info":{"Type":36,"Flags":0},"isDeviceOnlyAuthSupported":{"Type":6,"Flags":0},"isFallbackPublicClient":{"Type":6,"Flags":0},"keyCredentials":{"Type":38,"Flags":0},"logo":{"Type":0,"Flags":0},"notes":{"Type":0,"Flags":0},"optionalClaims":{"Type":39,"Flags":0},"parentalControlSettings":{"Type":45,"Flags":0},"passwordCredentials":{"Type":48,"Flags":0},"publicClient":{"Type":49,"Flags":0},"publisherDomain":{"Type":0,"Flags":2},"requestSignatureVerification":{"Type":51,"Flags":0},"requiredResourceAccess":{"Type":57,"Flags":0},"samlMetadataUrl":{"Type":0,"Flags":0},"serviceManagementReference":{"Type":0,"Flags":0},"servicePrincipalLockConfiguration":{"Type":58,"Flags":0},"signInAudience":{"Type":0,"Flags":0},"spa":{"Type":59,"Flags":0},"tags":{"Type":61,"Flags":0},"tokenEncryptionKeyId":{"Type":22,"Flags":0},"uniqueName":{"Type":0,"Flags":9},"verifiedPublisher":{"Type":62,"Flags":0},"web":{"Type":63,"Flags":0},"windows":{"Type":68,"Flags":0},"deletedDateTime":{"Type":0,"Flags":2}}}},{"2":{"Name":"MicrosoftGraphApiApplication","Properties":{"acceptMappedClaims":{"Type":6,"Flags":0},"knownClientApplications":{"Type":23,"Flags":0},"oauth2PermissionScopes":{"Type":25,"Flags":0},"preAuthorizedApplications":{"Type":28,"Flags":0},"requestedAccessTokenVersion":{"Type":29,"Flags":0}}}},{"13":{"MinLength":36,"MaxLength":36,"Pattern":"^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}},{"3":{"ItemType":22}},{"2":{"Name":"MicrosoftGraphPermissionScope","Properties":{"adminConsentDescription":{"Type":0,"Flags":0},"adminConsentDisplayName":{"Type":0,"Flags":0},"id":{"Type":22,"Flags":0},"isEnabled":{"Type":6,"Flags":0},"origin":{"Type":0,"Flags":0},"type":{"Type":0,"Flags":0},"userConsentDescription":{"Type":0,"Flags":0},"userConsentDisplayName":{"Type":0,"Flags":0},"value":{"Type":0,"Flags":0}}}},{"3":{"ItemType":24}},{"2":{"Name":"MicrosoftGraphPreAuthorizedApplication","Properties":{"appId":{"Type":0,"Flags":0},"permissionIds":{"Type":27,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":26}},{"12":{}},{"2":{"Name":"MicrosoftGraphAppRole","Properties":{"allowedMemberTypes":{"Type":31,"Flags":0},"description":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":0},"id":{"Type":22,"Flags":0},"isEnabled":{"Type":6,"Flags":0},"origin":{"Type":0,"Flags":2},"value":{"Type":0,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":30}},{"2":{"Name":"MicrosoftGraphAuthenticationBehaviors","Properties":{"blockAzureADGraphAccess":{"Type":6,"Flags":0},"removeUnverifiedEmailClaim":{"Type":6,"Flags":0},"requireClientServicePrincipal":{"Type":6,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphCertification","Properties":{"certificationDetailsUrl":{"Type":0,"Flags":0},"certificationExpirationDateTime":{"Type":0,"Flags":0},"isCertifiedByMicrosoft":{"Type":6,"Flags":0},"isPublisherAttested":{"Type":6,"Flags":0},"lastCertificationDateTime":{"Type":0,"Flags":0}}}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphInformationalUrl","Properties":{"logoUrl":{"Type":0,"Flags":2},"marketingUrl":{"Type":0,"Flags":0},"privacyStatementUrl":{"Type":0,"Flags":0},"supportUrl":{"Type":0,"Flags":0},"termsOfServiceUrl":{"Type":0,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphKeyCredential","Properties":{"customKeyIdentifier":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":0},"endDateTime":{"Type":0,"Flags":0},"key":{"Type":0,"Flags":0},"keyId":{"Type":22,"Flags":0},"startDateTime":{"Type":0,"Flags":0},"type":{"Type":0,"Flags":0},"usage":{"Type":0,"Flags":0}}}},{"3":{"ItemType":37}},{"2":{"Name":"MicrosoftGraphOptionalClaims","Properties":{"accessToken":{"Type":42,"Flags":0},"idToken":{"Type":43,"Flags":0},"saml2Token":{"Type":44,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphOptionalClaim","Properties":{"additionalProperties":{"Type":41,"Flags":0},"essential":{"Type":6,"Flags":0},"name":{"Type":0,"Flags":0},"source":{"Type":0,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":40}},{"3":{"ItemType":40}},{"3":{"ItemType":40}},{"2":{"Name":"MicrosoftGraphParentalControlSettings","Properties":{"countriesBlockedForMinors":{"Type":46,"Flags":0},"legalAgeGroupRule":{"Type":0,"Flags":0}}}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphPasswordCredential","Properties":{"displayName":{"Type":0,"Flags":0},"endDateTime":{"Type":0,"Flags":0},"hint":{"Type":0,"Flags":2},"keyId":{"Type":22,"Flags":0},"secretText":{"Type":0,"Flags":2},"startDateTime":{"Type":0,"Flags":0}}}},{"3":{"ItemType":47}},{"2":{"Name":"MicrosoftGraphPublicClientApplication","Properties":{"redirectUris":{"Type":50,"Flags":0}}}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphRequestSignatureVerification","Properties":{"allowedWeakAlgorithms":{"Type":53,"Flags":0},"isSignedRequestRequired":{"Type":6,"Flags":0}}}},{"6":{"Value":"rsaSha1"}},{"5":{"Elements":[52,0]}},{"2":{"Name":"MicrosoftGraphRequiredResourceAccess","Properties":{"resourceAccess":{"Type":56,"Flags":0},"resourceAppId":{"Type":0,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphResourceAccess","Properties":{"id":{"Type":22,"Flags":0},"type":{"Type":0,"Flags":0}}}},{"3":{"ItemType":55}},{"3":{"ItemType":54}},{"2":{"Name":"MicrosoftGraphServicePrincipalLockConfiguration","Properties":{"allProperties":{"Type":6,"Flags":0},"credentialsWithUsageSign":{"Type":6,"Flags":0},"credentialsWithUsageVerify":{"Type":6,"Flags":0},"isEnabled":{"Type":6,"Flags":0},"tokenEncryptionKeyId":{"Type":6,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphSpaApplication","Properties":{"redirectUris":{"Type":60,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphVerifiedPublisher","Properties":{"addedDateTime":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":0},"verifiedPublisherId":{"Type":0,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphWebApplication","Properties":{"homePageUrl":{"Type":0,"Flags":0},"implicitGrantSettings":{"Type":64,"Flags":0},"logoutUrl":{"Type":0,"Flags":0},"oauth2AllowImplicitFlow":{"Type":6,"Flags":0},"redirectUris":{"Type":65,"Flags":0},"redirectUriSettings":{"Type":67,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphImplicitGrantSettings","Properties":{"enableAccessTokenIssuance":{"Type":6,"Flags":0},"enableIdTokenIssuance":{"Type":6,"Flags":0}}}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphRedirectUriSettings","Properties":{"index":{"Type":29,"Flags":0},"uri":{"Type":0,"Flags":0}}}},{"3":{"ItemType":66}},{"2":{"Name":"MicrosoftGraphWindowsApplication","Properties":{"packageSid":{"Type":0,"Flags":2},"redirectUris":{"Type":69,"Flags":0}}}},{"3":{"ItemType":0}},{"4":{"Name":"Microsoft.Graph/applications@beta","ScopeType":0,"Body":20,"Flags":0}},{"6":{"Value":"Microsoft.Graph/servicePrincipals"}},{"6":{"Value":"beta"}},{"2":{"Name":"Microsoft.Graph/servicePrincipals","Properties":{"id":{"Type":0,"Flags":10,"Description":"The resource id"},"type":{"Type":71,"Flags":10,"Description":"The resource type"},"apiVersion":{"Type":72,"Flags":10,"Description":"The resource api version"},"accountEnabled":{"Type":6,"Flags":0},"addIns":{"Type":77,"Flags":0},"alternativeNames":{"Type":78,"Flags":0},"appDescription":{"Type":0,"Flags":0},"appDisplayName":{"Type":0,"Flags":0},"appId":{"Type":0,"Flags":1},"applicationTemplateId":{"Type":0,"Flags":2},"appOwnerOrganizationId":{"Type":22,"Flags":0},"appRoleAssignmentRequired":{"Type":6,"Flags":0},"appRoles":{"Type":79,"Flags":0},"description":{"Type":0,"Flags":0},"disabledByMicrosoftStatus":{"Type":0,"Flags":0},"displayName":{"Type":0,"Flags":0},"homepage":{"Type":0,"Flags":0},"info":{"Type":36,"Flags":0},"keyCredentials":{"Type":80,"Flags":0},"loginUrl":{"Type":0,"Flags":0},"logoutUrl":{"Type":0,"Flags":0},"notes":{"Type":0,"Flags":0},"notificationEmailAddresses":{"Type":81,"Flags":0},"passwordCredentials":{"Type":82,"Flags":0},"preferredSingleSignOnMode":{"Type":0,"Flags":0},"preferredTokenSigningKeyEndDateTime":{"Type":0,"Flags":0},"preferredTokenSigningKeyThumbprint":{"Type":0,"Flags":0},"publishedPermissionScopes":{"Type":83,"Flags":0},"publisherName":{"Type":0,"Flags":0},"replyUrls":{"Type":84,"Flags":0},"samlMetadataUrl":{"Type":0,"Flags":0},"samlSingleSignOnSettings":{"Type":85,"Flags":0},"servicePrincipalNames":{"Type":86,"Flags":0},"servicePrincipalType":{"Type":0,"Flags":0},"signInAudience":{"Type":0,"Flags":2},"tags":{"Type":87,"Flags":0},"tokenEncryptionKeyId":{"Type":22,"Flags":0},"verifiedPublisher":{"Type":62,"Flags":0},"deletedDateTime":{"Type":0,"Flags":2}}}},{"2":{"Name":"MicrosoftGraphAddIn","Properties":{"id":{"Type":22,"Flags":0},"properties":{"Type":76,"Flags":0},"type":{"Type":0,"Flags":0}}}},{"2":{"Name":"MicrosoftGraphKeyValue","Properties":{"key":{"Type":0,"Flags":0},"value":{"Type":0,"Flags":0}}}},{"3":{"ItemType":75}},{"3":{"ItemType":74}},{"3":{"ItemType":0}},{"3":{"ItemType":30}},{"3":{"ItemType":37}},{"3":{"ItemType":0}},{"3":{"ItemType":47}},{"3":{"ItemType":24}},{"3":{"ItemType":0}},{"2":{"Name":"MicrosoftGraphSamlSingleSignOnSettings","Properties":{"relayState":{"Type":0,"Flags":0}}}},{"3":{"ItemType":0}},{"3":{"ItemType":0}},{"4":{"Name":"Microsoft.Graph/servicePrincipals@beta","ScopeType":0,"Body":73,"Flags":0}},{"6":{"Value":"Microsoft.Graph/oauth2PermissionGrants"}},{"6":{"Value":"beta"}},{"2":{"Name":"Microsoft.Graph/oauth2PermissionGrants","Properties":{"id":{"Type":0,"Flags":10,"Description":"The resource id"},"type":{"Type":89,"Flags":10,"Description":"The resource type"},"apiVersion":{"Type":90,"Flags":10,"Description":"The resource api version"},"clientId":{"Type":0,"Flags":1},"consentType":{"Type":0,"Flags":1},"principalId":{"Type":0,"Flags":0},"resourceId":{"Type":0,"Flags":1},"scope":{"Type":0,"Flags":0}}}},{"4":{"Name":"Microsoft.Graph/oauth2PermissionGrants@beta","ScopeType":0,"Body":91,"Flags":0}},{"6":{"Value":"Microsoft.Graph/appRoleAssignedTo"}},{"6":{"Value":"beta"}},{"2":{"Name":"Microsoft.Graph/appRoleAssignedTo","Properties":{"id":{"Type":0,"Flags":10,"Description":"The resource id"},"type":{"Type":93,"Flags":10,"Description":"The resource type"},"apiVersion":{"Type":94,"Flags":10,"Description":"The resource api version"},"appRoleId":{"Type":22,"Flags":1},"creationTimestamp":{"Type":0,"Flags":2},"principalDisplayName":{"Type":0,"Flags":2},"principalId":{"Type":22,"Flags":1},"principalType":{"Type":0,"Flags":2},"resourceDisplayName":{"Type":0,"Flags":0},"resourceId":{"Type":22,"Flags":1}}}},{"4":{"Name":"Microsoft.Graph/appRoleAssignedTo@beta","ScopeType":0,"Body":95,"Flags":0}}]
+[
+  {
+    "$type": "StringType"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/groups"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/groups",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/1"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "classification": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "createdByAppId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "expirationDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "groupTypes": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 0
+      },
+      "infoCatalogs": {
+        "type": {
+          "$ref": "#/5"
+        },
+        "flags": 0
+      },
+      "isAssignableToRole": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "isManagementRestricted": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 2
+      },
+      "mail": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "mailEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 1
+      },
+      "mailNickname": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "membershipRule": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "membershipRuleProcessingState": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "onPremisesDomainName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "onPremisesLastSyncDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "onPremisesNetBiosName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "onPremisesProvisioningErrors": {
+        "type": {
+          "$ref": "#/8"
+        },
+        "flags": 0
+      },
+      "onPremisesSamAccountName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "onPremisesSecurityIdentifier": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "onPremisesSyncEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 2
+      },
+      "organizationId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "preferredDataLocation": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "preferredLanguage": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "proxyAddresses": {
+        "type": {
+          "$ref": "#/9"
+        },
+        "flags": 2
+      },
+      "renewedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "resourceBehaviorOptions": {
+        "type": {
+          "$ref": "#/10"
+        },
+        "flags": 0
+      },
+      "resourceProvisioningOptions": {
+        "type": {
+          "$ref": "#/11"
+        },
+        "flags": 0
+      },
+      "securityEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 1
+      },
+      "securityIdentifier": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "serviceProvisioningErrors": {
+        "type": {
+          "$ref": "#/13"
+        },
+        "flags": 0
+      },
+      "theme": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 9
+      },
+      "visibility": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "writebackConfiguration": {
+        "type": {
+          "$ref": "#/14"
+        },
+        "flags": 0
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "members": {
+        "type": {
+          "$ref": "#/15"
+        },
+        "flags": 0
+      },
+      "owners": {
+        "type": {
+          "$ref": "#/16"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "BooleanType"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphOnPremisesProvisioningError",
+    "properties": {
+      "category": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "occurredDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "propertyCausingError": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "value": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/7"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphServiceProvisioningError",
+    "properties": {
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "isResolved": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "serviceInstance": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/12"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphGroupWritebackConfiguration",
+    "properties": {
+      "onPremisesGroupType": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "isEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/groups@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/3"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/applications"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/applications",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/18"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/19"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "api": {
+        "type": {
+          "$ref": "#/21"
+        },
+        "flags": 0
+      },
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "appRoles": {
+        "type": {
+          "$ref": "#/32"
+        },
+        "flags": 0
+      },
+      "authenticationBehaviors": {
+        "type": {
+          "$ref": "#/33"
+        },
+        "flags": 0
+      },
+      "certification": {
+        "type": {
+          "$ref": "#/34"
+        },
+        "flags": 2
+      },
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "defaultRedirectUri": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "disabledByMicrosoftStatus": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "groupMembershipClaims": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "identifierUris": {
+        "type": {
+          "$ref": "#/35"
+        },
+        "flags": 0
+      },
+      "info": {
+        "type": {
+          "$ref": "#/36"
+        },
+        "flags": 0
+      },
+      "isDeviceOnlyAuthSupported": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "isFallbackPublicClient": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "keyCredentials": {
+        "type": {
+          "$ref": "#/38"
+        },
+        "flags": 0
+      },
+      "logo": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "notes": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "optionalClaims": {
+        "type": {
+          "$ref": "#/39"
+        },
+        "flags": 0
+      },
+      "parentalControlSettings": {
+        "type": {
+          "$ref": "#/45"
+        },
+        "flags": 0
+      },
+      "passwordCredentials": {
+        "type": {
+          "$ref": "#/48"
+        },
+        "flags": 0
+      },
+      "publicClient": {
+        "type": {
+          "$ref": "#/49"
+        },
+        "flags": 0
+      },
+      "publisherDomain": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "requestSignatureVerification": {
+        "type": {
+          "$ref": "#/51"
+        },
+        "flags": 0
+      },
+      "requiredResourceAccess": {
+        "type": {
+          "$ref": "#/57"
+        },
+        "flags": 0
+      },
+      "samlMetadataUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "serviceManagementReference": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "servicePrincipalLockConfiguration": {
+        "type": {
+          "$ref": "#/58"
+        },
+        "flags": 0
+      },
+      "signInAudience": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "spa": {
+        "type": {
+          "$ref": "#/59"
+        },
+        "flags": 0
+      },
+      "tags": {
+        "type": {
+          "$ref": "#/61"
+        },
+        "flags": 0
+      },
+      "tokenEncryptionKeyId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 9
+      },
+      "verifiedPublisher": {
+        "type": {
+          "$ref": "#/62"
+        },
+        "flags": 0
+      },
+      "web": {
+        "type": {
+          "$ref": "#/63"
+        },
+        "flags": 0
+      },
+      "windows": {
+        "type": {
+          "$ref": "#/68"
+        },
+        "flags": 0
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphApiApplication",
+    "properties": {
+      "acceptMappedClaims": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "knownClientApplications": {
+        "type": {
+          "$ref": "#/23"
+        },
+        "flags": 0
+      },
+      "oauth2PermissionScopes": {
+        "type": {
+          "$ref": "#/25"
+        },
+        "flags": 0
+      },
+      "preAuthorizedApplications": {
+        "type": {
+          "$ref": "#/28"
+        },
+        "flags": 0
+      },
+      "requestedAccessTokenVersion": {
+        "type": {
+          "$ref": "#/29"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "StringType",
+    "minLength": 36,
+    "maxLength": 36,
+    "pattern": "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/22"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPermissionScope",
+    "properties": {
+      "adminConsentDescription": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "adminConsentDisplayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "id": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "isEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "origin": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "type": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "userConsentDescription": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "userConsentDisplayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "value": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/24"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPreAuthorizedApplication",
+    "properties": {
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "permissionIds": {
+        "type": {
+          "$ref": "#/27"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/26"
+    }
+  },
+  {
+    "$type": "IntegerType"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphAppRole",
+    "properties": {
+      "allowedMemberTypes": {
+        "type": {
+          "$ref": "#/31"
+        },
+        "flags": 0
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "id": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "isEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "origin": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "value": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/30"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphAuthenticationBehaviors",
+    "properties": {
+      "blockAzureADGraphAccess": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "removeUnverifiedEmailClaim": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "requireClientServicePrincipal": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphCertification",
+    "properties": {
+      "certificationDetailsUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "certificationExpirationDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "isCertifiedByMicrosoft": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "isPublisherAttested": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "lastCertificationDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphInformationalUrl",
+    "properties": {
+      "logoUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "marketingUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "privacyStatementUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "supportUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "termsOfServiceUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphKeyCredential",
+    "properties": {
+      "customKeyIdentifier": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "endDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "key": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "keyId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "startDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "type": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "usage": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/37"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphOptionalClaims",
+    "properties": {
+      "accessToken": {
+        "type": {
+          "$ref": "#/42"
+        },
+        "flags": 0
+      },
+      "idToken": {
+        "type": {
+          "$ref": "#/43"
+        },
+        "flags": 0
+      },
+      "saml2Token": {
+        "type": {
+          "$ref": "#/44"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphOptionalClaim",
+    "properties": {
+      "additionalProperties": {
+        "type": {
+          "$ref": "#/41"
+        },
+        "flags": 0
+      },
+      "essential": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "name": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "source": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/40"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/40"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/40"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphParentalControlSettings",
+    "properties": {
+      "countriesBlockedForMinors": {
+        "type": {
+          "$ref": "#/46"
+        },
+        "flags": 0
+      },
+      "legalAgeGroupRule": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPasswordCredential",
+    "properties": {
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "endDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "hint": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "keyId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "secretText": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "startDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/47"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPublicClientApplication",
+    "properties": {
+      "redirectUris": {
+        "type": {
+          "$ref": "#/50"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphRequestSignatureVerification",
+    "properties": {
+      "allowedWeakAlgorithms": {
+        "type": {
+          "$ref": "#/53"
+        },
+        "flags": 0
+      },
+      "isSignedRequestRequired": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "rsaSha1"
+  },
+  {
+    "$type": "UnionType",
+    "elements": [
+      {
+        "$ref": "#/52"
+      },
+      {
+        "$ref": "#/0"
+      }
+    ]
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphRequiredResourceAccess",
+    "properties": {
+      "resourceAccess": {
+        "type": {
+          "$ref": "#/56"
+        },
+        "flags": 0
+      },
+      "resourceAppId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphResourceAccess",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "type": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/55"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/54"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphServicePrincipalLockConfiguration",
+    "properties": {
+      "allProperties": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "credentialsWithUsageSign": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "credentialsWithUsageVerify": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "isEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "tokenEncryptionKeyId": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphSpaApplication",
+    "properties": {
+      "redirectUris": {
+        "type": {
+          "$ref": "#/60"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphVerifiedPublisher",
+    "properties": {
+      "addedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "verifiedPublisherId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphWebApplication",
+    "properties": {
+      "homePageUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "implicitGrantSettings": {
+        "type": {
+          "$ref": "#/64"
+        },
+        "flags": 0
+      },
+      "logoutUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "oauth2AllowImplicitFlow": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "redirectUris": {
+        "type": {
+          "$ref": "#/65"
+        },
+        "flags": 0
+      },
+      "redirectUriSettings": {
+        "type": {
+          "$ref": "#/67"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphImplicitGrantSettings",
+    "properties": {
+      "enableAccessTokenIssuance": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "enableIdTokenIssuance": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphRedirectUriSettings",
+    "properties": {
+      "index": {
+        "type": {
+          "$ref": "#/29"
+        },
+        "flags": 0
+      },
+      "uri": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/66"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphWindowsApplication",
+    "properties": {
+      "packageSid": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "redirectUris": {
+        "type": {
+          "$ref": "#/69"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/applications@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/20"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/servicePrincipals"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/servicePrincipals",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/71"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/72"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "accountEnabled": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "addIns": {
+        "type": {
+          "$ref": "#/77"
+        },
+        "flags": 0
+      },
+      "alternativeNames": {
+        "type": {
+          "$ref": "#/78"
+        },
+        "flags": 0
+      },
+      "appDescription": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "appDisplayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "applicationTemplateId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "appOwnerOrganizationId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "appRoleAssignmentRequired": {
+        "type": {
+          "$ref": "#/6"
+        },
+        "flags": 0
+      },
+      "appRoles": {
+        "type": {
+          "$ref": "#/79"
+        },
+        "flags": 0
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "disabledByMicrosoftStatus": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "homepage": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "info": {
+        "type": {
+          "$ref": "#/36"
+        },
+        "flags": 0
+      },
+      "keyCredentials": {
+        "type": {
+          "$ref": "#/80"
+        },
+        "flags": 0
+      },
+      "loginUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "logoutUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "notes": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "notificationEmailAddresses": {
+        "type": {
+          "$ref": "#/81"
+        },
+        "flags": 0
+      },
+      "passwordCredentials": {
+        "type": {
+          "$ref": "#/82"
+        },
+        "flags": 0
+      },
+      "preferredSingleSignOnMode": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "preferredTokenSigningKeyEndDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "preferredTokenSigningKeyThumbprint": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "publishedPermissionScopes": {
+        "type": {
+          "$ref": "#/83"
+        },
+        "flags": 0
+      },
+      "publisherName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "replyUrls": {
+        "type": {
+          "$ref": "#/84"
+        },
+        "flags": 0
+      },
+      "samlMetadataUrl": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "samlSingleSignOnSettings": {
+        "type": {
+          "$ref": "#/85"
+        },
+        "flags": 0
+      },
+      "servicePrincipalNames": {
+        "type": {
+          "$ref": "#/86"
+        },
+        "flags": 0
+      },
+      "servicePrincipalType": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "signInAudience": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "tags": {
+        "type": {
+          "$ref": "#/87"
+        },
+        "flags": 0
+      },
+      "tokenEncryptionKeyId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "verifiedPublisher": {
+        "type": {
+          "$ref": "#/62"
+        },
+        "flags": 0
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphAddIn",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 0
+      },
+      "properties": {
+        "type": {
+          "$ref": "#/76"
+        },
+        "flags": 0
+      },
+      "type": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphKeyValue",
+    "properties": {
+      "key": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "value": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/75"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/74"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/30"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/37"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/47"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/24"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphSamlSingleSignOnSettings",
+    "properties": {
+      "relayState": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/servicePrincipals@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/73"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/oauth2PermissionGrants"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/oauth2PermissionGrants",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/89"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/90"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "clientId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "consentType": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "principalId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "resourceId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "scope": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/oauth2PermissionGrants@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/91"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/appRoleAssignedTo"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/appRoleAssignedTo",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/93"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/94"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "appRoleId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 1
+      },
+      "creationTimestamp": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "principalDisplayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "principalId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 1
+      },
+      "principalType": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2
+      },
+      "resourceDisplayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "resourceId": {
+        "type": {
+          "$ref": "#/22"
+        },
+        "flags": 1
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/appRoleAssignedTo@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/95"
+    },
+    "flags": 0
+  }
+]
