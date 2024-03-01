@@ -3,6 +3,9 @@
 ### microsoft.graph/applications
 * **Link**: [beta](microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta)
 
+### microsoft.graph/applications/federatedidentitycredentials
+* **Link**: [beta](microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsfederatedidentitycredentialsbeta)
+
 ### microsoft.graph/approleassignedto
 * **Link**: [beta](microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)
 

@@ -7,7 +7,7 @@ import { EntityType } from "./definitions/EntityType";
 import { EnumType } from "./definitions/EnumType";
 import { Property } from "./definitions/Property";
 import { Reference } from "./definitions/Reference";
-import { Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
+import { Parameter, Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swagger => {
@@ -95,39 +95,55 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
       return;
     }
     const entityName: string = definitionMap.EntityMap.get(id)!.Name
-    const relativeUri: string = entityTypeConfig.RootUri.split("/").pop() as string
-    const host: string = `/{rootScope}/providers/Microsoft.Graph${entityTypeConfig.RootUri}/{${entityName}Id}`
+    const entitySegments: string[] = entityTypeConfig.RootUri.split("/").slice(-2)
+    const parentEntity: string = entitySegments[0];
+    const entitySet: string = entitySegments[1];
+    let relativeUri: string = entitySet;
+    let parameters: Parameter[] = [
+      {
+        in: "body",
+        name: entityName,
+        description: `The ${entityName} to be created or updated`,
+        required: true,
+        schema: {
+          $ref: `#/definitions/${id}`
+        }
+      },
+      {
+        in: "path",
+        description: `The id of the ${entityName}`,
+        name: `${entityName}Id`,
+        required: true,
+        type: "string"
+      }
+    ];
+
+    if (parentEntity) {
+      relativeUri = `${parentEntity}/{${parentEntity}Id}/${entitySet}`
+      parameters.push({
+        in: "path",
+        description: `The id of the ${parentEntity}`,
+        name: `${parentEntity}Id`,
+        required: true,
+        type: "string"
+      })
+    };
+
+    const host: string = `/{rootScope}/providers/Microsoft.Graph/${relativeUri}/{${entityName}Id}`
     const path: Path = {
       put: {
         tags: [
-          relativeUri
+          entitySet
         ],
         description: `Create or update a ${entityName}`,
-        operationId: `${relativeUri}_Put`,
+        operationId: `${entitySet}_Put`,
         consumes: [
           Product.application_json
         ],
         produces: [
           Product.application_json
         ],
-        parameters: [
-          {
-            in: "body",
-            name: entityName,
-            description: `The ${entityName} to be created or updated`,
-            required: true,
-            schema: {
-              $ref: `#/definitions/${id}`
-            }
-          },
-          {
-            in: "path",
-            description: `The id of the ${entityName}`,
-            name: `${entityName}Id`,
-            required: true,
-            type: "string"
-          }
-        ],
+        parameters: parameters,
         responses: {
           "200": {
             description: `${entityName} created/updated successfully`,
