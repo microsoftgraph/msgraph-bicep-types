@@ -4,9 +4,8 @@
 
 To use the private preview you'll need to install [Bicep tools](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install).
 
-If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version (v0.21.1 or later).
-Earlier versions do not have the Microsoft Graph Bicep Extension.  We recommend you get the latest version to ensure you have the latest
-features and Microsoft Graph resource type definitions.
+If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version ([v0.25.53](https://github.com/Azure/bicep/releases/tag/v0.25.53) or later).
+We recommend you get the latest version to ensure you have the latest features, bug fixes and Microsoft Graph resource type definitions.
 
 If you are new to [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview?tabs=bicep), we strongly recommend that you start by getting familiar with Bicep by trying out the [Bicep quickstarts](https://learn.microsoft.com//azure/azure-resource-manager/bicep/quickstart-create-bicep-use-visual-studio-code?tabs=CLI) and [Bicep tutorials](https://learn.microsoft.com/azure/azure-resource-manager/bicep/learn-bicep).
 
