@@ -4,8 +4,8 @@
 
 To use the private preview you'll need to install [Bicep tools](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install).
 
-If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version (v0.21.1 or later).
-Earlier versions do not have the Microsoft Graph Bicep Extension.
+If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version ([v0.25.53](https://github.com/Azure/bicep/releases/tag/v0.25.53) or later).
+We recommend you get the latest version to ensure you have the latest features, bug fixes and Microsoft Graph resource type definitions.
 
 If you are new to [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview?tabs=bicep), we strongly recommend that you start by getting familiar with Bicep by trying out the [Bicep quickstarts](https://learn.microsoft.com//azure/azure-resource-manager/bicep/quickstart-create-bicep-use-visual-studio-code?tabs=CLI) and [Bicep tutorials](https://learn.microsoft.com/azure/azure-resource-manager/bicep/learn-bicep).
 
@@ -23,7 +23,7 @@ To get the benefit of intellisense and auto-complete for the Microsoft Graph Bic
 When you create a Bicep template, add the following statement, to make Microsoft Graph Bicep types readily accessible to the template.
 
 ```bicep
-import 'microsoftGraph@1.0.0'
+provider 'microsoftGraph@1.0.0'
 ```
 
 Now, when creating a Bicep resource, the available Microsoft.Graph resource types will show up.
@@ -42,6 +42,7 @@ Now, when creating a Bicep resource, the available Microsoft.Graph resource type
 
 Bicep templates can be deployed using [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) or [Azure PowerShell](https://learn.microsoft.com/powershell/azure/install-azure-powershell).
 
+Make sure that you've updated Azure CLI and/or Azure PS to use the latest Bicep CLI - for Azure PS this is a [manual process](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install#azure-powershell).
 > **NOTE**: Deployment will only work for tenants that have been enrolled to the private preview.
 
 ## Next steps
