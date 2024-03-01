@@ -1873,6 +1873,86 @@
   },
   {
     "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/applications/federatedIdentityCredentials"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/applications/federatedIdentityCredentials",
+    "properties": {
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 10,
+        "description": "The resource id"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/89"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/90"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "audiences": {
+        "type": {
+          "$ref": "#/92"
+        },
+        "flags": 1
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0
+      },
+      "issuer": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "name": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "subject": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/applications/federatedIdentityCredentials@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/91"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
     "value": "Microsoft.Graph/oauth2PermissionGrants"
   },
   {
@@ -1892,14 +1972,14 @@
       },
       "type": {
         "type": {
-          "$ref": "#/89"
+          "$ref": "#/94"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/90"
+          "$ref": "#/95"
         },
         "flags": 10,
         "description": "The resource api version"
@@ -1941,7 +2021,7 @@
     "name": "Microsoft.Graph/oauth2PermissionGrants@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/91"
+      "$ref": "#/96"
     },
     "flags": 0
   },
@@ -1966,14 +2046,14 @@
       },
       "type": {
         "type": {
-          "$ref": "#/93"
+          "$ref": "#/98"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/94"
+          "$ref": "#/99"
         },
         "flags": 10,
         "description": "The resource api version"
@@ -2027,7 +2107,7 @@
     "name": "Microsoft.Graph/appRoleAssignedTo@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/95"
+      "$ref": "#/100"
     },
     "flags": 0
   }

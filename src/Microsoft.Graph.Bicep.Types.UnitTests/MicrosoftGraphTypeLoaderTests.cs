@@ -11,8 +11,6 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
     [TestClass]
     public class MicrosoftGraphTypeLoaderTests
     {
-        private string keyPropertyName = "uniqueName";
-
         private IReadOnlySet<string> availableTypes = new HashSet<string>
         {
             "Microsoft.Graph/applications@beta",
@@ -20,12 +18,21 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             "Microsoft.Graph/groups@beta",
             "Microsoft.Graph/appRoleAssignedTo@beta",
             "Microsoft.Graph/oauth2PermissionGrants@beta",
+            "Microsoft.Graph/applications/federatedIdentityCredentials@beta",
         };
 
-        private IReadOnlySet<string> typesWithRequiredKey = new HashSet<string>
+        private IReadOnlyDictionary<string, string> typesWithRequiredKey = new Dictionary<string, string>
         {
-            "Microsoft.Graph/applications@beta",
-            "Microsoft.Graph/groups@beta",
+            ["Microsoft.Graph/applications@beta"] = "uniqueName",
+            ["Microsoft.Graph/groups@beta"] = "uniqueName",
+            ["Microsoft.Graph/servicePrincipals@beta"] = "appId",
+            ["Microsoft.Graph/applications/federatedIdentityCredentials@beta"] = "name",
+        };
+
+        private IReadOnlyDictionary<string, string> typesWithConstantKey = new Dictionary<string, string>
+        {
+            ["Microsoft.Graph/applications@beta"] = "uniqueName",
+            ["Microsoft.Graph/groups@beta"] = "uniqueName",
         };
 
         private IReadOnlySet<string> directoryObjects = new HashSet<string>
@@ -79,12 +86,17 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
                 // check count of properties in body type
                 var properties = objectType!.Properties;
                 properties.Should().NotBeNull();
-                properties.Should().HaveCountGreaterThan(4); // Should at least have id, name, type, and apiVersion
+                properties.Should().HaveCountGreaterThan(4); // Should at least have id, <identifier>, type, and apiVersion
 
-                // Check "uniqueName" has correct flags
-                if (typesWithRequiredKey.Contains(kvp.Key))
+                // Check identifiers has correct flags
+                if (typesWithRequiredKey.ContainsKey(kvp.Key))
                 {
-                    properties[keyPropertyName].Flags.Should().HaveFlag(ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant);
+                    var identifier = typesWithRequiredKey[kvp.Key];
+                    var expectedFlags = typesWithConstantKey.ContainsKey(kvp.Key)
+                        ? ObjectTypePropertyFlags.Required | ObjectTypePropertyFlags.DeployTimeConstant
+                        : ObjectTypePropertyFlags.Required;
+
+                    properties[identifier].Flags.Should().HaveFlag(expectedFlags);
                 }
 
                 // Check directory objects have "id" and "deletedDateTime" properties

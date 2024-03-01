@@ -72,7 +72,11 @@ export class EntityType extends Object {
       if (property.ReadOnly)
         swaggerProperty.readOnly = property.ReadOnly
 
-      if (this.AlternateKey && this.Name.toLowerCase() !== "serviceprincipal" && property.Name === this.AlternateKey)
+      if (this.AlternateKey &&
+        property.Name === this.AlternateKey &&
+        this.Name.toLowerCase() !== "serviceprincipal" &&
+        this.Name.toLowerCase() !== "federatedidentitycredential" // Temporary when full resource name is supported
+      )
         swaggerProperty["x-constant-key"] = true
 
       definition.properties[property.Name] = swaggerProperty

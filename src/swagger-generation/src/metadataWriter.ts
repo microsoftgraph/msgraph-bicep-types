@@ -15,7 +15,7 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
     if (rootUri) {
       console.log("Writing metadata for " + id);
 
-      const relativeUri: string = rootUri.split("/").pop() as string;
+      const relativeUri: string = rootUri.slice(1) as string;
       const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
       metadata[relativeUri] = {
@@ -23,7 +23,7 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           isIdempotent: entityTypeConfig.Upsertable ?? false,
           updatable: (entityTypeConfig.Upsertable ?? false) || (entityTypeConfig.Updatable ?? false),
           alternateKey: entity.AlternateKey,
-          isContainment: entityTypeConfig.ContainerKeyProperty != null,
+          isContainment: entityTypeConfig.ContainerEntitySet != null,
           navigationProperties: entityTypeConfig.NavigationProperty,
           containerEntitySet: entityTypeConfig.ContainerEntitySet,
           keyProperty: entityTypeConfig.ContainerKeyProperty,

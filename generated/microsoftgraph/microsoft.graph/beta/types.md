@@ -44,6 +44,18 @@
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication)
 * **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication)
 
+## Resource Microsoft.Graph/applications/federatedIdentityCredentials@beta
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **audiences**: string[] (Required)
+* **description**: string
+* **id**: string (ReadOnly, DeployTimeConstant): The resource id
+* **issuer**: string (Required)
+* **name**: string (Required)
+* **subject**: string (Required)
+* **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
+
 ## Resource Microsoft.Graph/appRoleAssignedTo@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
