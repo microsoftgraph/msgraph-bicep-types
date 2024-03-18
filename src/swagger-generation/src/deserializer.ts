@@ -47,6 +47,7 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
 const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty: RawProperty): Property => {
   const propertyAttributes: RawPropertyAttributes = rawProperty.$
   const propertyName: string = propertyAttributes.Name
+  const propertyDescription: string = getPropertyDescription(rawProperty.Annotation);
   let propertyType: string = propertyAttributes.Type
   let typedPropertyType: PrimitiveSwaggerTypeStruct | CollectionProperty | string
   const collectionRegex: RegExp = /Collection\((.+)\)/
@@ -79,7 +80,7 @@ const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty
     }
   }
 
-  const property: Property = new Property(propertyName, typedPropertyType, propertyNullable, isReadOnly)
+  const property: Property = new Property(propertyName, typedPropertyType, propertyDescription, propertyNullable, isReadOnly)
 
   return property
 }
@@ -87,6 +88,7 @@ const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty
 const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined, rawNavigationProperty: RawNavigationProperty): NavigationProperty => {
   const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty.$
   const navigationPropertyName: string = navigationPropertyAttributes.Name
+  const navigationPropertyDescription: string = getPropertyDescription(rawNavigationProperty.Annotation);
   let navigationPropertyType: string = navigationPropertyAttributes.Type
   let typedNavigationPropertyType: CollectionProperty | string
   const navigationPropertyNullable: boolean = navigationPropertyAttributes.Nullable ? navigationPropertyAttributes.Nullable : false
@@ -111,7 +113,13 @@ const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined,
   }
 
   //todo resolve undefined params
-  const navigationProperty: NavigationProperty = new NavigationProperty(navigationPropertyName, typedNavigationPropertyType, navigationPropertyNullable, isReadOnly, navigationPropertyContainsTarget)
+  const navigationProperty: NavigationProperty = new NavigationProperty(
+    navigationPropertyName,
+    typedNavigationPropertyType,
+    navigationPropertyDescription,
+    navigationPropertyNullable,
+    isReadOnly,
+    navigationPropertyContainsTarget)
 
   return navigationProperty
 }
@@ -139,9 +147,19 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
 
   // Temporary workaround until inheritance is supported in this tool
   if (baseType === 'graph.writebackConfiguration') {
-    properties.push(new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), true, false));
+    properties.push(new Property(
+      'isEnabled',
+      new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined),
+      "Indicates whether writeback of cloud groups to on-premise Active Directory is enabled. Default value is true for Microsoft 365 groups and false for security groups.",
+      true,
+      false));
   } else if (baseType === 'graph.directoryObject') {
-    properties.push(new Property('deletedDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), false, true));
+    properties.push(new Property(
+      'deletedDateTime',
+      new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime),
+      "Date and time when this object was deleted. Always null when the object hasn't been deleted.",
+      false,
+      true));
   }
 
   const navigationProperties: NavigationProperty[] = rawNavigationProperties
@@ -268,4 +286,16 @@ const tryGetAlternateKey = (rawEntityType: RawEntityType, termPrefix: string): s
     });
 
   return alternateKey;
+}
+
+// Find the property description
+const getPropertyDescription = (annotation: RawAnnotation[] | undefined): string => {
+  if (annotation) {
+    const description = annotation.find((a: RawAnnotation) => a.$.Term === 'Org.OData.Core.V1.Description');
+    if (description) {
+      return description.$.String || '';
+    }
+  }
+
+  return '';
 }

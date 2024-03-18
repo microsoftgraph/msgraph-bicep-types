@@ -5,19 +5,13 @@ import fs from 'fs'
 import { parseStringPromise } from 'xml2js'
 import { CSDL } from './definitions/RawTypes'
 
-export const parseXML = async (source: string): Promise<CSDL> => {
-  console.log(`Fetching MSGraph metadata CSDL from ${source}`);
+export const parseXML = async (apiVersion: string): Promise<CSDL> => {
+  console.log(`Fetching MSGraph metadata CSDL for ${apiVersion}`);
 
-  let xmlText: string;
-
-  try {
-    const text: Response = await fetch(source);
-    xmlText = await text.text();
-  } catch (error) {
-    console.log(`Error fetching from ${source}: ${error}`);
-    console.log(`Reading from local file instead`);
-    xmlText = fs.readFileSync(`./msgraph-metadata/beta-Prod.csdl`, 'utf8');
-  }
+  const xmlText = fs.readFileSync(
+    `../../msgraph-metadata/clean_${apiVersion}_metadata/cleanMetadataWithDescriptionsAndAnnotations${apiVersion}.xml`,
+    'utf8'
+  );
 
   // To object
   const obj: Promise<CSDL> = parseStringPromise(xmlText);

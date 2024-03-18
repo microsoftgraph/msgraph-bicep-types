@@ -60,6 +60,7 @@ export interface RawEntityTypeAttributes {
 
 export interface RawProperty {
     $: RawPropertyAttributes
+    Annotation?: RawAnnotation[],
 }
 
 export interface RawPropertyAttributes {
@@ -74,6 +75,7 @@ export interface RawNavigationPropertyAttributes extends RawPropertyAttributes {
 
 export interface RawNavigationProperty {
     $: RawNavigationPropertyAttributes
+    Annotation?: RawAnnotation[],
 }
 
 export interface RawAnnotation {
@@ -84,6 +86,7 @@ export interface RawAnnotation {
 
 export interface RawAnnotationAttributes {
     Term: string,
+    String?: string,
     Qualifier?: string,
 }
 
