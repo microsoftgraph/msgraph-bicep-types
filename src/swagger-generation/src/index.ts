@@ -28,7 +28,7 @@ const argv = yargs
 const outputPath = argv.output;
 
 async function parse(config: Config): Promise<[Metadata, Swagger]> {
-  const csdl: CSDL = await parseXML(config.URL)
+  const csdl: CSDL = await parseXML(config.APIVersion)
 
   let definitionMap: DefinitionMap = new DefinitionMap();
   definitionMap = constructDataStructure(csdl, definitionMap, config);
@@ -51,13 +51,13 @@ function writeSwaggerFile(swagger: Swagger, apiVersion: string) {
 
     fs.writeFile(`${fullOutputPath}/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
       if (err) throw err;
-      console.log(`The swagger file for ${apiVersion} has been saved!`);
+      console.log(`The swagger file spec for ${apiVersion} has been saved!`);
     });
   }
 
   fs.writeFile(`output/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
     if (err) throw err;
-    console.log(`The swagger file for ${apiVersion} has been saved!`);
+    console.log(`The output for ${apiVersion} has been saved.`);
   });
 }
 
@@ -80,7 +80,7 @@ async function main() {
 
     // Merge the metadata for current api version with the existing metadata
     for (const entityName in curMetadata) {
-      metadata[entityName] ??= { };
+      metadata[entityName] ??= {};
       metadata[entityName][apiVersion] = curMetadata[entityName][apiVersion];
     }
 

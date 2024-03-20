@@ -69,6 +69,8 @@ export class EntityType extends Object {
         }
       }
 
+      swaggerProperty.description = property.Description;
+
       if (property.ReadOnly)
         swaggerProperty.readOnly = property.ReadOnly
 
@@ -96,7 +98,7 @@ export class EntityType extends Object {
       } else { // Not collection
         swaggerProperty.type = "string" // id of the entity
       }
-
+      swaggerProperty.description = navigationProperty.Description;
       definition.properties[navigationProperty.Name] = swaggerProperty
     });
 

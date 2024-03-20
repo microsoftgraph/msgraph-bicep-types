@@ -4,8 +4,10 @@ import { Property } from "../../src/definitions/Property";
 import { resolvePropertyTypeToReference } from "../../src/util/propertyTypeResolver";
 
 describe('resolvePropertyTypeToReference', () => {
+    const propertyDescription = 'Property description';
+
     it('should return undefined for primitive types', () => {
-        const property = new Property('TestProperty', PrimitiveSwaggerType.Instance.Byte, true, false);
+        const property = new Property('TestProperty', PrimitiveSwaggerType.Instance.Byte, propertyDescription, true, false);
 
         const result = resolvePropertyTypeToReference(property);
 
@@ -15,7 +17,7 @@ describe('resolvePropertyTypeToReference', () => {
     it('should return undefined for primitive collection types', () => {
         const collectionProperty = new CollectionProperty(PrimitiveSwaggerType.Instance.Date);
 
-        const property = new Property('TestProperty', collectionProperty, true, false);
+        const property = new Property('TestProperty', collectionProperty, propertyDescription, true, false);
 
         const result = resolvePropertyTypeToReference(property);
 
@@ -24,7 +26,7 @@ describe('resolvePropertyTypeToReference', () => {
 
     it('should return the type for reference types', () => {
         const entityName = 'namespace.one.EntityType1';
-        const property = new Property('TestProperty', entityName, true, false);
+        const property = new Property('TestProperty', entityName, propertyDescription, true, false);
 
         const result = resolvePropertyTypeToReference(property);
 
@@ -36,7 +38,7 @@ describe('resolvePropertyTypeToReference', () => {
 
         const collectionProperty = new CollectionProperty(entityName);
 
-        const property = new Property('TestProperty', collectionProperty, true, false);
+        const property = new Property('TestProperty', collectionProperty, propertyDescription, true, false);
 
         const result = resolvePropertyTypeToReference(property);
 
