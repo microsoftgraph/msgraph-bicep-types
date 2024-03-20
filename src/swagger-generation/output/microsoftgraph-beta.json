@@ -189,7 +189,7 @@
         },
         "uniqueName": {
           "type": "string",
-          "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable. Read-only.",
+          "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable",
           "x-constant-key": true
         },
         "visibility": {
@@ -387,7 +387,7 @@
         },
         "uniqueName": {
           "type": "string",
-          "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable. Read-only.",
+          "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable",
           "x-constant-key": true
         },
         "verifiedPublisher": {

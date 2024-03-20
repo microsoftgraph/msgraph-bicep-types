@@ -37,6 +37,20 @@ const csdl: CSDL = {
                   },
                   {
                     $: {
+                      Name: 'uniqueName',
+                      Type: 'Edm.String'
+                    },
+                    Annotation: [
+                      {
+                        $: {
+                          Term: 'Org.OData.Core.V1.Description',
+                          String: 'Alternate key of the entity. Required. Read-only.',
+                        },
+                      },
+                    ]
+                  },
+                  {
+                    $: {
                       Name: 'propertyNameTwo',
                       Type: 'Edm.String'
                     },
@@ -400,20 +414,23 @@ describe('constructDataStructure', () => {
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1].ReadOnly).toBeTruthy();
   });
 
-  it('should deserialize alternate keys', () => {
+  it('should deserialize descriptions', () => {
     let definitionMap: DefinitionMap = new DefinitionMap();
     definitionMap = constructDataStructure(csdl, definitionMap, config);
 
     const propertyWithDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName');
     const propertyWithNoDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameTwo');
+    const altenernateKeyWithDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'uniqueName');
 
     expect(propertyWithDescription).toBeDefined();
     expect(propertyWithNoDescription).toBeDefined();
+    expect(altenernateKeyWithDescription).toBeDefined();
     expect(propertyWithDescription?.Description).toBe('Description of propertyName. Optional');
     expect(propertyWithNoDescription?.Description).toBe('')
+    expect(altenernateKeyWithDescription?.Description).toBe('Alternate key of the entity. Required');
   });
 
-  it('should deserialize property descriptions', () => {
+  it('should deserialize alternate keys', () => {
     let definitionMap: DefinitionMap = new DefinitionMap();
     definitionMap = constructDataStructure(csdl, definitionMap, config);
 
@@ -596,7 +613,7 @@ describe('available property', () => {
     definitionMap = constructDataStructure(csdl, definitionMap, config);
     const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
     expect(entity).toBeDefined();
-    expect(entity!.Property.length).toBe(2);
+    expect(entity!.Property.length).toBe(3);
     expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
     expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeDefined();
   });

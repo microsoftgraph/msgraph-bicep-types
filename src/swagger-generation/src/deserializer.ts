@@ -44,10 +44,11 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
   return definitionMap
 }
 
-const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty: RawProperty): Property => {
+const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty: RawProperty, alternateKey: string | undefined): Property => {
   const propertyAttributes: RawPropertyAttributes = rawProperty.$
   const propertyName: string = propertyAttributes.Name
-  const propertyDescription: string = getPropertyDescription(rawProperty.Annotation);
+  const isAlternateKey: boolean = propertyName === alternateKey;
+  const propertyDescription: string = getPropertyDescription(rawProperty.Annotation, isAlternateKey);
   let propertyType: string = propertyAttributes.Type
   let typedPropertyType: PrimitiveSwaggerTypeStruct | CollectionProperty | string
   const collectionRegex: RegExp = /Collection\((.+)\)/
@@ -88,7 +89,7 @@ const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty
 const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined, rawNavigationProperty: RawNavigationProperty): NavigationProperty => {
   const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty.$
   const navigationPropertyName: string = navigationPropertyAttributes.Name
-  const navigationPropertyDescription: string = getPropertyDescription(rawNavigationProperty.Annotation);
+  const navigationPropertyDescription: string = getPropertyDescription(rawNavigationProperty.Annotation, false);
   let navigationPropertyType: string = navigationPropertyAttributes.Type
   let typedNavigationPropertyType: CollectionProperty | string
   const navigationPropertyNullable: boolean = navigationPropertyAttributes.Nullable ? navigationPropertyAttributes.Nullable : false
@@ -139,7 +140,7 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
 
   const properties: Property[] = rawProperties
     .map((rawProperty: RawProperty): Property =>
-      propertyHandler(entityConfig, rawProperty)
+      propertyHandler(entityConfig, rawProperty, alternateKey)
     )
     .filter((property: Property): boolean =>
       propertyFilter(entityConfig, property)
@@ -289,32 +290,36 @@ const tryGetAlternateKey = (rawEntityType: RawEntityType, termPrefix: string): s
 }
 
 // Find the property description
-const getPropertyDescription = (annotation: RawAnnotation[] | undefined): string => {
+const getPropertyDescription = (annotation: RawAnnotation[] | undefined, isAlternateKey: boolean): string => {
   if (annotation) {
     const description = annotation.find((a: RawAnnotation) => a.$.Term === 'Org.OData.Core.V1.Description');
     if (description) {
-      return filterDescription(description.$.String || '');
+      return filterDescription(description.$.String || '', isAlternateKey);
     }
   }
 
   return '';
 }
 
-// Filter useless sentences from description
-const filterDescription = (description: string): string => {
-  const uselessWords = [
+// Filter unhelpful sentences and remove "read-only" from alternate key description
+const filterDescription = (description: string, isAlternateKey: boolean): string => {
+  const unhelpfulWords = [
     'returned by default',
     '$select',
     '$expand',
     '$filter',
   ];
 
-  const filteredArray = description
+  const filteredSentences = description
     .split('. ')
-    .map(item => item.trim())
-    .filter(item => !uselessWords.some(
-      word => item.toLowerCase().includes(word.toLowerCase())
-    ));
+    .map(s => s.trim())
+    .filter(sentence => {
+      const setenceLower = sentence.toLowerCase();
+      const hasUselessWords = unhelpfulWords.some(word => setenceLower.includes(word.toLowerCase()));
+      const hasReadonlyForAlternateKey = isAlternateKey && setenceLower.includes('read-only');
 
-  return filteredArray.join('. ').trim();
+      return !hasUselessWords && !hasReadonlyForAlternateKey;
+    });
+
+  return filteredSentences.join('. ').trim();
 }

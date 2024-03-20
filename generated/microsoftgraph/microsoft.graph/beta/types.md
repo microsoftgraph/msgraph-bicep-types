@@ -39,7 +39,7 @@
 * **tags**: string[]: Custom strings that can be used to categorize and identify the application. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to an application and used as an alternate key. Immutable. Read-only.
+* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to an application and used as an alternate key. Immutable
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Specifies settings for a web application.
 * **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication): Specifies settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store.
@@ -112,7 +112,7 @@
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to a group and used as an alternate key. Immutable. Read-only.
+* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
 * **visibility**: string: Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable.
 * **writebackConfiguration**: [MicrosoftGraphGroupWritebackConfiguration](#microsoftgraphgroupwritebackconfiguration): Specifies whether or not a group is configured to write back group object properties to on-premises Active Directory. These properties are used when group writeback is configured in the Microsoft Entra Connect sync client.
 

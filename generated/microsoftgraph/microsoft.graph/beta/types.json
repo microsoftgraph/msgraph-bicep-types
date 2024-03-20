@@ -270,7 +270,7 @@
           "$ref": "#/0"
         },
         "flags": 9,
-        "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable. Read-only."
+        "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable"
       },
       "visibility": {
         "type": {
@@ -718,7 +718,7 @@
           "$ref": "#/0"
         },
         "flags": 9,
-        "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable. Read-only."
+        "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable"
       },
       "verifiedPublisher": {
         "type": {
