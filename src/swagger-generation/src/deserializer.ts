@@ -314,11 +314,11 @@ const filterDescription = (description: string, isAlternateKey: boolean): string
     .split('. ')
     .map(s => s.trim())
     .filter(sentence => {
-      const setenceLower = sentence.toLowerCase();
-      const hasUselessWords = unhelpfulWords.some(word => setenceLower.includes(word.toLowerCase()));
-      const hasReadonlyForAlternateKey = isAlternateKey && setenceLower.includes('read-only');
+      const sentenceLower = sentence.toLowerCase();
+      const hasUnhelpfulWord = unhelpfulWords.some(word => sentenceLower.includes(word.toLowerCase()));
+      const hasReadonlyForAlternateKey = isAlternateKey && sentenceLower.includes('read-only');
 
-      return !hasUselessWords && !hasReadonlyForAlternateKey;
+      return !hasUnhelpfulWord && !hasReadonlyForAlternateKey;
     });
 
   return filteredSentences.join('. ').trim();
