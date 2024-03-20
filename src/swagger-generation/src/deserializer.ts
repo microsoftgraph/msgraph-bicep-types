@@ -11,7 +11,6 @@ import { CSDL, DataService, PrimitivePropertyType, RawAnnotation, RawPropertyVal
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
 import { Config, EntityTypeConfig, NavigationPropertyMode } from "./config";
-import { idText } from "typescript";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap, config: Config): DefinitionMap => {
   console.log('Deserializing CSDL')
