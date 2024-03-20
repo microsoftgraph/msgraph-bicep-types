@@ -11,6 +11,7 @@ import { CSDL, DataService, PrimitivePropertyType, RawAnnotation, RawPropertyVal
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
 import { Config, EntityTypeConfig, NavigationPropertyMode } from "./config";
+import { idText } from "typescript";
 
 export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap, config: Config): DefinitionMap => {
   console.log('Deserializing CSDL')
@@ -293,9 +294,28 @@ const getPropertyDescription = (annotation: RawAnnotation[] | undefined): string
   if (annotation) {
     const description = annotation.find((a: RawAnnotation) => a.$.Term === 'Org.OData.Core.V1.Description');
     if (description) {
-      return description.$.String || '';
+      return filterDescription(description.$.String || '');
     }
   }
 
   return '';
+}
+
+// Filter useless sentences from description
+const filterDescription = (description: string): string => {
+  const uselessWords = [
+    'returned by default',
+    '$select',
+    '$expand',
+    '$filter',
+  ];
+
+  const filteredArray = description
+    .split('. ')
+    .map(item => item.trim())
+    .filter(item => !uselessWords.some(
+      word => item.toLowerCase().includes(word.toLowerCase())
+    ));
+
+  return filteredArray.join('. ').trim();
 }

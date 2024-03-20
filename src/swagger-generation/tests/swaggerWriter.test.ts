@@ -39,19 +39,19 @@ describe('generate swagger with primitive types', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();
     const properties: Property[] = [
-      new Property('contentBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary), false, false),
-      new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), false, false),
-      new Property('caseStatus', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte), false, false),
-      new Property('startDate', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date), false, false),
-      new Property('effectiveDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), false, false),
-      new Property('balanceDue', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float), false, false),
-      new Property('weight', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double), false, false),
-      new Property('duration', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
-      new Property('callChainId', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
-      new Property('disc', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false),
-      new Property('version', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), false, false),
-      new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), false, false),
-      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
+      new Property('contentBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary), 'Content Bytes description.', false, false),
+      new Property('isEnabled', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined), '', false, false),
+      new Property('caseStatus', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte), '', false, false),
+      new Property('startDate', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date), '', false, false),
+      new Property('effectiveDateTime', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime), '', false, false),
+      new Property('balanceDue', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float), '', false, false),
+      new Property('weight', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double), '', false, false),
+      new Property('duration', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+      new Property('callChainId', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+      new Property('disc', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), '', false, false),
+      new Property('version', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32), '', false, false),
+      new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), '', false, false),
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
     ];
 
 
@@ -79,52 +79,65 @@ describe('generate swagger with primitive types', () => {
           "type": "object",
           "properties": {
             "id": {
-              "type": "string"
+              "type": "string",
+              "description": "",
             },
             "contentBytes": {
               "type": "string",
-              "format": "base64url"
+              "format": "base64url",
+              "description": "Content Bytes description."
             },
             "isEnabled": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "",
             },
             "caseStatus": {
               "type": "string",
-              "format": "byte"
+              "format": "byte",
+              "description": "",
             },
             "startDate": {
               "type": "string",
-              "format": "date"
+              "format": "date",
+              "description": "",
             },
             "effectiveDateTime": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "description": "",
             },
             "balanceDue": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "description": "",
             },
             "weight": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "",
             },
             "duration": {
-              "type": "string"
+              "type": "string",
+              "description": "",
             },
             "callChainId": {
-              "type": "string"
+              "type": "string",
+              "description": "",
             },
             "disc": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": "",
             },
             "version": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "description": "",
             },
             "freeStorageSpaceInBytes": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": "",
             },
           }
         },
@@ -184,19 +197,19 @@ describe('generate swagger with primitive types', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();
     const properties: Property[] = [
-      new Property('contentBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary)), true, false),
-      new Property('isEnabled', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined)), true, false),
-      new Property('caseStatus', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte)), true, false),
-      new Property('startDate', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date)), true, false),
-      new Property('effectiveDateTime', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime)), true, false),
-      new Property('balanceDue', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float)), true, false),
-      new Property('weight', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double)), true, false),
-      new Property('duration', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
-      new Property('callChainId', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
-      new Property('disc', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), true, false),
-      new Property('version', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), true, false),
-      new Property('freeStorageSpaceInBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64)), true, false),
-      new Property('id', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), true, false),
+      new Property('contentBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary)), 'Content Bytes description.', true, false),
+      new Property('isEnabled', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined)), '', true, false),
+      new Property('caseStatus', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Byte)), '', true, false),
+      new Property('startDate', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Date)), '', true, false),
+      new Property('effectiveDateTime', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime)), '', true, false),
+      new Property('balanceDue', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Float)), '', true, false),
+      new Property('weight', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Number, SwaggerMetaFormat.Double)), '', true, false),
+      new Property('duration', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), '', true, false),
+      new Property('callChainId', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), '', true, false),
+      new Property('disc', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), '', true, false),
+      new Property('version', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int32)), '', true, false),
+      new Property('freeStorageSpaceInBytes', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64)), '', true, false),
+      new Property('id', new CollectionProperty(new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined)), '', true, false),
     ];
 
     const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
@@ -226,88 +239,101 @@ describe('generate swagger with primitive types', () => {
               "type": "array",
               "items": {
                 "type": "string"
-              }
+              },
+              "description": "",
             },
             "contentBytes": {
               "type": "array",
               "items": {
                 "type": "string",
                 "format": "base64url"
-              }
+              },
+              "description": "Content Bytes description."
             },
             "isEnabled": {
               "type": "array",
               "items": {
                 "type": "boolean"
-              }
+              },
+              "description": "",
             },
             "caseStatus": {
               "type": "array",
               "items": {
                 "type": "string",
                 "format": "byte"
-              }
+              },
+              "description": "",
             },
             "startDate": {
               "type": "array",
               "items": {
                 "type": "string",
                 "format": "date"
-              }
+              },
+              "description": "",
             },
             "effectiveDateTime": {
               "type": "array",
               "items": {
                 "type": "string",
                 "format": "date-time"
-              }
+              },
+              "description": "",
             },
             "balanceDue": {
               "type": "array",
               "items": {
                 "type": "number",
                 "format": "float"
-              }
+              },
+              "description": "",
             },
             "weight": {
               "type": "array",
               "items": {
                 "type": "number",
                 "format": "double"
-              }
+              },
+              "description": "",
             },
             "duration": {
               "type": "array",
               "items": {
                 "type": "string"
-              }
+              },
+              "description": "",
             },
             "callChainId": {
               "type": "array",
               "items": {
                 "type": "string"
-              }
+              },
+              "description": "",
             },
             "disc": {
               "type": "array",
               "items": {
                 "type": "integer",
                 "format": "int32"
-              }
+              },
+              "description": "",
             },
             "version": {
               "type": "array",
               "items": {
                 "type": "integer",
                 "format": "int32"
-              }
+              },
+              "description": "",
             },
             "freeStorageSpaceInBytes": {
               "type": "array",
               "items": {
                 "type": "integer",
                 "format": "int64"
-              }
+              },
+              "description": "",
             },
           }
         },
@@ -378,8 +404,8 @@ describe('generate swagger with primitive types', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();
     const properties: Property[] = [
-      new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), false, false),
-      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), false, false),
+      new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), 'Free storage space in bytes description.', false, false),
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
     ];
 
     const entity: EntityType = new EntityType('nestedEntity', undefined, false, undefined, undefined, undefined, properties, [])
@@ -406,11 +432,13 @@ describe('generate swagger with primitive types', () => {
           "type": "object",
           "properties": {
             "id": {
-              "type": "string"
+              "type": "string",
+              "description": "",
             },
             "freeStorageSpaceInBytes": {
               "type": "integer",
-              "format": "int64"
+              "format": "int64",
+              "description": "Free storage space in bytes description."
             },
           }
         },
@@ -490,13 +518,13 @@ describe('complexTypes', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();
     const properties: Property[] = [
-      new Property('contentBytes', 'microsoft.graph.entityNameTwo', false, false),
-      new Property('isEnabled', 'microsoft.graph.entityNameThree', false, false),
+      new Property('contentBytes', 'microsoft.graph.entityNameTwo', 'Content bytes description', false, false),
+      new Property('isEnabled', 'microsoft.graph.entityNameThree', '', false, false),
     ];
     const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
     const propertiesComplexOne: Property[] = [
-      new Property('propertyOne', 'microsoft.graph.entityNameFour', false, false),
+      new Property('propertyOne', 'microsoft.graph.entityNameFour', 'Property one description', false, false),
     ];
     const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
@@ -529,10 +557,12 @@ describe('complexTypes', () => {
           type: "object",
           properties: {
             "contentBytes": {
-              $ref: "#/definitions/microsoft.graph.entityNameTwo"
+              $ref: "#/definitions/microsoft.graph.entityNameTwo",
+              "description": "Content bytes description"
             },
             "isEnabled": {
-              $ref: "#/definitions/microsoft.graph.entityNameThree"
+              $ref: "#/definitions/microsoft.graph.entityNameThree",
+              "description": "",
             }
           }
         },
@@ -540,7 +570,8 @@ describe('complexTypes', () => {
           type: "object",
           properties: {
             "propertyOne": {
-              $ref: "#/definitions/microsoft.graph.entityNameFour"
+              $ref: "#/definitions/microsoft.graph.entityNameFour",
+              "description": "Property one description"
             }
           }
         },
@@ -620,13 +651,13 @@ describe('complex types with collections', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();
     const properties: Property[] = [
-      new Property('contentBytes', new CollectionProperty('microsoft.graph.entityNameTwo'), false, false),
-      new Property('isEnabled', new CollectionProperty('microsoft.graph.entityNameThree'), false, false),
+      new Property('contentBytes', new CollectionProperty('microsoft.graph.entityNameTwo'), 'Content bytes description', false, false),
+      new Property('isEnabled', new CollectionProperty('microsoft.graph.entityNameThree'), '', false, false),
     ];
     const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
     const propertiesComplexOne: Property[] = [
-      new Property('propertyOne', new CollectionProperty('microsoft.graph.entityNameFour'), false, false),
+      new Property('propertyOne', new CollectionProperty('microsoft.graph.entityNameFour'), 'Property one description', false, false),
     ];
     const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
@@ -662,13 +693,15 @@ describe('complex types with collections', () => {
               type: "array",
               items: {
                 $ref: "#/definitions/microsoft.graph.entityNameTwo"
-              }
+              },
+              "description": "Content bytes description"
             },
             "isEnabled": {
               type: "array",
               items: {
                 $ref: "#/definitions/microsoft.graph.entityNameThree"
-              }
+              },
+              "description": "",
             }
           }
         },
@@ -679,7 +712,8 @@ describe('complex types with collections', () => {
               type: "array",
               items: {
                 $ref: "#/definitions/microsoft.graph.entityNameFour"
-              }
+              },
+              "description": "Property one description"
             }
           }
         },
@@ -769,18 +803,18 @@ describe('enums', () => {
     EnumMap.set('microsoft.graph.entityNameFour', enumType);
 
     const properties: Property[] = [
-      new Property('contentBytes', 'microsoft.graph.entityNameTwo', false, false),
+      new Property('contentBytes', 'microsoft.graph.entityNameTwo', 'Content bytes description', false, false),
     ];
     const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, [])
 
     const propertiesComplexOne: Property[] = [
-      new Property('propertyOne', 'microsoft.graph.entityNameThree', false, false),
+      new Property('propertyOne', 'microsoft.graph.entityNameThree', 'Property one description', false, false),
     ];
 
     const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
     const propertiesComplexTwo: Property[] = [
-      new Property('propertyOne', 'microsoft.graph.entityNameFour', false, false),
+      new Property('propertyOne', 'microsoft.graph.entityNameFour', '', false, false),
     ];
 
     const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, propertiesComplexTwo, [])
@@ -809,7 +843,8 @@ describe('enums', () => {
           type: "object",
           properties: {
             "contentBytes": {
-              $ref: "#/definitions/microsoft.graph.entityNameTwo"
+              $ref: "#/definitions/microsoft.graph.entityNameTwo",
+              "description": "Content bytes description"
             }
           }
         },
@@ -817,7 +852,8 @@ describe('enums', () => {
           type: "object",
           properties: {
             "propertyOne": {
-              $ref: "#/definitions/microsoft.graph.entityNameThree"
+              $ref: "#/definitions/microsoft.graph.entityNameThree",
+              description: "Property one description"
             }
           }
         },
@@ -825,7 +861,8 @@ describe('enums', () => {
           type: "object",
           properties: {
             "propertyOne": {
-              $ref: "#/definitions/microsoft.graph.entityNameFour"
+              $ref: "#/definitions/microsoft.graph.entityNameFour",
+              description: "",
             }
           }
         },
@@ -835,7 +872,7 @@ describe('enums', () => {
             "enumValueOne",
             "enumValueTwo",
             "enumValueThree"
-          ]
+          ],
         }
       },
       paths: {

@@ -26,6 +26,14 @@ const csdl: CSDL = {
                       Name: 'propertyName',
                       Type: 'Edm.String'
                     },
+                    Annotation: [
+                      {
+                        $: {
+                          Term: 'Org.OData.Core.V1.Description',
+                          String: 'Description of propertyName. Optional. Returned by default. Support $filter.',
+                        },
+                      },
+                    ]
                   },
                   {
                     $: {
@@ -120,7 +128,6 @@ const csdl: CSDL = {
           {
             $: {
               Namespace: 'namespaceThree',
-
             },
             EntityType: [
               {
@@ -394,6 +401,19 @@ describe('constructDataStructure', () => {
   });
 
   it('should deserialize alternate keys', () => {
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+
+    const propertyWithDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName');
+    const propertyWithNoDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameTwo');
+
+    expect(propertyWithDescription).toBeDefined();
+    expect(propertyWithNoDescription).toBeDefined();
+    expect(propertyWithDescription?.Description).toBe('Description of propertyName. Optional');
+    expect(propertyWithNoDescription?.Description).toBe('')
+  });
+
+  it('should deserialize property descriptions', () => {
     let definitionMap: DefinitionMap = new DefinitionMap();
     definitionMap = constructDataStructure(csdl, definitionMap, config);
 

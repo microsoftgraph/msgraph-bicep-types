@@ -19,31 +19,31 @@
       "properties": {
         "classification": {
           "type": "string",
-          "description": "Describes a classification for the group (such as low, medium or high business impact). Valid values for this property are defined by creating a ClassificationList setting value, based on the template definition.Returned by default. Supports $filter (eq, ne, not, ge, le, startsWith)."
+          "description": "Describes a classification for the group (such as low, medium or high business impact)"
         },
         "createdByAppId": {
           "type": "string",
-          "description": "App ID of the app used to create the group. Can be null for some groups. Returned by default. Read-only. Supports $filter (eq, ne, not, in, startsWith).",
+          "description": "App ID of the app used to create the group. Can be null for some groups. Read-only",
           "readOnly": true
         },
         "createdDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp of when the group was created. The value can't be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Read-only.",
+          "description": "Timestamp of when the group was created. The value can't be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.",
           "readOnly": true
         },
         "description": {
           "type": "string",
-          "description": "An optional description for the group. Returned by default. Supports $filter (eq, ne, not, ge, le, startsWith) and $search."
+          "description": "An optional description for the group"
         },
         "displayName": {
           "type": "string",
-          "description": "The display name for the group. Required. Maximum length is 256 characters. Returned by default. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values), $search, and $orderby."
+          "description": "The display name for the group. Required. Maximum length is 256 characters"
         },
         "expirationDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp of when the group is set to expire. It is null for security groups, but for Microsoft 365 groups, it represents when the group is set to expire as defined in the groupLifecyclePolicy. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne, not, ge, le, in). Read-only.",
+          "description": "Timestamp of when the group is set to expire. It is null for security groups, but for Microsoft 365 groups, it represents when the group is set to expire as defined in the groupLifecyclePolicy. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.",
           "readOnly": true
         },
         "groupTypes": {
@@ -51,59 +51,59 @@
           "items": {
             "type": "string"
           },
-          "description": "Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group; otherwise, it's either a security group or a distribution group. For details, see groups overview.If the collection includes DynamicMembership, the group has dynamic membership; otherwise, membership is static. Returned by default. Supports $filter (eq, not)."
+          "description": "Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group; otherwise, it's either a security group or a distribution group. For details, see groups overview.If the collection includes DynamicMembership, the group has dynamic membership; otherwise, membership is static"
         },
         "infoCatalogs": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Identifies the info segments assigned to the group. Returned by default. Supports $filter (eq, not, ge, le, startsWith)."
+          "description": "Identifies the info segments assigned to the group"
         },
         "isAssignableToRole": {
           "type": "boolean",
-          "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true,  visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers in Global Administrator and Privileged Role Administrator roles can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license. Returned by default. Supports $filter (eq, ne, not)."
+          "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true,  visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers in Global Administrator and Privileged Role Administrator roles can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
         },
         "isManagementRestricted": {
           "type": "boolean",
-          "description": "Indicates whether the group is a member of a restricted management administrative unit, in which case it requires a role scoped to the restricted administrative unit to manage. The default value is false. Read-only.  To manage a group member of a restricted administrative unit, the calling app must be assigned the Directory.Write.Restricted permission. For delegated scenarios, the administrators must also be explicitly assigned supported roles at the restricted administrative unit scope.",
+          "description": "Indicates whether the group is a member of a restricted management administrative unit, in which case it requires a role scoped to the restricted administrative unit to manage. The default value is false. Read-only. To manage a group member of a restricted administrative unit, the calling app must be assigned the Directory.Write.Restricted permission. For delegated scenarios, the administrators must also be explicitly assigned supported roles at the restricted administrative unit scope.",
           "readOnly": true
         },
         "mail": {
           "type": "string",
-          "description": "The SMTP address for the group, for example, 'serviceadmins@contoso.com'. Returned by default. Read-only. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values).",
+          "description": "The SMTP address for the group, for example, 'serviceadmins@contoso.com'. Read-only",
           "readOnly": true
         },
         "mailEnabled": {
           "type": "boolean",
-          "description": "Specifies whether the group is mail-enabled. Required. Returned by default. Supports $filter (eq, ne, not, and eq on null values)."
+          "description": "Specifies whether the group is mail-enabled. Required"
         },
         "mailNickname": {
           "type": "string",
-          "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following: @ () / [] ' ; : <> , SPACE. Returned by default. Supports $filter (eq, ne, not, ge, le, in, startsWith)."
+          "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following: @ () / [] ' ; : <> , SPACE"
         },
         "membershipRule": {
           "type": "string",
-          "description": "The rule that determines members for this group if the group is a dynamic group (groupTypes contains DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax. Returned by default. Supports $filter (eq, ne, not, ge, le, startsWith)."
+          "description": "The rule that determines members for this group if the group is a dynamic group (groupTypes contains DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax"
         },
         "membershipRuleProcessingState": {
           "type": "string",
-          "description": "Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused. Returned by default. Supports $filter (eq, ne, not, in)."
+          "description": "Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused"
         },
         "onPremisesDomainName": {
           "type": "string",
-          "description": "Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. The property is only populated for customers synchronizing their on-premises directory to Microsoft Entra ID via Microsoft Entra Connect.Returned by default. Read-only.",
+          "description": "Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. Read-only.",
           "readOnly": true
         },
         "onPremisesLastSyncDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Read-only. Supports $filter (eq, ne, not, ge, le, in).",
+          "description": "Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only",
           "readOnly": true
         },
         "onPremisesNetBiosName": {
           "type": "string",
-          "description": "Contains the on-premises netBios name synchronized from the on-premises directory. The property is only populated for customers synchronizing their on-premises directory to Microsoft Entra ID via Microsoft Entra Connect.Returned by default. Read-only.",
+          "description": "Contains the on-premises netBios name synchronized from the on-premises directory. Read-only.",
           "readOnly": true
         },
         "onPremisesProvisioningErrors": {
@@ -111,21 +111,21 @@
           "items": {
             "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
           },
-          "description": "Errors when using Microsoft synchronization product during provisioning. Returned by default. Supports $filter (eq, not)."
+          "description": "Errors when using Microsoft synchronization product during provisioning"
         },
         "onPremisesSamAccountName": {
           "type": "string",
-          "description": "Contains the on-premises SAM account name synchronized from the on-premises directory. The property is only populated for customers synchronizing their on-premises directory to Microsoft Entra ID via Microsoft Entra Connect.Returned by default. Supports $filter (eq, ne, not, ge, le, in, startsWith). Read-only.",
+          "description": "Contains the on-premises SAM account name synchronized from the on-premises directory. Read-only.",
           "readOnly": true
         },
         "onPremisesSecurityIdentifier": {
           "type": "string",
-          "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Returned by default. Supports $filter (eq including on null values). Read-only.",
+          "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only.",
           "readOnly": true
         },
         "onPremisesSyncEnabled": {
           "type": "boolean",
-          "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Returned by default. Read-only. Supports $filter (eq, ne, not, in, and eq on null values).",
+          "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only",
           "readOnly": true
         },
         "organizationId": {
@@ -134,24 +134,24 @@
         },
         "preferredDataLocation": {
           "type": "string",
-          "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned one of the following Microsoft Entra roles:  Global Administrator  User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo and Create a Microsoft 365 group with a specific PDL. Nullable. Returned by default."
+          "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned one of the following Microsoft Entra roles:  Global Administrator  User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo and Create a Microsoft 365 group with a specific PDL. Nullable"
         },
         "preferredLanguage": {
           "type": "string",
-          "description": "The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US. Returned by default. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values)."
+          "description": "The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US"
         },
         "proxyAddresses": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Returned by default. Read-only. Not nullable. Supports $filter (eq, not, ge, le, startsWith, endsWith, /$count eq 0, /$count ne 0).",
+          "description": "Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable",
           "readOnly": true
         },
         "renewedDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne, not, ge, le, in). Read-only.",
+          "description": "Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.",
           "readOnly": true
         },
         "resourceBehaviorOptions": {
@@ -159,22 +159,22 @@
           "items": {
             "type": "string"
           },
-          "description": "Specifies the group behaviors that can be set for a Microsoft 365 group during creation. This can be set only as part of creation (POST). For the list of possible values, see Set Microsoft 365 group behaviors and provisioning options."
+          "description": "Specifies the group behaviors that can be set for a Microsoft 365 group during creation. This property can be set only as part of creation (POST). For the list of possible values, see Microsoft 365 group behaviors and provisioning options."
         },
         "resourceProvisioningOptions": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Specifies the group resources that are associated with the Microsoft 365 group. The possible value is Team. For more information, see Set Microsoft 365 group behaviors and provisioning options. Returned by default. Supports $filter (eq, not, startsWith."
+          "description": "Specifies the group resources that are associated with the Microsoft 365 group. The possible value is Team. For more information, see Microsoft 365 group behaviors and provisioning options"
         },
         "securityEnabled": {
           "type": "boolean",
-          "description": "Specifies whether the group is a security group. Required.Returned by default. Supports $filter (eq, ne, not, in)."
+          "description": "Specifies whether the group is a security group"
         },
         "securityIdentifier": {
           "type": "string",
-          "description": "Security identifier of the group, used in Windows scenarios. Returned by default."
+          "description": "Security identifier of the group, used in Windows scenarios"
         },
         "serviceProvisioningErrors": {
           "type": "array",
@@ -185,16 +185,16 @@
         },
         "theme": {
           "type": "string",
-          "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red. Returned by default."
+          "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red"
         },
         "uniqueName": {
           "type": "string",
-          "description": "",
+          "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable. Read-only.",
           "x-constant-key": true
         },
         "visibility": {
           "type": "string",
-          "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Returned by default. Nullable."
+          "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable."
         },
         "writebackConfiguration": {
           "$ref": "#/definitions/microsoft.graph.groupWritebackConfiguration",
@@ -211,14 +211,14 @@
           "items": {
             "type": "string"
           },
-          "description": "Direct group members, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable. Supports $expand including nested $select. For example, /groups?$filter=startsWith(displayName,'Role')&$select=id,displayName&$expand=members($select=id,userPrincipalName,displayName)."
+          "description": "Direct group members, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable"
         },
         "owners": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner.  Supports $filter (/$count eq 0, /$count ne 0, /$count eq 1, /$count ne 1); Supports $expand including nested $select. For example, /groups?$filter=startsWith(displayName,'Role')&$select=id,displayName&$expand=owners($select=id,userPrincipalName,displayName)."
+          "description": "The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
         }
       },
       "required": [
@@ -238,7 +238,7 @@
         },
         "appId": {
           "type": "string",
-          "description": "The unique identifier for the application that is assigned by Microsoft Entra ID. Not nullable. Read-only. Alternate key. Supports $filter (eq).",
+          "description": "The unique identifier for the application that is assigned by Microsoft Entra ID. Not nullable. Read-only. Alternate key",
           "readOnly": true
         },
         "appRoles": {
@@ -250,7 +250,7 @@
         },
         "authenticationBehaviors": {
           "$ref": "#/definitions/microsoft.graph.authenticationBehaviors",
-          "description": "The collection of authentication behaviors set for the application. Authentication behaviors are unset by default and must be explicitly enabled (or disabled). Returned only on $select.  For more information about authentication behaviors, see Manage application authenticationBehaviors to avoid unverified use of email claims for user identification or authorization."
+          "description": "The collection of authentication behaviors set for the application. Authentication behaviors are unset by default and must be explicitly enabled (or disabled). For more information about authentication behaviors, see Manage application authenticationBehaviors to avoid unverified use of email claims for user identification or authorization."
         },
         "certification": {
           "$ref": "#/definitions/microsoft.graph.certification",
@@ -260,24 +260,24 @@
         "createdDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "The date and time the application was registered. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.  Supports $filter (eq, ne, not, ge, le, in, and eq on null values) and $orderby.",
+          "description": "The date and time the application was registered. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only",
           "readOnly": true
         },
         "defaultRedirectUri": {
           "type": "string",
-          "description": "The default redirect URI. If specified and there is no explicit redirect URI in the sign-in request for SAML and OIDC flows, Microsoft Entra ID sends the token to this redirect URI. Microsoft Entra ID also sends the token to this default URI in SAML IdP-initiated single sign-on. The value must match one of the configured redirect URIs for the application."
+          "description": "The default redirect URI. If specified and there's no explicit redirect URI in the sign-in request for SAML and OIDC flows, Microsoft Entra ID sends the token to this redirect URI. Microsoft Entra ID also sends the token to this default URI in SAML IdP-initiated single sign-on. The value must match one of the configured redirect URIs for the application."
         },
         "description": {
           "type": "string",
-          "description": "Free text field to provide a description of the application object to end users. The maximum allowed size is 1024 characters. Returned by default. Supports $filter (eq, ne, not, ge, le, startsWith) and $search."
+          "description": "Free text field to provide a description of the application object to end users. The maximum allowed size is 1,024 characters"
         },
         "disabledByMicrosoftStatus": {
           "type": "string",
-          "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).  Supports $filter (eq, ne, not)."
+          "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)"
         },
         "displayName": {
           "type": "string",
-          "description": "The display name for the application. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values), $search, and $orderby."
+          "description": "The display name for the application"
         },
         "groupMembershipClaims": {
           "type": "string",
@@ -288,11 +288,11 @@
           "items": {
             "type": "string"
           },
-          "description": "Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you'll reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<application-client-id>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable. Supports $filter (eq, ne, ge, le, startsWith)."
+          "description": "Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<application-client-id>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable"
         },
         "info": {
           "$ref": "#/definitions/microsoft.graph.informationalUrl",
-          "description": "Basic profile information of the application, such as it's marketing, support, terms of service, and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more information, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps. Supports $filter (eq, ne, not, ge, le, and eq on null values)."
+          "description": "Basic profile information of the application, such as it's marketing, support, terms of service, and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more information, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
         },
         "isDeviceOnlyAuthSupported": {
           "type": "boolean",
@@ -300,14 +300,14 @@
         },
         "isFallbackPublicClient": {
           "type": "boolean",
-          "description": "Specifies the fallback application type as public client, such as an installed application running on a mobile device. The default value is false which means the fallback application type is confidential client such as a web app. There are certain scenarios where Microsoft Entra ID cannot determine the client application type. For example, the ROPC flow where the application is configured without specifying a redirect URI. In those cases Microsoft Entra ID interprets the application type based on the value of this property."
+          "description": "Specifies the fallback application type as public client, such as an installed application running on a mobile device. The default value is false, which means the fallback application type is confidential client such as a web app. There are certain scenarios where Microsoft Entra ID can't determine the client application type. For example, the ROPC flow where the application is configured without specifying a redirect URI. In those cases Microsoft Entra ID interprets the application type based on the value of this property."
         },
         "keyCredentials": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.keyCredential"
           },
-          "description": "The collection of key credentials associated with the application. Not nullable. Supports $filter (eq, not, ge, le)."
+          "description": "The collection of key credentials associated with the application. Not nullable"
         },
         "logo": {
           "type": "string",
@@ -339,7 +339,7 @@
         },
         "publisherDomain": {
           "type": "string",
-          "description": "The verified publisher domain for the application. Read-only. Supports $filter (eq, ne, ge, le, startsWith).",
+          "description": "The verified publisher domain for the application. Read-only",
           "readOnly": true
         },
         "requestSignatureVerification": {
@@ -351,7 +351,7 @@
           "items": {
             "$ref": "#/definitions/microsoft.graph.requiredResourceAccess"
           },
-          "description": "Specifies the resources that the application needs to access. This property also specifies the set of delegated permissions and application roles that it needs for each of those resources. This configuration of access to the required resources drives the consent experience. No more than 50 resource services (APIs) can be configured. Beginning mid-October 2021, the total number of required permissions must not exceed 400. For more information, see Limits on requested permissions per app. Not nullable. Supports $filter (eq, not, ge, le)."
+          "description": "Specifies the resources that the application needs to access. This property also specifies the set of delegated permissions and application roles that it needs for each of those resources. This configuration of access to the required resources drives the consent experience. No more than 50 resource services (APIs) can be configured. Beginning mid-October 2021, the total number of required permissions must not exceed 400. For more information, see Limits on requested permissions per app. Not nullable"
         },
         "samlMetadataUrl": {
           "type": "string",
@@ -363,11 +363,11 @@
         },
         "servicePrincipalLockConfiguration": {
           "$ref": "#/definitions/microsoft.graph.servicePrincipalLockConfiguration",
-          "description": "Specifies whether sensitive properties of a multi-tenant application should be locked for editing after the application is provisioned in a tenant. Nullable. null by default."
+          "description": "Specifies whether sensitive properties of a multitenant application should be locked for editing after the application is provisioned in a tenant. Nullable. null by default."
         },
         "signInAudience": {
           "type": "string",
-          "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you may need to change other properties first. For more information, see Validation differences for signInAudience.Supports $filter (eq, ne, not)."
+          "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you may need to change other properties first"
         },
         "spa": {
           "$ref": "#/definitions/microsoft.graph.spaApplication",
@@ -378,7 +378,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Custom strings that can be used to categorize and identify the application. Not nullable. Strings added here will also appear in the tags property of any associated service principals.Supports $filter (eq, not, ge, le, startsWith) and $search."
+          "description": "Custom strings that can be used to categorize and identify the application. Not nullable"
         },
         "tokenEncryptionKeyId": {
           "type": "string",
@@ -387,7 +387,7 @@
         },
         "uniqueName": {
           "type": "string",
-          "description": "The unique identifier that can be assigned to an application as an alternative identifier. Immutable. Read-only.",
+          "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable. Read-only.",
           "x-constant-key": true
         },
         "verifiedPublisher": {
@@ -419,21 +419,21 @@
       "properties": {
         "accountEnabled": {
           "type": "boolean",
-          "description": "true if the service principal account is enabled; otherwise, false. If set to false, then no users will be able to sign in to this app, even if they are assigned to it. Supports $filter (eq, ne, not, in)."
+          "description": "true if the service principal account is enabled; otherwise, false. If set to false, then no users are able to sign in to this app, even if they're assigned to it"
         },
         "addIns": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.addIn"
           },
-          "description": "Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications that can render file streams may set the addIns property for its 'FileHandler' functionality. This will let services like Microsoft 365 call the application in the context of a document the user is working on."
+          "description": "Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications that can render file streams may set the addIns property for its 'FileHandler' functionality. This lets services like Microsoft 365 call the application in the context of a document the user is working on."
         },
         "alternativeNames": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Used to retrieve service principals by subscription, identify resource group and full resource ids for managed identities. Supports $filter (eq, not, ge, le, startsWith)."
+          "description": "Used to retrieve service principals by subscription, identify resource group and full resource IDs for managed identities"
         },
         "appDescription": {
           "type": "string",
@@ -445,40 +445,40 @@
         },
         "appId": {
           "type": "string",
-          "description": "The unique identifier for the associated application (its appId property). Alternate key. Supports $filter (eq, ne, not, in, startsWith)."
+          "description": "The unique identifier for the associated application (its appId property). Alternate key"
         },
         "applicationTemplateId": {
           "type": "string",
-          "description": "Unique identifier of the applicationTemplate that the servicePrincipal was created from. Read-only. Supports $filter (eq, ne, NOT, startsWith).",
+          "description": "Unique identifier of the applicationTemplate. Read-only. null if the app wasn't created from an application template.",
           "readOnly": true
         },
         "appOwnerOrganizationId": {
           "type": "string",
           "format": "uuid",
-          "description": "Contains the tenant id where the application is registered. This is applicable only to service principals backed by applications. Supports $filter (eq, ne, NOT, ge, le)."
+          "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
         },
         "appRoleAssignmentRequired": {
           "type": "boolean",
-          "description": "Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable. Supports $filter (eq, ne, NOT)."
+          "description": "Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable"
         },
         "appRoles": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.appRole"
           },
-          "description": "The roles exposed by the application, which this service principal represents. For more information see the appRoles property definition on the application entity. Not nullable."
+          "description": "The roles exposed by the application, which this service principal represents. For more information, see the appRoles property definition on the application entity. Not nullable."
         },
         "description": {
           "type": "string",
-          "description": "Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps will display the application description in this field. The maximum allowed size is 1024 characters. Supports $filter (eq, ne, not, ge, le, startsWith) and $search."
+          "description": "Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps displays the application description in this field. The maximum allowed size is 1,024 characters"
         },
         "disabledByMicrosoftStatus": {
           "type": "string",
-          "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).  Supports $filter (eq, ne, not)."
+          "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)"
         },
         "displayName": {
           "type": "string",
-          "description": "The display name for the service principal. Supports $filter (eq, ne, not, ge, le, in, startsWith, and eq on null values), $search, and $orderby."
+          "description": "The display name for the service principal"
         },
         "homepage": {
           "type": "string",
@@ -486,14 +486,14 @@
         },
         "info": {
           "$ref": "#/definitions/microsoft.graph.informationalUrl",
-          "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps. Supports $filter (eq, ne, not, ge, le, and eq on null values)."
+          "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
         },
         "keyCredentials": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.keyCredential"
           },
-          "description": "The collection of key credentials associated with the service principal. Not nullable. Supports $filter (eq, not, ge, le)."
+          "description": "The collection of key credentials associated with the service principal. Not nullable"
         },
         "loginUrl": {
           "type": "string",
@@ -501,11 +501,11 @@
         },
         "logoutUrl": {
           "type": "string",
-          "description": "Specifies the URL that will be used by Microsoft's authorization service to logout an user using OpenId Connect front-channel, back-channel or SAML logout protocols."
+          "description": "Specifies the URL that the Microsoft's authorization service uses to sign out a user using OpenId Connect front-channel, back-channel, or SAML sign out protocols."
         },
         "notes": {
           "type": "string",
-          "description": "Free text field to capture information about the service principal, typically used for operational purposes. Maximum allowed size is 1024 characters."
+          "description": "Free text field to capture information about the service principal, typically used for operational purposes. Maximum allowed size is 1,024 characters."
         },
         "notificationEmailAddresses": {
           "type": "array",
@@ -528,18 +528,18 @@
         "preferredTokenSigningKeyEndDateTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Specifies the expiration date of the keyCredential used for token signing, marked by preferredTokenSigningKeyThumbprint. Updating this attribute is not currentlysupported. For details, see ServicePrincipal property differences."
+          "description": "Specifies the expiration date of the keyCredential used for token signing, marked by preferredTokenSigningKeyThumbprint. Updating this attribute isn't currently supported. For details, see ServicePrincipal property differences."
         },
         "preferredTokenSigningKeyThumbprint": {
           "type": "string",
-          "description": "This property can be used on SAML applications (apps that have preferredSingleSignOnMode set to saml) to control which certificate is used to sign the SAML responses. For applications that are not SAML, do not write or otherwise rely on this property."
+          "description": "This property can be used on SAML applications (apps that have preferredSingleSignOnMode set to saml) to control which certificate is used to sign the SAML responses. For applications that aren't SAML, don't write or otherwise rely on this property."
         },
         "publishedPermissionScopes": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.permissionScope"
           },
-          "description": "The delegated permissions exposed by the application. For more information see the oauth2PermissionScopes property on the application entity's api property. Not nullable. Note: This property is named oauth2PermissionScopes in v1.0."
+          "description": "The delegated permissions exposed by the application. For more information, see the oauth2PermissionScopes property on the application entity's api property. Not nullable. Note: This property is named oauth2PermissionScopes in v1.0."
         },
         "publisherName": {
           "type": "string",
@@ -565,15 +565,15 @@
           "items": {
             "type": "string"
           },
-          "description": "Contains the list of identifiersUris, copied over from the associated application. Additional values can be added to hybrid applications. These values can be used to identify the permissions exposed by this app within Microsoft Entra ID. For example,Client apps can specify a resource URI which is based on the values of this property to acquire an access token, which is the URI returned in the 'aud' claim.The any operator is required for filter expressions on multi-valued properties. Not nullable.  Supports $filter (eq, not, ge, le, startsWith)."
+          "description": "Contains the list of identifiersUris, copied over from the associated application. More values can be added to hybrid applications. These values can be used to identify the permissions exposed by this app within Microsoft Entra ID. For example,Client apps can specify a resource URI that is based on the values of this property to acquire an access token, which is the URI returned in the 'aud' claim.The any operator is required for filter expressions on multi-valued properties. Not nullable"
         },
         "servicePrincipalType": {
           "type": "string",
-          "description": "Identifies if the service principal represents an application or a managed identity. This is set by Microsoft Entra ID internally. For a service principal that represents an application this is set as Application. For a service principal that represent a managed identity this is set as ManagedIdentity. The SocialIdp type is for internal use."
+          "description": "Identifies if the service principal represents an application or a managed identity. This is set by Microsoft Entra ID internally. For a service principal that represents an application this is set as Application. For a service principal that represents a managed identity this is set as ManagedIdentity. The SocialIdp type is for internal use."
         },
         "signInAudience": {
           "type": "string",
-          "description": "Specifies the Microsoft accounts that are supported for the current application. Read-only. Supported values are:AzureADMyOrg: Users with a Microsoft work or school account in my organization's Microsoft Entra tenant (single-tenant).AzureADMultipleOrgs: Users with a Microsoft work or school account in any organization's Microsoft Entra tenant (multi-tenant).AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account in any organization's Microsoft Entra tenant.PersonalMicrosoftAccount: Users with a personal Microsoft account only.",
+          "description": "Specifies the Microsoft accounts that are supported for the current application. Read-only. Supported values are:AzureADMyOrg: Users with a Microsoft work or school account in my organization's Microsoft Entra tenant (single-tenant).AzureADMultipleOrgs: Users with a Microsoft work or school account in any organization's Microsoft Entra tenant (multitenant).AzureADandPersonalMicrosoftAccount: Users with a personal Microsoft account, or a work or school account in any organization's Microsoft Entra tenant.PersonalMicrosoftAccount: Users with a personal Microsoft account only.",
           "readOnly": true
         },
         "tags": {
@@ -581,7 +581,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Custom strings that can be used to categorize and identify the service principal. Not nullable. The value is the union of strings set here and on the associated application entity's tags property.Supports $filter (eq, not, ge, le, startsWith)."
+          "description": "Custom strings that can be used to categorize and identify the service principal. Not nullable"
         },
         "tokenEncryptionKeyId": {
           "type": "string",
@@ -590,7 +590,7 @@
         },
         "verifiedPublisher": {
           "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
-          "description": "Specifies the verified publisher of the application which this service principal represents."
+          "description": "Specifies the verified publisher of the application that's linked to this service principal."
         },
         "deletedDateTime": {
           "type": "string",
@@ -623,11 +623,11 @@
         },
         "name": {
           "type": "string",
-          "description": "is the unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Required. Not nullable. Supports $filter (eq)."
+          "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable"
         },
         "subject": {
           "type": "string",
-          "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters. Supports $filter (eq)."
+          "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters"
         }
       },
       "required": [
@@ -642,19 +642,19 @@
       "properties": {
         "clientId": {
           "type": "string",
-          "description": "The object id (not appId) of the client service principal for the application that is authorized to act on behalf of a signed-in user when accessing an API. Required. Supports $filter (eq only)."
+          "description": "The object id (not appId) of the client service principal for the application that is authorized to act on behalf of a signed-in user when accessing an API. Required"
         },
         "consentType": {
           "type": "string",
-          "description": "Indicates whether authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users may be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required. Supports $filter (eq only)."
+          "description": "Indicates whether authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users may be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required"
         },
         "principalId": {
           "type": "string",
-          "description": "The id of the user on behalf of whom the client is authorized to access the resource, when consentType is Principal. If consentType is AllPrincipals this value is null. Required when consentType is Principal. Supports $filter (eq only)."
+          "description": "The id of the user on behalf of whom the client is authorized to access the resource, when consentType is Principal. If consentType is AllPrincipals this value is null. Required when consentType is Principal"
         },
         "resourceId": {
           "type": "string",
-          "description": "The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user. Supports $filter (eq only)."
+          "description": "The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user"
         },
         "scope": {
           "type": "string",
@@ -683,7 +683,7 @@
         },
         "principalDisplayName": {
           "type": "string",
-          "description": "The display name of the user, group, or service principal that was granted the app role assignment. Read-only. Supports $filter (eq and startswith).",
+          "description": "The display name of the user, group, or service principal that was granted the app role assignment. Read-only",
           "readOnly": true
         },
         "principalId": {
@@ -703,7 +703,7 @@
         "resourceId": {
           "type": "string",
           "format": "uuid",
-          "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create. Supports $filter (eq only)."
+          "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create"
         }
       },
       "required": [
@@ -737,7 +737,7 @@
         },
         "isEnabled": {
           "type": "boolean",
-          "description": "When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false.  At that point, in a subsequent call, this role may be removed."
+          "description": "When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false. At that point, in a subsequent call, this role may be removed."
         },
         "origin": {
           "type": "string",
@@ -746,7 +746,7 @@
         },
         "value": {
           "type": "string",
-          "description": "Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , - . / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
+          "description": "Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
         }
       }
     },
@@ -912,7 +912,7 @@
         "requestedAccessTokenVersion": {
           "type": "integer",
           "format": "int32",
-          "description": "Specifies the access token version expected by this resource. This changes the version and format of the JWT produced independent of the endpoint or client used to request the access token.  The endpoint used, v1.0 or v2.0, is chosen by the client and only impacts the version of id_tokens. Resources need to explicitly configure requestedAccessTokenVersion to indicate the supported access token format.  Possible values for requestedAccessTokenVersion are 1, 2, or null. If the value is null, this defaults to 1, which corresponds to the v1.0 endpoint.  If signInAudience on the application is configured as AzureADandPersonalMicrosoftAccount or PersonalMicrosoftAccount, the value for this property must be 2."
+          "description": "Specifies the access token version expected by this resource. This changes the version and format of the JWT produced independent of the endpoint or client used to request the access token. The endpoint used, v1.0 or v2.0, is chosen by the client and only impacts the version of id_tokens. Resources need to explicitly configure requestedAccessTokenVersion to indicate the supported access token format. Possible values for requestedAccessTokenVersion are 1, 2, or null. If the value is null, this defaults to 1, which corresponds to the v1.0 endpoint. If signInAudience on the application is configured as AzureADandPersonalMicrosoftAccount or PersonalMicrosoftAccount, the value for this property must be 2."
         }
       }
     },
@@ -980,7 +980,7 @@
         "key": {
           "type": "string",
           "format": "base64url",
-          "description": "Value for the key credential. Should be a Base64 encoded value. Returned only on $select for a single object, that is, GET applications/{applicationId}?$select=keyCredentials or GET servicePrincipals/{servicePrincipalId}?$select=keyCredentials; otherwise, it is always null.  From a .cer certificate, you can read the key using the Convert.ToBase64String() method. For more information, see Get the certificate key."
+          "description": "Value for the key credential. Should be a Base64 encoded value. From a .cer certificate, you can read the key using the Convert.ToBase64String() method. For more information, see Get the certificate key."
         },
         "keyId": {
           "type": "string",
@@ -1061,7 +1061,7 @@
       "properties": {
         "allowedWeakAlgorithms": {
           "$ref": "#/definitions/microsoft.graph.weakAlgorithms",
-          "description": "Specifies whether this application accepts weak algorithms.  The possible values are: rsaSha1, unknownFutureValue."
+          "description": "Specifies whether this application accepts weak algorithms. The possible values are: rsaSha1, unknownFutureValue."
         },
         "isSignedRequestRequired": {
           "type": "boolean",
@@ -1214,7 +1214,7 @@
         },
         "isEnabled": {
           "type": "boolean",
-          "description": "When you create or update a permission, this property must be set to true (which is the default). To delete a permission, this property must first be set to false.  At that point, in a subsequent call, the permission may be removed."
+          "description": "When you create or update a permission, this property must be set to true (which is the default). To delete a permission, this property must first be set to false. At that point, in a subsequent call, the permission may be removed."
         },
         "origin": {
           "type": "string",
@@ -1234,7 +1234,7 @@
         },
         "value": {
           "type": "string",
-          "description": "Specifies the value to include in the scp (scope) claim in access tokens. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , - . / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
+          "description": "Specifies the value to include in the scp (scope) claim in access tokens. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
         }
       }
     },
