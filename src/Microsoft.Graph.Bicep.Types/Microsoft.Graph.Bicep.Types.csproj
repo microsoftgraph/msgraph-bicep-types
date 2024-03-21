@@ -15,7 +15,7 @@
     <AssemblyOriginatorKeyFile>35MSSharedLib1024.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <VersionPrefix>0.1.3</VersionPrefix>
-    <VersionSuffix>mypreview-032124</VersionSuffix>
+    <VersionSuffix>preview</VersionSuffix>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
