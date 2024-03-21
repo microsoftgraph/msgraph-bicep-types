@@ -23,7 +23,7 @@ To get the benefit of intellisense and auto-complete for the Microsoft Graph Bic
 When you create a Bicep template, add the following statement, to make Microsoft Graph Bicep types readily accessible to the template.
 
 ```bicep
-provider 'microsoftGraph@1.0.0'
+provider microsoftGraph
 ```
 
 Now, when creating a Bicep resource, the available Microsoft.Graph resource types will show up.
