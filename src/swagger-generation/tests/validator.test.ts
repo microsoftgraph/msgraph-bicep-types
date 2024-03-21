@@ -18,7 +18,7 @@ describe("alias need to be resolved", () => {
 
     const config = {
         EntityTypes: entityTypes,
-        URL: 'https://example.com',
+        MetadataFilePath: 'https://example.com',
         APIVersion: 'beta'
     } as Config;
 
@@ -94,7 +94,7 @@ describe("configurations need to be validated", () => {
 
         const config = {
             EntityTypes: entityTypes,
-            URL: 'https://example.com',
+            MetadataFilePath: 'https://example.com',
             APIVersion: 'beta'
         } as Config;
 
@@ -122,7 +122,7 @@ describe("configurations need to be validated", () => {
 
         const config = {
             EntityTypes: entityTypes,
-            URL: 'https://example.com',
+            MetadataFilePath: 'https://example.com',
             APIVersion: 'beta'
         } as Config;
 

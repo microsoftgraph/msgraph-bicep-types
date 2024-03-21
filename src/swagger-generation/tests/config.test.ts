@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 jest.mock('fs');
 
 describe('Config', () => {
-  it('should read config file and set EntityTypes and URL', () => {
+  it('should read config file and set EntityTypes and MetadataFilePath', () => {
     const mockConfigFile = `
       EntityTypes:
         - Name: microsoft.graph.EntityTypeOne
@@ -37,7 +37,7 @@ describe('Config', () => {
           FilterProperty: [filter1, filter2]
           CompositeKey: [key1, key2]
 
-      URL: https://example.com
+      MetadataFilePath: https://example.com
     `;
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
@@ -74,7 +74,7 @@ describe('Config', () => {
     } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);
-    expect(config.URL).toEqual('https://example.com');
+    expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
 
     expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
@@ -86,7 +86,7 @@ describe('Config', () => {
         - Name: microsoft.graph.EntityTypeOne
         - Name: microsoft.graph.EntityTypeTwo
 
-      URL: https://example.com
+      MetadataFilePath: https://example.com
     `;
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
@@ -103,7 +103,7 @@ describe('Config', () => {
     } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);
-    expect(config.URL).toEqual('https://example.com');
+    expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
 
     expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
@@ -111,7 +111,7 @@ describe('Config', () => {
 
   it('should not read a config file with no entities', () => {
     const mockConfigFile = `
-      URL: https://example.com
+      MetadataFilePath: https://example.com
     `;
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
@@ -128,7 +128,7 @@ describe('Config', () => {
           NavigationPropertyMode: Ignore
         - Name: microsoft.graph.EntityTypeTwo
 
-      URL: https://example.com
+      MetadataFilePath: https://example.com
     `;
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
@@ -146,7 +146,7 @@ describe('Config', () => {
     } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);
-    expect(config.URL).toEqual('https://example.com');
+    expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
 
     expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
@@ -159,7 +159,7 @@ describe('Config', () => {
           NavigationPropertyMode: Wrong
         - Name: microsoft.graph.EntityTypeTwo
 
-      URL: https://example.com
+      MetadataFilePath: https://example.com
     `;
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);

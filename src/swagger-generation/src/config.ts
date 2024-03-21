@@ -28,7 +28,7 @@ export interface EntityTypeConfig {
 
 export class Config {
   EntityTypes: EntityTypeConfigMap
-  URL: string
+  MetadataFilePath: string
   APIVersion: string
 
   constructor(apiVersion: string) {
@@ -46,7 +46,7 @@ export class Config {
     })
 
     this.EntityTypes = entityTypesMap
-    this.URL = configFileObj['URL']
+    this.MetadataFilePath = configFileObj['MetadataFilePath']
     this.APIVersion = apiVersion
   }
 }

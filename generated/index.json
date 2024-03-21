@@ -17,6 +17,21 @@
     },
     "Microsoft.Graph/appRoleAssignedTo@beta": {
       "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/101"
+    },
+    "Microsoft.Graph/groups@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/13"
+    },
+    "Microsoft.Graph/applications@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/67"
+    },
+    "Microsoft.Graph/servicePrincipals@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/85"
+    },
+    "Microsoft.Graph/oauth2PermissionGrants@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/89"
+    },
+    "Microsoft.Graph/appRoleAssignedTo@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/93"
     }
   },
   "resourceFunctions": {}

@@ -1,5 +1,5 @@
-# URL to fetch the metadata document
-URL: https://graph.microsoft.com/v1.0/$metadata
+# Path to fetch the metadata document
+MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
 
 # List of entity types to generate swagger from.
 # - Name: Name of the entity type
@@ -113,6 +113,7 @@ EntityTypes:
       - uniqueName
     ReadOnly:
       - appId
+      - applicationTemplateId
       - certification
       - createdDateTime
       - publisherDomain
@@ -143,10 +144,8 @@ EntityTypes:
       - notificationEmailAddresses
       - oauth2PermissionScopes
       - passwordCredentials
-      - publishedPermissionScopes
       - preferredSingleSignOnMode
       - preferredTokenSigningKeyThumbprint
-      - preferredTokenSigningKeyEndDateTime
       - replyUrls
       - resourceSpecificApplicationPermissions
       - samlSingleSignOnSettings

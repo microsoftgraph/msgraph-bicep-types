@@ -28,7 +28,9 @@ const argv = yargs
 const outputPath = argv.output;
 
 async function parse(config: Config): Promise<[Metadata, Swagger]> {
-  const csdl: CSDL = await parseXML(config.APIVersion)
+  console.log(`Fetching MSGraph metadata CSDL for ${config.APIVersion}`);
+
+  const csdl: CSDL = await parseXML(config.MetadataFilePath)
 
   let definitionMap: DefinitionMap = new DefinitionMap();
   definitionMap = constructDataStructure(csdl, definitionMap, config);
@@ -71,7 +73,7 @@ function writeMetadataFile(metadata: Metadata) {
 }
 
 async function main() {
-  const apiVersions = ["beta"]
+  const apiVersions = ["beta", "v1.0"]
   let metadata: Metadata = {};
 
   for (const apiVersion of apiVersions) {

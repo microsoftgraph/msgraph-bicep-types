@@ -267,7 +267,7 @@ const csdl: CSDL = {
 const getMockConfig = (entityTypes: Map<string, EntityTypeConfig>): Config => {
   return {
     EntityTypes: entityTypes,
-    URL: 'https://example.com',
+    MetadataFilePath: 'https://example.com',
     APIVersion: 'beta'
   } as Config;
 }
