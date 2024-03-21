@@ -54,7 +54,7 @@ Content-type: application/json
 Once the group resource is "back-filled", it can be referenced by its unique name, using the `existing` keyword in a Bicep template:
 
 ```Bicep
-import 'microsoftGraph@1.0.0'
+provider microsoftGraph
 
 @description('Group to use')
 param groupName string = 'TestGroup-2023-10-10'
