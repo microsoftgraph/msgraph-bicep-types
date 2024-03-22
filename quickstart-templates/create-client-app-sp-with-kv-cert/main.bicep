@@ -1,19 +1,20 @@
-provider 'microsoftGraph@1.0.0'
+provider microsoftGraph
 
-// @description('Id of the application role to add to the resource app')
-// param appRoleId string
-
-//@secure()
-//@description('Value of the key credential')
-//param certKey string
+@description('Specifies the name of environment to run this deployment in.')
+param shortEnvironmentName string
 
 @description('Specifies the name of the key vault.')
-param keyVaultName string
-param location string = resourceGroup().location
-//param tags object = {}
-var tags = { 'azd-env-name': 'public' }
+@maxLength(10)
+param keyVaultNamePrefix string
 
-param principalId string = ''
+@maxLength(24)
+param keyVaultName string = '${keyVaultNamePrefix}-${uniqueString(shortEnvironmentName,resourceGroup().id)}'
+
+@description('Specifies the resource group location.')
+param location string = resourceGroup().location
+
+@description('Specifies the name of the key vault tags.')
+param tags object
 
 @description('Specifies the permissions to keys in the vault. Valid values are: all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge.')
 param keysPermissions array = [
@@ -27,7 +28,7 @@ param secretsPermissions array = [
 ]
 
 @description('Specifies the ID of the user-assigned managed identity.')
-param identityName string = 'DeploymentScriptsIdentity'
+param identityName string
 
 @description('Specifies the permissions to certificates in the vault. Valid values are: all, get, list, update, create, import, delete, recover, backup, restore, manage contacts, manage certificate authorities, get certificate authorities, list certificate authorities, set certificate authorities, delete certificate authorities.')
 param certificatesPermissions array = [
@@ -36,59 +37,31 @@ param certificatesPermissions array = [
   'update'
   'create'
 ]
-param certificateName string = 'DeploymentScripts20240318'
-param subjectName string = 'CN=contoso.com'
+
+@description('Specifies the short certificate prefix for the full certificate name')
+param certificateName string
+
+@description('Specifies the unique name for the client application')
+param clientAppName string
+
+@description('Specifies the certificate subject name')
+param subjectName string
+
+@description('Specifies the current time in utc to use in a deployment script')
 param utcValue string = utcNow()
 
-
-// resource resourceApp 'Microsoft.Graph/applications@beta' = {
-//   uniqueName: 'ExampleResourceApp'
-//   displayName: 'Example Resource Application'
-//   appRoles: [
-//     {
-//       id: appRoleId
-//       allowedMemberTypes: [ 'User', 'Application' ]
-//       description: 'Read access to resource app data'
-//       displayName: 'ResourceAppData.Read.All'
-//       value: 'ResourceAppData.Read.All'
-//       isEnabled: true
-//     }
-//   ]
-// }
-
-// resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' = {
-//   appId: resourceApp.appId
-// }
-
-// resource clientApp 'Microsoft.Graph/applications@beta' = {
-//   uniqueName: 'ExampleClientApp'
-//   displayName: 'Example Client Application'
-//   keyCredentials: [
-//     {
-//       displayName: 'Example Client App Key Credential'
-//       usage: 'Verify'
-//       type: 'AsymmetricX509Cert'
-//       key: certKey
-//     }
-//   ]
-// }
-
-// resource clientSp 'Microsoft.Graph/servicePrincipals@beta' = {
-//   appId: clientApp.appId
-// }
-
+// Create MSI for managing KV and certificates
 resource webIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: identityName
   location: location
 }
 
+// Create KV and grant the webIdentity MSI access to the KV
 resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
   name: keyVaultName
   location: location
   tags: tags
   properties: {
-    //enabledForDeployment: enabledForDeployment
-    //enabledForTemplateDeployment: enabledForTemplateDeployment
     tenantId: subscription().tenantId
     sku: {
       name: 'standard'
@@ -99,15 +72,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
       bypass: 'AzureServices'
     }
     accessPolicies: [
-      {
-        objectId: principalId
-        tenantId: subscription().tenantId
-        permissions: {
-          keys: keysPermissions
-          secrets: secretsPermissions
-          certificates: certificatesPermissions
-        }
-      }
       {
         objectId: webIdentity.properties.principalId
         tenantId: subscription().tenantId
@@ -122,6 +86,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
   }
 }
 
+// Deployment script run by the webIdentity MSI to create cert and get the public key and cert metadata
 resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'createAddCertificate'
   location: location
@@ -151,7 +116,7 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
 
         $certValue = (Get-AzKeyVaultSecret -VaultName $vaultName -Name $certificateName).SecretValue | ConvertFrom-SecureString -AsPlainText
         $pfxCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList @([Convert]::FromBase64String($certValue),"",[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
-        $publicKey = [System.Convert]::ToBase64String($pfxCert.GetPublicKey())
+        $publicKey = [System.Convert]::ToBase64String($pfxCert.GetRawCertData())
 
         $DeploymentScriptOutputs['certStart'] = $existingCert.notBefore
         $DeploymentScriptOutputs['certEnd'] = $existingCert.expires
@@ -183,9 +148,8 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
 
         $certValue = (Get-AzKeyVaultSecret -VaultName $vaultName -Name $certificateName).SecretValue | ConvertFrom-SecureString -AsPlainText
         $pfxCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList @([Convert]::FromBase64String($certValue),"",[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
-        $publicKey = [System.Convert]::ToBase64String($pfxCert.GetPublicKey())
+        $publicKey = [System.Convert]::ToBase64String($pfxCert.GetRawCertData())
 
-        $Secret = Get-AzKeyVaultSecret -VaultName $vaultName -Name $certificateName
         $DeploymentScriptOutputs['certStart'] = $newCert.notBefore
         $DeploymentScriptOutputs['certEnd'] = $newCert.expires
         $DeploymentScriptOutputs['certThumbprint'] = $newCert.Thumbprint
@@ -201,19 +165,13 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
   ]
 }
 
+// Create a client application, setting its credential to the X509 cert public key.
 resource clientApp 'Microsoft.Graph/applications@beta' = {
-  uniqueName: 'ExampleClientApp'
-  displayName: 'WebApp'
-  signInAudience: 'AzureADandPersonalMicrosoftAccount'
-  web: {
-      redirectUris: [
-        'http://localhost:5000/.auth/login/aad/callback'
-      ]
-      implicitGrantSettings: {enableIdTokenIssuance: true}
-  }
+  uniqueName: clientAppName
+  displayName: 'Example Client Application'
   keyCredentials: [
     {
-      displayName: 'Example Client App Key Credential'
+      displayName: 'Credential from KV'
       usage: 'Verify'
       type: 'AsymmetricX509Cert'
       key: createAddCertificate.properties.outputs.certKey
@@ -223,6 +181,7 @@ resource clientApp 'Microsoft.Graph/applications@beta' = {
   ]
 }
 
+// Create a service principal for the client app
 resource clientSp 'Microsoft.Graph/servicePrincipals@beta' = {
   appId: clientApp.appId
 }
