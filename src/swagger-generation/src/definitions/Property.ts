@@ -7,10 +7,11 @@ import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType";
 export class Property extends Object{
     Name: string;
     Type: PrimitiveSwaggerTypeStruct | CollectionProperty | string;
+    Description: string;
     Nullable?: boolean;
     ReadOnly?: boolean;
     
-    constructor(name: string, type: PrimitiveSwaggerTypeStruct | CollectionProperty| string, nullable: boolean | undefined, readonly: boolean | undefined){
+    constructor(name: string, type: PrimitiveSwaggerTypeStruct | CollectionProperty| string, description: string, nullable: boolean | undefined, readonly: boolean | undefined){
         super();
         this.Name = name;
         if(type instanceof PrimitiveSwaggerTypeStruct){
@@ -21,6 +22,7 @@ export class Property extends Object{
             this.Type = type.toString();
         }
         
+        this.Description = description;
         this.Nullable = nullable;
         this.ReadOnly = readonly;
     }

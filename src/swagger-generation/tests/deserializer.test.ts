@@ -26,6 +26,28 @@ const csdl: CSDL = {
                       Name: 'propertyName',
                       Type: 'Edm.String'
                     },
+                    Annotation: [
+                      {
+                        $: {
+                          Term: 'Org.OData.Core.V1.Description',
+                          String: 'Description of propertyName. Optional. Returned by default. Support $filter.',
+                        },
+                      },
+                    ]
+                  },
+                  {
+                    $: {
+                      Name: 'uniqueName',
+                      Type: 'Edm.String'
+                    },
+                    Annotation: [
+                      {
+                        $: {
+                          Term: 'Org.OData.Core.V1.Description',
+                          String: 'Alternate key of the entity. Required. Read-only.',
+                        },
+                      },
+                    ]
                   },
                   {
                     $: {
@@ -120,7 +142,6 @@ const csdl: CSDL = {
           {
             $: {
               Namespace: 'namespaceThree',
-
             },
             EntityType: [
               {
@@ -246,7 +267,7 @@ const csdl: CSDL = {
 const getMockConfig = (entityTypes: Map<string, EntityTypeConfig>): Config => {
   return {
     EntityTypes: entityTypes,
-    URL: 'https://example.com',
+    MetadataFilePath: 'https://example.com',
     APIVersion: 'beta'
   } as Config;
 }
@@ -391,6 +412,22 @@ describe('constructDataStructure', () => {
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1]).toBeDefined();
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1].Name).toBe("propertyName2");
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')!.Property[1].ReadOnly).toBeTruthy();
+  });
+
+  it('should deserialize descriptions', () => {
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+
+    const propertyWithDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyName');
+    const propertyWithNoDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'propertyNameTwo');
+    const altenernateKeyWithDescription = definitionMap.EntityMap.get('namespace.entityNameOne')?.Property.find((property) => property.Name === 'uniqueName');
+
+    expect(propertyWithDescription).toBeDefined();
+    expect(propertyWithNoDescription).toBeDefined();
+    expect(altenernateKeyWithDescription).toBeDefined();
+    expect(propertyWithDescription?.Description).toBe('Description of propertyName. Optional');
+    expect(propertyWithNoDescription?.Description).toBe('')
+    expect(altenernateKeyWithDescription?.Description).toBe('Alternate key of the entity. Required');
   });
 
   it('should deserialize alternate keys', () => {
@@ -576,7 +613,7 @@ describe('available property', () => {
     definitionMap = constructDataStructure(csdl, definitionMap, config);
     const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
     expect(entity).toBeDefined();
-    expect(entity!.Property.length).toBe(2);
+    expect(entity!.Property.length).toBe(3);
     expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
     expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeDefined();
   });

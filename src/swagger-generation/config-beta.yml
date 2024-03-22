@@ -1,5 +1,5 @@
-# URL to fetch the metadata document
-URL: https://graph.microsoft.com/beta/$metadata
+# Path to fetch the metadata document
+MetadataFilePath: clean_beta_metadata/cleanMetadataWithDescriptionsAndAnnotationsbeta.xml
 
 # List of entity types to generate swagger from.
 # - Name: Name of the entity type

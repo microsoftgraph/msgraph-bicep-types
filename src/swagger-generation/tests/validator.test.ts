@@ -18,7 +18,7 @@ describe("alias need to be resolved", () => {
 
     const config = {
         EntityTypes: entityTypes,
-        URL: 'https://example.com',
+        MetadataFilePath: 'https://example.com',
         APIVersion: 'beta'
     } as Config;
 
@@ -45,19 +45,19 @@ describe("alias need to be resolved", () => {
         let definitionMap: DefinitionMap = new DefinitionMap();
 
         const nsOneEntityOneProps: Property[] = [
-            new Property('propertyOne', 'n1.entityNameTwo', true, false),
-            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, true, false)
+            new Property('propertyOne', 'n1.entityNameTwo', '', true, false),
+            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, '', true, false)
         ];
         const nsOneEntityOne: EntityType = new EntityType('entityNameOne', undefined, false, undefined, false, false, nsOneEntityOneProps, [])
 
         const nsOneEntityTwoProps: Property[] = [
-            new Property('propertyTwo', new CollectionProperty('n2.complexTypeName'), true, false)
+            new Property('propertyTwo', new CollectionProperty('n2.complexTypeName'), '', true, false)
         ];
         const nsOneEntityTwo: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, false, false, nsOneEntityTwoProps, [])
 
         const nsTwoComplexTypeProps: Property[] = [
-            new Property('propertyThree', 'n2.entityNameOne', true, false),
-            new Property('propertyFour', new CollectionProperty(PrimitiveSwaggerType.Instance.Long), true, false)
+            new Property('propertyThree', 'n2.entityNameOne', '', true, false),
+            new Property('propertyFour', new CollectionProperty(PrimitiveSwaggerType.Instance.Long), '', true, false)
         ];
         const nsTwoComplexType: EntityType = new EntityType('complexTypeName', undefined, false, undefined, false, false, nsTwoComplexTypeProps, [])
 
@@ -94,15 +94,15 @@ describe("configurations need to be validated", () => {
 
         const config = {
             EntityTypes: entityTypes,
-            URL: 'https://example.com',
+            MetadataFilePath: 'https://example.com',
             APIVersion: 'beta'
         } as Config;
 
         const definitionMap: DefinitionMap = new DefinitionMap();
 
         const entityProperties: Property[] = [
-            new Property('propertyOne', PrimitiveSwaggerType.Instance.String, true, false),
-            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, true, false)
+            new Property('propertyOne', PrimitiveSwaggerType.Instance.String, '', true, false),
+            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, '', true, false)
         ];
         const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, false, false, entityProperties, [])
 
@@ -122,14 +122,14 @@ describe("configurations need to be validated", () => {
 
         const config = {
             EntityTypes: entityTypes,
-            URL: 'https://example.com',
+            MetadataFilePath: 'https://example.com',
             APIVersion: 'beta'
         } as Config;
 
         const definitionMap: DefinitionMap = new DefinitionMap();
 
         const entityProperties: Property[] = [
-            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, true, false)
+            new Property('propertyTwo', PrimitiveSwaggerType.Instance.Binary, '', true, false)
         ];
         const entity: EntityType = new EntityType('entityNameOne', undefined, false, undefined, false, false, entityProperties, [])
 

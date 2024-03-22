@@ -85,7 +85,7 @@ describe("when required properties are not real", () => {
 
     const config = {
         EntityTypes: entityTypes,
-        URL: 'https://example.com',
+        MetadataFilePath: 'https://example.com',
         APIVersion: 'beta'
     } as Config;
 
@@ -112,7 +112,7 @@ describe("when required properties are real", () => {
 
     const config = {
         EntityTypes: entityTypesTwo,
-        URL: 'https://example.com',
+        MetadataFilePath: 'https://example.com',
         APIVersion: 'beta'
     } as Config;
 

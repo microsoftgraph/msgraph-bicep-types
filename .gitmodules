@@ -1,3 +1,6 @@
 [submodule "bicep-types"]
 	path = bicep-types
 	url = https://github.com/Azure/bicep-types.git
+[submodule "msgraph-metadata"]
+	path = msgraph-metadata
+	url = https://github.com/microsoftgraph/msgraph-metadata

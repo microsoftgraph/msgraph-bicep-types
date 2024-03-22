@@ -98,7 +98,7 @@ describe("when csdl contains not mapped types", () => {
 
     const config = {
         EntityTypes: entityTypes,
-        URL: 'https://example.com',
+        MetadataFilePath: 'https://example.com',
         APIVersion: 'beta'
     }
 
