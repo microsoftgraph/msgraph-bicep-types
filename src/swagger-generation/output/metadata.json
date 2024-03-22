@@ -9,6 +9,16 @@
         "members",
         "owners"
       ]
+    },
+    "v1.0": {
+      "isIdempotent": true,
+      "updatable": true,
+      "alternateKey": "uniqueName",
+      "isContainment": false,
+      "navigationProperties": [
+        "members",
+        "owners"
+      ]
     }
   },
   "applications": {
@@ -17,10 +27,22 @@
       "updatable": true,
       "alternateKey": "uniqueName",
       "isContainment": false
+    },
+    "v1.0": {
+      "isIdempotent": true,
+      "updatable": true,
+      "alternateKey": "uniqueName",
+      "isContainment": false
     }
   },
   "servicePrincipals": {
     "beta": {
+      "isIdempotent": true,
+      "updatable": true,
+      "alternateKey": "appId",
+      "isContainment": false
+    },
+    "v1.0": {
       "isIdempotent": true,
       "updatable": true,
       "alternateKey": "appId",
@@ -51,10 +73,39 @@
         "consentType",
         "resourceId"
       ]
+    },
+    "v1.0": {
+      "isIdempotent": false,
+      "updatable": true,
+      "isContainment": false,
+      "temporaryFilterKeys": [
+        "clientId",
+        "consentType",
+        "resourceId"
+      ],
+      "compositeKeyProperties": [
+        "clientId",
+        "consentType",
+        "resourceId"
+      ]
     }
   },
   "appRoleAssignedTo": {
     "beta": {
+      "isIdempotent": false,
+      "updatable": false,
+      "isContainment": true,
+      "containerEntitySet": "servicePrincipals",
+      "keyProperty": "resourceId",
+      "temporaryFilterKeys": [
+        "resourceId"
+      ],
+      "compositeKeyProperties": [
+        "appRoleId",
+        "resourceId"
+      ]
+    },
+    "v1.0": {
       "isIdempotent": false,
       "updatable": false,
       "isContainment": true,

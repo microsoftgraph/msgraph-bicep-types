@@ -11,13 +11,18 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
     [TestClass]
     public class MicrosoftGraphTypeLoaderTests
     {
-        private IReadOnlySet<string> availableTypes = new HashSet<string>
+        private IEnumerable<string> minTypes = new List<string>
         {
             "Microsoft.Graph/applications@beta",
             "Microsoft.Graph/servicePrincipals@beta",
             "Microsoft.Graph/groups@beta",
             "Microsoft.Graph/appRoleAssignedTo@beta",
             "Microsoft.Graph/oauth2PermissionGrants@beta",
+            "Microsoft.Graph/applications@v1.0",
+            "Microsoft.Graph/servicePrincipals@v1.0",
+            "Microsoft.Graph/groups@v1.0",
+            "Microsoft.Graph/appRoleAssignedTo@v1.0",
+            "Microsoft.Graph/oauth2PermissionGrants@v1.0",
             "Microsoft.Graph/applications/federatedIdentityCredentials@beta",
         };
 
@@ -26,6 +31,9 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             ["Microsoft.Graph/applications@beta"] = "uniqueName",
             ["Microsoft.Graph/groups@beta"] = "uniqueName",
             ["Microsoft.Graph/servicePrincipals@beta"] = "appId",
+            ["Microsoft.Graph/applications@v1.0"] = "uniqueName",
+            ["Microsoft.Graph/groups@v1.0"] = "uniqueName",
+            ["Microsoft.Graph/servicePrincipals@v1.0"] = "appId",
             ["Microsoft.Graph/applications/federatedIdentityCredentials@beta"] = "name",
         };
 
@@ -33,6 +41,8 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
         {
             ["Microsoft.Graph/applications@beta"] = "uniqueName",
             ["Microsoft.Graph/groups@beta"] = "uniqueName",
+            ["Microsoft.Graph/applications@v1.0"] = "uniqueName",
+            ["Microsoft.Graph/groups@v1.0"] = "uniqueName",
         };
 
         private IReadOnlySet<string> directoryObjects = new HashSet<string>
@@ -72,11 +82,16 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
         {
             var typeLoader = new MicrosoftGraphTypeLoader();
             var index = typeLoader.LoadTypeIndex();
+            var keys = index.Resources.Keys;
+
+            // Loaded types should at least contain the minimum list of types
+            foreach (var type in minTypes)
+            {
+                keys.Should().Contain(type);
+            }
 
             foreach (var kvp in index.Resources)
             {
-                availableTypes.Should().Contain(kvp.Key);
-
                 var resourceType = typeLoader.LoadResourceType(kvp.Value);
                 resourceType.Body.Should().NotBeNull();
 

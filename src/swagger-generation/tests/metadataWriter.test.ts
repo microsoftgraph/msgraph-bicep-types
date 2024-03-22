@@ -33,7 +33,7 @@ describe("writeMetadata", () => {
 
     const config = {
       EntityTypes: entityTypes,
-      URL: "https://example.com",
+      MetadataFilePath: "https://example.com",
       APIVersion: "beta",
     } as Config;
 
@@ -77,7 +77,7 @@ describe("writeMetadata", () => {
 
     const config = {
       EntityTypes: entityTypes,
-      URL: "https://example.com",
+      MetadataFilePath: "https://example.com",
       APIVersion: "beta",
     } as Config;
 
@@ -147,7 +147,7 @@ describe("writeMetadata", () => {
 
     const config = {
       EntityTypes: entityTypes,
-      URL: "https://example.com",
+      MetadataFilePath: "https://example.com",
       APIVersion: "beta",
     } as Config;
 
