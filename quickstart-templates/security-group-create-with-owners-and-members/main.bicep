@@ -29,4 +29,3 @@ resource group 'Microsoft.Graph/groups@beta' = {
     managedIdentity.properties.principalId
   ]
 }
-

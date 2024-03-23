@@ -16,12 +16,12 @@ param location string = resourceGroup().location
 @description('Specifies the name of the key vault tags.')
 param tags object
 
-@description('Specifies the permissions to keys in the vault. Valid values are: all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge.')
+@description('Specifies the permissions to keys in the vault. Valid values are described in https://learn.microsoft.com/azure/templates/microsoft.keyvault/vaults?pivots=deployment-language-bicep#permissions')
 param keysPermissions array = [
   'list'
 ]
 
-@description('Specifies the permissions to secrets in the vault. Valid values are: all, get, list, set, delete, backup, restore, recover, and purge.')
+@description('Specifies the permissions to secrets in the vault. Valid values are described in https://learn.microsoft.com/azure/templates/microsoft.keyvault/vaults?pivots=deployment-language-bicep#permissions')
 param secretsPermissions array = [
   'list'
   'get'
@@ -30,7 +30,7 @@ param secretsPermissions array = [
 @description('Specifies the ID of the user-assigned managed identity.')
 param identityName string
 
-@description('Specifies the permissions to certificates in the vault. Valid values are: all, get, list, update, create, import, delete, recover, backup, restore, manage contacts, manage certificate authorities, get certificate authorities, list certificate authorities, set certificate authorities, delete certificate authorities.')
+@description('Specifies the permissions to certificates in the vault. ValValid values are described in https://learn.microsoft.com/azure/templates/microsoft.keyvault/vaults?pivots=deployment-language-bicep#permissions')
 param certificatesPermissions array = [
   'get'
   'list'
@@ -101,7 +101,7 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
     forceUpdateTag: utcValue
     azPowerShellVersion: '8.3'
     timeout: 'PT30M'
-    arguments: ' -vaultName ${keyVaultName} -certificateName ${certificateName} -subjectName ${subjectName}'
+    arguments: ' -vaultName ${keyVault.name} -certificateName ${certificateName} -subjectName ${subjectName}'
     scriptContent: '''
       param(
         [string] [Parameter(Mandatory=$true)] $vaultName,
@@ -122,7 +122,7 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
         $DeploymentScriptOutputs['certEnd'] = $existingCert.expires
         $DeploymentScriptOutputs['certThumbprint'] = $existingCert.Thumbprint
         $DeploymentScriptOutputs['certKey'] = $publicKey
-        $existingCert | Out-String
+        $DeploymentScriptOutputs | Out-String
       }
       else {
         $policy = New-AzKeyVaultCertificatePolicy -SubjectName $subjectName -IssuerName Self -ValidityInMonths 12 -Verbose
@@ -154,15 +154,12 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
         $DeploymentScriptOutputs['certEnd'] = $newCert.expires
         $DeploymentScriptOutputs['certThumbprint'] = $newCert.Thumbprint
         $DeploymentScriptOutputs['certKey'] = $publicKey
-        $newCert | Out-String
+        $DeploymentScriptOutputs| Out-String
       }
     '''
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
   }
-  dependsOn: [
-    keyVault
-  ]
 }
 
 // Create a client application, setting its credential to the X509 cert public key.
