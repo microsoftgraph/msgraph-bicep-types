@@ -10,7 +10,7 @@ parameters:
 steps:
   # Official release takes existing generated types
   - ${{ if eq(parameters.Official, false) }}:
-    - template: ./generate-types.yml
+      - template: ./generate-types.yml
 
   # Build the solution
   - task: DotNetCoreCLI@2

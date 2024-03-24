@@ -3,12 +3,10 @@
 
 <#
 .Synopsis
-    Validates that the package version has been updated
+    Update the generated Bicep types and Swagger spec.
 .Description
-    Validates that the package version has been updated by comparing the version
-    specified in the project file with the latest package version published on
-    NuGet. If the version has not been updated, the script will fail and indicate
-    that the project version neeeds to be updated.
+    Update the generated Bicep types and Swagger spec by updating the latest msgraph metadata
+    and running the generation scripts.
 #>
 
 $SwaggerGenerationPrefix = "./src/swagger-generation"
