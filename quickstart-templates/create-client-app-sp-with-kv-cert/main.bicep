@@ -30,7 +30,7 @@ param secretsPermissions array = [
 @description('Specifies the ID of the user-assigned managed identity.')
 param identityName string
 
-@description('Specifies the permissions to certificates in the vault. ValValid values are described in https://learn.microsoft.com/azure/templates/microsoft.keyvault/vaults?pivots=deployment-language-bicep#permissions')
+@description('Specifies the permissions to certificates in the vault. Valid values are described in https://learn.microsoft.com/azure/templates/microsoft.keyvault/vaults?pivots=deployment-language-bicep#permissions')
 param certificatesPermissions array = [
   'get'
   'list'
