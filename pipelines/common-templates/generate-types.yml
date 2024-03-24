@@ -2,6 +2,9 @@
 # Licensed under the MIT License.
 
 steps:
+  - script: git submodule update --init --recursive
+    displayName: "Initialize Submodules"
+
   - task: NPM@1
     displayName: "Install bicep-types"
     inputs:
