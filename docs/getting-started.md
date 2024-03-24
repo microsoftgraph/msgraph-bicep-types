@@ -50,8 +50,9 @@ Make sure that you've updated Azure CLI and/or Azure PS to use the latest Bicep 
 We've created some quick-start templates to get you started.  
 
 1. [Create an applications and service principals for a client and resource application](../quickstart-templates/application-serviceprincipal-create-client-resource/)
-2. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
-3. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
-4. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
+2. [Create an application and service principal for a client app using a key vault certificate](../quickstart-templates/create-client-app-sp-with-kv-cert/)
+3. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
+4. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
+5. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
 
 Feel free to contribute and share your own samples too, by creating some PRs for template examples!
