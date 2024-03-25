@@ -8,7 +8,9 @@ parameters:
     default: false
 
 steps:
-  - template: ./generate-types.yml
+  # Official release takes existing generated types
+  - ${{ if eq(parameters.Official, false) }}:
+      - template: ./generate-types.yml
 
   # Build the solution
   - task: DotNetCoreCLI@2
@@ -29,14 +31,14 @@ steps:
     displayName: "Run BinSkim - Product Binaries"
     inputs:
       InputType: Basic
-      AnalyzeTarget: '$(ProductBinPath)/**/Microsoft.Graph.Bicep.Types.dll'
+      AnalyzeTarget: "$(ProductBinPath)/**/Microsoft.Graph.Bicep.Types.dll"
       AnalyzeSymPath: "$(ProductBinPath)"
       AnalyzeVerbose: true
       AnalyzeHashes: true
       AnalyzeEnvironment: true
 
   - ${{ if eq(parameters.Official, true) }}:
-    - template: ./esrp/codesign.yml
+      - template: ./esrp/codesign.yml
 
   - task: DotNetCoreCLI@2
     displayName: "Pack Typeloader"
@@ -55,13 +57,13 @@ steps:
       pwsh: true
 
   - ${{ if eq(parameters.Official, true) }}:
-    - template: ./esrp/codesign-nuget.yml
+      - template: ./esrp/codesign-nuget.yml
 
   - task: CopyFiles@2
     displayName: "Copy Product Binaries"
     inputs:
       SourceFolder: "$(ProductBinPath)"
-      Contents: '**/Microsoft.Graph.Bicep.Types.dll'
+      Contents: "**/Microsoft.Graph.Bicep.Types.dll"
       TargetFolder: "$(Build.ArtifactStagingDirectory)/ProductBinaries"
 
   - task: CopyFiles@2
@@ -70,7 +72,7 @@ steps:
       SourceFolder: "$(Build.SourcesDirectory)/swagger"
       Contents: "**"
       TargetFolder: "$(Build.ArtifactStagingDirectory)/swagger"
-  
+
   - task: CopyFiles@2
     displayName: "Copy generated Dir"
     inputs:
@@ -79,7 +81,7 @@ steps:
       TargetFolder: "$(Build.ArtifactStagingDirectory)/generated"
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Files: $(ArtifactName)'
+    displayName: "Publish Files: $(ArtifactName)"
     inputs:
-      ArtifactName: '$(ArtifactName)'
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: "$(ArtifactName)"
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
