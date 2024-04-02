@@ -59,7 +59,7 @@ provider microsoftGraph
 @description('Group to use')
 param groupName string = 'TestGroup-2023-10-10'
 
-resource group 'Microsoft.Graph/groups@beta' existing = {
+resource group 'Microsoft.Graph/groups@betv1.0' existing = {
   name: groupName
 }
 

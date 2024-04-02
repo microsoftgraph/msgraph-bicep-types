@@ -3,11 +3,11 @@ provider microsoftGraph
 @description('location of the resource group')
 param location string = resourceGroup().location
 
-resource resourceApp 'Microsoft.Graph/applications@beta' existing = {
+resource resourceApp 'Microsoft.Graph/applications@v1.0' existing = {
   uniqueName: 'ExampleResourceApp'
 }
 
-resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' existing = {
+resource resourceSp 'Microsoft.Graph/servicePrincipals@v1.0' existing = {
   appId: resourceApp.appId
 }
 
@@ -16,7 +16,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-
   location: location
 }
 
-resource group 'Microsoft.Graph/groups@beta' = {
+resource group 'Microsoft.Graph/groups@v1.0' = {
   uniqueName: 'ExampleGroup'
   displayName: 'Example Group'
   mailEnabled: false

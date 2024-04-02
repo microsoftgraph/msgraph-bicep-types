@@ -163,7 +163,7 @@ resource createAddCertificate 'Microsoft.Resources/deploymentScripts@2020-10-01'
 }
 
 // Create a client application, setting its credential to the X509 cert public key.
-resource clientApp 'Microsoft.Graph/applications@beta' = {
+resource clientApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: clientAppName
   displayName: 'Example Client Application'
   keyCredentials: [
@@ -179,7 +179,7 @@ resource clientApp 'Microsoft.Graph/applications@beta' = {
 }
 
 // Create a service principal for the client app
-resource clientSp 'Microsoft.Graph/servicePrincipals@beta' = {
+resource clientSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
   appId: clientApp.appId
 }
 

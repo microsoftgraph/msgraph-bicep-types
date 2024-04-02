@@ -7,7 +7,7 @@ param appRoleId string
 @description('Value of the key credential')
 param certKey string
 
-resource resourceApp 'Microsoft.Graph/applications@beta' = {
+resource resourceApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'ExampleResourceApp'
   displayName: 'Example Resource Application'
   appRoles: [
@@ -22,11 +22,11 @@ resource resourceApp 'Microsoft.Graph/applications@beta' = {
   ]
 }
 
-resource resourceSp 'Microsoft.Graph/servicePrincipals@beta' = {
+resource resourceSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
   appId: resourceApp.appId
 }
 
-resource clientApp 'Microsoft.Graph/applications@beta' = {
+resource clientApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'ExampleClientApp'
   displayName: 'Example Client Application'
   keyCredentials: [
@@ -39,6 +39,6 @@ resource clientApp 'Microsoft.Graph/applications@beta' = {
   ]
 }
 
-resource clientSp 'Microsoft.Graph/servicePrincipals@beta' = {
+resource clientSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
   appId: clientApp.appId
 }
