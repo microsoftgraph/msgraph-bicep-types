@@ -31,6 +31,7 @@ resource githubActionsSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
 
 // The service principal needs to be assigned the necesary role to access the resources
 // In this example, it is assigned with the `Contributor` role to the resource group
+// which will allow GitHub actions to access Azure resources in the resource group via Az PS/CLI
 var roleAssignmentName = guid('githubActions', roleDefinitionId, resourceGroup().id)
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: roleAssignmentName
