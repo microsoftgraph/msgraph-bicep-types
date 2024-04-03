@@ -52,7 +52,7 @@ We've created some quick-start templates to get you started.
 
 1. [Create an applications and service principals for a client and resource application](../quickstart-templates/application-serviceprincipal-create-client-resource/)
 1. [Create an application and service principal for a client app using a key vault certificate](../quickstart-templates/create-client-app-sp-with-kv-cert/)
-1. [Create an application and configure federated identity credentials](../quickstart-templates/create-app-with-fic/)
+1. [Configure federated identity credential for GitHub Actions](../quickstart-templates/create-fic-for-github-actions/)
 1. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
 1. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
 1. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
