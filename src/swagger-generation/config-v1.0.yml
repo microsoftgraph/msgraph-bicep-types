@@ -227,3 +227,9 @@ EntityTypes:
     ReadOnly:
       - hint
       - secretText
+  - Name: microsoft.graph.directoryObject
+    ReadOnly:
+      - deletedDateTime
+  - Name: microsoft.graph.entity
+    ReadOnly:
+      - id

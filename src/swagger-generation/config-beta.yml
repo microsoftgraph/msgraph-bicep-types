@@ -252,3 +252,9 @@ EntityTypes:
   - Name: microsoft.graph.windowsApplication
     ReadOnly:
       - packageSid
+  - Name: microsoft.graph.directoryObject
+    ReadOnly:
+      - deletedDateTime
+  - Name: microsoft.graph.entity
+    ReadOnly:
+      - id

@@ -14,13 +14,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/groups",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/1"
@@ -235,13 +228,6 @@
         "flags": 0,
         "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value is not specified during group creation on Microsoft Graph, a security group is created as Private by default, and the Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable."
       },
-      "deletedDateTime": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 2,
-        "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
-      },
       "members": {
         "type": {
           "$ref": "#/11"
@@ -255,6 +241,20 @@
         },
         "flags": 0,
         "description": "The owners of the group. Limited to 100 owners. Nullable. If this property is not specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -379,13 +379,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/applications",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/14"
@@ -662,6 +655,13 @@
         },
         "flags": 2,
         "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -1581,13 +1581,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/servicePrincipals",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/68"
@@ -1846,6 +1839,13 @@
         },
         "flags": 2,
         "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -1993,13 +1993,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/oauth2PermissionGrants",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/86"
@@ -2048,6 +2041,13 @@
         },
         "flags": 0,
         "description": "A space-separated list of the claim values for delegated permissions which should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the oauth2PermissionScopes property of the resource service principal. Must not exceed 3850 characters in length."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -2072,13 +2072,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/appRoleAssignedTo",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/90"
@@ -2148,6 +2141,13 @@
         },
         "flags": 2,
         "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },

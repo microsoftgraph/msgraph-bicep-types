@@ -3,7 +3,7 @@
 
 import { Property } from "./Property";
 import { NavigationProperty } from "./NavigationProperty";
-import { Definition, Property as SwaggerProperty } from "./Swagger";
+import { AllOfDefinition, Definition, Property as SwaggerProperty } from "./Swagger";
 import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType";
 import { CollectionProperty } from "./CollectionProperty";
 
@@ -30,16 +30,14 @@ export class EntityType extends Object {
     this.NavigationProperty = navigationProperty;
   }
 
-  toSwaggerDefinition(required?: string[]): Definition {
+  toSwaggerDefinition(required?: string[]): AllOfDefinition | Definition {
     const definition: Definition = {
       type: "object",
       properties: {},
     };
 
     this.Property.forEach((property: Property) => {
-
       const swaggerProperty: SwaggerProperty = {}
-
       let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
 
       if (propertyType instanceof CollectionProperty) { // Collection unwrap
@@ -110,6 +108,15 @@ export class EntityType extends Object {
       });
 
       definition.required = required;
+    }
+
+    if (this.BaseType) {
+      return {
+        allOf: [
+          { "$ref": `#/definitions/${this.BaseType}` },
+          definition,
+        ]
+      } as AllOfDefinition;
     }
 
     return definition;

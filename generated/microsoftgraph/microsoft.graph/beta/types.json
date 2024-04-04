@@ -14,13 +14,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/groups",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/1"
@@ -286,13 +279,6 @@
         "flags": 0,
         "description": "Specifies whether or not a group is configured to write back group object properties to on-premises Active Directory. These properties are used when group writeback is configured in the Microsoft Entra Connect sync client."
       },
-      "deletedDateTime": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 2,
-        "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
-      },
       "members": {
         "type": {
           "$ref": "#/15"
@@ -306,6 +292,20 @@
         },
         "flags": 0,
         "description": "The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -468,13 +468,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/applications",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/18"
@@ -747,6 +740,13 @@
         },
         "flags": 2,
         "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -1671,13 +1671,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/servicePrincipals",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/71"
@@ -1943,6 +1936,13 @@
         },
         "flags": 2,
         "description": "Date and time when this object was deleted. Always null when the object hasn't been deleted."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -2090,13 +2090,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/applications/federatedIdentityCredentials",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/89"
@@ -2145,6 +2138,13 @@
         },
         "flags": 1,
         "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -2175,13 +2175,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/oauth2PermissionGrants",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/94"
@@ -2230,6 +2223,13 @@
         },
         "flags": 0,
         "description": "A space-separated list of the claim values for delegated permissions that should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the publishedPermissionScopes property of the resource service principal. Must not exceed 3850 characters in length."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
@@ -2254,13 +2254,6 @@
     "$type": "ObjectType",
     "name": "Microsoft.Graph/appRoleAssignedTo",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/98"
@@ -2323,6 +2316,13 @@
         },
         "flags": 1,
         "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
       }
     }
   },
