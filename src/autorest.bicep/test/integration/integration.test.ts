@@ -68,7 +68,7 @@ describe('integration tests', () => {
         await generateSchema(defaultLogger, readmePath, stagingOutputDir, false, false);
 
         const compareResult = await compare(stagingOutputDir, outputDir, { compareContent: true });
-        console.log(compareResult);
+
         // Assert that the generated files match the baseline files which have been checked in.
         // Set 'record' to true to run the tests in record mode and overwrite baselines.
         expect(compareResult.differences).toBe(0);

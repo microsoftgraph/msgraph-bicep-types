@@ -14,17 +14,17 @@ $GeneratorPrefix = "./src/generator"
 $AutorestPrefix = "./src/autorest.bicep"
 
 # Build bicep-types
-# Write-Host "Building bicep-types"
-# Push-Location bicep-types/src/bicep-types
-# npm ci
-# npm run build
-# Pop-Location
-# Write-Host "bicep-types successfully built"
+Write-Host "Building bicep-types"
+Push-Location bicep-types/src/bicep-types
+npm ci
+npm run build
+Pop-Location
+Write-Host "bicep-types successfully built"
 
-# # Update msgraph-metadata submodule
-# Write-Host "Updating msgraph-metadata submodule"
-# git submodule update --recursive --remote msgraph-metadata
-# Write-Host "msgraph-metadata submodule successfully updated"
+# Update msgraph-metadata submodule
+Write-Host "Updating msgraph-metadata submodule"
+git submodule update --recursive --remote msgraph-metadata
+Write-Host "msgraph-metadata submodule successfully updated"
 
 # Build autorest
 Write-Host "Building Autorest"
