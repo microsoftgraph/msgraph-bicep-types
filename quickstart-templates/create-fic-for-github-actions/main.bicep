@@ -3,9 +3,6 @@ provider microsoftGraph
 @description('Name of the Github repository')
 param githubRepoName string
 
-@description('Environment of the Github action')
-param githubActionsEnvironment string
-
 @description('Role definition ID to be assigned')
 param roleDefinitionId string
 
@@ -21,7 +18,7 @@ resource githubActionsApp 'Microsoft.Graph/applications@v1.0' = {
     audiences: [microsoftEntraAudience]
     description: 'FIC for Github Actions to access Entra protected resources'
     issuer: githubOIDCProvider
-    subject: 'repo:${githubRepoName}:environment:${githubActionsEnvironment}'
+    subject: 'repo:${githubRepoName}:pull-request'
   }
 }
 
