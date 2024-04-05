@@ -1,10 +1,10 @@
 provider microsoftGraph
 
-@description('Subject of the federated identity credentials (FIC) for Github Actions to access Azure resources')
+@description('Subject of the GitHub Actions workflow\'s federated identity credentials (FIC) that is checked before issuing an Entra ID access token to access Azure resources. GitHub Actions subject examples can be found in https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims')
 param githubActionsFicSubject string
 
 @description('Role definition ID to be assigned')
-param roleDefinitionId string
+param roleDefinitionId string ='b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
 
 var githubOIDCProvider = 'https://token.actions.githubusercontent.com'
 var microsoftEntraAudience = 'api://AzureADTokenExchange'
