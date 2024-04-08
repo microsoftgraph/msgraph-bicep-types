@@ -4,7 +4,7 @@ provider microsoftGraph
 param githubActionsFicSubject string
 
 @description('Role definition ID to be assigned')
-param roleDefinitionId string ='b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
+param roleDefinitionId string = 'b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
 
 var githubOIDCProvider = 'https://token.actions.githubusercontent.com'
 var microsoftEntraAudience = 'api://AzureADTokenExchange'
@@ -26,7 +26,7 @@ resource githubActionsSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
   appId: githubActionsApp.appId
 }
 
-// The service principal needs to be assigned the necesary role to access the resources
+// The service principal needs to be assigned the necessary role to access the resources
 // In this example, it is assigned with the `Contributor` role to the resource group
 // which will allow GitHub actions to access Azure resources in the resource group via Az PS/CLI
 var roleAssignmentName = guid('githubActions', roleDefinitionId, resourceGroup().id)
