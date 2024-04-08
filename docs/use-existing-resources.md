@@ -26,20 +26,20 @@ Let's use an example with an existing group, created through the Entra Portal, t
 ### PowerShell
 
 ```powershell
-Import-Module Microsoft.Graph.Beta.Groups
+Import-Module Microsoft.Graph.Groups
 
 $params = @{
     uniqueName = "TestGroup-2023-10-10"
 }
 $groupId = "056b6fdc-ab19-4e91-9180-fa1f14c8f4fa"
 
-Update-MgBetaGroup -GroupId $groupId -BodyParameter $params
+Update-MgGroup -GroupId $groupId -BodyParameter $params
 ```
 
 ### HTTP request
 
 ```http
-PATCH https://graph.microsoft.com/beta/groups/056b6fdc-ab19-4e91-9180-fa1f14c8f4fa
+PATCH https://graph.microsoft.com/v1.0/groups/056b6fdc-ab19-4e91-9180-fa1f14c8f4fa
 Content-type: application/json
 ```
 
@@ -59,7 +59,7 @@ provider microsoftGraph
 @description('Group to use')
 param groupName string = 'TestGroup-2023-10-10'
 
-resource group 'Microsoft.Graph/groups@beta' existing = {
+resource group 'Microsoft.Graph/groups@v1.0' existing = {
   name: groupName
 }
 

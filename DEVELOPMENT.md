@@ -47,6 +47,6 @@ This document describes the steps to setup development tools and run Bicep types
     ```
 
 ## Adding New Types
-1. Update the definitions and paths for the new type in the swagger file [microsoftgraph-beta.json](swagger\specification\microsoftgraph\resource-manager\microsoftgraph\preview\2023-09-15-preview\microsoftgraph-beta.json). Currently only `beta` version resources are supported.
+1. Update the entities and properties in [config-beta.yml](src\swagger-generation\config-beta.yml) and [config-v1.0.yml](src\swagger-generation\config-beta.yml)
 
-1. Re-run generation using the command in [Running](#running), and new types will be available in [/generated](./generated)
+1. Follow steps in [Running Generation Locally](#running-generation-locally), and new types will be available in [/generated](./generated)
