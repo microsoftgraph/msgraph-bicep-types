@@ -38,7 +38,11 @@ export interface Scopes {
 }
 
 export interface Definitions {
-    [key: string]: Definition | SwaggerEnum
+    [key: string]: AllOfDefinition | Definition | SwaggerEnum
+}
+
+export interface AllOfDefinition {
+    allOf: (Definition | Schema)[]
 }
 
 export interface Definition {
@@ -52,7 +56,6 @@ export interface SwaggerEnum {
     type: string,
     enum: string[],
 }
-
 
 export interface Properties {
     [key: string]: Property

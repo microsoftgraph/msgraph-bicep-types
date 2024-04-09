@@ -14,13 +14,6 @@
     "$type": "ObjectType",
     "name": "Test.Rp1/testType1",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/1"
@@ -55,6 +48,13 @@
         },
         "flags": 1,
         "description": "The geo-location where the resource lives"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
       },
       "name": {
         "type": {
@@ -495,13 +495,6 @@
     "$type": "ObjectType",
     "name": "Test.Rp1/splitPutAndGetType",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/40"
@@ -536,6 +529,13 @@
         },
         "flags": 1,
         "description": "The geo-location where the resource lives"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
       },
       "name": {
         "type": {
@@ -582,13 +582,6 @@
     "$type": "ObjectType",
     "name": "Test.Rp1/partlyReadonlyType",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/45"
@@ -622,6 +615,13 @@
         },
         "flags": 1,
         "description": "The geo-location where the resource lives"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
       },
       "name": {
         "type": {
@@ -803,13 +803,6 @@
     "name": "Test.Rp1/discriminatedUnionTestType",
     "discriminator": "type",
     "baseProperties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/59"
@@ -968,13 +961,6 @@
     "$type": "ObjectType",
     "name": "Test.Rp1/readOnlyTestType",
     "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 10,
-        "description": "The resource id"
-      },
       "type": {
         "type": {
           "$ref": "#/70"
@@ -1008,6 +994,13 @@
         },
         "flags": 2,
         "description": "The geo-location where the resource lives"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
       },
       "name": {
         "type": {

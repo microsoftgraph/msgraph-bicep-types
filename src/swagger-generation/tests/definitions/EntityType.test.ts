@@ -1,4 +1,5 @@
 import { CollectionProperty } from "../../src/definitions/CollectionProperty";
+import { AllOfDefinition, Definition, Schema } from "../../src/definitions/Swagger";
 import { EntityType } from "../../src/definitions/EntityType";
 import { NavigationProperty } from "../../src/definitions/NavigationProperty";
 import { PrimitiveSwaggerType } from "../../src/definitions/PrimitiveSwaggerType";
@@ -44,7 +45,7 @@ describe('EntityType', () => {
     ];
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
-    const definition = entityType.toSwaggerDefinition();
+    const definition = entityType.toSwaggerDefinition() as Definition;
 
     expect(definition.type).toBe('object');
     expect(definition.properties.Property1.type).toBe('array');
@@ -63,7 +64,7 @@ describe('EntityType', () => {
     ];
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
-    const definition = entityType.toSwaggerDefinition();
+    const definition = entityType.toSwaggerDefinition() as Definition;
 
     expect(definition.type).toBe('object');
     expect(definition.properties.Property1.type).toBe('array');
@@ -85,7 +86,7 @@ describe('EntityType', () => {
 
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
-    const definition = entityType.toSwaggerDefinition();
+    const definition = entityType.toSwaggerDefinition() as Definition;
 
     expect(definition.type).toBe('object');
     expect(definition.properties.Property1).toBeDefined();
@@ -106,7 +107,7 @@ describe('EntityType', () => {
 
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
 
-    const definition = entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property4']);
+    const definition = entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property4']) as Definition;
 
     expect(definition.type).toBe('object');
     expect(definition.required).toContain('Property1');
@@ -121,6 +122,23 @@ describe('EntityType', () => {
     expect(definition.properties.Property4.type).toBe('array');
     expect(definition.properties.Property4.items).toBeDefined();
     expect(definition.properties.Property4.items!.$ref).toBe('#/definitions/namespace.one.EntityType2');
+  });
+
+  it('should convert to swagger definition with base type', () => {
+    const properties = [
+      new Property('Property1', PrimitiveSwaggerType.Instance.String, property1Description, true, false)
+    ];
+    const entityType = new EntityType('TestEntityType', undefined, undefined, 'BaseEntityType', undefined, undefined, properties, []);
+
+    const definition = entityType.toSwaggerDefinition() as AllOfDefinition;
+    const allOf = definition.allOf;
+
+    expect(allOf).toBeDefined();
+    expect(allOf.length).toBe(2);
+    expect((allOf[0] as Schema).$ref).toBe('#/definitions/BaseEntityType');
+    expect((allOf[1] as Definition).properties.Property1).toBeDefined();
+    expect((allOf[1] as Definition).properties.Property1.type).toBe('string');
+    expect((allOf[1] as Definition).properties.Property1.description).toBe(property1Description);
   });
 
   it('should throw error if a required property is not found', () => {
@@ -160,20 +178,20 @@ describe('EntityType', () => {
     ];
 
     const entityTypeUndefinedAlternateKey = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
-    const definitionUndefinedAlternateKey = entityTypeUndefinedAlternateKey.toSwaggerDefinition(['Property1', 'Property2']);
+    const definitionUndefinedAlternateKey = entityTypeUndefinedAlternateKey.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
 
     expect(definitionUndefinedAlternateKey.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionUndefinedAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeAlternateKey = new EntityType(name, 'Property1', undefined, undefined, undefined, undefined, properties, []);
-    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(['Property1', 'Property2']);
+    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
 
     expect(definitionAlternateKey.properties.Property1["x-constant-key"]).toBe(true);
     expect(definitionAlternateKey.properties.Property1.description).toBe(property1Description);
     expect(definitionAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeSP = new EntityType('serviceprincipal', 'Property1', undefined, undefined, undefined, undefined, properties, []);
-    const definitionSP = entityTypeSP.toSwaggerDefinition(['Property1', 'Property2']);
+    const definitionSP = entityTypeSP.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
 
     expect(definitionSP.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionSP.properties.Property2["x-constant-key"]).toBeUndefined();

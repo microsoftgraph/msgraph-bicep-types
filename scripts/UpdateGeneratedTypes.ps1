@@ -11,7 +11,7 @@
 
 $SwaggerGenerationPrefix = "./src/swagger-generation"
 $GeneratorPrefix = "./src/generator"
-$AutoRestPrefix = "./src/autorest"
+$AutorestPrefix = "./src/autorest.bicep"
 
 # Build bicep-types
 Write-Host "Building bicep-types"
@@ -26,10 +26,10 @@ Write-Host "Updating msgraph-metadata submodule"
 git submodule update --recursive --remote msgraph-metadata
 Write-Host "msgraph-metadata submodule successfully updated"
 
-# Build auto-rest
+# Build autorest
 Write-Host "Building Autorest"
-npm ci --prefix $AutoRestPrefix
-npm run --prefix $AutoRestPrefix build
+npm ci --prefix $AutorestPrefix
+npm run --prefix $AutorestPrefix build
 Write-Host "Autorest successfully built"
 
 # Generate Swagger spec

@@ -389,7 +389,7 @@ describe('generate swagger with primitive types', () => {
   });
 
   it('should generate swagger for nested entities', () => {
-    const configWithNextedEntities = {
+    const configWithNestedEntities = {
       EntityTypes: new Map<string, EntityTypeConfig>([
         ['microsoft.graph.nestedEntity', {
           Name: 'microsoft.graph.nestedEntity',
@@ -497,7 +497,117 @@ describe('generate swagger with primitive types', () => {
 
     definitionMap.EntityMap = entityMap;
 
-    expect(writeSwagger(definitionMap, configWithNextedEntities)).toEqual(expectedSwagger);
+    expect(writeSwagger(definitionMap, configWithNestedEntities)).toEqual(expectedSwagger);
+
+  });
+
+  it('should generate swagger including base entities', () => {
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    const properties: Property[] = [
+      new Property('freeStorageSpaceInBytes', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Integer, SwaggerMetaFormat.Int64), 'Free storage space in bytes description.', false, false),
+    ];
+    const baseProperties: Property[] = [
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+    ];
+
+    const entity: EntityType = new EntityType('entityNameOne', undefined, false, 'microsoft.graph.baseEntity', undefined, undefined, properties, [])
+    const baseEntity: EntityType = new EntityType('baseEntity', undefined, false, undefined, undefined, undefined, baseProperties, [])
+
+    entityMap.set('microsoft.graph.entityNameOne', entity);
+    entityMap.set('microsoft.graph.baseEntity', baseEntity);
+
+    const expectedSwagger: Swagger = {
+      "swagger": SwaggerVersion.v2,
+      "info": {
+        "title": "Microsoft Graph",
+        "version": "beta"
+      },
+      "schemes": [
+        Scheme.https
+      ],
+      "consumes": [
+        Product.application_json
+      ],
+      "produces": [
+        Product.application_json
+      ],
+      "definitions": {
+        "microsoft.graph.baseEntity": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "",
+            },
+          }
+        },
+        "microsoft.graph.entityNameOne": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/microsoft.graph.baseEntity"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "freeStorageSpaceInBytes": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "Free storage space in bytes description."
+                }
+              }
+            }
+          ]
+        },
+      },
+      "paths": {
+        "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+          "put": {
+            "tags": [
+              "entityNameOnes"
+            ],
+            "description": "Create or update a entityNameOne",
+            "operationId": "entityNameOnes_Put",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "entityNameOne",
+                "description": "The entityNameOne to be created or updated",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              },
+              {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+            ],
+            "responses": {
+              "200": {
+                "description": "entityNameOne created/updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            }
+          }
+        },
+      }
+    };
+
+    definitionMap.EntityMap = entityMap;
+
+    expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
 
   });
 });

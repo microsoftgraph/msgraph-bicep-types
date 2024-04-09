@@ -64,9 +64,9 @@ describe('integration tests', () => {
       } else {
         const stagingOutputDir = `${__dirname}/temp/${spec}`;
         await rm(stagingOutputDir, { recursive: true, force: true, });
-  
+
         await generateSchema(defaultLogger, readmePath, stagingOutputDir, false, false);
-  
+
         const compareResult = await compare(stagingOutputDir, outputDir, { compareContent: true });
 
         // Assert that the generated files match the baseline files which have been checked in.

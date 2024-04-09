@@ -32,56 +32,33 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
   }
 
   // Initialize exploration of Types
-
   const entityReferences: Map<string, EntityType> = new Map<string, EntityType>()
   const enumReferences: Map<string, EnumType> = new Map<string, EnumType>()
-
   const entityReferencesQueue: Reference[] = []
 
-  let addedReferences: number = 0
-
   config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
-    const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
-
     console.log("Writing swagger for " + id)
 
-    entity.Property.forEach((property: Property) => {
-      const referenceId: string | undefined = resolvePropertyTypeToReference(property);
-      if (!referenceId)
-        return;
+    const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
-      const reference: Reference = new Reference(referenceId, 0)
-
-      if (handleComplexProperties(definitionMap, entity, reference, entityReferences, enumReferences, entityReferencesQueue))
-        addedReferences++;
-    });
-
+    addReferences(definitionMap, entity, entityReferences, enumReferences, entityReferencesQueue, 0)
     swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig.RequiredOnWrite)
   });
 
-  while (addedReferences > 0 || entityReferencesQueue.length > 0) {
-    addedReferences = 0
+  while (entityReferencesQueue.length > 0) {
     const currentReference: Reference = entityReferencesQueue.shift() as Reference
     const currentDepth: number = currentReference.depth
+
     if (currentDepth > MAX_DEPTH) {
       console.error(`Max depth reached for ${currentReference.id}`)
       break;
     }
+
     const currentEntity: EntityType = entityReferences.get(currentReference.id) as EntityType
-    currentEntity.Property.forEach((property: Property) => {
-      const referenceId: string | undefined = resolvePropertyTypeToReference(property);
-      if (!referenceId)
-        return;
-
-      const reference: Reference = new Reference(referenceId, currentDepth + 1)
-
-      if (handleComplexProperties(definitionMap, currentEntity, reference, entityReferences, enumReferences, entityReferencesQueue))
-        addedReferences++;
-    });
+    addReferences(definitionMap, currentEntity, entityReferences, enumReferences, entityReferencesQueue, currentDepth)
   }
 
   // Write all references
-
   entityReferences.forEach((entity: EntityType, id: string) => {
     swagger.definitions[id] = entity.toSwaggerDefinition()
   });
@@ -178,4 +155,30 @@ const handleComplexProperties = (definitionMap: DefinitionMap, entity: EntityTyp
   referenceQueue.push(newReference)
 
   return true;
+}
+
+const addReferences = (definitionMap: DefinitionMap, entity: EntityType, entityReferences: Map<string, EntityType>, enumReferences: Map<string, EnumType>, entityReferenceQueue: Reference[], currentDepth: number): void => {
+  // Add references for base type
+  let baseType: string | undefined = entity.BaseType;
+
+  while (baseType && !entityReferences.has(baseType)) {
+    const baseEntity: EntityType | undefined = definitionMap.EntityMap.get(baseType)
+    if (!baseEntity) {
+      throw new Error(`Reference Error: Entity ${entity.Name} base type ${baseType} not found in CSDL`);
+    }
+
+    entityReferences.set(baseType, baseEntity);
+    baseType = baseEntity.BaseType;
+  }
+
+  // Add references for properties
+  entity.Property.forEach((property: Property) => {
+    const referenceId: string | undefined = resolvePropertyTypeToReference(property);
+    if (!referenceId)
+      return;
+
+    const reference: Reference = new Reference(referenceId, currentDepth)
+
+    handleComplexProperties(definitionMap, entity, reference, entityReferences, enumReferences, entityReferenceQueue)
+  });
 }

@@ -658,7 +658,7 @@ describe('available property', () => {
 });
 
 describe('base type', () => {
-  it('should include properties from known base type', () => {
+  it('should correctly read base type', () => {
     const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
     entityTypes.set('namespace.entityNameTwo', {
@@ -680,12 +680,6 @@ describe('base type', () => {
 
     const entity = definitionMap.EntityMap.get('namespace.entityNameTwo');
     expect(entity).toBeDefined();
-    expect(entity!.Property.find((prop) => prop.Name === 'deletedDateTime')).toBeDefined();
-
-    const entityTwo = definitionMap.EntityMap.get('namespaceThree.entityNameTwo');
-    expect(entityTwo).toBeDefined();
-    expect(entityTwo!.NavigationProperty
-      .find((navProp) => navProp.Name === 'navigationPropertyName2')?.Name === 'isEnabled')
-      .toBeDefined();
+    expect(entity!.BaseType).toBe('microsoft.graph.directoryObject');
   });
 });

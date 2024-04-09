@@ -130,7 +130,7 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
   const alternateKey: string | undefined = getAlternateKey(rawEntityType);
   const entityName: string = entityAttributes.Name
   const abstract: boolean = entityAttributes.Abstract ? entityAttributes.Abstract : false
-  const baseType: string = entityAttributes.BaseType ? entityAttributes.BaseType : ''
+  const baseType: string | undefined = entityAttributes.BaseType ? `microsoft.${entityAttributes.BaseType}` : undefined
   const openType: boolean = entityAttributes.OpenType ? entityAttributes.OpenType : false
   const hasStream: boolean = entityAttributes.HasStream ? entityAttributes.HasStream : false
   const rawProperties: RawProperty[] = rawEntityType.Property ? rawEntityType.Property : []
@@ -145,23 +145,6 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
     .filter((property: Property): boolean =>
       propertyFilter(entityConfig, property)
     );
-
-  // Temporary workaround until inheritance is supported in this tool
-  if (baseType === 'graph.writebackConfiguration') {
-    properties.push(new Property(
-      'isEnabled',
-      new PrimitiveSwaggerTypeStruct(SwaggerMetaType.Boolean, undefined),
-      "Indicates whether writeback of cloud groups to on-premise Active Directory is enabled. Default value is true for Microsoft 365 groups and false for security groups.",
-      true,
-      false));
-  } else if (baseType === 'graph.directoryObject') {
-    properties.push(new Property(
-      'deletedDateTime',
-      new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.DateTime),
-      "Date and time when this object was deleted. Always null when the object hasn't been deleted.",
-      false,
-      true));
-  }
 
   const navigationProperties: NavigationProperty[] = rawNavigationProperties
     .map((rawNavigationProperty: RawNavigationProperty): NavigationProperty =>
