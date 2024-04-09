@@ -30,13 +30,14 @@ Now, when creating a Bicep resource, the available Microsoft.Graph resource type
 
 ![image](./VS%20code%20graph%20types%20in%20bicep.jpg)
 
-| Bicep type definitions | Microsoft Graph API (beta) reference |
-|--------------|-----------|
-| [applications](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta) | [application resource](https://learn.microsoft.com/graph/api/resources/application?view=graph-rest-beta) |
-| [servicePrincipals](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta) | [servicePrincipal resource](https://learn.microsoft.com/graph/api/resources/serviceprincipal?view=graph-rest-beta) |
-| [groups](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta) | [group resource](https://learn.microsoft.com/graph/api/resources/group?view=graph-rest-beta) |
-| [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta) | [appRoleAssignment resource](https://learn.microsoft.com/graph/api/resources/approleassignment?view=graph-rest-beta) |
-| [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [oauth2PermissionGrant resource](https://learn.microsoft.com/graph/api/resources/oauth2permissiongrant?view=graph-rest-beta) |
+| Bicep type (beta) definitions | Microsoft Graph API (beta) reference | Bicep type (v1.0) definitions | Microsoft Graph API (v1.0) reference |
+|--------------|-----------|--------------|-----------|
+| [applications](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsbeta) | [application resource](https://learn.microsoft.com/graph/api/resources/application?view=graph-rest-beta) | [applications](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphapplicationsv10) | [application resource](https://learn.microsoft.com/graph/api/resources/application?view=graph-rest-1.0) |
+| [servicePrincipals](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphserviceprincipalsbeta) | [servicePrincipal resource](https://learn.microsoft.com/graph/api/resources/serviceprincipal?view=graph-rest-beta) | [servicePrincipals](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphserviceprincipalsv10) | [servicePrincipal resource](https://learn.microsoft.com/graph/api/resources/serviceprincipal?view=graph-rest-1.0) |
+| [groups](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta) | [group resource](https://learn.microsoft.com/graph/api/resources/group?view=graph-rest-beta) | [groups](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphgroupsv10) | [group resource](https://learn.microsoft.com/graph/api/resources/group?view=graph-rest-1.0) |
+| [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta) | [appRoleAssignment resource](https://learn.microsoft.com/graph/api/resources/approleassignment?view=graph-rest-beta) | [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphapproleassignedtov10) | [appRoleAssignment resource](https://learn.microsoft.com/graph/api/resources/approleassignment?view=graph-rest-1.0) |
+| [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [oauth2PermissionGrant resource](https://learn.microsoft.com/graph/api/resources/oauth2permissiongrant?view=graph-rest-beta) | [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphoauth2permissiongrantsv10) | [oauth2PermissionGrant resource](https://learn.microsoft.com/graph/api/resources/oauth2permissiongrant?view=graph-rest-1.0) |
+| [applications/federatedIdentityCredentials](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [federatedidentitycredential resource](https://learn.microsoft.com/graph/api/resources/federatedidentitycredential?view=graph-rest-beta) | Coming soon | Coming soon |
 
 ## Deploying Bicep templates
 
@@ -50,9 +51,10 @@ Make sure that you've updated Azure CLI and/or Azure PS to use the latest Bicep 
 We've created some quick-start templates to get you started.  
 
 1. [Create an applications and service principals for a client and resource application](../quickstart-templates/application-serviceprincipal-create-client-resource/)
-2. [Create an application and service principal for a client app using a key vault certificate](../quickstart-templates/create-client-app-sp-with-kv-cert/)
-3. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
-4. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
-5. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
+1. [Create an application and service principal for a client app using a key vault certificate](../quickstart-templates/create-client-app-sp-with-kv-cert/)
+1. [Configure federated identity credential for GitHub Actions](../quickstart-templates/create-fic-for-github-actions/)
+1. [Grant a client application access (via an app role) to a resource application](../quickstart-templates/resource-application-access-grant-to-client-application/)
+1. [Create a security group with owners and members](../quickstart-templates/security-group-create-with-owners-and-members/)
+1. [Assign an Azure role to a security group](../quickstart-templates/security-group-assign-azure-role/)
 
 Feel free to contribute and share your own samples too, by creating some PRs for template examples!

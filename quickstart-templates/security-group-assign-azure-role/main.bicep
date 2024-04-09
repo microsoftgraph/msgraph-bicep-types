@@ -3,7 +3,7 @@ provider microsoftGraph
 @description('Specifies the Reader role definition ID used in the role assignment.')
 param readerRoleDefinitionID string = 'acdd72a7-3385-48ef-bd42-f606fba81ae7'
 
-resource group 'Microsoft.Graph/groups@beta' existing = {
+resource group 'Microsoft.Graph/groups@v1.0' existing = {
   uniqueName: 'ExampleGroup'
 }
 

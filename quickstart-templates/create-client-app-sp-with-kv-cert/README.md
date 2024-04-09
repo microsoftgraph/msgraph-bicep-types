@@ -13,6 +13,6 @@ az deployment group create --resource-group <resource-group> --parameter main.bi
 
 To deploy the same template using Az Powershell, use:
 
-```sh
+```powershell
 New-AzResourceGroupDeployment -ResourceGroupName bicep-deployments -TemplateFile .\main.bicep -TemplateParameterFile .\main.bicepparam -Verbose
 ```
