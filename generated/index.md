@@ -6,6 +6,7 @@
 
 ### microsoft.graph/applications/federatedidentitycredentials
 * **Link**: [beta](microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapplicationsfederatedidentitycredentialsbeta)
+* **Link**: [v1.0](microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphapplicationsfederatedidentitycredentialsv10)
 
 ### microsoft.graph/approleassignedto
 * **Link**: [beta](microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta)

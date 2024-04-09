@@ -34,7 +34,7 @@
 * **samlMetadataUrl**: string: The URL where the service exposes SAML metadata for federation. This property is valid only for single-tenant applications. Nullable.
 * **serviceManagementReference**: string: References application or service contact information from a Service or Asset Management database. Nullable.
 * **servicePrincipalLockConfiguration**: [MicrosoftGraphServicePrincipalLockConfiguration](#microsoftgraphserviceprincipallockconfiguration): Specifies whether sensitive properties of a multitenant application should be locked for editing after the application is provisioned in a tenant. Nullable. null by default.
-* **signInAudience**: string: Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you may need to change other properties first
+* **signInAudience**: string: Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you may need to change other properties first
 * **spa**: [MicrosoftGraphSpaApplication](#microsoftgraphspaapplication): Specifies settings for a single-page application, including sign out URLs and redirect URIs for authorization codes and access tokens.
 * **tags**: string[]: Custom strings that can be used to categorize and identify the application. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
@@ -240,8 +240,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Key.
-* **value**: string: Value.
+* **key**: string: Contains the name of the field that a value is associated with.
+* **value**: string: Contains the corresponding value for the specified key.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties

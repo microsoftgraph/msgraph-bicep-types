@@ -27,11 +27,14 @@
     "Microsoft.Graph/servicePrincipals@v1.0": {
       "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/85"
     },
+    "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0": {
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/90"
+    },
     "Microsoft.Graph/oauth2PermissionGrants@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/89"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/94"
     },
     "Microsoft.Graph/appRoleAssignedTo@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/93"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/98"
     }
   },
   "resourceFunctions": {}

@@ -161,6 +161,21 @@ EntityTypes:
       - applicationTemplateId
       - resourceSpecificApplicationPermissions
       - signInAudience
+  - Name: microsoft.graph.federatedIdentityCredential
+    RootUri: /applications/federatedIdentityCredentials
+    Upsertable: true
+    ContainerEntitySet: applications
+    AvailableProperty:
+      - audiences
+      - description
+      - issuer
+      - name
+      - subject
+    RequiredOnWrite:
+      - audiences
+      - issuer
+      - name
+      - subject
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
     Upsertable: false

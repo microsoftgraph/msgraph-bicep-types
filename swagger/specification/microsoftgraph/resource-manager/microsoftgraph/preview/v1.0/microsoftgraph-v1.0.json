@@ -346,7 +346,7 @@
             },
             "signInAudience": {
               "type": "string",
-              "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first"
+              "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first"
             },
             "spa": {
               "$ref": "#/definitions/microsoft.graph.spaApplication",
@@ -570,6 +570,47 @@
           },
           "required": [
             "appId"
+          ]
+        }
+      ]
+    },
+    "microsoft.graph.federatedIdentityCredential": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "audiences": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you might need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
+            },
+            "description": {
+              "type": "string",
+              "description": "The unvalidated description of the federated identity credential, provided by the user. It has a limit of 600 characters. Optional."
+            },
+            "issuer": {
+              "type": "string",
+              "description": "The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique within the app. It has a limit of 600 characters. Required."
+            },
+            "name": {
+              "type": "string",
+              "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Required. Not nullable"
+            },
+            "subject": {
+              "type": "string",
+              "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters"
+            }
+          },
+          "required": [
+            "audiences",
+            "issuer",
+            "name",
+            "subject"
           ]
         }
       ]
@@ -1425,6 +1466,54 @@
             "description": "servicePrincipal created/updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.servicePrincipal"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/applications/{applicationsId}/federatedIdentityCredentials/{federatedIdentityCredentialId}": {
+      "put": {
+        "tags": [
+          "federatedIdentityCredentials"
+        ],
+        "description": "Create or update a federatedIdentityCredential",
+        "operationId": "federatedIdentityCredentials_Put",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "federatedIdentityCredential",
+            "description": "The federatedIdentityCredential to be created or updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
+            }
+          },
+          {
+            "in": "path",
+            "description": "The id of the federatedIdentityCredential",
+            "name": "federatedIdentityCredentialId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "description": "The id of the applications",
+            "name": "applicationsId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "federatedIdentityCredential created/updated successfully",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
             }
           }
         }

@@ -36,7 +36,7 @@
 * **samlMetadataUrl**: string: The URL where the service exposes SAML metadata for federation. This property is valid only for single-tenant applications. Nullable.
 * **serviceManagementReference**: string: References application or service contact information from a Service or Asset Management database. Nullable.
 * **servicePrincipalLockConfiguration**: [MicrosoftGraphServicePrincipalLockConfiguration](#microsoftgraphserviceprincipallockconfiguration): Specifies whether sensitive properties of a multitenant application should be locked for editing after the application is provisioned in a tenant. Nullable. null by default.
-* **signInAudience**: string: Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first
+* **signInAudience**: string: Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first
 * **spa**: [MicrosoftGraphSpaApplication](#microsoftgraphspaapplication): Specifies settings for a single-page application, including sign out URLs and redirect URIs for authorization codes and access tokens.
 * **tags**: string[]: Custom strings that can be used to categorize and identify the application. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
@@ -44,6 +44,18 @@
 * **uniqueName**: string (Required, DeployTimeConstant)
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Specifies settings for a web application.
+
+## Resource Microsoft.Graph/applications/federatedIdentityCredentials@v1.0
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
+* **audiences**: string[] (Required): The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you might need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required.
+* **description**: string: The unvalidated description of the federated identity credential, provided by the user. It has a limit of 600 characters. Optional.
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **issuer**: string (Required): The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique within the app. It has a limit of 600 characters. Required.
+* **name**: string (Required): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Required. Not nullable
+* **subject**: string (Required): Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters
+* **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
 
 ## Resource Microsoft.Graph/appRoleAssignedTo@v1.0
 * **Valid Scope(s)**: Unknown

@@ -56,6 +56,12 @@
       "alternateKey": "name",
       "isContainment": true,
       "containerEntitySet": "applications"
+    },
+    "v1.0": {
+      "isIdempotent": true,
+      "updatable": true,
+      "isContainment": true,
+      "containerEntitySet": "applications"
     }
   },
   "oauth2PermissionGrants": {
