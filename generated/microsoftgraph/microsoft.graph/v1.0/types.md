@@ -41,7 +41,7 @@
 * **tags**: string[]: Custom strings that can be used to categorize and identify the application. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant)
+* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to an application and used as an alternate key. Immutable
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Specifies settings for a web application.
 
@@ -53,7 +53,7 @@
 * **description**: string: The unvalidated description of the federated identity credential, provided by the user. It has a limit of 600 characters. Optional.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **issuer**: string (Required): The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique within the app. It has a limit of 600 characters. Required.
-* **name**: string (Required): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Required. Not nullable
+* **name**: string (Required): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Alternate key. Required. Not nullable
 * **subject**: string (Required): Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters
 * **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
 
@@ -108,7 +108,7 @@
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant)
+* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
 * **visibility**: string: Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value is not specified during group creation on Microsoft Graph, a security group is created as Private by default, and the Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable.
 
 ## Resource Microsoft.Graph/oauth2PermissionGrants@v1.0

@@ -240,8 +240,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Contains the name of the field that a value is associated with.
-* **value**: string: Contains the corresponding value for the specified key.
+* **key**: string: Key.
+* **value**: string: Value.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties

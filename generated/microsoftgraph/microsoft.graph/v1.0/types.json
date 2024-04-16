@@ -219,7 +219,8 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 9
+        "flags": 9,
+        "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable"
       },
       "visibility": {
         "type": {
@@ -633,7 +634,8 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 9
+        "flags": 9,
+        "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable"
       },
       "verifiedPublisher": {
         "type": {
@@ -2033,7 +2035,7 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Required. Not nullable"
+        "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Alternate key. Required. Not nullable"
       },
       "subject": {
         "type": {

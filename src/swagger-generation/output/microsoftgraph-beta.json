@@ -1397,11 +1397,11 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Contains the name of the field that a value is associated with."
+          "description": "Key."
         },
         "value": {
           "type": "string",
-          "description": "Contains the corresponding value for the specified key."
+          "description": "Value."
         }
       }
     },

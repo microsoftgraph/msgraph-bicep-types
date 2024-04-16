@@ -60,6 +60,7 @@
     "v1.0": {
       "isIdempotent": true,
       "updatable": true,
+      "alternateKey": "name",
       "isContainment": true,
       "containerEntitySet": "applications"
     }
