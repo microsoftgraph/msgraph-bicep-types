@@ -219,7 +219,8 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 9
+        "flags": 9,
+        "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable"
       },
       "visibility": {
         "type": {
@@ -606,7 +607,7 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg, AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first"
+        "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first"
       },
       "spa": {
         "type": {
@@ -633,7 +634,8 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 9
+        "flags": 9,
+        "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable"
       },
       "verifiedPublisher": {
         "type": {
@@ -1983,6 +1985,91 @@
   },
   {
     "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/applications/federatedIdentityCredentials"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "v1.0"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/applications/federatedIdentityCredentials",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/86"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/87"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "audiences": {
+        "type": {
+          "$ref": "#/89"
+        },
+        "flags": 1,
+        "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you might need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0,
+        "description": "The unvalidated description of the federated identity credential, provided by the user. It has a limit of 600 characters. Optional."
+      },
+      "issuer": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1,
+        "description": "The URL of the external identity provider, which must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique within the app. It has a limit of 600 characters. Required."
+      },
+      "name": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1,
+        "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Alternate key. Required. Not nullable"
+      },
+      "subject": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1,
+        "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters"
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/88"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
     "value": "Microsoft.Graph/oauth2PermissionGrants"
   },
   {
@@ -1995,14 +2082,14 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/86"
+          "$ref": "#/91"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/87"
+          "$ref": "#/92"
         },
         "flags": 10,
         "description": "The resource api version"
@@ -2056,7 +2143,7 @@
     "name": "Microsoft.Graph/oauth2PermissionGrants@v1.0",
     "scopeType": 0,
     "body": {
-      "$ref": "#/88"
+      "$ref": "#/93"
     },
     "flags": 0
   },
@@ -2074,14 +2161,14 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/90"
+          "$ref": "#/95"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/91"
+          "$ref": "#/96"
         },
         "flags": 10,
         "description": "The resource api version"
@@ -2156,7 +2243,7 @@
     "name": "Microsoft.Graph/appRoleAssignedTo@v1.0",
     "scopeType": 0,
     "body": {
-      "$ref": "#/92"
+      "$ref": "#/97"
     },
     "flags": 0
   }

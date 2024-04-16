@@ -24,6 +24,7 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             "Microsoft.Graph/appRoleAssignedTo@v1.0",
             "Microsoft.Graph/oauth2PermissionGrants@v1.0",
             "Microsoft.Graph/applications/federatedIdentityCredentials@beta",
+            "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0",
         };
 
         private IReadOnlyDictionary<string, string> typesWithRequiredKey = new Dictionary<string, string>
@@ -35,6 +36,7 @@ namespace Microsoft.Graph.Bicep.Types.UnitTests
             ["Microsoft.Graph/groups@v1.0"] = "uniqueName",
             ["Microsoft.Graph/servicePrincipals@v1.0"] = "appId",
             ["Microsoft.Graph/applications/federatedIdentityCredentials@beta"] = "name",
+            ["Microsoft.Graph/applications/federatedIdentityCredentials@v1.0"] = "name",
         };
 
         private IReadOnlyDictionary<string, string> typesWithConstantKey = new Dictionary<string, string>
