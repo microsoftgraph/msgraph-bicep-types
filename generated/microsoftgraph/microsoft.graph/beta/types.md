@@ -17,7 +17,7 @@
 * **displayName**: string (Required): The display name for the application
 * **groupMembershipClaims**: string: Configures the groups claim issued in a user or OAuth 2.0 access token that the application expects. To set this attribute, use one of the following string values: None, SecurityGroup (for security groups and Microsoft Entra roles), All (this gets all security groups, distribution groups, and Microsoft Entra directory roles that the signed-in user is a member of).
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
-* **identifierUris**: string[]: Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<application-client-id>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable
+* **identifierUris**: string[]: Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<appId>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable
 * **info**: [MicrosoftGraphInformationalUrl](#microsoftgraphinformationalurl): Basic profile information of the application, such as it's marketing, support, terms of service, and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more information, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps
 * **isDeviceOnlyAuthSupported**: bool: Specifies whether this application supports device authentication without a user. The default is false.
 * **isFallbackPublicClient**: bool: Specifies the fallback application type as public client, such as an installed application running on a mobile device. The default value is false, which means the fallback application type is confidential client such as a web app. There are certain scenarios where Microsoft Entra ID can't determine the client application type. For example, the ROPC flow where the application is configured without specifying a redirect URI. In those cases Microsoft Entra ID interprets the application type based on the value of this property.
@@ -240,8 +240,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Key.
-* **value**: string: Value.
+* **key**: string: Contains the name of the field that a value is associated with.
+* **value**: string: Contains the corresponding value for the specified key.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties
