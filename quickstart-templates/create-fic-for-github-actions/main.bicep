@@ -13,7 +13,7 @@ resource githubActionsApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'githubActionsApp'
   displayName: 'Github Actions App'
 
-  resource githubFic 'federatedIdentityCredentials@beta' = {
+  resource githubFic 'federatedIdentityCredentials' = {
     name: '${githubActionsApp.uniqueName}/githubFic'
     audiences: [microsoftEntraAudience]
     description: 'FIC for Github Actions to access Entra protected resources'
