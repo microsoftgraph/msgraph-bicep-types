@@ -40,7 +40,11 @@ Only Azure PowerShell and Azure CLI are supported for interactive deployments. T
 - The signed-in user must be assigned the necessary Microsoft Graph service roles, like [Microsoft Entra built-in roles](/entra/identity/role-based-access-control/permissions-reference), to manage the Microsoft Graph resource types declared in the Bicep file.
 - The signed-in user must be assigned the requisite [Azure built-in role](/azure/role-based-access-control/built-in-roles) that allows template file deployments (access to all operations on the `Microsoft.Resources/deployments` resource type).
 
+<!--
 :::image type="content" source="media/permissions-and-privileges/delegated-deployments.png" alt-text="Illustration of permissions and privileges required to deploy Azure and Microsoft Graph resources via Bicep templates in interactive scenarios":::
+-->
+
+![Delegated deployments](./media/permissions-and-privileges/delegated-deployments.png)
 
 ## Permissions for app-only or zero-touch deployments
 
@@ -58,7 +62,11 @@ To deploy Bicep files without a signed-in user:
 - The app's associated service principal must be assigned the requisite [Azure built-in role](/azure/role-based-access-control/built-in-roles) that allows template file deployments (access to all operations on the `Microsoft.Resources/deployments` resource type).
 - That app must be granted the requisite Microsoft Graph application permissions to manage the Microsoft Graph resource types declared in the Bicep file.
 
+<!--
 :::image type="content" source="media/permissions-and-privileges/app-only-deployments.png" alt-text="Illustration of permissions and privileges required to deploy Azure and Microsoft Graph resources via Bicep templates in app-only scenarios":::
+-->
+
+![App-only deployments](./media/permissions-and-privileges/app-only-deployments.png)
 
 ## Enforce least privilege access
 
