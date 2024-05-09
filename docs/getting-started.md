@@ -2,9 +2,9 @@
 
 ## Pre-requisites
 
-To use the private preview you'll need to install [Bicep tools](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install).
+To use the public preview you'll need to install [Bicep tools](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install).
 
-If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version ([v0.25.53](https://github.com/Azure/bicep/releases/tag/v0.25.53) or later).
+If you already have the Bicep extension for VS Code (or Visual Studio) make sure that you have the latest version ([v0.27.1](https://github.com/Azure/bicep/releases/tag/v0.27.1) or later).
 We recommend you get the latest version to ensure you have the latest features, bug fixes and Microsoft Graph resource type definitions.
 
 If you are new to [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview?tabs=bicep), we strongly recommend that you start by getting familiar with Bicep by trying out the [Bicep quickstarts](https://learn.microsoft.com//azure/azure-resource-manager/bicep/quickstart-create-bicep-use-visual-studio-code?tabs=CLI) and [Bicep tutorials](https://learn.microsoft.com/azure/azure-resource-manager/bicep/learn-bicep).
@@ -15,8 +15,7 @@ To get the benefit of intellisense and auto-complete for the Microsoft Graph Bic
 
 ```json
 "experimentalFeaturesEnabled": {
-    "extensibility": true,
-    "microsoftGraphPreview": true
+    "extensibility": true
 }
 ```
 
@@ -37,14 +36,14 @@ Now, when creating a Bicep resource, the available Microsoft.Graph resource type
 | [groups](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphgroupsbeta) | [group resource](https://learn.microsoft.com/graph/api/resources/group?view=graph-rest-beta) | [groups](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphgroupsv10) | [group resource](https://learn.microsoft.com/graph/api/resources/group?view=graph-rest-1.0) |
 | [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphapproleassignedtobeta) | [appRoleAssignment resource](https://learn.microsoft.com/graph/api/resources/approleassignment?view=graph-rest-beta) | [appRoleAssignedTo](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphapproleassignedtov10) | [appRoleAssignment resource](https://learn.microsoft.com/graph/api/resources/approleassignment?view=graph-rest-1.0) |
 | [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [oauth2PermissionGrant resource](https://learn.microsoft.com/graph/api/resources/oauth2permissiongrant?view=graph-rest-beta) | [oauth2PermissionGrants](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphoauth2permissiongrantsv10) | [oauth2PermissionGrant resource](https://learn.microsoft.com/graph/api/resources/oauth2permissiongrant?view=graph-rest-1.0) |
-| [applications/federatedIdentityCredentials](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [federatedidentitycredential resource](https://learn.microsoft.com/graph/api/resources/federatedidentitycredential?view=graph-rest-beta) | Coming soon | Coming soon |
+| [applications/federatedIdentityCredentials](../generated/microsoftgraph/microsoft.graph/beta/types.md#resource-microsoftgraphoauth2permissiongrantsbeta) | [federatedidentitycredential resource](https://learn.microsoft.com/graph/api/resources/federatedidentitycredential?view=graph-rest-beta) | [applications/federatedIdentityCredentials](../generated/microsoftgraph/microsoft.graph/v1.0/types.md#resource-microsoftgraphapplicationsfederatedidentitycredentialsv10)  | [federatedidentitycredential resource](https://learn.microsoft.com/en-us/graph/api/resources/federatedidentitycredential?view=graph-rest-1.0) |
 
 ## Deploying Bicep templates
 
 Bicep templates can be deployed using [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) or [Azure PowerShell](https://learn.microsoft.com/powershell/azure/install-azure-powershell).
 
 Make sure that you've updated Azure CLI and/or Azure PS to use the latest Bicep CLI - for Azure PS this is a [manual process](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install#azure-powershell).
-> **NOTE**: Deployment will only work for tenants that have been enrolled to the private preview.
+> **NOTE**: Interactive deployments - i.e. with a signed in user - will only be supported for Az PS and Az CLI (and possibly Azure Cloud Shell), for public preview, for the foreseeable future. Right-click deploy from VS Code and VS will not be supported.
 
 ## Next steps
 

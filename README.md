@@ -1,13 +1,13 @@
-# Microsoft Graph Bicep Extension (private preview)
+# Microsoft Graph Bicep Extension (public preview)
 
 The "Microsoft Graph Bicep Extension" enables customers to manage a limited set of Identity/Graph resources (Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
 This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and will close a long-standing platform gap and pain-point.
 
 Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Azure and/or Identity resources.
 
-The [releases page](https://github.com/microsoftgraph/msgraph-bicep-types/releases) provides details on the supported Microsoft Graph Bicep types, limitations and known issues for the private preview.
+The [releases page](https://github.com/microsoftgraph/msgraph-bicep-types/releases) provides details on the supported Microsoft Graph Bicep types, limitations and known issues for the public preview.
 
-To get going with the private preview, follow the instructions in [getting started](./docs/getting-started.md).
+To get going with the public preview, follow the instructions in [getting started](./docs/getting-started.md).
 
 ## Contributing
 
