@@ -1,0 +1,6 @@
+- name: Bicep templates for Microsoft Graph Reference
+  uid: bicep.landingPage.reference
+  landingPageType: Root
+  expanded: true
+  children:
+    - '**'
