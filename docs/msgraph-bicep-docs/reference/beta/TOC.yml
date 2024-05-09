@@ -1,0 +1,13 @@
+items:
+- name: Applications
+  href: ./applications.md
+- name: Federated identity credentials
+  href: ./federatedidentitycredentials.md
+- name: App role assigned to
+  href: ./approleassignedto.md
+- name: Groups
+  href: ./groups.md
+- name: Oauth2 permission grants
+  href: ./oauth2permissiongrants.md
+- name: Service principals
+  href: ./serviceprincipals.md
