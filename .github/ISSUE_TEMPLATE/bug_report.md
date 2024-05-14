@@ -16,6 +16,9 @@ Which Microsoft.Graph resource and API version has the issue?
 **Auth flow**
 Is the deployment interactive (e.g. with a signed in user) or automated (e.g. with an application)?
 
+**Deployment details**
+If it's related to deployment failures, please provide the deployment correlation id, Microsoft Graph client request id, and deployment timestamp if applicable.
+
 **Describe the bug**
 A clear and concise description of what the bug is vs what you expected to happen
 
