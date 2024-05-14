@@ -1,6 +1,6 @@
 ---
-name: New Graph Bicep type request
-about: Request a new Graph Bicep type
+name: New Microsoft Graph Bicep type request
+about: Request a new Microsoft Graph Bicep type
 title: ''
 labels: new type, enhancement
 assignees: ''
@@ -8,10 +8,10 @@ assignees: ''
 ---
 
 **Suggestion**
-Which Graph entity is this request for?
+Which Microsoft Graph resource is this request for?
 
 **Value**
-How is the new Graph Bicep type helpful?
+How is the new Microsoft Graph Bicep type helpful? What scenarios would you use it for?
 
-**Graph API REST reference**
-Link to existing Graph REST API doc
+**Microsoft Graph API REST reference**
+Link to existing Microsoft Graph REST API reference article for this resource
