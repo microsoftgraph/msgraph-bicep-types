@@ -5,7 +5,12 @@ name: $(BuildDefinitionName)_$(SourceBranchName)_BUILD_$(Date:yyyyMMdd)$(Rev:.r)
 
 trigger: none
 pr:
-  - main
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/*
 schedules:
   - cron: "0 21 * * *"
     displayName: Daily Build
