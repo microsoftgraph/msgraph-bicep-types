@@ -6,7 +6,7 @@ The best way to get started with a contribution is to start a dialog with us. So
 
 ### New Microsoft Graph Bicep Type Requests
 
-* Please first search existing "new type" requests [here](https://github.com/microsoftgraph/msgraph-bicep-types/labels/new%20type) before opening an issue, to see if the new type has already been requested.
+* Please first search existing "new type" requests [here](https://github.com/microsoftgraph/msgraph-bicep-types/labels/new%20type) before opening an issue, to see if the new type has already been requested. If it has already been requested, please indicate your interest by adding a "thumbs-up" to the item. This will be used to help prioritize the request. Also feel free to leave any further clarifying comments.
 * Ensure you have included the scenarios that the new Microsoft Graph Bicep type is used for.
 * Use the "New Microsoft Graph Bicep type request" issue template [here](https://github.com/microsoftgraph/msgraph-bicep-types/issues/new/choose) to submit your request.
 
