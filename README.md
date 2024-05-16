@@ -1,13 +1,13 @@
-# Microsoft Graph Bicep Provider (public preview)
+# Microsoft Graph Bicep provider (public preview)
 
-The "Microsoft Graph Bicep Provider" enables customers to manage a limited set of Identity/Graph resources (Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
+The **Microsoft Graph Bicep provider** enables customers to manage a limited set of Identity/Graph resources (Microsoft Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
 This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and will close a long-standing platform gap and pain-point.
 
-Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Azure and/or Identity resources.
+Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) or [Azure PowerShell](https://learn.microsoft.com/powershell/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Microsoft Azure and/or Microsoft Entra ID resources.
 
-The [releases page](https://github.com/microsoftgraph/msgraph-bicep-types/releases) provides details on the supported Microsoft Graph Bicep types, limitations and known issues for the public preview.
+The [releases page](https://github.com/microsoftgraph/msgraph-bicep-types/releases) provides details on the supported Microsoft Graph Bicep types and limitations for the public preview.
 
-To get going with the public preview, follow the instructions in [getting started](./docs/getting-started.md).
+To get going with the public preview, start with the [Bicep templates for Microsoft Graph resources public documentation](https://aka.ms/graphbicep).
 
 ## Contributing
 
@@ -23,7 +23,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-See [Contributing to Microsoft Graph Bicep Provider](./CONTRIBUTING.md) for information on contributing examples, new types requests, feature suggestions, or bug reports.
+See [Contributing to Microsoft Graph Bicep provider](./CONTRIBUTING.md) for information on contributing (or fixing) examples, new types requests, feature suggestions, or bug reports on functionality or existing quickstart samples.
 
 ## Trademarks
 

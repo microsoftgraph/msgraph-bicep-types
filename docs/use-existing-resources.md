@@ -1,5 +1,8 @@
 # Use existing Microsoft Graph resources in Bicep templates
 
+> **NOTE**:
+> This topic will be removed as soon as the public preview goes live. Public docs will be at https://aka.ms/graphbicep.
+
 ## Scenario
 
 You want to track/reference existing Microsoft Graph resources (like applications or groups) using the `existing` keyword and manage (update) existing resources using a Bicep template (and the new Graph Bicep Provider).

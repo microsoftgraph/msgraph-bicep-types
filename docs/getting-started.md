@@ -1,5 +1,8 @@
 # Getting started
 
+> **NOTE**:
+> This topic will be removed as soon as the public preview goes live. Public docs will be at https://aka.ms/graphbicep.
+
 ## Pre-requisites
 
 To use the public preview you'll need to install [Bicep tools](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install).
