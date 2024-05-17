@@ -1,5 +1,5 @@
-# Contributing to the Microsoft Graph Bicep Provider
-Thanks for considering making a contribution! We are happy to accept community contributions to the Microsoft Graph Bicep provider. There are a few different recommended paths to make contributions.
+# Contributing to the Microsoft Graph Bicep Extension
+Thanks for considering making a contribution! We are happy to accept community contributions to the Microsoft Graph Bicep extension. There are a few different recommended paths to make contributions.
 
 ## File Issues
 The best way to get started with a contribution is to start a dialog with us. Sometimes features will be under development or out of scope for this project and it's best to check before starting work on contribution, especially for large work items.
