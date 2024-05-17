@@ -1,6 +1,6 @@
-# Microsoft Graph Bicep provider (public preview)
+# Microsoft Graph Bicep extension (public preview)
 
-The **Microsoft Graph Bicep provider** enables customers to manage a limited set of Identity/Graph resources (Microsoft Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
+The **Microsoft Graph Bicep extension** enables customers to manage a limited set of Identity/Graph resources (Microsoft Entra ID, formerly known as Azure AD) in Bicep templates (alongside Azure resources) through native Microsoft Graph APIs.
 This unblocks Infrastructure-as-Code/DevOps outcomes for Azure customers and will close a long-standing platform gap and pain-point.
 
 Customers can then use [Azure CLI](https://learn.microsoft.com/cli/azure/) or [Azure PowerShell](https://learn.microsoft.com/powershell/azure/) to [deploy Bicep templates](https://learn.microsoft.com/azure/azure-resource-manager/bicep/deploy-cli) and their set of Microsoft Azure and/or Microsoft Entra ID resources.
@@ -23,7 +23,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-See [Contributing to Microsoft Graph Bicep provider](./CONTRIBUTING.md) for information on contributing (or fixing) examples, new types requests, feature suggestions, or bug reports on functionality or existing quickstart samples.
+See [Contributing to Microsoft Graph Bicep extension](./CONTRIBUTING.md) for information on contributing (or fixing) examples, new types requests, feature suggestions, or bug reports on functionality or existing quickstart samples.
 
 ## Trademarks
 

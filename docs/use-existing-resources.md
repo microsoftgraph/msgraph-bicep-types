@@ -5,11 +5,11 @@
 
 ## Scenario
 
-You want to track/reference existing Microsoft Graph resources (like applications or groups) using the `existing` keyword and manage (update) existing resources using a Bicep template (and the new Graph Bicep Provider).
+You want to track/reference existing Microsoft Graph resources (like applications or groups) using the `existing` keyword and manage (update) existing resources using a Bicep template (and the new Graph Bicep extension).
 
 ## Problem
 
-As part of the Graph Bicep Provider public preview, we've extended some Microsoft Graph API resource types like `group` to have a new alternate key property called `uniqueName`.
+As part of the Graph Bicep extension public preview, we've extended some Microsoft Graph API resource types like `group` to have a new alternate key property called `uniqueName`.
 The `uniqueName` property allows the template author to define a client-provided key for a resource, that can be referenced after deployment by the same template or other templates. In fact, you can see this usage in some of our quick-start templates like [this one](https://github.com/microsoftgraph/msgraph-bicep-types/tree/main/quickstart-templates/resource-application-access-grant-to-client-application).
 
 The problem is that any Microsoft Graph resources created **outside** of a Bicep/ARM template typically do **not** have a client-provided key defined for them.
