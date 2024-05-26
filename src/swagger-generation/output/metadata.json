@@ -126,5 +126,17 @@
         "resourceId"
       ]
     }
+  },
+  "subscriptions": {
+    "beta": {
+      "isIdempotent": false,
+      "updatable": false,
+      "isContainment": false
+    },
+    "v1.0": {
+      "isIdempotent": false,
+      "updatable": false,
+      "isContainment": false
+    }
   }
 }
