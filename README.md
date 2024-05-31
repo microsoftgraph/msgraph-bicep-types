@@ -28,6 +28,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 See [Contributing to Microsoft Graph Bicep extension](./CONTRIBUTING.md) for information on contributing (or fixing) examples, new types requests, feature suggestions, or bug reports on functionality or existing quickstart samples.
+> Note: Contribution to new Bicep types is limited to feature requests via GitHub Issues at this point. We encourage you to utilize the issue type designated for requesting new Graph Bicep types. Your input is valuable and helps us prioritize updates with the API service teams to enhance Bicep support.
 
 ## Trademarks
 
