@@ -1,58 +1,26 @@
-# Path to fetch the metadata document
 MetadataFilePath: clean_beta_metadata/cleanMetadataWithDescriptionsAndAnnotationsbeta.xml
 
-# List of entity types to generate swagger from.
-# - Name: Name of the entity type
-#   RootUri: Path to the entity in swagger document. If missing, the entity will not be exposed
-#   AvailableProperty: List of properties that will be generated in the swagger document. If missing, all properties will be generated
-#   NavigationPropertyMode: Mode to generate navigation properties. Possible values are:
-#     - Allow: All properties from the list will be generated, properties not in the list will be ignored
-#     - Ignore: All properties from the list will be ignored, properties not in the list will be generated
-#     If missing, the default value is Allow
-#   NavigationProperty: List of navigation properties used in the option before
-#   RequiredOnWrite: List of properties that are required on write
-#   ReadOnly: List of properties that are read only
 EntityTypes:
   - Name: microsoft.graph.group
     RootUri: /groups
     Upsertable: true
-    AvailableProperty:
-      - classification
-      - createdByAppId
-      - createdDateTime
-      - description
-      - displayName
-      - expirationDateTime
-      - groupTypes
-      - infoCatalogs
-      - isAssignableToRole
-      - isManagementRestricted
-      - mail
-      - mailEnabled
-      - mailNickname
-      - membershipRule
-      - membershipRuleProcessingState
-      - onPremisesDomainName
-      - onPremisesLastSyncDateTime
-      - onPremisesNetBiosName
-      - onPremisesProvisioningErrors
-      - onPremisesSamAccountName
-      - onPremisesSecurityIdentifier
-      - onPremisesSyncEnabled
-      - organizationId
-      - preferredDataLocation
-      - preferredLanguage
-      - proxyAddresses
-      - renewedDateTime
-      - resourceBehaviorOptions
-      - resourceProvisioningOptions
-      - securityEnabled
-      - securityIdentifier
-      - serviceProvisioningErrors
-      - theme
-      - uniqueName
-      - visibility
-      - writebackConfiguration
+    IgnoredProperties:
+      - accessType
+      - allowExternalSenders
+      - assignedLabels
+      - assignedLicenses
+      - autoSubscribeNewMembers
+      - hasMembersWithLicenseErrors
+      - hideFromAddressLists
+      - hideFromOutlookClients
+      - isArchived
+      - isFavorite
+      - isSubscribedByMail
+      - licenseProcessingState
+      - membershipRuleProcessingStatus
+      - unseenConversationsCount
+      - unseenCount
+      - unseenMessagesCount
     NavigationProperty:
       - members
       - owners
@@ -79,43 +47,8 @@ EntityTypes:
   - Name: microsoft.graph.application
     RootUri: /applications
     Upsertable: true
-    AvailableProperty:
-      - api
-      - appId
-      - appRoles
-      - authenticationBehaviors
-      - certification
-      - createdDateTime
-      - defaultRedirectUri
-      - description
-      - disabledByMicrosoftStatus
-      - displayName
-      - groupMembershipClaims
-      - identifierUris
-      - info
-      - isDeviceOnlyAuthSupported
-      - isFallbackPublicClient
-      - keyCredentials
-      - logo
-      - notes
-      - optionalClaims
-      - parentalControlSettings
-      - passwordCredentials
-      - publicClient
-      - publisherDomain
-      - requestSignatureVerification
-      - requiredResourceAccess
-      - samlMetadataUrl
-      - serviceManagementReference
-      - servicePrincipalLockConfiguration
-      - signInAudience
-      - spa
-      - tags
-      - tokenEncryptionKeyId
-      - uniqueName
-      - verifiedPublisher
-      - web
-      - windows
+    IgnoredProperties:
+      - onPremisesPublishing
     RequiredOnWrite:
       - displayName
       - uniqueName
@@ -127,42 +60,10 @@ EntityTypes:
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
-    AvailableProperty:
-      - accountEnabled
-      - addIns
-      - alternativeNames
-      - appDescription
-      - appDisplayName
-      - appId
-      - appOwnerOrganizationId
-      - appRoleAssignmentRequired
-      - appRoles
-      - applicationTemplateId
-      - description
-      - disabledByMicrosoftStatus
-      - displayName
-      - homepage
-      - info
-      - keyCredentials
-      - loginUrl
-      - logoutUrl
-      - notes
-      - notificationEmailAddresses
-      - passwordCredentials
-      - publishedPermissionScopes
-      - preferredSingleSignOnMode
-      - preferredTokenSigningKeyThumbprint
-      - preferredTokenSigningKeyEndDateTime
-      - publisherName
-      - replyUrls
-      - samlMetadataUrl
-      - samlSingleSignOnSettings
-      - servicePrincipalNames
-      - servicePrincipalType
-      - signInAudience
-      - tags
-      - tokenEncryptionKeyId
-      - verifiedPublisher
+    IgnoredProperties:
+      - customSecurityAttributes
+      - errorUrl
+      - passwordSingleSignOnSettings
     RequiredOnWrite:
       - appId
     ReadOnly:
@@ -172,12 +73,6 @@ EntityTypes:
     RootUri: /applications/federatedIdentityCredentials
     Upsertable: true
     ContainerEntitySet: applications
-    AvailableProperty:
-      - audiences
-      - description
-      - issuer
-      - name
-      - subject
     RequiredOnWrite:
       - audiences
       - issuer
@@ -187,12 +82,9 @@ EntityTypes:
     RootUri: /oauth2PermissionGrants
     Upsertable: false
     Updatable: true
-    AvailableProperty:
-      - clientId
-      - consentType
-      - principalId
-      - resourceId
-      - scope
+    IgnoredProperties:
+      - expiryTime
+      - startTime
     RequiredOnWrite:
       - clientId
       - consentType
@@ -211,14 +103,6 @@ EntityTypes:
     Updatable: false
     ContainerEntitySet: servicePrincipals
     ContainerKeyProperty: resourceId
-    AvailableProperty:
-      - appRoleId
-      - creationTimestamp
-      - principalDisplayName
-      - principalId
-      - principalType
-      - resourceDisplayName
-      - resourceId
     RequiredOnWrite:
       - appRoleId
       - principalId
@@ -239,19 +123,17 @@ EntityTypes:
     ReadOnly:
       - logoUrl
   - Name: microsoft.graph.passwordCredential
-    AvailableProperty:
-      - displayName
-      - endDateTime
-      - hint
-      - keyId
-      - secretText
-      - startDateTime
+    IgnoredProperties:
+      - customKeyIdentifier
     ReadOnly:
       - hint
       - secretText
   - Name: microsoft.graph.windowsApplication
     ReadOnly:
       - packageSid
+  - Name: microsoft.graph.permissionScope
+    IgnoredProperties:
+      - origin
   - Name: microsoft.graph.directoryObject
     ReadOnly:
       - deletedDateTime

@@ -185,14 +185,15 @@ const propertyFilter = (entityConfig: EntityTypeConfig | undefined, property: Pr
   if (!entityConfig)
     return true // Include all properties by default
 
-  const availableProperty: string[] | undefined = entityConfig.AvailableProperty
-
-  // Core property is either not set or set to only allow listed properties (default behavior)
-  if (!availableProperty || availableProperty.length === 0 || availableProperty.includes(property.Name)) {
-    return true;
+  if (!entityConfig.AvailableProperty && !entityConfig.IgnoredProperties) {
+    return true; // Include all properties because there's no list
+  } else if (entityConfig.AvailableProperty) {
+    return entityConfig.AvailableProperty.includes(property.Name); // Include if it's listed
+  } else if (entityConfig.IgnoredProperties) {
+    return !entityConfig.IgnoredProperties.includes(property.Name); // Include if not ignored
   }
 
-  return false // Ignored because it's not listed
+  return false; // Exclude because it's ignored or not listed
 }
 
 const navigationPropertyFilter = (entityConfig: EntityTypeConfig | undefined, navigationProperty: NavigationProperty): boolean => {

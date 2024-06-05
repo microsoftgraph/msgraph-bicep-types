@@ -67,7 +67,7 @@
             },
             "isAssignableToRole": {
               "type": "boolean",
-              "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true,  visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers in Global Administrator and Privileged Role Administrator roles can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
+              "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true,  visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
             },
             "isManagementRestricted": {
               "type": "boolean",
@@ -139,7 +139,7 @@
             },
             "preferredDataLocation": {
               "type": "string",
-              "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned one of the following Microsoft Entra roles:  Global Administrator  User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo and Create a Microsoft 365 group with a specific PDL. Nullable"
+              "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned at least one of the following Microsoft Entra roles:  User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo and Create a Microsoft 365 group with a specific PDL. Nullable"
             },
             "preferredLanguage": {
               "type": "string",
@@ -851,6 +851,44 @@
         }
       }
     },
+    "microsoft.graph.permissionScope": {
+      "type": "object",
+      "properties": {
+        "adminConsentDescription": {
+          "type": "string",
+          "description": "A description of the delegated permissions, intended to be read by an administrator granting the permission on behalf of all users. This text appears in tenant-wide admin consent experiences."
+        },
+        "adminConsentDisplayName": {
+          "type": "string",
+          "description": "The permission's title, intended to be read by an administrator granting the permission on behalf of all users."
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique delegated permission identifier inside the collection of delegated permissions defined for a resource application."
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "description": "When you create or update a permission, this property must be set to true (which is the default). To delete a permission, this property must first be set to false. At that point, in a subsequent call, the permission may be removed."
+        },
+        "type": {
+          "type": "string",
+          "description": "The possible values are: User and Admin. Specifies whether this delegated permission should be considered safe for non-admin users to consent to on behalf of themselves, or whether an administrator consent should always be required. While Microsoft Graph defines the default consent requirement for each permission, the tenant administrator may override the behavior in their organization (by allowing, restricting, or limiting user consent to this delegated permission). For more information, see Configure how users consent to applications."
+        },
+        "userConsentDescription": {
+          "type": "string",
+          "description": "A description of the delegated permissions, intended to be read by a user granting the permission on their own behalf. This text appears in consent experiences where the user is consenting only on behalf of themselves."
+        },
+        "userConsentDisplayName": {
+          "type": "string",
+          "description": "A title for the permission, intended to be read by a user granting the permission on their own behalf. This text appears in consent experiences where the user is consenting only on behalf of themselves."
+        },
+        "value": {
+          "type": "string",
+          "description": "Specifies the value to include in the scp (scope) claim in access tokens. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
+        }
+      }
+    },
     "microsoft.graph.directoryObject": {
       "allOf": [
         {
@@ -1236,60 +1274,18 @@
         "id": {
           "type": "string",
           "format": "uuid",
-          "description": ""
+          "description": "The unique identifier for the addIn object."
         },
         "properties": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/microsoft.graph.keyValue"
           },
-          "description": ""
+          "description": "The collection of key-value pairs that define parameters that the consuming service can use or call. You must specify this property when performing a POST or a PATCH operation on the addIns collection. Required."
         },
         "type": {
           "type": "string",
-          "description": ""
-        }
-      }
-    },
-    "microsoft.graph.permissionScope": {
-      "type": "object",
-      "properties": {
-        "adminConsentDescription": {
-          "type": "string",
-          "description": "A description of the delegated permissions, intended to be read by an administrator granting the permission on behalf of all users. This text appears in tenant-wide admin consent experiences."
-        },
-        "adminConsentDisplayName": {
-          "type": "string",
-          "description": "The permission's title, intended to be read by an administrator granting the permission on behalf of all users."
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid",
-          "description": "Unique delegated permission identifier inside the collection of delegated permissions defined for a resource application."
-        },
-        "isEnabled": {
-          "type": "boolean",
-          "description": "When you create or update a permission, this property must be set to true (which is the default). To delete a permission, this property must first be set to false. At that point, in a subsequent call, the permission may be removed."
-        },
-        "origin": {
-          "type": "string",
-          "description": ""
-        },
-        "type": {
-          "type": "string",
-          "description": "The possible values are: User and Admin. Specifies whether this delegated permission should be considered safe for non-admin users to consent to on behalf of themselves, or whether an administrator consent should always be required. While Microsoft Graph defines the default consent requirement for each permission, the tenant administrator may override the behavior in their organization (by allowing, restricting, or limiting user consent to this delegated permission). For more information, see Configure how users consent to applications."
-        },
-        "userConsentDescription": {
-          "type": "string",
-          "description": "A description of the delegated permissions, intended to be read by a user granting the permission on their own behalf. This text appears in consent experiences where the user is consenting only on behalf of themselves."
-        },
-        "userConsentDisplayName": {
-          "type": "string",
-          "description": "A title for the permission, intended to be read by a user granting the permission on their own behalf. This text appears in consent experiences where the user is consenting only on behalf of themselves."
-        },
-        "value": {
-          "type": "string",
-          "description": "Specifies the value to include in the scp (scope) claim in access tokens. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
+          "description": "The unique name for the functionality exposed by the app."
         }
       }
     },

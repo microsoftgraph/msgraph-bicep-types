@@ -44,6 +44,7 @@ export class TypeTranslator {
       [PrimitivePropertyType.GeometryMultiLineString, PrimitiveSwaggerType.Instance.String],
       [PrimitivePropertyType.GeometryMultiPolygon, PrimitiveSwaggerType.Instance.String],
       [PrimitivePropertyType.GeometryCollection, PrimitiveSwaggerType.Instance.String],
+      [PrimitivePropertyType.Untyped, PrimitiveSwaggerType.Instance.String],
     ])
   }
 

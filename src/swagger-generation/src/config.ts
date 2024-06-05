@@ -18,6 +18,7 @@ export interface EntityTypeConfig {
   ContainerEntitySet?: string,
   ContainerKeyProperty?: string,
   AvailableProperty?: string[],
+  IgnoredProperties?: string[],
   NavigationPropertyMode?: NavigationPropertyMode,
   NavigationProperty?: string[]
   RequiredOnWrite?: string[]
