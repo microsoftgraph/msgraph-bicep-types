@@ -638,6 +638,48 @@ describe('available property', () => {
     expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeUndefined();
   });
 
+  it('should ignore properties in ignored list', () => {
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+    entityTypes.set('namespace.entityNameOne', {
+      Name: 'namespace.entityNameOne',
+      RootUri: '/entityName',
+      IgnoredProperties: ['propertyNameTwo'],
+    } as EntityTypeConfig);
+
+    const config = getMockConfig(entityTypes);
+
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+    const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
+    expect(entity).toBeDefined();
+    expect(entity!.Property.length).toBe(2);
+    expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
+    expect(entity!.Property.find((prop) => prop.Name === 'uniqueName')).toBeDefined();
+    expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeUndefined();
+  });
+
+  it('should include available properties only if both available and ignored list provided', () => {
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+    entityTypes.set('namespace.entityNameOne', {
+      Name: 'namespace.entityNameOne',
+      RootUri: '/entityName',
+      AvailableProperty: ['propertyName'],
+      IgnoredProperties: ['propertyNameTwo'],
+    } as EntityTypeConfig);
+
+    const config = getMockConfig(entityTypes);
+
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+    const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
+
+    expect(entity).toBeDefined();
+    expect(entity!.Property.length).toBe(1);
+    expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
+  });
+
   it('should include no properties if not matching available property', () => {
     const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 

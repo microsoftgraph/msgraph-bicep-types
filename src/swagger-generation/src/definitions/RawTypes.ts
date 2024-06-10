@@ -148,4 +148,5 @@ export enum PrimitivePropertyType {
     GeometryMultiLineString = "Edm.GeometryMultiLineString",
     GeometryMultiPolygon = "Edm.GeometryMultiPolygon",
     GeometryCollection = "Edm.GeometryCollection",
+    Untyped = "Edm.Untyped",
 }
