@@ -99,7 +99,8 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
               },
-              "description": "Errors when using Microsoft synchronization product during provisioning"
+              "description": "Errors when using Microsoft synchronization product during provisioning",
+              "readOnly": true
             },
             "onPremisesSamAccountName": {
               "type": "string",
@@ -144,7 +145,8 @@
             },
             "securityIdentifier": {
               "type": "string",
-              "description": "Security identifier of the group, used in Windows scenarios"
+              "description": "Security identifier of the group, used in Windows scenarios",
+              "readOnly": true
             },
             "serviceProvisioningErrors": {
               "type": "array",
