@@ -135,7 +135,7 @@
         "type": {
           "$ref": "#/7"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Errors when using Microsoft synchronization product during provisioning"
       },
       "onPremisesSamAccountName": {
@@ -198,7 +198,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Security identifier of the group, used in Windows scenarios"
       },
       "serviceProvisioningErrors": {

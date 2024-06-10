@@ -94,7 +94,7 @@
 * **onPremisesDomainName**: string (ReadOnly)
 * **onPremisesLastSyncDateTime**: string (ReadOnly): Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only
 * **onPremisesNetBiosName**: string (ReadOnly)
-* **onPremisesProvisioningErrors**: [MicrosoftGraphOnPremisesProvisioningError](#microsoftgraphonpremisesprovisioningerror)[]: Errors when using Microsoft synchronization product during provisioning
+* **onPremisesProvisioningErrors**: [MicrosoftGraphOnPremisesProvisioningError](#microsoftgraphonpremisesprovisioningerror)[] (ReadOnly): Errors when using Microsoft synchronization product during provisioning
 * **onPremisesSamAccountName**: string (ReadOnly): Contains the on-premises SAM account name synchronized from the on-premises directory. Read-only.
 * **onPremisesSecurityIdentifier**: string (ReadOnly): Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only.
 * **onPremisesSyncEnabled**: bool (ReadOnly): true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only
@@ -104,7 +104,7 @@
 * **proxyAddresses**: string[] (ReadOnly): Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required to filter expressions on multi-valued properties. Read-only. Not nullable
 * **renewedDateTime**: string (ReadOnly): Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
 * **securityEnabled**: bool (Required): Specifies whether the group is a security group. Required
-* **securityIdentifier**: string: Security identifier of the group, used in Windows scenarios
+* **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type

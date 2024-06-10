@@ -39,11 +39,13 @@ EntityTypes:
       - onPremisesDomainName
       - onPremisesLastSyncDateTime
       - onPremisesNetBiosName
+      - onPremisesProvisioningErrors
       - onPremisesSamAccountName
       - onPremisesSecurityIdentifier
       - onPremisesSyncEnabled
       - proxyAddresses
       - renewedDateTime
+      - securityIdentifier
   - Name: microsoft.graph.application
     RootUri: /applications
     Upsertable: true
