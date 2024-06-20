@@ -173,7 +173,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only."
+        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only."
       },
       "onPremisesSyncEnabled": {
         "type": {
@@ -242,7 +242,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Security identifier of the group, used in Windows scenarios"
+        "description": "Security identifier of the group, used in Windows scenarios. Read-only"
       },
       "serviceProvisioningErrors": {
         "type": {
@@ -1976,14 +1976,14 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Contains the name of the field that a value is associated with."
+        "description": "Key."
       },
       "value": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Contains the corresponding value for the specified key."
+        "description": "Value."
       }
     }
   },

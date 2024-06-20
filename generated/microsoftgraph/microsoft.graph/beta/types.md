@@ -97,7 +97,7 @@
 * **onPremisesNetBiosName**: string (ReadOnly): Contains the on-premises netBios name synchronized from the on-premises directory. Read-only.
 * **onPremisesProvisioningErrors**: [MicrosoftGraphOnPremisesProvisioningError](#microsoftgraphonpremisesprovisioningerror)[] (ReadOnly): Errors when using Microsoft synchronization product during provisioning
 * **onPremisesSamAccountName**: string (ReadOnly): Contains the on-premises SAM account name synchronized from the on-premises directory. Read-only.
-* **onPremisesSecurityIdentifier**: string (ReadOnly): Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only.
+* **onPremisesSecurityIdentifier**: string (ReadOnly): Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only.
 * **onPremisesSyncEnabled**: bool (ReadOnly): true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only
 * **organizationId**: string
 * **owners**: string[]: The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner
@@ -108,7 +108,7 @@
 * **resourceBehaviorOptions**: string[]: Specifies the group behaviors that can be set for a Microsoft 365 group during creation. This property can be set only as part of creation (POST). For the list of possible values, see Microsoft 365 group behaviors and provisioning options.
 * **resourceProvisioningOptions**: string[]: Specifies the group resources that are associated with the Microsoft 365 group. The possible value is Team. For more information, see Microsoft 365 group behaviors and provisioning options
 * **securityEnabled**: bool (Required): Specifies whether the group is a security group
-* **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios
+* **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios. Read-only
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
@@ -240,8 +240,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Contains the name of the field that a value is associated with.
-* **value**: string: Contains the corresponding value for the specified key.
+* **key**: string: Key.
+* **value**: string: Value.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties
