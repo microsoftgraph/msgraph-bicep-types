@@ -126,7 +126,7 @@
             },
             "onPremisesSecurityIdentifier": {
               "type": "string",
-              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only.",
+              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only.",
               "readOnly": true
             },
             "onPremisesSyncEnabled": {
@@ -180,7 +180,7 @@
             },
             "securityIdentifier": {
               "type": "string",
-              "description": "Security identifier of the group, used in Windows scenarios",
+              "description": "Security identifier of the group, used in Windows scenarios. Read-only",
               "readOnly": true
             },
             "serviceProvisioningErrors": {
@@ -1395,11 +1395,11 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Contains the name of the field that a value is associated with."
+          "description": "Key."
         },
         "value": {
           "type": "string",
-          "description": "Contains the corresponding value for the specified key."
+          "description": "Value."
         }
       }
     },
