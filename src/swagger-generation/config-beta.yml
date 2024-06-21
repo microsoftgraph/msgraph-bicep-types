@@ -142,3 +142,29 @@ EntityTypes:
   - Name: microsoft.graph.entity
     ReadOnly:
       - id
+  - Name: microsoft.graph.subscription
+    RootUri: /subscriptions
+    AvailableProperty:
+      - applicationId
+      - changeType
+      - clientState
+      - creatorId
+      - encryptionCertificate
+      - encryptionCertificateId
+      - expirationDateTime
+      - includeResourceData
+      - latestSupportedTlsVersion
+      - lifecycleNotificationUrl
+      - notificationContentType
+      - notificationQueryOptions
+      - notificationUrl
+      - notificationUrlAppId
+      - resource
+    RequiredOnWrite:
+      - changeType
+      - expirationDateTime
+      - notificationUrl
+      - resource
+    ReadOnly:
+      - applicationId
+      - creatorId
