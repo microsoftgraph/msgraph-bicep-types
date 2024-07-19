@@ -1,6 +1,8 @@
 # Assign an Azure role to a security group
 
-> **Note**: This template depends on a successful deployment of [security-group-create-with-owners-and-members](../security-group-create-with-owners-and-members)
+> **Note1**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+
+> **Note2**: This template depends on a successful deployment of [security-group-create-with-owners-and-members](../security-group-create-with-owners-and-members)
 
 This template allows you to assign an Azure Reader role to an existing security group.
 

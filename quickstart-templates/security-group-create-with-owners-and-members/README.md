@@ -1,6 +1,8 @@
 # Create a group with members and owners
 
-> **Note**: This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
+> **Note1**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+
+> **Note2**: This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
 
 This template allows you to create a security group with members and owners. Both `members` and `owners` take a list of object ids.
 
