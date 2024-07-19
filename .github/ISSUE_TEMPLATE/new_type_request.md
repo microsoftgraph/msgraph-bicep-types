@@ -6,6 +6,7 @@ labels: new type, enhancement
 assignees: ''
 
 ---
+**Vote for this new type by clicking the thumbs-up.**
 
 **Suggestion**
 Which Microsoft Graph resource is this request for?

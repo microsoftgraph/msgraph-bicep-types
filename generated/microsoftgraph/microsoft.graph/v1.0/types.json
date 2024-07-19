@@ -33,14 +33,14 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Describes a classification for the group (such as low, medium or high business impact)"
+        "description": "Describes a classification for the group (such as low, medium, or high business impact)"
       },
       "createdDateTime": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
+        "description": "Timestamp of when the group was created. The value can't be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
       },
       "description": {
         "type": {
@@ -54,14 +54,14 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The display name for the group. This property is required when a group is created and cannot be cleared during updates. Maximum length is 256 characters"
+        "description": "The display name for the group. This property is required when a group is created and can't be cleared during updates. Maximum length is 256 characters"
       },
       "expirationDateTime": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Timestamp of when the group is set to expire. It is null for security groups, but for Microsoft 365 groups, it represents when the group is set to expire as defined in the groupLifecyclePolicy. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
+        "description": "Timestamp of when the group is set to expire. It's null for security groups, but for Microsoft 365 groups, it represents when the group is set to expire as defined in the groupLifecyclePolicy. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
       },
       "groupTypes": {
         "type": {
@@ -75,7 +75,7 @@
           "$ref": "#/5"
         },
         "flags": 0,
-        "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true, visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes cannot contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
+        "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true, visibility must be Hidden, and the group can't be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
       },
       "mail": {
         "type": {
@@ -96,7 +96,7 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following: @ () / [] ' ; : <> , SPACE. Required"
+        "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following characters: @ () / [] ' ; : <> , SPACE. Required"
       },
       "membershipRule": {
         "type": {
@@ -123,7 +123,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only"
+        "description": "Indicates the last time at which the group was synced with the on-premises directory. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only"
       },
       "onPremisesNetBiosName": {
         "type": {
@@ -150,14 +150,14 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only."
+        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only."
       },
       "onPremisesSyncEnabled": {
         "type": {
           "$ref": "#/5"
         },
         "flags": 2,
-        "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only"
+        "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never synced from an on-premises directory (default). Read-only"
       },
       "preferredDataLocation": {
         "type": {
@@ -185,7 +185,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
+        "description": "Timestamp of when the group was last renewed. This value can't be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only."
       },
       "securityEnabled": {
         "type": {
@@ -199,21 +199,21 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Security identifier of the group, used in Windows scenarios"
+        "description": "Security identifier of the group, used in Windows scenarios. Read-only"
       },
       "serviceProvisioningErrors": {
         "type": {
           "$ref": "#/10"
         },
         "flags": 0,
-        "description": "Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object"
+        "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object"
       },
       "theme": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red"
+        "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange, or Red"
       },
       "uniqueName": {
         "type": {
@@ -227,7 +227,7 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value is not specified during group creation on Microsoft Graph, a security group is created as Private by default, and the Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable."
+        "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and the Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable."
       },
       "members": {
         "type": {
@@ -241,7 +241,7 @@
           "$ref": "#/12"
         },
         "flags": 0,
-        "description": "The owners of the group. Limited to 100 owners. Nullable. If this property is not specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
+        "description": "The owners of the group. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
       },
       "deletedDateTime": {
         "type": {
@@ -2096,14 +2096,14 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The object id (not appId) of the client service principal for the application which is authorized to act on behalf of a signed-in user when accessing an API. Required"
+        "description": "The object id (not appId) of the client service principal for the application that's authorized to act on behalf of a signed-in user when accessing an API. Required"
       },
       "consentType": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "Indicates if authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Non-admin users may be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required"
+        "description": "Indicates if authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users might be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required"
       },
       "principalId": {
         "type": {
@@ -2117,14 +2117,14 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The id of the resource service principal to which access is authorized. This identifies the API which the client is authorized to attempt to call on behalf of a signed-in user"
+        "description": "The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user"
       },
       "scope": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "A space-separated list of the claim values for delegated permissions which should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the oauth2PermissionScopes property of the resource service principal. Must not exceed 3850 characters in length."
+        "description": "A space-separated list of the claim values for delegated permissions that should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the oauth2PermissionScopes property of the resource service principal. Must not exceed 3,850 characters in length."
       },
       "id": {
         "type": {
