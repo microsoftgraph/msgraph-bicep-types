@@ -1,5 +1,7 @@
 # Create a client app with an X509 certificate from Key Vault as the credential
 
+> **Note**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+
 The template creates a Key Vault, through which the authorized managed identity can add an X509 certificate (if it doesn't exist) and get the certificate's public key (base64 encoded), along with the thumbprint and other metadata.
 Finally the template creates the client application resource using the certificate public key as its credential. followed
 by creation of the service principal

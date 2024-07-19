@@ -1,5 +1,7 @@
 # Create client and resource apps
 
+> **Note**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+
 This template allows you to create a client application and a resource application, along with their service principals.
 
 * The client application is created with an optional key credential. The key can be passed in as a parameter. [Get The Certificate Key](https://learn.microsoft.com/en-us/graph/applications-how-to-add-certificate?tabs=http#get-the-certificate-key) mentions the steps to get the certificate key for a self-signed certificate. Here's a basic script:
