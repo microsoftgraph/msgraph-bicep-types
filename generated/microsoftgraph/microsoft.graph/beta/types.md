@@ -139,7 +139,7 @@
 * **appDisplayName**: string: The display name exposed by the associated application.
 * **appId**: string (Required): The unique identifier for the associated application (its appId property). Alternate key
 * **applicationTemplateId**: string (ReadOnly): Unique identifier of the applicationTemplate. Read-only. null if the app wasn't created from an application template.
-* **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
+* **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (ReadOnly): Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
 * **appRoleAssignmentRequired**: bool: Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]: The roles exposed by the application, which this service principal represents. For more information, see the appRoles property definition on the application entity. Not nullable.
 * **deletedDateTime**: string (ReadOnly): Date and time when this object was deleted. Always null when the object hasn't been deleted.

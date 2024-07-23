@@ -25,7 +25,6 @@
 * **keyCredentials**: [MicrosoftGraphKeyCredential](#microsoftgraphkeycredential)[]: The collection of key credentials associated with the application. Not nullable
 * **logo**: string: The main logo for the application. Not nullable.
 * **notes**: string: Notes relevant for the management of the application.
-* **oauth2RequirePostResponse**: bool
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app.
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Specifies parental control settings for an application.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the application. Not nullable.
@@ -134,7 +133,7 @@
 * **appDisplayName**: string: The display name exposed by the associated application.
 * **appId**: string (Required): The unique identifier for the associated application (its appId property). Alternate key
 * **applicationTemplateId**: string (ReadOnly): Unique identifier of the applicationTemplate. Read-only. null if the service principal wasn't created from an application template.
-* **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
+* **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (ReadOnly): Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
 * **appRoleAssignmentRequired**: bool: Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable
 * **appRoles**: [MicrosoftGraphAppRole](#microsoftgraphapprole)[]: The roles exposed by the application that's linked to this service principal. For more information, see the appRoles property definition on the application entity. Not nullable.
 * **customSecurityAttributes**: any: An open complex type that holds the value of a custom security attribute that is assigned to a directory object. Nullable. Filter value is case sensitive.

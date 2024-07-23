@@ -1732,7 +1732,7 @@
         "type": {
           "$ref": "#/22"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
       },
       "appRoleAssignmentRequired": {

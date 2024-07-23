@@ -42,6 +42,8 @@ EntityTypes:
   - Name: microsoft.graph.application
     RootUri: /applications
     Upsertable: true
+    IgnoredProperties:
+      - oauth2RequirePostResponse
     RequiredOnWrite:
       - displayName
       - uniqueName
@@ -58,6 +60,7 @@ EntityTypes:
       - appId
     ReadOnly:
       - applicationTemplateId
+      - appOwnerOrganizationId
       - resourceSpecificApplicationPermissions
       - signInAudience
   - Name: microsoft.graph.federatedIdentityCredential
