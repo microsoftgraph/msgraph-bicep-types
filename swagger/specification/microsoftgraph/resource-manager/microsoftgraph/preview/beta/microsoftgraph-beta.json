@@ -464,7 +464,8 @@
             "appOwnerOrganizationId": {
               "type": "string",
               "format": "uuid",
-              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
+              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications",
+              "readOnly": true
             },
             "appRoleAssignmentRequired": {
               "type": "boolean",

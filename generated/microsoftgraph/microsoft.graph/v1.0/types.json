@@ -526,12 +526,6 @@
         "flags": 0,
         "description": "Notes relevant for the management of the application."
       },
-      "oauth2RequirePostResponse": {
-        "type": {
-          "$ref": "#/5"
-        },
-        "flags": 0
-      },
       "optionalClaims": {
         "type": {
           "$ref": "#/38"
@@ -1647,7 +1641,7 @@
         "type": {
           "$ref": "#/18"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
       },
       "appRoleAssignmentRequired": {

@@ -295,10 +295,6 @@
               "type": "string",
               "description": "Notes relevant for the management of the application."
             },
-            "oauth2RequirePostResponse": {
-              "type": "boolean",
-              "description": ""
-            },
             "optionalClaims": {
               "$ref": "#/definitions/microsoft.graph.optionalClaims",
               "description": "Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app."
@@ -433,7 +429,8 @@
             "appOwnerOrganizationId": {
               "type": "string",
               "format": "uuid",
-              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
+              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications",
+              "readOnly": true
             },
             "appRoleAssignmentRequired": {
               "type": "boolean",

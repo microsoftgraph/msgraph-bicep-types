@@ -51,6 +51,7 @@ EntityTypes:
     Upsertable: true
     IgnoredProperties:
       - onPremisesPublishing
+      - oauth2RequirePostResponse
     RequiredOnWrite:
       - displayName
       - uniqueName
@@ -70,6 +71,7 @@ EntityTypes:
       - appId
     ReadOnly:
       - applicationTemplateId
+      - appOwnerOrganizationId
       - signInAudience
   - Name: microsoft.graph.federatedIdentityCredential
     RootUri: /applications/federatedIdentityCredentials
