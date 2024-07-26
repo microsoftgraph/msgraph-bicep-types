@@ -173,7 +173,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only."
+        "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only"
       },
       "onPremisesSyncEnabled": {
         "type": {
@@ -1976,14 +1976,14 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Key."
+        "description": "Contains the name of the field that a value is associated with."
       },
       "value": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Value."
+        "description": "Contains the corresponding value for the specified key."
       }
     }
   },
