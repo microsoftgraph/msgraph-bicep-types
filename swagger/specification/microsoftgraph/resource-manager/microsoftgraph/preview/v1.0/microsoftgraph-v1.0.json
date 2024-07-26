@@ -109,7 +109,7 @@
             },
             "onPremisesSecurityIdentifier": {
               "type": "string",
-              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only. Read-only.",
+              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only",
               "readOnly": true
             },
             "onPremisesSyncEnabled": {
@@ -290,6 +290,10 @@
               "type": "string",
               "format": "base64url",
               "description": "The main logo for the application. Not nullable."
+            },
+            "nativeAuthenticationApisEnabled": {
+              "$ref": "#/definitions/microsoft.graph.nativeAuthenticationApisEnabled",
+              "description": "Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: none and all. Default is none. For more information, see Native Authentication."
             },
             "notes": {
               "type": "string",
@@ -1334,6 +1338,13 @@
           "description": ""
         }
       }
+    },
+    "microsoft.graph.nativeAuthenticationApisEnabled": {
+      "type": "string",
+      "enum": [
+        "none",
+        "all"
+      ]
     },
     "microsoft.graph.weakAlgorithms": {
       "type": "string",
