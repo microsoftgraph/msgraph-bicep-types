@@ -50,7 +50,7 @@ steps:
   - task: PowerShell@2
     displayName: "Validate project version has been incremented"
     condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
-    enabled: ${{ parameters.Official }}
+    enabled: false
     inputs:
       targetType: "filePath"
       filePath: $(System.DefaultWorkingDirectory)/scripts/ValidateProjectVersionUpdated.ps1
