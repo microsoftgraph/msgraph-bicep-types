@@ -104,12 +104,9 @@
       "isContainment": true,
       "containerEntitySet": "servicePrincipals",
       "keyProperty": "resourceId",
-      "temporaryFilterKeys": [
-        "resourceId"
-      ],
       "compositeKeyProperties": [
         "appRoleId",
-        "resourceId"
+        "principalId"
       ]
     },
     "v1.0": {
@@ -118,12 +115,9 @@
       "isContainment": true,
       "containerEntitySet": "servicePrincipals",
       "keyProperty": "resourceId",
-      "temporaryFilterKeys": [
-        "resourceId"
-      ],
       "compositeKeyProperties": [
         "appRoleId",
-        "resourceId"
+        "principalId"
       ]
     }
   }

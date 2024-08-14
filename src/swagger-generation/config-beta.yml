@@ -115,11 +115,9 @@ EntityTypes:
       - creationTimestamp
       - principalDisplayName
       - principalType
-    FilterProperty:
-      - resourceId
     CompositeKey:
       - appRoleId
-      - resourceId
+      - principalId
   - Name: microsoft.graph.appRole
     ReadOnly:
       - origin
