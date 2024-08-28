@@ -1,40 +1,40 @@
 {
   "resources": {
     "Microsoft.Graph/groups@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/17"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/17"
     },
     "Microsoft.Graph/applications@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/70"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/73"
     },
     "Microsoft.Graph/servicePrincipals@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/88"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/91"
     },
     "Microsoft.Graph/applications/federatedIdentityCredentials@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/93"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/96"
     },
     "Microsoft.Graph/oauth2PermissionGrants@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/97"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/100"
     },
     "Microsoft.Graph/appRoleAssignedTo@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/types.json#/101"
+      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.8-preview/types.json#/104"
     },
     "Microsoft.Graph/groups@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/13"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/13"
     },
     "Microsoft.Graph/applications@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/70"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/70"
     },
     "Microsoft.Graph/servicePrincipals@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/88"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/88"
     },
     "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/93"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/93"
     },
     "Microsoft.Graph/oauth2PermissionGrants@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/97"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/97"
     },
     "Microsoft.Graph/appRoleAssignedTo@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/types.json#/101"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.8-preview/types.json#/101"
     }
   },
   "resourceFunctions": {}

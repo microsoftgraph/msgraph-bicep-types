@@ -80,7 +80,7 @@
             },
             "onPremisesDomainName": {
               "type": "string",
-              "description": "",
+              "description": "Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. Read-only.",
               "readOnly": true
             },
             "onPremisesLastSyncDateTime": {
@@ -91,7 +91,7 @@
             },
             "onPremisesNetBiosName": {
               "type": "string",
-              "description": "",
+              "description": "Contains the on-premises netBios name synchronized from the on-premises directory. Read-only.",
               "readOnly": true
             },
             "onPremisesProvisioningErrors": {
@@ -513,7 +513,7 @@
             },
             "preferredSingleSignOnMode": {
               "type": "string",
-              "description": "Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the My Apps portal. The supported values are password, saml, notSupported, and oidc."
+              "description": "Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the My Apps portal. The supported values are password, saml, notSupported, and oidc. Note: This field might be null for older SAML apps and for OIDC applications where it isn't set automatically."
             },
             "preferredTokenSigningKeyThumbprint": {
               "type": "string",
@@ -666,7 +666,7 @@
             "appRoleId": {
               "type": "string",
               "format": "uuid",
-              "description": "The identifier (id) for the app role which is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application has not declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create."
+              "description": "The identifier (id) for the app role that's assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application hasn't declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create."
             },
             "createdDateTime": {
               "type": "string",
@@ -1087,7 +1087,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent."
+          "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}://auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS://auth."
         }
       }
     },

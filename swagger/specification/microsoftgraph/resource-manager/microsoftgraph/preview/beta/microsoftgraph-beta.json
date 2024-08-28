@@ -71,7 +71,7 @@
             },
             "isManagementRestricted": {
               "type": "boolean",
-              "description": "Indicates whether the group is a member of a restricted management administrative unit, in which case it requires a role scoped to the restricted administrative unit to manage. The default value is false. Read-only. To manage a group member of a restricted administrative unit, the calling app must be assigned the Directory.Write.Restricted permission. For delegated scenarios, the administrators must also be explicitly assigned supported roles at the restricted administrative unit scope.",
+              "description": "Indicates whether the group is a member of a restricted management administrative unit. The default value is false. Read-only. To manage a group member of a restricted management administrative unit, the administrator or calling app must be assigned a Microsoft Entra role at the scope of the restricted management administrative unit.",
               "readOnly": true
             },
             "mail": {
@@ -258,7 +258,7 @@
             },
             "authenticationBehaviors": {
               "$ref": "#/definitions/microsoft.graph.authenticationBehaviors",
-              "description": "The collection of authentication behaviors set for the application. Authentication behaviors are unset by default and must be explicitly enabled (or disabled). For more information about authentication behaviors, see Manage application authenticationBehaviors to avoid unverified use of email claims for user identification or authorization."
+              "description": "The collection of breaking change behaviors related to token issuance that are configured for the application. Authentication behaviors are unset by default (null) and must be explicitly enabled or disabled. Nullable. For more information about authentication behaviors, see Manage application authenticationBehaviors to avoid unverified use of email claims for user identification or authorization."
             },
             "certification": {
               "$ref": "#/definitions/microsoft.graph.certification",
@@ -321,6 +321,10 @@
               "type": "string",
               "format": "base64url",
               "description": "The main logo for the application. Not nullable."
+            },
+            "nativeAuthenticationApisEnabled": {
+              "$ref": "#/definitions/microsoft.graph.nativeAuthenticationApisEnabled",
+              "description": "Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: noneand all. Default is none. For more information, see Native Authentication."
             },
             "notes": {
               "type": "string",
@@ -533,7 +537,7 @@
             },
             "preferredSingleSignOnMode": {
               "type": "string",
-              "description": "Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the Microsoft Entra My Apps. The supported values are password, saml, notSupported, and oidc."
+              "description": "Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the Microsoft Entra My Apps. The supported values are password, saml, notSupported, and oidc. Note: This field might be null for older SAML apps and for OIDC applications where it isn't set automatically."
             },
             "preferredTokenSigningKeyEndDateTime": {
               "type": "string",
@@ -698,7 +702,7 @@
             "appRoleId": {
               "type": "string",
               "format": "uuid",
-              "description": "The identifier (id) for the app role which is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application has not declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create."
+              "description": "The identifier (id) for the app role that is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application hasn't declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create."
             },
             "creationTimestamp": {
               "type": "string",
@@ -1017,15 +1021,15 @@
       "properties": {
         "blockAzureADGraphAccess": {
           "type": "boolean",
-          "description": ""
+          "description": "If false, allows the app to have extended access to Azure AD Graph until June 30, 2025 when Azure AD Graph is fully retired. For more information on Azure AD retirement updates, see June 2024 update on Azure AD Graph API retirement."
         },
         "removeUnverifiedEmailClaim": {
           "type": "boolean",
-          "description": "Removes the email claim from tokens sent to an application when the email address's domain can't be verified."
+          "description": "If true, removes the email claim from tokens sent to an application when the email address's domain can't be verified."
         },
         "requireClientServicePrincipal": {
           "type": "boolean",
-          "description": "Requires multitenant applications to have a service principal in the resource tenant as part of authorization checks before they're granted access tokens. This property is only modifiable for multi-tenant resource applications that rely on access from clients without a service principal and had this behavior as set to false by Microsoft. Tenant administrators should respond to security advisories sent through Azure Health Service events and the Microsoft 365 message center."
+          "description": "If true, requires multitenant applications to have a service principal in the resource tenant as part of authorization checks before they're granted access tokens. This property is only modifiable for multitenant resource applications that rely on access from clients without a service principal and had this behavior as set to false by Microsoft. Tenant administrators should respond to security advisories sent through Azure Health Service events and the Microsoft 365 message center."
         }
       }
     },
@@ -1148,7 +1152,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent."
+          "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}://auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS://auth."
         }
       }
     },
@@ -1396,13 +1400,20 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Contains the name of the field that a value is associated with."
+          "description": "Key."
         },
         "value": {
           "type": "string",
-          "description": "Contains the corresponding value for the specified key."
+          "description": "Value."
         }
       }
+    },
+    "microsoft.graph.nativeAuthenticationApisEnabled": {
+      "type": "string",
+      "enum": [
+        "none",
+        "all"
+      ]
     },
     "microsoft.graph.weakAlgorithms": {
       "type": "string",

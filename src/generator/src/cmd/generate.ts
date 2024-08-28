@@ -3,10 +3,10 @@
 import os from 'os';
 import path from 'path';
 import { existsSync } from 'fs';
-import { mkdir, rm, writeFile, readFile } from 'fs/promises';
+import { mkdir, rm, writeFile, readFile, rename } from 'fs/promises';
 import yargs from 'yargs';
 import { TypeFile, buildIndex, writeIndexJson, writeIndexMarkdown, readTypesJson } from "bicep-types";
-import { GeneratorConfig, getConfig } from '../config';
+import { extensionConfig } from '../config';
 import * as markdown from '@ts-common/commonmark-to-markdown'
 import * as yaml from 'js-yaml'
 import { copyRecursive, executeSynchronous, getLogger, lowerCaseCompare, logErr, logOut, ILogger, defaultLogger, executeCmd, findRecursive } from '../utils';
@@ -15,7 +15,13 @@ const rootDir = `${__dirname}/../../../../`;
 
 const extensionDir = path.resolve(`${rootDir}/src/autorest.bicep/`);
 const autorestBinary = os.platform() === 'win32' ? 'autorest.cmd' : 'autorest';
-const defaultOutDir = path.resolve(`${rootDir}/generated`);
+const generatedOutDir = path.resolve(`${rootDir}/generated`);
+const defaultOutDir = path.resolve(`${rootDir}/generated/microsoftgraph/microsoft.graph`);
+
+enum ApiVersion {
+  Beta = "beta",
+  V1_0 = "v1.0",
+}
 
 const argsConfig = yargs
   .strict()
@@ -57,7 +63,6 @@ executeSynchronous(async () => {
     const bicepReadmePath = `${path.dirname(readmePath)}/readme.bicep.md`;
     const basePath = path.relative(specsPath, readmePath).split(path.sep)[0].toLowerCase();
     const tmpOutputDir = `${tmpOutputPath}/${basePath}`;
-    const outputDir = `${outputBaseDir}/${basePath}`;
 
     if (singlePath && lowerCaseCompare(singlePath, basePath) !== 0) {
       continue;
@@ -66,24 +71,28 @@ executeSynchronous(async () => {
     // prepare temp dir for output
     await rm(tmpOutputDir, { recursive: true, force: true, });
     await mkdir(tmpOutputDir, { recursive: true });
-    const logger = await getLogger(`${tmpOutputDir}/log.out`);
-    const config = getConfig(basePath);
+    const tmpLoggerPath = `${tmpOutputDir}/log.out`;
+    const logger = await getLogger(tmpLoggerPath);
 
-    try {
-      // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
-      await generateAutorestConfig(logger, readmePath, bicepReadmePath, config);
-      await generateSchema(logger, readmePath, tmpOutputDir, logLevel, waitForDebugger);
+    for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
+      const tmpOutputApiVersionDir = path.join(tmpOutputDir, 'microsoft.graph', apiVersion);
+      const outputApiVersionDir = path.join(outputBaseDir, apiVersion, extensionConfig[apiVersion].version);
 
-      // remove all previously-generated files and copy over results
-      await rm(outputDir, { recursive: true, force: true, });
-      await mkdir(outputDir, { recursive: true });
-      await copyRecursive(tmpOutputDir, outputDir);
-    } catch (err) {
-      logErr(logger, err);
+      try {
+        // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
+        await generateAutorestConfig(logger, readmePath, bicepReadmePath);
+        await generateSchema(logger, readmePath, tmpOutputDir, logLevel, waitForDebugger);
 
-      // Use markdown formatting as this summary will be included in the PR description
-      logOut(summaryLogger,
-        `<details>
+        // remove all previously-generated files and copy over results
+        await rm(outputApiVersionDir, { recursive: true, force: true, });
+        await mkdir(outputApiVersionDir, { recursive: true });
+        await copyRecursive(tmpOutputApiVersionDir, outputApiVersionDir);
+      } catch (err) {
+        logErr(logger, err);
+
+        // Use markdown formatting as this summary will be included in the PR description
+        logOut(summaryLogger,
+          `<details>
   <summary>Failed to generate types for path '${basePath}'</summary>
 
 \`\`\`
@@ -91,6 +100,7 @@ ${err}
 \`\`\`
 </details>
 `);
+      }
     }
 
     // clean up temp dirs
@@ -102,6 +112,8 @@ ${err}
 
   // build the type index
   await buildTypeIndex(defaultLogger, outputBaseDir);
+  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.Beta);
+  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_0);
 });
 
 function normalizeJsonPath(jsonPath: string) {
@@ -109,7 +121,7 @@ function normalizeJsonPath(jsonPath: string) {
   return path.normalize(jsonPath).replace(/[\\\/]/g, '/');
 }
 
-async function generateAutorestConfig(logger: ILogger, readmePath: string, bicepReadmePath: string, config: GeneratorConfig) {
+async function generateAutorestConfig(logger: ILogger, readmePath: string, bicepReadmePath: string) {
   // We expect a path format convention of <provider>/(any/number/of/intervening/folders)/(beta|v1.0))/<filename>.json
   // This information is used to generate individual tags in the generated autorest configuration
   // eslint-disable-next-line no-useless-escape
@@ -118,7 +130,7 @@ async function generateAutorestConfig(logger: ILogger, readmePath: string, bicep
   const readmeContents = await readFile(readmePath, { encoding: 'utf8' });
   const readmeMarkdown = markdown.parse(readmeContents);
 
-  const inputFiles = new Set<string>(config.additionalFiles);
+  const inputFiles = new Set<string>();
   // we need to look for all autorest configuration elements containing input files, and collect that list of files. These will look like (e.g.):
   // ```yaml $(tag) == 'someTag'
   // input-file:
@@ -236,24 +248,35 @@ async function findReadmePaths(specsPath: string) {
   });
 }
 
-async function buildTypeIndex(logger: ILogger, baseDir: string) {
-  const typesPaths = await findRecursive(baseDir, filePath => {
-    return path.basename(filePath) === 'types.json';
+async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion?: ApiVersion) {
+  const extensionBaseDir = apiVersion == undefined ? generatedOutDir : path.join(baseDir, apiVersion, extensionConfig[apiVersion].version);
+  const typesPaths = await findRecursive(extensionBaseDir, filePath => {
+    return shouldIncludeFilePath(filePath) && path.basename(filePath) === 'types.json';
   });
 
   const typeFiles: TypeFile[] = [];
   for (const typePath of typesPaths) {
     const content = await readFile(typePath, { encoding: 'utf8' });
     typeFiles.push({
-      relativePath: path.relative(baseDir, typePath),
+      relativePath: path.relative(extensionBaseDir, typePath),
       types: readTypesJson(content),
     });
   }
 
-  const indexContent = await buildIndex(typeFiles, (log) => logOut(logger, log));
+  const typeSettings = apiVersion == undefined ? undefined : {
+    name: extensionConfig[apiVersion].name,
+    version: extensionConfig[apiVersion].version,
+    isSingleton: false,
+  };
+  const indexContent = await buildIndex(typeFiles, (log) => logOut(logger, log), typeSettings);
 
-  await writeFile(`${baseDir}/index.json`, normalizeJsonPath(writeIndexJson(indexContent)));
-  await writeFile(`${baseDir}/index.md`, normalizeJsonPath(writeIndexMarkdown(indexContent)));
+  await writeFile(`${extensionBaseDir}/index.json`, normalizeJsonPath(writeIndexJson(indexContent)));
+  await writeFile(`${extensionBaseDir}/index.md`, normalizeJsonPath(writeIndexMarkdown(indexContent)));
+}
+
+function shouldIncludeFilePath(filePath: string) {
+  return filePath.includes(path.join(ApiVersion.Beta, extensionConfig[ApiVersion.Beta].version)) ||
+    filePath.includes(path.join(ApiVersion.V1_0, extensionConfig[ApiVersion.V1_0].version));
 }
 
 function isVerboseLoggingLevel(logLevel: string) {

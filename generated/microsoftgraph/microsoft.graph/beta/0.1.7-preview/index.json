@@ -1,0 +1,28 @@
+{
+  "resources": {
+    "Microsoft.Graph/groups@beta": {
+      "$ref": "types.json#/17"
+    },
+    "Microsoft.Graph/applications@beta": {
+      "$ref": "types.json#/70"
+    },
+    "Microsoft.Graph/servicePrincipals@beta": {
+      "$ref": "types.json#/88"
+    },
+    "Microsoft.Graph/applications/federatedIdentityCredentials@beta": {
+      "$ref": "types.json#/93"
+    },
+    "Microsoft.Graph/oauth2PermissionGrants@beta": {
+      "$ref": "types.json#/97"
+    },
+    "Microsoft.Graph/appRoleAssignedTo@beta": {
+      "$ref": "types.json#/101"
+    }
+  },
+  "resourceFunctions": {},
+  "settings": {
+    "name": "MicrosoftGraphBeta",
+    "version": "0.1.7-preview",
+    "isSingleton": false
+  }
+}
