@@ -1,0 +1,12 @@
+{
+  "name": "extensionconfig",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.5.1"
+  }
+}

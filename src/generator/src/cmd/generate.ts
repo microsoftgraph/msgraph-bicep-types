@@ -3,10 +3,10 @@
 import os from 'os';
 import path from 'path';
 import { existsSync } from 'fs';
-import { mkdir, rm, writeFile, readFile, rename } from 'fs/promises';
+import { mkdir, rm, writeFile, readFile } from 'fs/promises';
 import yargs from 'yargs';
 import { TypeFile, buildIndex, writeIndexJson, writeIndexMarkdown, readTypesJson } from "bicep-types";
-import { extensionConfig } from '../config';
+import { ApiVersion, extensionConfig } from 'extensionConfig/src/config';
 import * as markdown from '@ts-common/commonmark-to-markdown'
 import * as yaml from 'js-yaml'
 import { copyRecursive, executeSynchronous, getLogger, lowerCaseCompare, logErr, logOut, ILogger, defaultLogger, executeCmd, findRecursive } from '../utils';
@@ -17,11 +17,6 @@ const extensionDir = path.resolve(`${rootDir}/src/autorest.bicep/`);
 const autorestBinary = os.platform() === 'win32' ? 'autorest.cmd' : 'autorest';
 const generatedOutDir = path.resolve(`${rootDir}/generated`);
 const defaultOutDir = path.resolve(`${rootDir}/generated/microsoftgraph/microsoft.graph`);
-
-enum ApiVersion {
-  Beta = "beta",
-  V1_0 = "v1.0",
-}
 
 const argsConfig = yargs
   .strict()
@@ -80,7 +75,7 @@ executeSynchronous(async () => {
 
       try {
         // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
-        await generateAutorestConfig(logger, readmePath, bicepReadmePath);
+        await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, extensionConfig[apiVersion].version);
         await generateSchema(logger, readmePath, tmpOutputDir, logLevel, waitForDebugger);
 
         // remove all previously-generated files and copy over results
@@ -121,11 +116,11 @@ function normalizeJsonPath(jsonPath: string) {
   return path.normalize(jsonPath).replace(/[\\\/]/g, '/');
 }
 
-async function generateAutorestConfig(logger: ILogger, readmePath: string, bicepReadmePath: string) {
+async function generateAutorestConfig(logger: ILogger, readmePath: string, bicepReadmePath: string, apiVersion: string, extensionVersion: string) {
   // We expect a path format convention of <provider>/(any/number/of/intervening/folders)/(beta|v1.0))/<filename>.json
   // This information is used to generate individual tags in the generated autorest configuration
   // eslint-disable-next-line no-useless-escape
-  const pathRegex = /^(\$\(this-folder\)\/|)([^\/]+)(?:\/[^\/]+)*\/(beta|v1.0)\/.*\.json$/i;
+  const pathRegex = /^(\$\(this-folder\)\/|)([^\/]+)(?:\/[^\/]+)*\/(beta|v1.0)\/(.*)\.json$/i;
 
   const readmeContents = await readFile(readmePath, { encoding: 'utf8' });
   const readmeMarkdown = markdown.parse(readmeContents);
@@ -163,16 +158,21 @@ async function generateAutorestConfig(logger: ILogger, readmePath: string, bicep
   for (const file of inputFiles) {
     const normalizedFile = normalizeJsonPath(file);
     const match = pathRegex.exec(normalizedFile);
-    if (match) {
-      // Generate a unique tag. We can't process all of the different API versions in one autorest pass
-      // because there are constraints on naming uniqueness (e.g. naming of definitions), so we want to pass over
-      // each API version separately.
-      const tagName = `${match[2].toLowerCase()}-${match[3].toLowerCase()}`;
-      if (!filesByTag[tagName]) {
-        filesByTag[tagName] = [];
-      }
 
-      filesByTag[tagName].push(normalizedFile);
+    if (match) {
+      if (match[3].toLowerCase() === apiVersion && match[4].toLowerCase() === extensionVersion) {
+        logOut(logger, `INFO: Parsing swagger "${file}"`);
+
+        // Generate a unique tag. We can't process all of the different API versions in one autorest pass
+        // because there are constraints on naming uniqueness (e.g. naming of definitions), so we want to pass over
+        // each API version separately.
+        const tagName = `${match[2].toLowerCase()}-${match[3].toLowerCase()}`;
+        if (!filesByTag[tagName]) {
+          filesByTag[tagName] = [];
+        }
+
+        filesByTag[tagName].push(normalizedFile);
+      }
     } else {
       logOut(logger, `WARNING: Unable to parse swagger path "${file}"`);
     }

@@ -42,7 +42,7 @@ describe('Config', () => {
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    const config = new Config('beta');
+    const config = new Config('beta', 'test-version');
 
     const map = new Map<string, EntityTypeConfig>();
     map.set('microsoft.graph.EntityTypeOne', {
@@ -76,8 +76,9 @@ describe('Config', () => {
     expect(config.EntityTypes).toEqual(map);
     expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
+    expect(config.ExtensionVersion).toEqual('test-version');
 
-    expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
+    expect(readFileSync).toBeCalledWith('./configs/beta/test-version.yml', 'utf8');
   });
 
   it('should read a config file with entities that have no details', () => {
@@ -91,7 +92,7 @@ describe('Config', () => {
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    const config = new Config('beta');
+    const config = new Config('beta', 'test-version');
 
     const map = new Map<string, EntityTypeConfig>();
     map.set('microsoft.graph.EntityTypeOne', {
@@ -106,7 +107,7 @@ describe('Config', () => {
     expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
 
-    expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
+    expect(readFileSync).toBeCalledWith('./configs/beta/test-version.yml', 'utf8');
   });
 
   it('should not read a config file with no entities', () => {
@@ -116,9 +117,9 @@ describe('Config', () => {
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    expect(() => new Config('beta')).toThrowError();
+    expect(() => new Config('beta', 'test-version')).toThrowError();
 
-    expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
+    expect(readFileSync).toBeCalledWith('./configs/beta/test-version.yml', 'utf8');
   });
 
   it('should read a config file with entities and Ignore mode', () => {
@@ -133,7 +134,7 @@ describe('Config', () => {
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    const config = new Config('beta');
+    const config = new Config('beta', 'test-version');
 
     const map = new Map<string, EntityTypeConfig>();
     map.set('microsoft.graph.EntityTypeOne', {
@@ -149,7 +150,7 @@ describe('Config', () => {
     expect(config.MetadataFilePath).toEqual('https://example.com');
     expect(config.APIVersion).toEqual('beta');
 
-    expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
+    expect(readFileSync).toBeCalledWith('./configs/beta/test-version.yml', 'utf8');
   });
 
   it('should not read a config file with entities and a wrong mode', () => {
@@ -164,8 +165,8 @@ describe('Config', () => {
 
     (readFileSync as jest.Mock).mockReturnValue(mockConfigFile);
 
-    expect(() => new Config('beta')).toThrowError("Invalid NavigationPropertyMode Wrong for microsoft.graph.EntityTypeOne. Only Allow and Ignore are valid values.");
+    expect(() => new Config('beta', 'test-version')).toThrowError("Invalid NavigationPropertyMode Wrong for microsoft.graph.EntityTypeOne. Only Allow and Ignore are valid values.");
 
-    expect(readFileSync).toBeCalledWith('./config-beta.yml', 'utf8');
+    expect(readFileSync).toBeCalledWith('./configs/beta/test-version.yml', 'utf8');
   });
 });
