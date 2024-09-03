@@ -1,5 +1,5 @@
 MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
-
+ExtensionVersion: 0.1.7-preview
 EntityTypes:
   - Name: microsoft.graph.group
     RootUri: /groups

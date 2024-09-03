@@ -1,11 +1,10 @@
-MetadataFilePath: clean_beta_metadata/cleanMetadataWithDescriptionsAndAnnotationsbeta.xml
-
+MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
+ExtensionVersion: 0.1.7-preview
 EntityTypes:
   - Name: microsoft.graph.group
     RootUri: /groups
     Upsertable: true
     IgnoredProperties:
-      - accessType
       - allowExternalSenders
       - assignedLabels
       - assignedLicenses
@@ -14,13 +13,9 @@ EntityTypes:
       - hideFromAddressLists
       - hideFromOutlookClients
       - isArchived
-      - isFavorite
       - isSubscribedByMail
       - licenseProcessingState
-      - membershipRuleProcessingStatus
-      - unseenConversationsCount
       - unseenCount
-      - unseenMessagesCount
     NavigationProperty:
       - members
       - owners
@@ -31,10 +26,8 @@ EntityTypes:
       - securityEnabled
       - uniqueName
     ReadOnly:
-      - createdByAppId
       - createdDateTime
       - expirationDateTime
-      - isManagementRestricted
       - mail
       - onPremisesDomainName
       - onPremisesLastSyncDateTime
@@ -50,28 +43,25 @@ EntityTypes:
     RootUri: /applications
     Upsertable: true
     IgnoredProperties:
-      - onPremisesPublishing
       - oauth2RequirePostResponse
     RequiredOnWrite:
       - displayName
       - uniqueName
     ReadOnly:
       - appId
+      - applicationTemplateId
       - certification
       - createdDateTime
       - publisherDomain
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
-    IgnoredProperties:
-      - customSecurityAttributes
-      - errorUrl
-      - passwordSingleSignOnSettings
     RequiredOnWrite:
       - appId
     ReadOnly:
       - applicationTemplateId
       - appOwnerOrganizationId
+      - resourceSpecificApplicationPermissions
       - signInAudience
   - Name: microsoft.graph.federatedIdentityCredential
     RootUri: /applications/federatedIdentityCredentials
@@ -86,9 +76,6 @@ EntityTypes:
     RootUri: /oauth2PermissionGrants
     Upsertable: false
     Updatable: true
-    IgnoredProperties:
-      - expiryTime
-      - startTime
     RequiredOnWrite:
       - clientId
       - consentType
@@ -112,7 +99,7 @@ EntityTypes:
       - principalId
       - resourceId
     ReadOnly:
-      - creationTimestamp
+      - createdDateTime
       - principalDisplayName
       - principalType
     CompositeKey:
@@ -130,9 +117,6 @@ EntityTypes:
     ReadOnly:
       - hint
       - secretText
-  - Name: microsoft.graph.windowsApplication
-    ReadOnly:
-      - packageSid
   - Name: microsoft.graph.permissionScope
     IgnoredProperties:
       - origin

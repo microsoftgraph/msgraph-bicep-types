@@ -12,7 +12,8 @@ import { writeSwagger } from './swaggerWriter'
 import { writeMetadata } from './metadataWriter'
 import { validateReferences } from './validator'
 import { DefinitionMap } from './definitions/DefinitionMap'
-import { Metadata } from './definitions/Metadata'
+import { ExtensionVersionMetadata, Metadata } from './definitions/Metadata'
+import { ApiVersion, extensionConfig } from 'extensionConfig/src/config';
 
 const argv = yargs
   .option('output', {
@@ -42,7 +43,7 @@ async function parse(config: Config): Promise<[Metadata, Swagger]> {
   return [metadata, swagger];
 }
 
-function writeSwaggerFile(swagger: Swagger, apiVersion: string) {
+function writeSwaggerFile(swagger: Swagger, apiVersion: string, extensionVersion: string) {
   const swaggerJson: string = JSON.stringify(swagger, null, 2);
   const fullOutputPath = `${outputPath}/${apiVersion}`;
 
@@ -51,20 +52,20 @@ function writeSwaggerFile(swagger: Swagger, apiVersion: string) {
       fs.mkdirSync(fullOutputPath, { recursive: true });
     }
 
-    fs.writeFile(`${fullOutputPath}/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
+    fs.writeFile(`${fullOutputPath}/${extensionVersion}.json`, swaggerJson, (err) => {
       if (err) throw err;
-      console.log(`The swagger file spec for ${apiVersion} has been saved!`);
+      console.log(`The swagger file spec for ${apiVersion}/${extensionVersion} has been saved!`);
     });
   }
 
-  fs.writeFile(`output/microsoftgraph-${apiVersion}.json`, swaggerJson, (err) => {
+  fs.writeFile(`output/microsoftgraph-${apiVersion}-${extensionVersion}.json`, swaggerJson, (err) => {
     if (err) throw err;
-    console.log(`The output for ${apiVersion} has been saved.`);
+    console.log(`The output for ${apiVersion}-${extensionVersion} has been saved.`);
   });
 }
 
-function writeMetadataFile(metadata: Metadata) {
-  const metadataJson: string = JSON.stringify(metadata, null, 2);
+function writeMetadataFile(extensionVersionMetadata: ExtensionVersionMetadata) {
+  const metadataJson: string = JSON.stringify(extensionVersionMetadata, null, 2);
 
   fs.writeFile(`output/metadata.json`, metadataJson, (err) => {
     if (err) throw err;
@@ -73,11 +74,12 @@ function writeMetadataFile(metadata: Metadata) {
 }
 
 async function main() {
-  const apiVersions = ["beta", "v1.0"]
+  let extensionVersionMetadata: ExtensionVersionMetadata = require('../output/metadata.json');
   let metadata: Metadata = {};
 
-  for (const apiVersion of apiVersions) {
-    const config = new Config(apiVersion);
+  for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
+    const extensionVersion = extensionConfig[apiVersion].version;
+    const config = new Config(apiVersion, extensionVersion);
     const [curMetadata, curSwagger] = await parse(config);
 
     // Merge the metadata for current api version with the existing metadata
@@ -86,10 +88,13 @@ async function main() {
       metadata[entityName][apiVersion] = curMetadata[entityName][apiVersion];
     }
 
-    writeSwaggerFile(curSwagger, apiVersion);
+    extensionVersionMetadata[extensionVersion] ??= {};
+    extensionVersionMetadata[extensionVersion] = metadata;
+
+    writeSwaggerFile(curSwagger, apiVersion, extensionVersion);
   }
 
-  writeMetadataFile(metadata);
+  writeMetadataFile(extensionVersionMetadata);
 }
 
 main();

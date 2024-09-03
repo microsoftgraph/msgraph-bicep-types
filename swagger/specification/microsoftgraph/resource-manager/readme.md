@@ -2,8 +2,6 @@
 
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for Radius.
-
 ## Getting Started
 
 To build the SDK for MicrosoftGraph, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
@@ -34,10 +32,12 @@ These settings apply only when `--tag=microsoftgraph-preview` is specified on th
 
 ```yaml $(tag) == 'microsoftgraph-beta'
 input-file: 
-  - microsoftgraph/preview/beta/microsoftgraph-beta.json
+  - microsoftgraph/preview/beta/0.1.7-preview.json
+  - microsoftgraph/preview/beta/0.1.8-preview.json
 ```
 
 ```yaml $(tag) == 'microsoftgraph-v1.0'
 input-file: 
-  - microsoftgraph/preview/v1.0/microsoftgraph-v1.0.json
+  - microsoftgraph/preview/v1.0/0.1.7-preview.json
+  - microsoftgraph/preview/v1.0/0.1.8-preview.json
 ```

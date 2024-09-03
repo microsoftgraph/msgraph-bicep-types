@@ -28,12 +28,13 @@ export interface EntityTypeConfig {
 }
 
 export class Config {
+  ExtensionVersion: string
   EntityTypes: EntityTypeConfigMap
   MetadataFilePath: string
   APIVersion: string
 
-  constructor(apiVersion: string) {
-    const configFile = readFileSync(`./config-${apiVersion}.yml`, 'utf8')
+  constructor(apiVersion: string, extensionVersion: string) {
+    const configFile = readFileSync(`./configs/${apiVersion}/${extensionVersion}.yml`, 'utf8')
     const configFileObj = parse(configFile)
     const entityTypesMap: EntityTypeConfigMap = new Map<string, EntityTypeConfig>()
     const entityTypes: EntityTypeConfig[] = configFileObj['EntityTypes'] as EntityTypeConfig[]
@@ -49,5 +50,6 @@ export class Config {
     this.EntityTypes = entityTypesMap
     this.MetadataFilePath = configFileObj['MetadataFilePath']
     this.APIVersion = apiVersion
+    this.ExtensionVersion = extensionVersion;
   }
 }

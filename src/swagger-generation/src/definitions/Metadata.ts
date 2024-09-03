@@ -1,6 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+export interface ExtensionVersionMetadata {
+    [extensionVersion: string]: Metadata
+}
+
 export interface Metadata {
     [entityName: string]: EntityAPIMetadata
 }

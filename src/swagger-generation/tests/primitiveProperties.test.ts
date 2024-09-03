@@ -1,3 +1,4 @@
+import { Extension } from "typescript";
 import { EntityTypeConfig } from "../src/config";
 import { DefinitionMap } from "../src/definitions/DefinitionMap";
 import { PrimitiveSwaggerTypeStruct } from "../src/definitions/PrimitiveSwaggerType";
@@ -99,7 +100,8 @@ describe("when csdl contains not mapped types", () => {
     const config = {
         EntityTypes: entityTypes,
         MetadataFilePath: 'https://example.com',
-        APIVersion: 'beta'
+        APIVersion: 'beta',
+        ExtensionVersion: 'test-version',
     }
 
     it("should return the correct properties", () => {
