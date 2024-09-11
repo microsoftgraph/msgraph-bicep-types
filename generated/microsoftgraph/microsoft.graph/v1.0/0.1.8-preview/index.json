@@ -21,7 +21,7 @@
   },
   "resourceFunctions": {},
   "settings": {
-    "name": "MicrosoftGraphV1.0",
+    "name": "MicrosoftGraph",
     "version": "0.1.8-preview",
     "isSingleton": false
   }
