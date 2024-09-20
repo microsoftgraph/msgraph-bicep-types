@@ -76,7 +76,7 @@ executeSynchronous(async () => {
       try {
         // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
         await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, extensionConfig[apiVersion].version);
-        await generateSchema(logger, readmePath, tmpOutputDir, logLevel, waitForDebugger);
+        await generateSchema(logger, bicepReadmePath, tmpOutputDir, logLevel, waitForDebugger);
 
         // remove all previously-generated files and copy over results
         await rm(outputApiVersionDir, { recursive: true, force: true, });
