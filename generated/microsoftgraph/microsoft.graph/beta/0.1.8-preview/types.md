@@ -101,7 +101,7 @@
 * **onPremisesSecurityIdentifier**: string (ReadOnly): Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only
 * **onPremisesSyncEnabled**: bool (ReadOnly): true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only
 * **organizationId**: string
-* **owners**: string[]: The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner
+* **owners**: string[]: The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue
 * **preferredDataLocation**: string: The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned at least one of the following Microsoft Entra roles:  User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo and Create a Microsoft 365 group with a specific PDL. Nullable
 * **preferredLanguage**: string: The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US
 * **proxyAddresses**: string[] (ReadOnly): Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable
@@ -241,8 +241,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Key.
-* **value**: string: Value.
+* **key**: string: Contains the name of the field that a value is associated with.
+* **value**: string: Contains the corresponding value for the specified key.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties

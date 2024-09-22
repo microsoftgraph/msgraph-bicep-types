@@ -219,7 +219,7 @@
               "items": {
                 "type": "string"
               },
-              "description": "The owners of the group who can be users or service principals. Nullable. If this property isn't specified when creating a Microsoft 365 group, the calling user is automatically assigned as the group owner"
+              "description": "The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue"
             }
           },
           "required": [
@@ -1400,11 +1400,11 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Key."
+          "description": "Contains the name of the field that a value is associated with."
         },
         "value": {
           "type": "string",
-          "description": "Value."
+          "description": "Contains the corresponding value for the specified key."
         }
       }
     },
