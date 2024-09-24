@@ -28,31 +28,6 @@ stages:
 
           - template: ./common-templates/common-steps.yml
             parameters:
-              Official: true
+              Official: false
 
           - template: ./common-templates/security-post-checks.yml
-
-  - stage: deploy
-    condition: and(contains(variables['build.sourceBranch'], 'refs/heads/main'), succeeded())
-    dependsOn: build
-    jobs:
-      - deployment: deploy
-        environment: microsoftgraph-bicep-nuget-org
-        strategy:
-          runOnce:
-            deploy:
-              pool:
-                vmImage: ubuntu-latest
-              steps:
-                - task: DownloadPipelineArtifact@2
-                  displayName: Download nupkg from artifacts
-                  inputs:
-                    artifact: "$(ArtifactName)"
-                    source: current
-                - task: NuGetCommand@2
-                  displayName: "NuGet push"
-                  inputs:
-                    command: push
-                    packagesToPush: "$(Pipeline.Workspace)/$(ArtifactName)/Microsoft.Graph.Bicep.Types.*.nupkg"
-                    nuGetFeedType: external
-                    publishFeedCredentials: "microsoftgraph NuGet connection"
