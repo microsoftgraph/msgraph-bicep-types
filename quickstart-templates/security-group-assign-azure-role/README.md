@@ -1,6 +1,6 @@
 # Assign an Azure role to a security group
 
-> **Note1**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+> **Note1**: Minimum Bicep version required to deploy this quickstart template is [v0.30.3](https://github.com/Azure/bicep/releases/tag/v0.30.3).
 
 > **Note2**: This template depends on a successful deployment of [security-group-create-with-owners-and-members](../security-group-create-with-owners-and-members)
 
