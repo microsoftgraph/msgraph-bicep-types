@@ -1,4 +1,4 @@
-extension microsoftGraph
+extension microsoftGraphV1_0
 
 @description('Specifies the name of environment to run this deployment in.')
 param shortEnvironmentName string

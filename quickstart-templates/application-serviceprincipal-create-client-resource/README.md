@@ -1,6 +1,6 @@
 # Create client and resource apps
 
-> **Note**: Minimum Bicep version required to deploy this quickstart template is [v0.29.45](https://github.com/Azure/bicep/releases/tag/v0.29.45).
+> **Note**: Minimum Bicep version required to deploy this quickstart template is [v0.30.3](https://github.com/Azure/bicep/releases/tag/v0.30.3).
 
 This template allows you to create a client application and a resource application, along with their service principals.
 
