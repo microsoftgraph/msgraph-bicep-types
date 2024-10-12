@@ -36,6 +36,9 @@ describe('Config', () => {
           ContainerKeyProperty: containerKeyProperty
           FilterProperty: [filter1, filter2]
           CompositeKey: [key1, key2]
+        - Name: microsoft.graph.ReadonlyEntityType
+          RootUri: /readonlyTypes
+          IsReadonlyResource: true
 
       MetadataFilePath: https://example.com
     `;
@@ -71,6 +74,12 @@ describe('Config', () => {
       ContainerKeyProperty: 'containerKeyProperty',
       FilterProperty: ['filter1', 'filter2'],
       CompositeKey: ['key1', 'key2']
+    } as EntityTypeConfig);
+
+    map.set('microsoft.graph.ReadonlyEntityType', {
+      Name: 'microsoft.graph.ReadonlyEntityType',
+      RootUri: '/readonlyTypes',
+      IsReadonlyResource: true
     } as EntityTypeConfig);
 
     expect(config.EntityTypes).toEqual(map);

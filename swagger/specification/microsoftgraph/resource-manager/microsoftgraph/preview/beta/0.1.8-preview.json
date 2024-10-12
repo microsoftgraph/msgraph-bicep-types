@@ -197,6 +197,7 @@
             "uniqueName": {
               "type": "string",
               "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable",
+              "x-ms-graph-key": true,
               "x-constant-key": true
             },
             "visibility": {
@@ -228,7 +229,8 @@
             "mailNickname",
             "securityEnabled",
             "uniqueName"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -400,6 +402,7 @@
             "uniqueName": {
               "type": "string",
               "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable",
+              "x-ms-graph-key": true,
               "x-constant-key": true
             },
             "verifiedPublisher": {
@@ -418,7 +421,8 @@
           "required": [
             "displayName",
             "uniqueName"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -458,7 +462,8 @@
             },
             "appId": {
               "type": "string",
-              "description": "The unique identifier for the associated application (its appId property). Alternate key"
+              "description": "The unique identifier for the associated application (its appId property). Alternate key",
+              "x-ms-graph-key": true
             },
             "applicationTemplateId": {
               "type": "string",
@@ -609,7 +614,8 @@
           },
           "required": [
             "appId"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -638,7 +644,8 @@
             },
             "name": {
               "type": "string",
-              "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable"
+              "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable",
+              "x-ms-graph-key": true
             },
             "subject": {
               "type": "string",
@@ -650,7 +657,8 @@
             "issuer",
             "name",
             "subject"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -687,7 +695,8 @@
             "clientId",
             "consentType",
             "resourceId"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -739,7 +748,8 @@
             "appRoleId",
             "principalId",
             "resourceId"
-          ]
+          ],
+          "x-ms-graph-resource": true
         }
       ]
     },
@@ -1429,7 +1439,7 @@
           "groups"
         ],
         "description": "Create or update a group",
-        "operationId": "groups_Put",
+        "operationId": "groups_put",
         "consumes": [
           "application/json"
         ],
@@ -1440,7 +1450,7 @@
           {
             "in": "body",
             "name": "group",
-            "description": "The group to be created or updated",
+            "description": "The group to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.group"
@@ -1456,7 +1466,7 @@
         ],
         "responses": {
           "200": {
-            "description": "group created/updated successfully",
+            "description": "group create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.group"
             }
@@ -1470,7 +1480,7 @@
           "applications"
         ],
         "description": "Create or update a application",
-        "operationId": "applications_Put",
+        "operationId": "applications_put",
         "consumes": [
           "application/json"
         ],
@@ -1481,7 +1491,7 @@
           {
             "in": "body",
             "name": "application",
-            "description": "The application to be created or updated",
+            "description": "The application to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.application"
@@ -1497,7 +1507,7 @@
         ],
         "responses": {
           "200": {
-            "description": "application created/updated successfully",
+            "description": "application create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.application"
             }
@@ -1511,7 +1521,7 @@
           "servicePrincipals"
         ],
         "description": "Create or update a servicePrincipal",
-        "operationId": "servicePrincipals_Put",
+        "operationId": "servicePrincipals_put",
         "consumes": [
           "application/json"
         ],
@@ -1522,7 +1532,7 @@
           {
             "in": "body",
             "name": "servicePrincipal",
-            "description": "The servicePrincipal to be created or updated",
+            "description": "The servicePrincipal to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.servicePrincipal"
@@ -1538,7 +1548,7 @@
         ],
         "responses": {
           "200": {
-            "description": "servicePrincipal created/updated successfully",
+            "description": "servicePrincipal create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.servicePrincipal"
             }
@@ -1552,7 +1562,7 @@
           "federatedIdentityCredentials"
         ],
         "description": "Create or update a federatedIdentityCredential",
-        "operationId": "federatedIdentityCredentials_Put",
+        "operationId": "federatedIdentityCredentials_put",
         "consumes": [
           "application/json"
         ],
@@ -1563,7 +1573,7 @@
           {
             "in": "body",
             "name": "federatedIdentityCredential",
-            "description": "The federatedIdentityCredential to be created or updated",
+            "description": "The federatedIdentityCredential to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
@@ -1586,7 +1596,7 @@
         ],
         "responses": {
           "200": {
-            "description": "federatedIdentityCredential created/updated successfully",
+            "description": "federatedIdentityCredential create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
             }
@@ -1600,7 +1610,7 @@
           "oauth2PermissionGrants"
         ],
         "description": "Create or update a oAuth2PermissionGrant",
-        "operationId": "oauth2PermissionGrants_Put",
+        "operationId": "oauth2PermissionGrants_put",
         "consumes": [
           "application/json"
         ],
@@ -1611,7 +1621,7 @@
           {
             "in": "body",
             "name": "oAuth2PermissionGrant",
-            "description": "The oAuth2PermissionGrant to be created or updated",
+            "description": "The oAuth2PermissionGrant to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
@@ -1627,7 +1637,7 @@
         ],
         "responses": {
           "200": {
-            "description": "oAuth2PermissionGrant created/updated successfully",
+            "description": "oAuth2PermissionGrant create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
             }
@@ -1641,7 +1651,7 @@
           "appRoleAssignedTo"
         ],
         "description": "Create or update a appRoleAssignment",
-        "operationId": "appRoleAssignedTo_Put",
+        "operationId": "appRoleAssignedTo_put",
         "consumes": [
           "application/json"
         ],
@@ -1652,7 +1662,7 @@
           {
             "in": "body",
             "name": "appRoleAssignment",
-            "description": "The appRoleAssignment to be created or updated",
+            "description": "The appRoleAssignment to create or update",
             "required": true,
             "schema": {
               "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
@@ -1668,7 +1678,7 @@
         ],
         "responses": {
           "200": {
-            "description": "appRoleAssignment created/updated successfully",
+            "description": "appRoleAssignment create or update successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
             }

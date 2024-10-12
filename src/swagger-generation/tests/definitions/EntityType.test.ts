@@ -170,7 +170,7 @@ describe('EntityType', () => {
     }).toThrowError('Required property MissingProperty not found in TestEntityType');
   });
 
-  it('should correctly convert to swagger definition with constant key', () => {
+  it('should correctly convert to swagger definition for resource and key', () => {
     const name = 'TestEntityType';
     const properties = [
       new Property('Property1', PrimitiveSwaggerType.Instance.String, property1Description, true, false),
@@ -184,15 +184,19 @@ describe('EntityType', () => {
     expect(definitionUndefinedAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeAlternateKey = new EntityType(name, 'Property1', undefined, undefined, undefined, undefined, properties, []);
-    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
+    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(['Property1', 'Property2'], true) as Definition;
 
+    expect(definitionAlternateKey["x-ms-graph-resource"]).toBe(true);
+    expect(definitionAlternateKey.properties.Property1["x-ms-graph-key"]).toBe(true);
     expect(definitionAlternateKey.properties.Property1["x-constant-key"]).toBe(true);
     expect(definitionAlternateKey.properties.Property1.description).toBe(property1Description);
+    expect(definitionAlternateKey.properties.Property2["x-ms-graph-key"]).toBeUndefined();
     expect(definitionAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeSP = new EntityType('serviceprincipal', 'Property1', undefined, undefined, undefined, undefined, properties, []);
     const definitionSP = entityTypeSP.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
 
+    expect(definitionSP["x-ms-graph-resource"]).not.toBe(true);
     expect(definitionSP.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionSP.properties.Property2["x-constant-key"]).toBeUndefined();
   });

@@ -60,7 +60,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 2,
+        "flags": 1,
         "description": "The name of the resource"
       },
       "systemData": {
@@ -541,7 +541,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 2,
+        "flags": 1,
         "description": "The name of the resource"
       },
       "systemData": {
@@ -627,7 +627,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 2,
+        "flags": 1,
         "description": "The name of the resource"
       },
       "systemData": {
@@ -1006,7 +1006,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 2,
+        "flags": 1,
         "description": "The name of the resource"
       },
       "systemData": {

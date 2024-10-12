@@ -127,6 +127,7 @@
     "groups": {
       "beta": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "uniqueName",
         "isContainment": false,
@@ -137,6 +138,7 @@
       },
       "v1.0": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "uniqueName",
         "isContainment": false,
@@ -149,12 +151,14 @@
     "applications": {
       "beta": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "uniqueName",
         "isContainment": false
       },
       "v1.0": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "uniqueName",
         "isContainment": false
@@ -163,12 +167,14 @@
     "servicePrincipals": {
       "beta": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "appId",
         "isContainment": false
       },
       "v1.0": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "appId",
         "isContainment": false
@@ -177,6 +183,7 @@
     "applications/federatedIdentityCredentials": {
       "beta": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "name",
         "isContainment": true,
@@ -184,6 +191,7 @@
       },
       "v1.0": {
         "isIdempotent": true,
+        "isReadonly": false,
         "updatable": true,
         "alternateKey": "name",
         "isContainment": true,
@@ -193,6 +201,7 @@
     "oauth2PermissionGrants": {
       "beta": {
         "isIdempotent": false,
+        "isReadonly": false,
         "updatable": true,
         "isContainment": false,
         "temporaryFilterKeys": [
@@ -208,6 +217,7 @@
       },
       "v1.0": {
         "isIdempotent": false,
+        "isReadonly": false,
         "updatable": true,
         "isContainment": false,
         "temporaryFilterKeys": [
@@ -225,6 +235,7 @@
     "appRoleAssignedTo": {
       "beta": {
         "isIdempotent": false,
+        "isReadonly": false,
         "updatable": false,
         "isContainment": true,
         "containerEntitySet": "servicePrincipals",
@@ -236,6 +247,7 @@
       },
       "v1.0": {
         "isIdempotent": false,
+        "isReadonly": false,
         "updatable": false,
         "isContainment": true,
         "containerEntitySet": "servicePrincipals",

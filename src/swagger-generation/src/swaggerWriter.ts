@@ -42,7 +42,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
     addReferences(definitionMap, entity, entityReferences, enumReferences, entityReferencesQueue, 0)
-    swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig.RequiredOnWrite)
+    swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig.RequiredOnWrite, entityTypeConfig.RootUri != undefined)
   });
 
   while (entityReferencesQueue.length > 0) {
@@ -73,6 +73,8 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     }
     const entityName: string = definitionMap.EntityMap.get(id)!.Name
     const entitySegments: string[] = entityTypeConfig.RootUri.split("/").slice(-2)
+    const operationType: string = entityTypeConfig.IsReadonlyResource ? "get" : "put";
+    const operationDescription: string = entityTypeConfig.IsReadonlyResource ? "Get" : "Create or update";
     const parentEntity: string = entitySegments[0];
     const entitySet: string = entitySegments[1];
     let relativeUri: string = entitySet;
@@ -80,7 +82,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
       {
         in: "body",
         name: entityName,
-        description: `The ${entityName} to be created or updated`,
+        description: `The ${entityName} to ${operationDescription.toLowerCase()}`,
         required: true,
         schema: {
           $ref: `#/definitions/${id}`
@@ -108,12 +110,12 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
 
     const host: string = `/{rootScope}/providers/Microsoft.Graph/${relativeUri}/{${entityName}Id}`
     const path: Path = {
-      put: {
+      [operationType]: {
         tags: [
           entitySet
         ],
-        description: `Create or update a ${entityName}`,
-        operationId: `${entitySet}_Put`,
+        description: `${operationDescription} a ${entityName}`,
+        operationId: `${entitySet}_${operationType}`,
         consumes: [
           Product.application_json
         ],
@@ -123,7 +125,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
         parameters: parameters,
         responses: {
           "200": {
-            description: `${entityName} created/updated successfully`,
+            description: `${entityName} ${operationDescription.toLowerCase()} successfully`,
             schema: {
               $ref: `#/definitions/${id}`
             }
@@ -132,7 +134,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
       }
     }
 
-    swagger.paths[host] = path
+    swagger.paths[host] = path;
   });
 
   return swagger

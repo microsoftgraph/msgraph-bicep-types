@@ -17,7 +17,7 @@
           "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
         },
         "name": {
-          "readOnly": true,
+          "x-ms-graph-key": true,
           "type": "string",
           "description": "The name of the resource"
         },
@@ -33,7 +33,7 @@
           "$ref": "#/definitions/systemData"
         }
       },
-      "x-ms-azure-resource": true
+      "x-ms-graph-resource": true
     },
     "AzureEntityResource": {
       "x-ms-client-name": "AzureEntityResource",
@@ -188,7 +188,7 @@
           ]
         }
       },
-      "x-ms-azure-resource": true
+      "x-ms-graph-resource": true
     },
     "SkuTier": {
       "type": "string",

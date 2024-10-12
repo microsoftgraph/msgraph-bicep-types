@@ -227,7 +227,7 @@ export function getProviderDefinitions(codeModel: CodeModel, host: AutorestExten
   }
 
   function isResourceSchema(schema?: ComplexSchema) {
-    return schema && getExtensions(schema)['x-ms-azure-resource'];
+    return schema && getExtensions(schema)['x-ms-graph-resource'];
   }
 
   function* gatherParameterWarnings(parameterBearer: string, parameters: Iterable<Parameter>): Iterable<string> {

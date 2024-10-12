@@ -86,6 +86,7 @@ describe("writeMetadata", () => {
     expect(metadata["entityUndefinedProps"]).toEqual({
       beta: {
         isIdempotent: true,
+        isReadonly: false,
         updatable: true,
         isContainment: false,
         alternateKey: "alternateKey",
@@ -95,6 +96,7 @@ describe("writeMetadata", () => {
     expect(metadata["entityTwo"]).toEqual({
       beta: {
         isIdempotent: true,
+        isReadonly: false,
         updatable: true,
         alternateKey: "entityTwoAlternateKey",
         isContainment: true,
@@ -107,7 +109,7 @@ describe("writeMetadata", () => {
     });
   });
 
-  it("should correctly write upsertable and updatable", () => {
+  it("should correctly write attributes", () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -124,6 +126,11 @@ describe("writeMetadata", () => {
     definitionMap.EntityMap.set(
       "namespace.entityNotUpdatable",
       new EntityType("entityUndefinedProps", undefined, false, undefined, false, false, [], [])
+    );
+
+    definitionMap.EntityMap.set(
+      "namespace.entityReadonly",
+      new EntityType("entityUndefinedProps", "alternateKey", false, undefined, false, false, [], [])
     );
 
     entityTypes.set("namespace.entityUpsertable", {
@@ -145,6 +152,12 @@ describe("writeMetadata", () => {
       RootUri: "/entityNotUpdatable",
     } as EntityTypeConfig);
 
+    entityTypes.set("namespace.entityReadonly", {
+      Name: "namespace.entityReadonly",
+      IsReadonlyResource: true,
+      RootUri: "/entityReadonly",
+    } as EntityTypeConfig);
+
     const config = {
       EntityTypes: entityTypes,
       MetadataFilePath: "https://example.com",
@@ -156,6 +169,7 @@ describe("writeMetadata", () => {
     expect(metadata["entityUpsertable"]).toEqual({
       beta: {
         isIdempotent: true,
+        isReadonly: false,
         updatable: true,
         isContainment: false,
         alternateKey: "alternateKey",
@@ -165,6 +179,7 @@ describe("writeMetadata", () => {
     expect(metadata["entityUpdatable"]).toEqual({
       beta: {
         isIdempotent: false,
+        isReadonly: false,
         updatable: true,
         isContainment: false,
       }
@@ -173,8 +188,19 @@ describe("writeMetadata", () => {
     expect(metadata["entityNotUpdatable"]).toEqual({
       beta: {
         isIdempotent: false,
+        isReadonly: false,
         updatable: false,
         isContainment: false,
+      }
+    });
+
+    expect(metadata["entityReadonly"]).toEqual({
+      beta: {
+        isIdempotent: false,
+        updatable: false,
+        isContainment: false,
+        isReadonly: true,
+        alternateKey: "alternateKey",
       }
     });
   });

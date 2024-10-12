@@ -30,7 +30,7 @@ export class EntityType extends Object {
     this.NavigationProperty = navigationProperty;
   }
 
-  toSwaggerDefinition(required?: string[]): AllOfDefinition | Definition {
+  toSwaggerDefinition(required?: string[], isResource: boolean = false): AllOfDefinition | Definition {
     const definition: Definition = {
       type: "object",
       properties: {},
@@ -72,12 +72,13 @@ export class EntityType extends Object {
       if (property.ReadOnly)
         swaggerProperty.readOnly = property.ReadOnly
 
-      if (this.AlternateKey &&
-        property.Name === this.AlternateKey &&
-        this.Name.toLowerCase() !== "serviceprincipal" &&
-        this.Name.toLowerCase() !== "federatedidentitycredential" // Temporary when full resource name is supported
-      )
-        swaggerProperty["x-constant-key"] = true
+      if (this.AlternateKey && property.Name === this.AlternateKey) {
+        swaggerProperty["x-ms-graph-key"] = true;
+
+        if (this.Name.toLowerCase() !== "serviceprincipal" &&
+          this.Name.toLowerCase() !== "federatedidentitycredential") // Temporary when full resource name is supported
+          swaggerProperty["x-constant-key"] = true
+      }
 
       definition.properties[property.Name] = swaggerProperty
     });
@@ -108,6 +109,10 @@ export class EntityType extends Object {
       });
 
       definition.required = required;
+    }
+
+    if (isResource) {
+      definition["x-ms-graph-resource"] = true;
     }
 
     if (this.BaseType) {

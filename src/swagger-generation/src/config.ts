@@ -12,6 +12,7 @@ export enum NavigationPropertyMode {
 
 export interface EntityTypeConfig {
   Name: string,
+  IsReadonlyResource?: boolean,
   RootUri?: string,
   Upsertable?: boolean,
   Updatable?: boolean,

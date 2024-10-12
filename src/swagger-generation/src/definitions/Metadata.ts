@@ -15,6 +15,7 @@ export interface EntityAPIMetadata {
 
 export interface EntityMetadata {
     isIdempotent: boolean,
+    isReadonly: boolean,
     updatable: boolean,
     isContainment: boolean,
     alternateKey?: string,
