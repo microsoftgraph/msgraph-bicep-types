@@ -86,7 +86,6 @@ describe("writeMetadata", () => {
     expect(metadata["entityUndefinedProps"]).toEqual({
       beta: {
         isIdempotent: true,
-        isReadonly: false,
         updatable: true,
         isContainment: false,
         alternateKey: "alternateKey",
@@ -96,7 +95,6 @@ describe("writeMetadata", () => {
     expect(metadata["entityTwo"]).toEqual({
       beta: {
         isIdempotent: true,
-        isReadonly: false,
         updatable: true,
         alternateKey: "entityTwoAlternateKey",
         isContainment: true,
@@ -169,7 +167,6 @@ describe("writeMetadata", () => {
     expect(metadata["entityUpsertable"]).toEqual({
       beta: {
         isIdempotent: true,
-        isReadonly: false,
         updatable: true,
         isContainment: false,
         alternateKey: "alternateKey",
@@ -179,7 +176,6 @@ describe("writeMetadata", () => {
     expect(metadata["entityUpdatable"]).toEqual({
       beta: {
         isIdempotent: false,
-        isReadonly: false,
         updatable: true,
         isContainment: false,
       }
@@ -188,7 +184,6 @@ describe("writeMetadata", () => {
     expect(metadata["entityNotUpdatable"]).toEqual({
       beta: {
         isIdempotent: false,
-        isReadonly: false,
         updatable: false,
         isContainment: false,
       }

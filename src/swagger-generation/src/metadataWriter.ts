@@ -21,7 +21,7 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
       metadata[relativeUri] = {
         [config.APIVersion]: {
           isIdempotent: entityTypeConfig.Upsertable ?? false,
-          isReadonly: entityTypeConfig.IsReadonlyResource ?? false,
+          isReadonly: entityTypeConfig.IsReadonlyResource,
           updatable: (entityTypeConfig.Upsertable ?? false) || (entityTypeConfig.Updatable ?? false),
           alternateKey: entity.AlternateKey,
           isContainment: entityTypeConfig.ContainerEntitySet != null,
