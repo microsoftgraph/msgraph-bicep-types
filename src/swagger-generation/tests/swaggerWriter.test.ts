@@ -151,7 +151,7 @@ describe('generate swagger with primitive types', () => {
               "entityNameOnes"
             ],
             "description": "Create or update a entityNameOne",
-            "operationId": "entityNameOnes_put",
+            "operationId": "entityNameOnes_upsert",
             "consumes": [
               "application/json"
             ],
@@ -178,7 +178,7 @@ describe('generate swagger with primitive types', () => {
             ],
             "responses": {
               "200": {
-                "description": "entityNameOne create or update successfully",
+                "description": "entityNameOne created or updated successfully",
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
@@ -348,7 +348,7 @@ describe('generate swagger with primitive types', () => {
               "entityNameOnes"
             ],
             "description": "Create or update a entityNameOne",
-            "operationId": "entityNameOnes_put",
+            "operationId": "entityNameOnes_upsert",
             "consumes": [
               "application/json"
             ],
@@ -375,7 +375,7 @@ describe('generate swagger with primitive types', () => {
             ],
             "responses": {
               "200": {
-                "description": "entityNameOne create or update successfully",
+                "description": "entityNameOne created or updated successfully",
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
@@ -454,7 +454,7 @@ describe('generate swagger with primitive types', () => {
               "nestedEntities"
             ],
             "description": "Create or update a nestedEntity",
-            "operationId": "nestedEntities_put",
+            "operationId": "nestedEntities_upsert",
             "consumes": [
               "application/json"
             ],
@@ -488,7 +488,7 @@ describe('generate swagger with primitive types', () => {
             ],
             "responses": {
               "200": {
-                "description": "nestedEntity create or update successfully",
+                "description": "nestedEntity created or updated successfully",
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.nestedEntity"
                 }
@@ -572,7 +572,7 @@ describe('generate swagger with primitive types', () => {
               "entityNameOnes"
             ],
             "description": "Create or update a entityNameOne",
-            "operationId": "entityNameOnes_put",
+            "operationId": "entityNameOnes_upsert",
             "consumes": [
               "application/json"
             ],
@@ -599,7 +599,7 @@ describe('generate swagger with primitive types', () => {
             ],
             "responses": {
               "200": {
-                "description": "entityNameOne create or update successfully",
+                "description": "entityNameOne created or updated successfully",
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
@@ -816,7 +816,7 @@ describe('complexTypes', () => {
               "entityNameOnes"
             ],
             description: "Create or update a entityNameOne",
-            operationId: "entityNameOnes_put",
+            operationId: "entityNameOnes_upsert",
             consumes: [
               "application/json"
             ],
@@ -843,7 +843,7 @@ describe('complexTypes', () => {
             ],
             responses: {
               "200": {
-                description: "entityNameOne create or update successfully",
+                description: "entityNameOne created or updated successfully",
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }
@@ -959,7 +959,7 @@ describe('complex types with collections', () => {
               "entityNameOnes"
             ],
             description: "Create or update a entityNameOne",
-            operationId: "entityNameOnes_put",
+            operationId: "entityNameOnes_upsert",
             consumes: [
               "application/json"
             ],
@@ -986,7 +986,7 @@ describe('complex types with collections', () => {
             ],
             responses: {
               "200": {
-                description: "entityNameOne create or update successfully",
+                description: "entityNameOne created or updated successfully",
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }
@@ -1109,7 +1109,7 @@ describe('enums', () => {
               "entityNameOnes"
             ],
             description: "Create or update a entityNameOne",
-            operationId: "entityNameOnes_put",
+            operationId: "entityNameOnes_upsert",
             consumes: [
               "application/json"
             ],
@@ -1136,7 +1136,7 @@ describe('enums', () => {
             ],
             responses: {
               "200": {
-                description: "entityNameOne create or update successfully",
+                description: "entityNameOne created or updated successfully",
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }

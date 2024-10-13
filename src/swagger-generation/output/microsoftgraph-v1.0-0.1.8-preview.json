@@ -1374,7 +1374,7 @@
           "groups"
         ],
         "description": "Create or update a group",
-        "operationId": "groups_put",
+        "operationId": "groups_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1401,7 +1401,7 @@
         ],
         "responses": {
           "200": {
-            "description": "group create or update successfully",
+            "description": "group created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.group"
             }
@@ -1415,7 +1415,7 @@
           "applications"
         ],
         "description": "Create or update a application",
-        "operationId": "applications_put",
+        "operationId": "applications_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1442,7 +1442,7 @@
         ],
         "responses": {
           "200": {
-            "description": "application create or update successfully",
+            "description": "application created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.application"
             }
@@ -1456,7 +1456,7 @@
           "servicePrincipals"
         ],
         "description": "Create or update a servicePrincipal",
-        "operationId": "servicePrincipals_put",
+        "operationId": "servicePrincipals_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1483,7 +1483,7 @@
         ],
         "responses": {
           "200": {
-            "description": "servicePrincipal create or update successfully",
+            "description": "servicePrincipal created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.servicePrincipal"
             }
@@ -1497,7 +1497,7 @@
           "federatedIdentityCredentials"
         ],
         "description": "Create or update a federatedIdentityCredential",
-        "operationId": "federatedIdentityCredentials_put",
+        "operationId": "federatedIdentityCredentials_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1531,7 +1531,7 @@
         ],
         "responses": {
           "200": {
-            "description": "federatedIdentityCredential create or update successfully",
+            "description": "federatedIdentityCredential created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.federatedIdentityCredential"
             }
@@ -1545,7 +1545,7 @@
           "oauth2PermissionGrants"
         ],
         "description": "Create or update a oAuth2PermissionGrant",
-        "operationId": "oauth2PermissionGrants_put",
+        "operationId": "oauth2PermissionGrants_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1572,7 +1572,7 @@
         ],
         "responses": {
           "200": {
-            "description": "oAuth2PermissionGrant create or update successfully",
+            "description": "oAuth2PermissionGrant created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.oAuth2PermissionGrant"
             }
@@ -1586,7 +1586,7 @@
           "appRoleAssignedTo"
         ],
         "description": "Create or update a appRoleAssignment",
-        "operationId": "appRoleAssignedTo_put",
+        "operationId": "appRoleAssignedTo_upsert",
         "consumes": [
           "application/json"
         ],
@@ -1613,7 +1613,7 @@
         ],
         "responses": {
           "200": {
-            "description": "appRoleAssignment create or update successfully",
+            "description": "appRoleAssignment created or updated successfully",
             "schema": {
               "$ref": "#/definitions/microsoft.graph.appRoleAssignment"
             }

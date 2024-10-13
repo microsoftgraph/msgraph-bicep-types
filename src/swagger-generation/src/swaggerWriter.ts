@@ -115,7 +115,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
           entitySet
         ],
         description: `${operationDescription} a ${entityName}`,
-        operationId: `${entitySet}_${operationType}`,
+        operationId: `${entitySet}_${entityTypeConfig.IsReadonlyResource ? "get" : "upsert"}`,
         consumes: [
           Product.application_json
         ],
@@ -125,7 +125,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
         parameters: parameters,
         responses: {
           "200": {
-            description: `${entityName} ${operationDescription.toLowerCase()} successfully`,
+            description: `${entityName} ${entityTypeConfig.IsReadonlyResource ? "get" : "created or updated"} successfully`,
             schema: {
               $ref: `#/definitions/${id}`
             }
