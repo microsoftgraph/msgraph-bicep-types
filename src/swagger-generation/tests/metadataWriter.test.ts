@@ -107,7 +107,7 @@ describe("writeMetadata", () => {
     });
   });
 
-  it("should correctly write upsertable and updatable", () => {
+  it("should correctly write attributes", () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
@@ -124,6 +124,11 @@ describe("writeMetadata", () => {
     definitionMap.EntityMap.set(
       "namespace.entityNotUpdatable",
       new EntityType("entityUndefinedProps", undefined, false, undefined, false, false, [], [])
+    );
+
+    definitionMap.EntityMap.set(
+      "namespace.entityReadonly",
+      new EntityType("entityUndefinedProps", "alternateKey", false, undefined, false, false, [], [])
     );
 
     entityTypes.set("namespace.entityUpsertable", {
@@ -143,6 +148,12 @@ describe("writeMetadata", () => {
       Name: "namespace.entityNotUpdatable",
       Upsertable: false,
       RootUri: "/entityNotUpdatable",
+    } as EntityTypeConfig);
+
+    entityTypes.set("namespace.entityReadonly", {
+      Name: "namespace.entityReadonly",
+      IsReadonlyResource: true,
+      RootUri: "/entityReadonly",
     } as EntityTypeConfig);
 
     const config = {
@@ -175,6 +186,16 @@ describe("writeMetadata", () => {
         isIdempotent: false,
         updatable: false,
         isContainment: false,
+      }
+    });
+
+    expect(metadata["entityReadonly"]).toEqual({
+      beta: {
+        isIdempotent: false,
+        updatable: false,
+        isContainment: false,
+        isReadonly: true,
+        alternateKey: "alternateKey",
       }
     });
   });

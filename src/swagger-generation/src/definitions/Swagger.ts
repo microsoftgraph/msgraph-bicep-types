@@ -50,6 +50,7 @@ export interface Definition {
     type: string,
     properties: Properties,
     required?: string[],
+    "x-ms-graph-resource"?: boolean,
 }
 
 export interface SwaggerEnum {
@@ -69,6 +70,7 @@ export interface Property {
     items?: Items,
     readOnly?: boolean,
     "x-constant-key"?: boolean,
+    "x-ms-graph-key"?: boolean,
 }
 
 export interface Items {
@@ -84,7 +86,8 @@ export interface Paths {
 }
 
 export interface Path {
-    put: Operation
+    put?: Operation,
+    get?: Operation
 }
 
 export interface SchemasDefinitions {

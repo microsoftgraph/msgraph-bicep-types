@@ -412,9 +412,15 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
   }
 
   function parsePropertyFlags(putProperty: Property | undefined, getProperty: Property | undefined) {
-    let flags = ObjectTypePropertyFlags.None;
+    function checkExtensionKeyExists(keyName: string) {
+      return putProperty?.extensions?.[keyName] === true || getProperty?.extensions?.[keyName] === true;
+    }
 
-    if (putProperty && putProperty.required) {
+    let flags = ObjectTypePropertyFlags.None;
+    const isKey = checkExtensionKeyExists('x-ms-graph-key');
+    const isConstantKey = checkExtensionKeyExists('x-constant-key');
+
+    if (putProperty && putProperty.required || isKey) {
       flags |= ObjectTypePropertyFlags.Required;
     }
 
@@ -422,7 +428,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       flags |= getMutabilityFlags(putProperty);
     }
 
-    if (!putProperty || putProperty.readOnly) {
+    if ((!putProperty || putProperty.readOnly) && !isKey) {
       flags |= ObjectTypePropertyFlags.ReadOnly;
     }
 
@@ -430,7 +436,7 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       flags |= ObjectTypePropertyFlags.WriteOnly;
     }
 
-    if (putProperty && putProperty.extensions?.['x-constant-key']) {
+    if (isConstantKey) {
       flags |= ObjectTypePropertyFlags.DeployTimeConstant;
     }
 
