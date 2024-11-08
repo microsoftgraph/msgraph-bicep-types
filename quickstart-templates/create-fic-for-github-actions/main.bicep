@@ -1,40 +1,50 @@
 extension microsoftGraphV1_0
 
-@description('Subject of the GitHub Actions workflow\'s federated identity credentials (FIC) that is checked before issuing an Entra ID access token to access Azure resources. GitHub Actions subject examples can be found in https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims')
-param githubActionsFicSubject string
+@description('The owner of the Github orgniazation that is assigned to a workload identity')
+param gitHubOwner string = ''
 
-@description('Role definition ID to be assigned')
-param roleDefinitionId string = 'b24988ac-6180-42a0-ab88-20f7382dd24c' // Contributor
+@description('The GitHub repository that is assigned to a workload identity')
+param gitHubRepo string = ''
 
+@description('Contributor role definition ID')
+param contributorRoleDefinitionId string = 'b24988ac-6180-42a0-ab88-20f7382dd24c'
+
+@description('Subject of the Github Action workflow\'s federated identity credentials')
+var gitHubActionsFederatedIDentitySubject = 'repo:${gitHubOwner}/${gitHubRepo}:ref:refs/heads/main'
+
+var applicationDisplayName = 'GitHub Actions App'
+var applicationName = 'githubActionsApp'
 var githubOIDCProvider = 'https://token.actions.githubusercontent.com'
 var microsoftEntraAudience = 'api://AzureADTokenExchange'
 
-resource githubActionsApp 'Microsoft.Graph/applications@v1.0' = {
-  uniqueName: 'githubActionsApp'
-  displayName: 'Github Actions App'
+resource identityGithubActionsApplications 'Microsoft.Graph/applications@v1.0' = {
+  displayName: applicationDisplayName
+  uniqueName: applicationName
 
-  resource githubFic 'federatedIdentityCredentials' = {
-    name: '${githubActionsApp.uniqueName}/githubFic'
-    audiences: [microsoftEntraAudience]
-    description: 'FIC for Github Actions to access Entra protected resources'
+  resource githubFederatedIdentityCredential 'federatedIdentityCredentials@v1.0' = {
+    name: '${identityGithubActionsApplications.uniqueName}/githubFederatedIdentityCredential'
+    audiences: [
+      microsoftEntraAudience
+    ]
     issuer: githubOIDCProvider
-    subject: githubActionsFicSubject
+    subject: gitHubActionsFederatedIDentitySubject
   }
 }
 
 resource githubActionsSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
-  appId: githubActionsApp.appId
+  appId: identityGithubActionsApplications.appId
 }
 
-// The service principal needs to be assigned the necessary role to access the resources
-// In this example, it is assigned with the `Contributor` role to the resource group
-// which will allow GitHub actions to access Azure resources in the resource group via Az PS/CLI
-var roleAssignmentName = guid('githubActions', roleDefinitionId, resourceGroup().id)
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+var roleAssignmentName = guid(resourceGroup().id, 'githubactions', contributorRoleDefinitionId)
+
+// Assign the group as a storage blob reader role
+resource storageBlobReadersRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: roleAssignmentName
+  scope: resourceGroup()
   properties: {
     principalId: githubActionsSp.id
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitionId)
+    roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', contributorRoleDefinitionId)
   }
 }
+
+output githubActionsSpId string = identityGithubActionsApplications.appId
