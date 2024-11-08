@@ -2,7 +2,7 @@
 
 The following video demonstrates the an end-to-end scenario of configuring workload identity federation and a GitHub Action workflow, so that the GitHub Action can log into Microsoft Entra, build and deploy a web app into an Azure App Service. This is all accomplished **without the use of any secrets**.
 
-![GitHub Action deploys web app to Azure App Services using federated identity credentials](../../docs/media/github-actions-and-workload-identities.mp4")
+![GitHub Action deploys web app to Azure App Services using federated identity credentials](../../docs/media/github-actions-and-workload-identities.mp4)
 
 ## Details
 
