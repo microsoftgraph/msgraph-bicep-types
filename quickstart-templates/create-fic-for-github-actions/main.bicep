@@ -1,4 +1,4 @@
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('The owner of the Github orgniazation that is assigned to a workload identity')
 param gitHubOwner string = ''

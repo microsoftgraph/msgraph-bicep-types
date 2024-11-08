@@ -1,4 +1,4 @@
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('Id of the application role to add to the resource app')
 param appRoleId string
