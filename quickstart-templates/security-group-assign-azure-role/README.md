@@ -2,7 +2,7 @@
 
 This video shows how the Bicep file is created, deployed and then run to demonstrate an app service reading from the Blob Storage account.
 
-<video controls src="../../docs/media/app-service-to-blob-service-using-a-security-group.mp4" title="This video shows how the Bicep file is created, deployed and then run to demonstrate an app service reading from the Blob Storage account."></video>
+![This video shows how the Bicep file is created, deployed and then run to demonstrate an app service reading from the Blob Storage account.](../../docs/media/app-service-to-blob-service-using-a-security-group.mp4)
 
 ## Details
 
