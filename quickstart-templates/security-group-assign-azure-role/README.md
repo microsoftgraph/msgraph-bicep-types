@@ -2,9 +2,11 @@
 
 This video shows how the Bicep file is created, deployed and then run to demonstrate an app service reading from the Blob Storage account.
 
-[![This video shows how the Bicep file is created, deployed and then run to demonstrate an app service reading from the Blob Storage account.](../../docs/media/client-apps-read-from-blob-storage-via-sg.jpg)](../../docs/media/app-service-to-blob-service-using-a-security-group.mp4)
+https://github.com/user-attachments/assets/b9d47f68-c94b-4e8e-8e0e-4e5716a7fcc8
 
 ## Details
+
+![Configuring an app service to read from a Blob Storage account via a security group.](../../docs/media/client-apps-read-from-blob-storage-via-sg.jpg)]
 
 This Bicep template configures three regional user-assigned managed identities, that can be used to read from a Blob Storage account, via a security group. The user-assigned managed identities are added as members of the security group, and the security group is assigned an Azure Reader role to the Blob Storage account. You can find other Azure built-in roles [here](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles).
 
