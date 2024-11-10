@@ -37,8 +37,8 @@ resource githubActionsSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
 
 var roleAssignmentName = guid(resourceGroup().id, 'githubactions', contributorRoleDefinitionId)
 
-// Assign the group as a storage blob reader role
-resource storageBlobReadersRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+// Assign the GitHub action service principal the Azure contributor role scoped to a resource group
+resource contributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: roleAssignmentName
   scope: resourceGroup()
   properties: {
