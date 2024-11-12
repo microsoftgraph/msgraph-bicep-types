@@ -1,4 +1,4 @@
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('location of the resource group')
 param location string = resourceGroup().location
