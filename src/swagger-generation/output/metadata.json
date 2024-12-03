@@ -246,5 +246,143 @@
         ]
       }
     }
+  },
+  "0.1.9-preview": {
+    "users": {
+      "beta": {
+        "isIdempotent": false,
+        "isReadonly": true,
+        "updatable": false,
+        "isContainment": false
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "isReadonly": true,
+        "updatable": false,
+        "isContainment": false
+      }
+    },
+    "groups": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "navigationProperties": [
+          "members",
+          "owners"
+        ]
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "navigationProperties": [
+          "members",
+          "owners"
+        ]
+      }
+    },
+    "applications": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false
+      }
+    },
+    "servicePrincipals": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "appId",
+        "isContainment": false
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "appId",
+        "isContainment": false
+      }
+    },
+    "applications/federatedIdentityCredentials": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "name",
+        "isContainment": true,
+        "containerEntitySet": "applications"
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "name",
+        "isContainment": true,
+        "containerEntitySet": "applications"
+      }
+    },
+    "oauth2PermissionGrants": {
+      "beta": {
+        "isIdempotent": false,
+        "updatable": true,
+        "isContainment": false,
+        "temporaryFilterKeys": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "compositeKeyProperties": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ]
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "updatable": true,
+        "isContainment": false,
+        "temporaryFilterKeys": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "compositeKeyProperties": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ]
+      }
+    },
+    "appRoleAssignedTo": {
+      "beta": {
+        "isIdempotent": false,
+        "updatable": false,
+        "isContainment": true,
+        "containerEntitySet": "servicePrincipals",
+        "keyProperty": "resourceId",
+        "compositeKeyProperties": [
+          "appRoleId",
+          "principalId"
+        ]
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "updatable": false,
+        "isContainment": true,
+        "containerEntitySet": "servicePrincipals",
+        "keyProperty": "resourceId",
+        "compositeKeyProperties": [
+          "appRoleId",
+          "principalId"
+        ]
+      }
+    }
   }
 }

@@ -34,10 +34,12 @@ These settings apply only when `--tag=microsoftgraph-preview` is specified on th
 input-file: 
   - microsoftgraph/preview/beta/0.1.7-preview.json
   - microsoftgraph/preview/beta/0.1.8-preview.json
+  - microsoftgraph/preview/beta/0.1.9-preview.json
 ```
 
 ```yaml $(tag) == 'microsoftgraph-v1.0'
 input-file: 
   - microsoftgraph/preview/v1.0/0.1.7-preview.json
   - microsoftgraph/preview/v1.0/0.1.8-preview.json
+  - microsoftgraph/preview/v1.0/0.1.9-preview.json
 ```
