@@ -35,6 +35,13 @@
         "flags": 0,
         "description": "Describes a classification for the group (such as low, medium or high business impact)"
       },
+      "cloudLicensing": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 0,
+        "description": "The relationships of a group to cloud licensing resources."
+      },
       "createdByAppId": {
         "type": {
           "$ref": "#/0"
@@ -72,28 +79,28 @@
       },
       "groupTypes": {
         "type": {
-          "$ref": "#/4"
+          "$ref": "#/5"
         },
         "flags": 0,
         "description": "Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group; otherwise, it's either a security group or a distribution group. For details, see groups overview.If the collection includes DynamicMembership, the group has dynamic membership; otherwise, membership is static"
       },
       "infoCatalogs": {
         "type": {
-          "$ref": "#/5"
+          "$ref": "#/6"
         },
         "flags": 0,
         "description": "Identifies the info segments assigned to the group"
       },
       "isAssignableToRole": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true,  visibility must be Hidden, and the group cannot be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
       },
       "isManagementRestricted": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 2,
         "description": "Indicates whether the group is a member of a restricted management administrative unit. The default value is false. Read-only. To manage a group member of a restricted management administrative unit, the administrator or calling app must be assigned a Microsoft Entra role at the scope of the restricted management administrative unit."
@@ -107,7 +114,7 @@
       },
       "mailEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 1,
         "description": "Specifies whether the group is mail-enabled. Required"
@@ -156,7 +163,7 @@
       },
       "onPremisesProvisioningErrors": {
         "type": {
-          "$ref": "#/8"
+          "$ref": "#/9"
         },
         "flags": 2,
         "description": "Errors when using Microsoft synchronization product during provisioning"
@@ -177,7 +184,7 @@
       },
       "onPremisesSyncEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 2,
         "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory (default). Read-only"
@@ -204,7 +211,7 @@
       },
       "proxyAddresses": {
         "type": {
-          "$ref": "#/9"
+          "$ref": "#/10"
         },
         "flags": 2,
         "description": "Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Read-only. Not nullable"
@@ -218,21 +225,21 @@
       },
       "resourceBehaviorOptions": {
         "type": {
-          "$ref": "#/10"
+          "$ref": "#/11"
         },
         "flags": 0,
         "description": "Specifies the group behaviors that can be set for a Microsoft 365 group during creation. This property can be set only as part of creation (POST). For the list of possible values, see Microsoft 365 group behaviors and provisioning options."
       },
       "resourceProvisioningOptions": {
         "type": {
-          "$ref": "#/11"
+          "$ref": "#/12"
         },
         "flags": 0,
         "description": "Specifies the group resources that are associated with the Microsoft 365 group. The possible value is Team. For more information, see Microsoft 365 group behaviors and provisioning options"
       },
       "securityEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 1,
         "description": "Specifies whether the group is a security group"
@@ -246,7 +253,7 @@
       },
       "serviceProvisioningErrors": {
         "type": {
-          "$ref": "#/13"
+          "$ref": "#/14"
         },
         "flags": 0,
         "description": "Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object."
@@ -274,21 +281,21 @@
       },
       "writebackConfiguration": {
         "type": {
-          "$ref": "#/14"
+          "$ref": "#/15"
         },
         "flags": 0,
         "description": "Specifies whether or not a group is configured to write back group object properties to on-premises Active Directory. These properties are used when group writeback is configured in the Microsoft Entra Connect sync client."
       },
       "members": {
         "type": {
-          "$ref": "#/15"
+          "$ref": "#/16"
         },
         "flags": 0,
         "description": "Direct group members, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable"
       },
       "owners": {
         "type": {
-          "$ref": "#/16"
+          "$ref": "#/17"
         },
         "flags": 0,
         "description": "The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue"
@@ -308,6 +315,9 @@
         "description": "The unique identifier for an entity. Read-only."
       }
     }
+  },
+  {
+    "$type": "AnyType"
   },
   {
     "$type": "ArrayType",
@@ -361,7 +371,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/7"
+      "$ref": "#/8"
     }
   },
   {
@@ -395,7 +405,7 @@
       },
       "isResolved": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Indicates whether the Error has been attended to."
@@ -412,7 +422,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/12"
+      "$ref": "#/13"
     }
   },
   {
@@ -428,7 +438,7 @@
       },
       "isEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Indicates whether writeback of cloud groups to on-premise Active Directory is enabled. Default value is true for Microsoft 365 groups and false for security groups."
@@ -470,21 +480,21 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/18"
+          "$ref": "#/19"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/19"
+          "$ref": "#/20"
         },
         "flags": 10,
         "description": "The resource api version"
       },
       "api": {
         "type": {
-          "$ref": "#/21"
+          "$ref": "#/22"
         },
         "flags": 0,
         "description": "Specifies settings for an application that implements a web API."
@@ -498,21 +508,21 @@
       },
       "appRoles": {
         "type": {
-          "$ref": "#/32"
+          "$ref": "#/33"
         },
         "flags": 0,
         "description": "The collection of roles defined for the application. With app role assignments, these roles can be assigned to users, groups, or service principals associated with other applications. Not nullable."
       },
       "authenticationBehaviors": {
         "type": {
-          "$ref": "#/33"
+          "$ref": "#/34"
         },
         "flags": 0,
         "description": "The collection of breaking change behaviors related to token issuance that are configured for the application. Authentication behaviors are unset by default (null) and must be explicitly enabled or disabled. Nullable. For more information about authentication behaviors, see Manage application authenticationBehaviors to avoid unverified use of email claims for user identification or authorization."
       },
       "certification": {
         "type": {
-          "$ref": "#/34"
+          "$ref": "#/35"
         },
         "flags": 2,
         "description": "Specifies the certification status of the application."
@@ -561,35 +571,35 @@
       },
       "identifierUris": {
         "type": {
-          "$ref": "#/35"
+          "$ref": "#/36"
         },
         "flags": 0,
         "description": "Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<appId>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable"
       },
       "info": {
         "type": {
-          "$ref": "#/36"
+          "$ref": "#/37"
         },
         "flags": 0,
         "description": "Basic profile information of the application, such as it's marketing, support, terms of service, and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more information, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
       },
       "isDeviceOnlyAuthSupported": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies whether this application supports device authentication without a user. The default is false."
       },
       "isFallbackPublicClient": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies the fallback application type as public client, such as an installed application running on a mobile device. The default value is false, which means the fallback application type is confidential client such as a web app. There are certain scenarios where Microsoft Entra ID can't determine the client application type. For example, the ROPC flow where the application is configured without specifying a redirect URI. In those cases Microsoft Entra ID interprets the application type based on the value of this property."
       },
       "keyCredentials": {
         "type": {
-          "$ref": "#/38"
+          "$ref": "#/39"
         },
         "flags": 0,
         "description": "The collection of key credentials associated with the application. Not nullable"
@@ -603,7 +613,7 @@
       },
       "nativeAuthenticationApisEnabled": {
         "type": {
-          "$ref": "#/41"
+          "$ref": "#/42"
         },
         "flags": 0,
         "description": "Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: noneand all. Default is none. For more information, see Native Authentication."
@@ -617,28 +627,28 @@
       },
       "optionalClaims": {
         "type": {
-          "$ref": "#/42"
+          "$ref": "#/43"
         },
         "flags": 0,
         "description": "Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app."
       },
       "parentalControlSettings": {
         "type": {
-          "$ref": "#/48"
+          "$ref": "#/49"
         },
         "flags": 0,
         "description": "Specifies parental control settings for an application."
       },
       "passwordCredentials": {
         "type": {
-          "$ref": "#/51"
+          "$ref": "#/52"
         },
         "flags": 0,
         "description": "The collection of password credentials associated with the application. Not nullable."
       },
       "publicClient": {
         "type": {
-          "$ref": "#/52"
+          "$ref": "#/53"
         },
         "flags": 0,
         "description": "Specifies settings for installed clients such as desktop or mobile devices."
@@ -652,14 +662,14 @@
       },
       "requestSignatureVerification": {
         "type": {
-          "$ref": "#/54"
+          "$ref": "#/55"
         },
         "flags": 0,
         "description": "Specifies whether this application requires Microsoft Entra ID to verify the signed authentication requests."
       },
       "requiredResourceAccess": {
         "type": {
-          "$ref": "#/60"
+          "$ref": "#/61"
         },
         "flags": 0,
         "description": "Specifies the resources that the application needs to access. This property also specifies the set of delegated permissions and application roles that it needs for each of those resources. This configuration of access to the required resources drives the consent experience. No more than 50 resource services (APIs) can be configured. Beginning mid-October 2021, the total number of required permissions must not exceed 400. For more information, see Limits on requested permissions per app. Not nullable"
@@ -680,7 +690,7 @@
       },
       "servicePrincipalLockConfiguration": {
         "type": {
-          "$ref": "#/61"
+          "$ref": "#/62"
         },
         "flags": 0,
         "description": "Specifies whether sensitive properties of a multitenant application should be locked for editing after the application is provisioned in a tenant. Nullable. null by default."
@@ -694,21 +704,21 @@
       },
       "spa": {
         "type": {
-          "$ref": "#/62"
+          "$ref": "#/63"
         },
         "flags": 0,
         "description": "Specifies settings for a single-page application, including sign out URLs and redirect URIs for authorization codes and access tokens."
       },
       "tags": {
         "type": {
-          "$ref": "#/64"
+          "$ref": "#/65"
         },
         "flags": 0,
         "description": "Custom strings that can be used to categorize and identify the application. Not nullable"
       },
       "tokenEncryptionKeyId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user."
@@ -722,21 +732,21 @@
       },
       "verifiedPublisher": {
         "type": {
-          "$ref": "#/65"
+          "$ref": "#/66"
         },
         "flags": 0,
         "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification."
       },
       "web": {
         "type": {
-          "$ref": "#/66"
+          "$ref": "#/67"
         },
         "flags": 0,
         "description": "Specifies settings for a web application."
       },
       "windows": {
         "type": {
-          "$ref": "#/71"
+          "$ref": "#/72"
         },
         "flags": 0,
         "description": "Specifies settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store."
@@ -763,35 +773,35 @@
     "properties": {
       "acceptMappedClaims": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "When true, allows an application to use claims mapping without specifying a custom signing key."
       },
       "knownClientApplications": {
         "type": {
-          "$ref": "#/23"
+          "$ref": "#/24"
         },
         "flags": 0,
         "description": "Used for bundling consent if you have a solution that contains two parts: a client app and a custom web API app. If you set the appID of the client app to this value, the user only consents once to the client app. Microsoft Entra ID knows that consenting to the client means implicitly consenting to the web API and automatically provisions service principals for both APIs at the same time. Both the client and the web API app must be registered in the same tenant."
       },
       "oauth2PermissionScopes": {
         "type": {
-          "$ref": "#/25"
+          "$ref": "#/26"
         },
         "flags": 0,
         "description": "The definition of the delegated permissions exposed by the web API represented by this application registration. These delegated permissions may be requested by a client application, and may be granted by users or administrators during consent. Delegated permissions are sometimes referred to as OAuth 2.0 scopes."
       },
       "preAuthorizedApplications": {
         "type": {
-          "$ref": "#/28"
+          "$ref": "#/29"
         },
         "flags": 0,
         "description": "Lists the client applications that are preauthorized with the specified delegated permissions to access this application's APIs. Users aren't required to consent to any preauthorized application (for the permissions specified). However, any other permissions not listed in preAuthorizedApplications (requested through incremental consent for example) will require user consent."
       },
       "requestedAccessTokenVersion": {
         "type": {
-          "$ref": "#/29"
+          "$ref": "#/30"
         },
         "flags": 0,
         "description": "Specifies the access token version expected by this resource. This changes the version and format of the JWT produced independent of the endpoint or client used to request the access token. The endpoint used, v1.0 or v2.0, is chosen by the client and only impacts the version of id_tokens. Resources need to explicitly configure requestedAccessTokenVersion to indicate the supported access token format. Possible values for requestedAccessTokenVersion are 1, 2, or null. If the value is null, this defaults to 1, which corresponds to the v1.0 endpoint. If signInAudience on the application is configured as AzureADandPersonalMicrosoftAccount or PersonalMicrosoftAccount, the value for this property must be 2."
@@ -807,7 +817,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/22"
+      "$ref": "#/23"
     }
   },
   {
@@ -830,14 +840,14 @@
       },
       "id": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "Unique delegated permission identifier inside the collection of delegated permissions defined for a resource application."
       },
       "isEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "When you create or update a permission, this property must be set to true (which is the default). To delete a permission, this property must first be set to false. At that point, in a subsequent call, the permission may be removed."
@@ -875,7 +885,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/24"
+      "$ref": "#/25"
     }
   },
   {
@@ -891,7 +901,7 @@
       },
       "permissionIds": {
         "type": {
-          "$ref": "#/27"
+          "$ref": "#/28"
         },
         "flags": 0,
         "description": "The unique identifier for the scopes the client application is granted."
@@ -907,7 +917,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/26"
+      "$ref": "#/27"
     }
   },
   {
@@ -919,7 +929,7 @@
     "properties": {
       "allowedMemberTypes": {
         "type": {
-          "$ref": "#/31"
+          "$ref": "#/32"
         },
         "flags": 0,
         "description": "Specifies whether this app role can be assigned to users and groups (by setting to ['User']), to other application's (by setting to ['Application'], or both (by setting to ['User', 'Application']). App roles supporting assignment to other applications' service principals are also known as application permissions. The 'Application' value is only supported for app roles defined on application entities."
@@ -940,14 +950,14 @@
       },
       "id": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "Unique role identifier inside the appRoles collection. You must specify a new GUID identifier when you create a new app role."
       },
       "isEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false. At that point, in a subsequent call, this role may be removed."
@@ -977,7 +987,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/30"
+      "$ref": "#/31"
     }
   },
   {
@@ -986,21 +996,21 @@
     "properties": {
       "blockAzureADGraphAccess": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "If false, allows the app to have extended access to Azure AD Graph until June 30, 2025 when Azure AD Graph is fully retired. For more information on Azure AD retirement updates, see June 2024 update on Azure AD Graph API retirement."
       },
       "removeUnverifiedEmailClaim": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "If true, removes the email claim from tokens sent to an application when the email address's domain can't be verified."
       },
       "requireClientServicePrincipal": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "If true, requires multitenant applications to have a service principal in the resource tenant as part of authorization checks before they're granted access tokens. This property is only modifiable for multitenant resource applications that rely on access from clients without a service principal and had this behavior as set to false by Microsoft. Tenant administrators should respond to security advisories sent through Azure Health Service events and the Microsoft 365 message center."
@@ -1027,14 +1037,14 @@
       },
       "isCertifiedByMicrosoft": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Indicates whether the application is certified by Microsoft."
       },
       "isPublisherAttested": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Indicates whether the application has been self-attested by the application developer or the publisher."
@@ -1111,7 +1121,7 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Friendly name for the key. Optional."
+        "description": "The friendly name for the key, with a maximum length of 90 characters. Longer values are accepted but shortened. Optional."
       },
       "endDateTime": {
         "type": {
@@ -1129,7 +1139,7 @@
       },
       "keyId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "The unique identifier for the key."
@@ -1160,7 +1170,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/37"
+      "$ref": "#/38"
     }
   },
   {
@@ -1175,10 +1185,10 @@
     "$type": "UnionType",
     "elements": [
       {
-        "$ref": "#/39"
+        "$ref": "#/40"
       },
       {
-        "$ref": "#/40"
+        "$ref": "#/41"
       },
       {
         "$ref": "#/0"
@@ -1191,21 +1201,21 @@
     "properties": {
       "accessToken": {
         "type": {
-          "$ref": "#/45"
+          "$ref": "#/46"
         },
         "flags": 0,
         "description": "The optional claims returned in the JWT access token."
       },
       "idToken": {
         "type": {
-          "$ref": "#/46"
+          "$ref": "#/47"
         },
         "flags": 0,
         "description": "The optional claims returned in the JWT ID token."
       },
       "saml2Token": {
         "type": {
-          "$ref": "#/47"
+          "$ref": "#/48"
         },
         "flags": 0,
         "description": "The optional claims returned in the SAML token."
@@ -1218,14 +1228,14 @@
     "properties": {
       "additionalProperties": {
         "type": {
-          "$ref": "#/44"
+          "$ref": "#/45"
         },
         "flags": 0,
         "description": "Additional properties of the claim. If a property exists in this collection, it modifies the behavior of the optional claim specified in the name property."
       },
       "essential": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "If the value is true, the claim specified by the client is necessary to ensure a smooth authorization experience for the specific task requested by the end user. The default value is false."
@@ -1255,19 +1265,19 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/43"
+      "$ref": "#/44"
     }
   },
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/43"
+      "$ref": "#/44"
     }
   },
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/43"
+      "$ref": "#/44"
     }
   },
   {
@@ -1276,7 +1286,7 @@
     "properties": {
       "countriesBlockedForMinors": {
         "type": {
-          "$ref": "#/49"
+          "$ref": "#/50"
         },
         "flags": 0,
         "description": "Specifies the two-letter ISO country codes. Access to the application will be blocked for minors from the countries specified in this list."
@@ -1323,7 +1333,7 @@
       },
       "keyId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "The unique identifier for the password."
@@ -1347,7 +1357,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/50"
+      "$ref": "#/51"
     }
   },
   {
@@ -1356,7 +1366,7 @@
     "properties": {
       "redirectUris": {
         "type": {
-          "$ref": "#/53"
+          "$ref": "#/54"
         },
         "flags": 0,
         "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}://auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS://auth."
@@ -1375,14 +1385,14 @@
     "properties": {
       "allowedWeakAlgorithms": {
         "type": {
-          "$ref": "#/56"
+          "$ref": "#/57"
         },
         "flags": 0,
         "description": "Specifies whether this application accepts weak algorithms. The possible values are: rsaSha1, unknownFutureValue."
       },
       "isSignedRequestRequired": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies whether signed authentication requests for this application should be required."
@@ -1397,7 +1407,7 @@
     "$type": "UnionType",
     "elements": [
       {
-        "$ref": "#/55"
+        "$ref": "#/56"
       },
       {
         "$ref": "#/0"
@@ -1410,7 +1420,7 @@
     "properties": {
       "resourceAccess": {
         "type": {
-          "$ref": "#/59"
+          "$ref": "#/60"
         },
         "flags": 0,
         "description": "The list of OAuth2.0 permission scopes and app roles that the application requires from the specified resource."
@@ -1430,7 +1440,7 @@
     "properties": {
       "id": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "The unique identifier of an app role or delegated permission exposed by the resource application. For delegated permissions, this should match the id property of one of the delegated permissions in the oauth2PermissionScopes collection of the resource application's service principal. For app roles (application permissions), this should match the id property of an app role in the appRoles collection of the resource application's service principal."
@@ -1447,13 +1457,13 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/58"
+      "$ref": "#/59"
     }
   },
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/57"
+      "$ref": "#/58"
     }
   },
   {
@@ -1462,35 +1472,35 @@
     "properties": {
       "allProperties": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Enables locking all sensitive properties. The sensitive properties are keyCredentials, passwordCredentials, and tokenEncryptionKeyId."
       },
       "credentialsWithUsageSign": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Locks the keyCredentials and passwordCredentials properties for modification where credential usage type is Sign."
       },
       "credentialsWithUsageVerify": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Locks the keyCredentials and passwordCredentials properties for modification where credential usage type is Verify. This locks OAuth service principals."
       },
       "isEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Enables or disables service principal lock configuration. To allow the sensitive properties to be updated, update this property to false to disable the lock on the service principal."
       },
       "tokenEncryptionKeyId": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Locks the tokenEncryptionKeyId property for modification on the service principal."
@@ -1503,7 +1513,7 @@
     "properties": {
       "redirectUris": {
         "type": {
-          "$ref": "#/63"
+          "$ref": "#/64"
         },
         "flags": 0,
         "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent."
@@ -1562,7 +1572,7 @@
       },
       "implicitGrantSettings": {
         "type": {
-          "$ref": "#/67"
+          "$ref": "#/68"
         },
         "flags": 0,
         "description": "Specifies whether this web application can request tokens using the OAuth 2.0 implicit flow."
@@ -1576,20 +1586,20 @@
       },
       "oauth2AllowImplicitFlow": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0
       },
       "redirectUris": {
         "type": {
-          "$ref": "#/68"
+          "$ref": "#/69"
         },
         "flags": 0,
         "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent."
       },
       "redirectUriSettings": {
         "type": {
-          "$ref": "#/70"
+          "$ref": "#/71"
         },
         "flags": 0,
         "description": "Specifies the index of the URLs where user tokens are sent for sign-in. This is only valid for applications using SAML."
@@ -1602,14 +1612,14 @@
     "properties": {
       "enableAccessTokenIssuance": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies whether this web application can request an access token using the OAuth 2.0 implicit flow."
       },
       "enableIdTokenIssuance": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies whether this web application can request an ID token using the OAuth 2.0 implicit flow."
@@ -1628,7 +1638,7 @@
     "properties": {
       "index": {
         "type": {
-          "$ref": "#/29"
+          "$ref": "#/30"
         },
         "flags": 0,
         "description": "Identifies the specific URI within the redirectURIs collection in SAML SSO flows. Defaults to null. The index is unique across all the redirectUris for the application."
@@ -1645,7 +1655,7 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/69"
+      "$ref": "#/70"
     }
   },
   {
@@ -1661,7 +1671,7 @@
       },
       "redirectUris": {
         "type": {
-          "$ref": "#/72"
+          "$ref": "#/73"
         },
         "flags": 0,
         "description": "Specifies the URLs where user tokens are sent for sign-in or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. Only available for applications that support the PersonalMicrosoftAccount signInAudience."
@@ -1679,7 +1689,7 @@
     "name": "Microsoft.Graph/applications@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/20"
+      "$ref": "#/21"
     },
     "flags": 0
   },
@@ -1697,35 +1707,35 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/74"
+          "$ref": "#/75"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/75"
+          "$ref": "#/76"
         },
         "flags": 10,
         "description": "The resource api version"
       },
       "accountEnabled": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "true if the service principal account is enabled; otherwise, false. If set to false, then no users are able to sign in to this app, even if they're assigned to it"
       },
       "addIns": {
         "type": {
-          "$ref": "#/80"
+          "$ref": "#/81"
         },
         "flags": 0,
         "description": "Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications that can render file streams may set the addIns property for its 'FileHandler' functionality. This lets services like Microsoft 365 call the application in the context of a document the user is working on."
       },
       "alternativeNames": {
         "type": {
-          "$ref": "#/81"
+          "$ref": "#/82"
         },
         "flags": 0,
         "description": "Used to retrieve service principals by subscription, identify resource group and full resource IDs for managed identities"
@@ -1760,21 +1770,21 @@
       },
       "appOwnerOrganizationId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 2,
         "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications"
       },
       "appRoleAssignmentRequired": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 0,
         "description": "Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable"
       },
       "appRoles": {
         "type": {
-          "$ref": "#/82"
+          "$ref": "#/83"
         },
         "flags": 0,
         "description": "The roles exposed by the application, which this service principal represents. For more information, see the appRoles property definition on the application entity. Not nullable."
@@ -1809,14 +1819,14 @@
       },
       "info": {
         "type": {
-          "$ref": "#/36"
+          "$ref": "#/37"
         },
         "flags": 0,
         "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
       },
       "keyCredentials": {
         "type": {
-          "$ref": "#/83"
+          "$ref": "#/84"
         },
         "flags": 0,
         "description": "The collection of key credentials associated with the service principal. Not nullable"
@@ -1844,14 +1854,14 @@
       },
       "notificationEmailAddresses": {
         "type": {
-          "$ref": "#/84"
+          "$ref": "#/85"
         },
         "flags": 0,
         "description": "Specifies the list of email addresses where Microsoft Entra ID sends a notification when the active certificate is near the expiration date. This is only for the certificates used to sign the SAML token issued for Microsoft Entra Gallery applications."
       },
       "passwordCredentials": {
         "type": {
-          "$ref": "#/85"
+          "$ref": "#/86"
         },
         "flags": 0,
         "description": "The collection of password credentials associated with the service principal. Not nullable."
@@ -1879,7 +1889,7 @@
       },
       "publishedPermissionScopes": {
         "type": {
-          "$ref": "#/86"
+          "$ref": "#/87"
         },
         "flags": 0,
         "description": "The delegated permissions exposed by the application. For more information, see the oauth2PermissionScopes property on the application entity's api property. Not nullable. Note: This property is named oauth2PermissionScopes in v1.0."
@@ -1893,7 +1903,7 @@
       },
       "replyUrls": {
         "type": {
-          "$ref": "#/87"
+          "$ref": "#/88"
         },
         "flags": 0,
         "description": "The URLs that user tokens are sent to for sign in with the associated application, or the redirect URIs that OAuth 2.0 authorization codes and access tokens are sent to for the associated application. Not nullable."
@@ -1907,14 +1917,14 @@
       },
       "samlSingleSignOnSettings": {
         "type": {
-          "$ref": "#/88"
+          "$ref": "#/89"
         },
         "flags": 0,
         "description": "The collection for settings related to saml single sign-on."
       },
       "servicePrincipalNames": {
         "type": {
-          "$ref": "#/89"
+          "$ref": "#/90"
         },
         "flags": 0,
         "description": "Contains the list of identifiersUris, copied over from the associated application. More values can be added to hybrid applications. These values can be used to identify the permissions exposed by this app within Microsoft Entra ID. For example,Client apps can specify a resource URI that is based on the values of this property to acquire an access token, which is the URI returned in the 'aud' claim.The any operator is required for filter expressions on multi-valued properties. Not nullable"
@@ -1935,21 +1945,21 @@
       },
       "tags": {
         "type": {
-          "$ref": "#/90"
+          "$ref": "#/91"
         },
         "flags": 0,
         "description": "Custom strings that can be used to categorize and identify the service principal. Not nullable"
       },
       "tokenEncryptionKeyId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID issues tokens for this application encrypted using the key specified by this property. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user."
       },
       "verifiedPublisher": {
         "type": {
-          "$ref": "#/65"
+          "$ref": "#/66"
         },
         "flags": 0,
         "description": "Specifies the verified publisher of the application that's linked to this service principal."
@@ -1976,14 +1986,14 @@
     "properties": {
       "id": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 0,
         "description": "The unique identifier for the addIn object."
       },
       "properties": {
         "type": {
-          "$ref": "#/79"
+          "$ref": "#/80"
         },
         "flags": 0,
         "description": "The collection of key-value pairs that define parameters that the consuming service can use or call. You must specify this property when performing a POST or a PATCH operation on the addIns collection. Required."
@@ -2020,13 +2030,31 @@
   {
     "$type": "ArrayType",
     "itemType": {
+      "$ref": "#/79"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
       "$ref": "#/78"
     }
   },
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/77"
+      "$ref": "#/0"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/31"
+    }
+  },
+  {
+    "$type": "ArrayType",
+    "itemType": {
+      "$ref": "#/38"
     }
   },
   {
@@ -2038,31 +2066,13 @@
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/30"
+      "$ref": "#/51"
     }
   },
   {
     "$type": "ArrayType",
     "itemType": {
-      "$ref": "#/37"
-    }
-  },
-  {
-    "$type": "ArrayType",
-    "itemType": {
-      "$ref": "#/0"
-    }
-  },
-  {
-    "$type": "ArrayType",
-    "itemType": {
-      "$ref": "#/50"
-    }
-  },
-  {
-    "$type": "ArrayType",
-    "itemType": {
-      "$ref": "#/24"
+      "$ref": "#/25"
     }
   },
   {
@@ -2101,7 +2111,7 @@
     "name": "Microsoft.Graph/servicePrincipals@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/76"
+      "$ref": "#/77"
     },
     "flags": 0
   },
@@ -2119,21 +2129,21 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/92"
+          "$ref": "#/93"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/93"
+          "$ref": "#/94"
         },
         "flags": 10,
         "description": "The resource api version"
       },
       "audiences": {
         "type": {
-          "$ref": "#/95"
+          "$ref": "#/96"
         },
         "flags": 1,
         "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
@@ -2186,7 +2196,7 @@
     "name": "Microsoft.Graph/applications/federatedIdentityCredentials@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/94"
+      "$ref": "#/95"
     },
     "flags": 0
   },
@@ -2204,14 +2214,14 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/97"
+          "$ref": "#/98"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/98"
+          "$ref": "#/99"
         },
         "flags": 10,
         "description": "The resource api version"
@@ -2265,7 +2275,7 @@
     "name": "Microsoft.Graph/oauth2PermissionGrants@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/99"
+      "$ref": "#/100"
     },
     "flags": 0
   },
@@ -2283,21 +2293,21 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/101"
+          "$ref": "#/102"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/102"
+          "$ref": "#/103"
         },
         "flags": 10,
         "description": "The resource api version"
       },
       "appRoleId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 1,
         "description": "The identifier (id) for the app role that is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application hasn't declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create."
@@ -2318,7 +2328,7 @@
       },
       "principalId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 1,
         "description": "The unique identifier (id) for the user, security group, or service principal being granted the app role. Security groups with dynamic memberships are supported. Required on create."
@@ -2339,7 +2349,7 @@
       },
       "resourceId": {
         "type": {
-          "$ref": "#/22"
+          "$ref": "#/23"
         },
         "flags": 1,
         "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create"
@@ -2358,7 +2368,7 @@
     "name": "Microsoft.Graph/appRoleAssignedTo@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/103"
+      "$ref": "#/104"
     },
     "flags": 0
   },
@@ -2376,21 +2386,21 @@
     "properties": {
       "type": {
         "type": {
-          "$ref": "#/105"
+          "$ref": "#/106"
         },
         "flags": 10,
         "description": "The resource type"
       },
       "apiVersion": {
         "type": {
-          "$ref": "#/106"
+          "$ref": "#/107"
         },
         "flags": 10,
         "description": "The resource api version"
       },
       "businessPhones": {
         "type": {
-          "$ref": "#/108"
+          "$ref": "#/109"
         },
         "flags": 2,
         "description": "The telephone numbers for the user. Only one number can be set for this property. Read-only for users synced from on-premises directory"
@@ -2411,7 +2421,7 @@
       },
       "isLicenseReconciliationNeeded": {
         "type": {
-          "$ref": "#/6"
+          "$ref": "#/7"
         },
         "flags": 2,
         "description": "Indicates whether the user is pending an exchange mailbox license assignment. Read-only"
@@ -2469,7 +2479,7 @@
         "type": {
           "$ref": "#/0"
         },
-        "flags": 2,
+        "flags": 9,
         "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies"
       },
       "deletedDateTime": {
@@ -2499,7 +2509,7 @@
     "name": "Microsoft.Graph/users@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/107"
+      "$ref": "#/108"
     },
     "flags": 1
   }

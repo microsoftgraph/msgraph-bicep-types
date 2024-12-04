@@ -90,14 +90,17 @@ From the root folder `/msgraph-bicep-types`
 1. Generate the swagger files based on metadata and the yml config files
 
     ```sh
+    pushd src/swagger-generation
     npm install
     npm run start "--" --output=../../swagger/specification/microsoftgraph/resource-manager/microsoftgraph/preview
+    popd
     ```
 
 1. Generate the rest of the Microsoft Graph bicep resources
 
     ```sh
-    npm run generate -- --specs-dir ..\..\swagger\ --single-path microsoftgraph
+    cd src/generator
+    npm run generate "--" --specs-dir ..\..\swagger\ --single-path microsoftgraph
     ```
 
 

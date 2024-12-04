@@ -76,6 +76,7 @@
 ### Properties
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **classification**: string: Describes a classification for the group (such as low, medium or high business impact)
+* **cloudLicensing**: any: The relationships of a group to cloud licensing resources.
 * **createdByAppId**: string (ReadOnly): App ID of the app used to create the group. Can be null for some groups. Read-only
 * **createdDateTime**: string (ReadOnly): Timestamp of when the group was created. The value can't be modified and is automatically populated when the group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
 * **deletedDateTime**: string (ReadOnly): Date and time when this object was deleted. Always null when the object hasn't been deleted.
@@ -190,7 +191,7 @@
 * **refreshTokensValidFromDateTime**: string (ReadOnly): Any refresh tokens or sessions tokens (session cookies) issued before this time are invalid, and applications get an error when using an invalid refresh or sessions token to acquire a delegated access token (to access APIs such as Microsoft Graph). If it happens, the application must acquire a new refresh token by requesting the authorized endpoint. Read-only. Use invalidateAllRefreshTokens to reset.
 * **surname**: string (ReadOnly): The user's surname (family name or last name). Maximum length is 64 characters
 * **type**: 'Microsoft.Graph/users' (ReadOnly, DeployTimeConstant): The resource type
-* **userPrincipalName**: string (ReadOnly): The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies
+* **userPrincipalName**: string (Required, DeployTimeConstant): The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies
 
 ## MicrosoftGraphAddIn
 ### Properties
@@ -251,7 +252,7 @@
 ## MicrosoftGraphKeyCredential
 ### Properties
 * **customKeyIdentifier**: string: A 40-character binary type that can be used to identify the credential. Optional. When not provided in the payload, defaults to the thumbprint of the certificate.
-* **displayName**: string: Friendly name for the key. Optional.
+* **displayName**: string: The friendly name for the key, with a maximum length of 90 characters. Longer values are accepted but shortened. Optional.
 * **endDateTime**: string: The date and time at which the credential expires. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
 * **key**: string: Value for the key credential. Should be a Base64 encoded value. From a .cer certificate, you can read the key using the Convert.ToBase64String() method. For more information, see Get the certificate key.
 * **keyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: The unique identifier for the key.

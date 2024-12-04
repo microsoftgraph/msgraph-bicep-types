@@ -253,12 +253,14 @@
         "isIdempotent": false,
         "isReadonly": true,
         "updatable": false,
+        "alternateKey": "userPrincipalName",
         "isContainment": false
       },
       "v1.0": {
         "isIdempotent": false,
         "isReadonly": true,
         "updatable": false,
+        "alternateKey": "userPrincipalName",
         "isContainment": false
       }
     },

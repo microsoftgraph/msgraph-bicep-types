@@ -72,7 +72,9 @@
             },
             "userPrincipalName": {
               "type": "string",
-              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies"
+              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies",
+              "x-ms-graph-key": true,
+              "x-constant-key": true
             }
           },
           "x-ms-graph-resource": true
@@ -90,6 +92,10 @@
             "classification": {
               "type": "string",
               "description": "Describes a classification for the group (such as low, medium or high business impact)"
+            },
+            "cloudLicensing": {
+              "$ref": "#/definitions/microsoft.graph.cloudLicensing.groupCloudLicensing",
+              "description": "The relationships of a group to cloud licensing resources."
             },
             "createdByAppId": {
               "type": "string",
@@ -999,6 +1005,10 @@
         }
       }
     },
+    "microsoft.graph.cloudLicensing.groupCloudLicensing": {
+      "type": "object",
+      "properties": {}
+    },
     "microsoft.graph.onPremisesProvisioningError": {
       "type": "object",
       "properties": {
@@ -1145,7 +1155,7 @@
         },
         "displayName": {
           "type": "string",
-          "description": "Friendly name for the key. Optional."
+          "description": "The friendly name for the key, with a maximum length of 90 characters. Longer values are accepted but shortened. Optional."
         },
         "endDateTime": {
           "type": "string",

@@ -63,7 +63,9 @@
             },
             "userPrincipalName": {
               "type": "string",
-              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this value should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's collection of verified domains. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies"
+              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this value should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's collection of verified domains. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies",
+              "x-ms-graph-key": true,
+              "x-constant-key": true
             }
           },
           "x-ms-graph-resource": true
@@ -514,7 +516,7 @@
             },
             "customSecurityAttributes": {
               "$ref": "#/definitions/microsoft.graph.customSecurityAttributeValue",
-              "description": "An open complex type that holds the value of a custom security attribute that is assigned to a directory object. Nullable. Filter value is case sensitive."
+              "description": "An open complex type that holds the value of a custom security attribute that is assigned to a directory object. Nullable. Filter value is case sensitive. To read this property, the calling app must be assigned the CustomSecAttributeAssignment.Read.All permission. To write this property, the calling app must be assigned the CustomSecAttributeAssignment.ReadWrite.All permissions. To read or write this property in delegated scenarios, the admin must be assigned the Attribute Assignment Administrator role."
             },
             "description": {
               "type": "string",
@@ -1075,7 +1077,7 @@
         },
         "displayName": {
           "type": "string",
-          "description": "Friendly name for the key. Optional."
+          "description": "The friendly name for the key, with a maximum length of 90 characters. Longer values are accepted but shortened. Optional."
         },
         "endDateTime": {
           "type": "string",
