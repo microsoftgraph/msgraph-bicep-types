@@ -560,7 +560,7 @@
           "$ref": "#/0"
         },
         "flags": 1,
-        "description": "The display name for the application"
+        "description": "The display name for the application. Maximum length is 256 characters"
       },
       "groupMembershipClaims": {
         "type": {
@@ -1752,7 +1752,7 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "The display name exposed by the associated application."
+        "description": "The display name exposed by the associated application. Maximum length is 256 characters."
       },
       "appId": {
         "type": {
@@ -2016,14 +2016,14 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Contains the name of the field that a value is associated with."
+        "description": "Key."
       },
       "value": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Contains the corresponding value for the specified key."
+        "description": "Value."
       }
     }
   },
@@ -2324,7 +2324,7 @@
           "$ref": "#/0"
         },
         "flags": 2,
-        "description": "The display name of the user, group, or service principal that was granted the app role assignment. Read-only"
+        "description": "The display name of the user, group, or service principal that was granted the app role assignment. Maximum length is 256 characters. Read-only"
       },
       "principalId": {
         "type": {
@@ -2345,7 +2345,7 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "The display name of the resource app's service principal to which the assignment is made."
+        "description": "The display name of the resource app's service principal to which the assignment is made. Maximum length is 256 characters."
       },
       "resourceId": {
         "type": {

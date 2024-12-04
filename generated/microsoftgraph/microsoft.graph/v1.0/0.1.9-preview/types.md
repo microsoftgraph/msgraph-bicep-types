@@ -15,7 +15,7 @@
 * **deletedDateTime**: string (ReadOnly): Date and time when this object was deleted. Always null when the object hasn't been deleted.
 * **description**: string: Free text field to provide a description of the application object to end users. The maximum allowed size is 1,024 characters
 * **disabledByMicrosoftStatus**: string: Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)
-* **displayName**: string (Required): The display name for the application
+* **displayName**: string (Required): The display name for the application. Maximum length is 256 characters
 * **groupMembershipClaims**: string: Configures the groups claim issued in a user or OAuth 2.0 access token that the application expects. To set this attribute, use one of the following valid string values: None, SecurityGroup (for security groups and Microsoft Entra roles), All (this gets all of the security groups, distribution groups, and Microsoft Entra directory roles that the signed-in user is a member of).
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **identifierUris**: string[]: Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<appId>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable
@@ -65,10 +65,10 @@
 * **createdDateTime**: string (ReadOnly): The time when the app role assignment was created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
 * **deletedDateTime**: string (ReadOnly): Date and time when this object was deleted. Always null when the object hasn't been deleted.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
-* **principalDisplayName**: string (ReadOnly): The display name of the user, group, or service principal that was granted the app role assignment. Read-only
+* **principalDisplayName**: string (ReadOnly): The display name of the user, group, or service principal that was granted the app role assignment. Maximum length is 256 characters. Read-only
 * **principalId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required): The unique identifier (id) for the user, security group, or service principal being granted the app role. Security groups with dynamic memberships are supported. Required on create.
 * **principalType**: string (ReadOnly): The type of the assigned principal. This can either be User, Group, or ServicePrincipal. Read-only.
-* **resourceDisplayName**: string: The display name of the resource app's service principal to which the assignment is made.
+* **resourceDisplayName**: string: The display name of the resource app's service principal to which the assignment is made. Maximum length is 256 characters.
 * **resourceId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required): The unique identifier (id) for the resource service principal for which the assignment is made. Required on create
 * **type**: 'Microsoft.Graph/appRoleAssignedTo' (ReadOnly, DeployTimeConstant): The resource type
 
@@ -132,7 +132,7 @@
 * **alternativeNames**: string[]: Used to retrieve service principals by subscription, identify resource group and full resource IDs for managed identities
 * **apiVersion**: 'v1.0' (ReadOnly, DeployTimeConstant): The resource api version
 * **appDescription**: string: The description exposed by the associated application.
-* **appDisplayName**: string: The display name exposed by the associated application.
+* **appDisplayName**: string: The display name exposed by the associated application. Maximum length is 256 characters.
 * **appId**: string (Required): The unique identifier for the associated application (its appId property). Alternate key
 * **applicationTemplateId**: string (ReadOnly): Unique identifier of the applicationTemplate. Read-only. null if the service principal wasn't created from an application template.
 * **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (ReadOnly): Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
