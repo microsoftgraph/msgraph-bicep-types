@@ -19,6 +19,7 @@ EntityTypes:
       - createdDateTime
       - creationType
       - customSecurityAttributes
+      - deletedDateTime
       - department
       - deviceEnrollmentLimit
       - employeeHireDate
@@ -33,6 +34,7 @@ EntityTypes:
       - identities
       - imAddresses
       - interests
+      - isLicenseReconciliationNeeded
       - isManagementRestricted
       - isResourceAccount
       - lastPasswordChangeDateTime
@@ -61,6 +63,7 @@ EntityTypes:
       - print
       - provisionedPlans
       - proxyAddresses
+      - refreshTokensValidFromDateTime
       - responsibilities
       - schools
       - securityIdentifier

@@ -37,10 +37,6 @@
               "type": "string",
               "description": "The given name (first name) of the user. Maximum length is 64 characters"
             },
-            "isLicenseReconciliationNeeded": {
-              "type": "boolean",
-              "description": "Indicates whether the user is pending an exchange mailbox license assignment. Read-only"
-            },
             "jobTitle": {
               "type": "string",
               "description": "The user's job title. Maximum length is 128 characters"
@@ -60,11 +56,6 @@
             "preferredLanguage": {
               "type": "string",
               "description": "The preferred language for the user. The preferred language format is based on RFC 4646. The name combines an ISO 639 two-letter lowercase culture code associated with the language and an ISO 3166 two-letter uppercase subculture code associated with the country or region. Example: 'en-US', or 'es-ES'"
-            },
-            "refreshTokensValidFromDateTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Any refresh tokens or sessions tokens (session cookies) issued before this time are invalid, and applications get an error when using an invalid refresh or sessions token to acquire a delegated access token (to access APIs such as Microsoft Graph). If it happens, the application must acquire a new refresh token by requesting the authorized endpoint. Read-only. Use invalidateAllRefreshTokens to reset."
             },
             "surname": {
               "type": "string",
