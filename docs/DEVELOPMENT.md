@@ -8,11 +8,14 @@ This document describes the steps to setup development tools and run Bicep types
 
 `swagger/specification`: Swagger API Specification for Microsoft Graph resources
 
+`msgraph-metadata`: A submodule that links to the microsoftgraph/msgraph-metadata repo, which contains all the latest sanitized versions of the metadata (including descriptions, annotations and errors)
+
 ## Running Generation Locally
 
 ### Initial Setup
 
 1. Clone this repo
+1. Create a new branch 
 1. Check out submodules:
 
     ```sh
