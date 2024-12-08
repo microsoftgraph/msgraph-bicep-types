@@ -13,14 +13,14 @@ $SwaggerGenerationPrefix = "./src/swagger-generation"
 $GeneratorPrefix = "./src/generator"
 $AutorestPrefix = "./src/autorest.bicep"
 
-# Build bicep-types
-Write-Host "Building bicep-types"
+# Uncomment the block below to build bicep-types
+<# Write-Host "Building bicep-types"
 Push-Location bicep-types/src/bicep-types
 npm ci
 npm audit fix
 npm run build
 Pop-Location
-Write-Host "bicep-types successfully built"
+Write-Host "bicep-types successfully built" #>
 
 # Update msgraph-metadata submodule
 Write-Host "Updating msgraph-metadata submodule"
