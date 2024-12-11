@@ -1,4 +1,4 @@
-extension graphbetatest
+extension microsoftGraphV1
 
 @description('Id of the application role to add to the resource app')
 param appRoleId string
@@ -7,9 +7,6 @@ param appRoleId string
 @description('Value of the key credential')
 param certKey string
 
-resource user 'Microsoft.Graph/users@beta' existing = {
-  userPrincipalName: 'sdf'
-}
 resource resourceApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'ExampleResourceApp'
   displayName: 'Example Resource Application'
