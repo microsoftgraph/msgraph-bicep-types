@@ -5,8 +5,10 @@ as the credential (configured as part of the application's federated identity cr
 It also creates other resources, that enable you to test using the application to call Microsoft Graph, all without
 any application secret or certificate.
 
-Further details are available on [using a user-assigned managed identity as a federated identity credential to enable your apps
-to go secret-less][msi-as-fic].
+Testing involves using an Azure Automation account runbook, which uses PowerShell cmdlets to acquire an access token for the secret-less application, which is then used to call Microsoft Graph.
+
+Further details on using a user-assigned managed identity as a federated identity credential to enable your apps
+to go secret-less, including how it works and sample code to acquire access tokens using various client libraries can be found in the [public documentation][msi-as-fic].
 
 ## Details
 
@@ -66,7 +68,7 @@ New-AzResourceGroupDeployment -ResourceGroupName <resource-group> -TemplateFile 
 
 >**NOTE**: This testing **assumes** that you have deployed all resources described in the template, as the test relies on using Azure Automation.
 
-Now that the template is deployed, the application can acquire a token for the managed identity and use that token as a credential assertion to acquire an access token to resources like Microsoft Graph. However, in order to acquire a token for the managed identity, the app **must** be running in an Azure Cloud Service like a VM, App Services or Azure Automation.
+Now that the template is deployed, the application can acquire a token for the managed identity and use that token as a credential assertion to acquire an access token to resources like Microsoft Graph. However, in order to acquire a token for the managed identity, the managed identity **must** be assigned in an Azure Cloud Service like a VM, App Services or in our case an Azure Automation account.
 
 1. Sign in to the [Azure Automation Accounts page][auto-accounts] in the Azure Portal. You should see a new Automation Account that was created as part of
 the Bicep template deployment.
