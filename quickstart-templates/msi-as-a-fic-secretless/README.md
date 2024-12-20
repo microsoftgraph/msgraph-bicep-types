@@ -74,7 +74,7 @@ Now that the template is deployed, the application can acquire a token for the m
 the Bicep template deployment.
 2. Click on that account, and on the next page click on **Manage a runbook**.  This should take you to a page that contains the runbook deployed by the Bicep template. Click on the runbook.
 3. On the runbook page, click on **Edit** and select **Edit in portal**. This brings up a page with an empty edit pane.
-4. In this sample's GitHub folder find the **secretless-graph-request.ps1** PowerShell script and copy its contents into the empty edit pane in the portal.  Click Save. Click on **Test pane** to run and test the PowerShell script
+4. In this sample's GitHub folder find the **secretless-graph-request.ps1** PowerShell script and copy its contents into the empty edit pane in the portal.  Click Save. Click on **Test pane** to run and test the PowerShell script. NOTE: the PowerShell script requires the input of four parameters that you can get from the output of the Bicep template deployment.
 5. The script acquires a token for the managed identity and then uses it (as a federated token) to sign in to Azure PS as the app. Finally, Azure PS, running as the app, is used to call Microsoft Graph to get the tenant's Entra groups.
 
 If successful, you should see that the script, running as the app, successfully calls Microsoft Graph, responding with the collection of groups in the tenant.  And all without requiring the application to have a secret of a certificate.
