@@ -40,7 +40,7 @@
 * **tags**: string[]: Custom strings that can be used to categorize and identify the application. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to an application and used as an alternate key. Immutable
+* **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to an application and used as an alternate key. Immutable
 * **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Specifies settings for a web application.
 * **windows**: [MicrosoftGraphWindowsApplication](#microsoftgraphwindowsapplication): Specifies settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store.
@@ -53,7 +53,7 @@
 * **description**: string: The un-validated, user-provided description of the federated identity credential. It has a limit of 600 characters. Optional.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **issuer**: string (Required): The URL of the external identity provider and must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app. It has a limit of 600 characters. Required.
-* **name**: string (Required): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable
+* **name**: string (Required, Identifier): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable
 * **subject**: string (Required): Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters
 * **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
 
@@ -114,7 +114,7 @@
 * **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
-* **uniqueName**: string (Required, DeployTimeConstant): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
+* **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
 * **visibility**: string: Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable.
 * **writebackConfiguration**: [MicrosoftGraphGroupWritebackConfiguration](#microsoftgraphgroupwritebackconfiguration): Specifies whether or not a group is configured to write back group object properties to on-premises Active Directory. These properties are used when group writeback is configured in the Microsoft Entra Connect sync client.
 
@@ -139,7 +139,7 @@
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appDescription**: string: The description exposed by the associated application.
 * **appDisplayName**: string: The display name exposed by the associated application. Maximum length is 256 characters.
-* **appId**: string (Required): The unique identifier for the associated application (its appId property). Alternate key
+* **appId**: string (Required, Identifier): The unique identifier for the associated application (its appId property). Alternate key
 * **applicationTemplateId**: string (ReadOnly): Unique identifier of the applicationTemplate. Read-only. null if the app wasn't created from an application template.
 * **appOwnerOrganizationId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (ReadOnly): Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications
 * **appRoleAssignmentRequired**: bool: Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable
@@ -189,7 +189,7 @@
 * **preferredLanguage**: string (ReadOnly): The preferred language for the user. The preferred language format is based on RFC 4646. The name combines an ISO 639 two-letter lowercase culture code associated with the language and an ISO 3166 two-letter uppercase subculture code associated with the country or region. Example: 'en-US', or 'es-ES'
 * **surname**: string (ReadOnly): The user's surname (family name or last name). Maximum length is 64 characters
 * **type**: 'Microsoft.Graph/users' (ReadOnly, DeployTimeConstant): The resource type
-* **userPrincipalName**: string (Required, DeployTimeConstant): The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies
+* **userPrincipalName**: string (Required, DeployTimeConstant, Identifier): The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's verified domain collection. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies
 
 ## MicrosoftGraphAddIn
 ### Properties

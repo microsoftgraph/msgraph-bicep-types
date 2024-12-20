@@ -420,6 +420,10 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
     const isKey = checkExtensionKeyExists('x-ms-graph-key');
     const isConstantKey = checkExtensionKeyExists('x-constant-key');
 
+    if (isKey) {
+      flags |= ObjectTypePropertyFlags.Identifier;
+    }
+
     if (putProperty && putProperty.required || isKey) {
       flags |= ObjectTypePropertyFlags.Required;
     }
