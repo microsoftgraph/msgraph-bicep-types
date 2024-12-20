@@ -22,11 +22,12 @@ param
     $managedIdentityPrincipalId,
     $applicationClientId,
     $tenantId
+    $ficIssuerAudience
 )
 
 # Step 1: Acquire token for the managed identity
 Connect-AzAccount -Identity -AccountId $managedIdentityPrincipalId
-$token = Get-AzAccessToken -ResourceUrl "api://AzureADTokenExchange"
+$token = Get-AzAccessToken -ResourceUrl $ficIssuerAudience
 
 
 # Step 2: Sign in to Azure PowerShell (as the app with the FIC configuration)
