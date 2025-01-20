@@ -734,7 +734,7 @@
         "type": {
           "$ref": "#/66"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification."
       },
       "web": {
@@ -1961,7 +1961,7 @@
         "type": {
           "$ref": "#/66"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Specifies the verified publisher of the application that's linked to this service principal."
       },
       "deletedDateTime": {

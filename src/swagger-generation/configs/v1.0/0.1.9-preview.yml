@@ -129,6 +129,7 @@ EntityTypes:
       - certification
       - createdDateTime
       - publisherDomain
+      - verifiedPublisher
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
@@ -139,6 +140,7 @@ EntityTypes:
       - appOwnerOrganizationId
       - resourceSpecificApplicationPermissions
       - signInAudience
+      - verifiedPublisher
   - Name: microsoft.graph.federatedIdentityCredential
     RootUri: /applications/federatedIdentityCredentials
     Upsertable: true

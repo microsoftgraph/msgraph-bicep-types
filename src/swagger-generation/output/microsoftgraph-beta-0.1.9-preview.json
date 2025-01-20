@@ -470,7 +470,8 @@
             },
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
-              "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification."
+              "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.",
+              "readOnly": true
             },
             "web": {
               "$ref": "#/definitions/microsoft.graph.webApplication",
@@ -672,7 +673,8 @@
             },
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
-              "description": "Specifies the verified publisher of the application that's linked to this service principal."
+              "description": "Specifies the verified publisher of the application that's linked to this service principal.",
+              "readOnly": true
             }
           },
           "required": [
