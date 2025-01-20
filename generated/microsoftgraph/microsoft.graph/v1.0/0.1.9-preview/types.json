@@ -213,7 +213,7 @@
         "type": {
           "$ref": "#/10"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object"
       },
       "theme": {
@@ -650,7 +650,7 @@
         "type": {
           "$ref": "#/64"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification."
       },
       "web": {
@@ -1860,7 +1860,7 @@
         "type": {
           "$ref": "#/64"
         },
-        "flags": 0,
+        "flags": 2,
         "description": "Specifies the verified publisher of the application that's linked to this service principal."
       },
       "deletedDateTime": {
