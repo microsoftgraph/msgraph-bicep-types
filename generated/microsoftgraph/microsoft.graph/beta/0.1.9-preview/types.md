@@ -111,7 +111,7 @@
 * **resourceProvisioningOptions**: string[]: Specifies the group resources that are associated with the Microsoft 365 group. The possible value is Team. For more information, see Microsoft 365 group behaviors and provisioning options
 * **securityEnabled**: bool (Required): Specifies whether the group is a security group
 * **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios. Read-only
-* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.
+* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[] (ReadOnly): Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to a group and used as an alternate key. Immutable

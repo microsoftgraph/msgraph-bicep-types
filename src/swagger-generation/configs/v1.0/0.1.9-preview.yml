@@ -114,6 +114,7 @@ EntityTypes:
       - proxyAddresses
       - renewedDateTime
       - securityIdentifier
+      - serviceProvisioningErrors
   - Name: microsoft.graph.application
     RootUri: /applications
     Upsertable: true

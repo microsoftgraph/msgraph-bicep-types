@@ -250,7 +250,8 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
               },
-              "description": "Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object."
+              "description": "Errors published by a federated service describing a non-transient, service-specific error regarding the properties or link from a group object.",
+              "readOnly": true
             },
             "theme": {
               "type": "string",

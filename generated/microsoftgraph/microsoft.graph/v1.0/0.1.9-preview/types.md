@@ -106,7 +106,7 @@
 * **renewedDateTime**: string (ReadOnly): Timestamp of when the group was last renewed. This value can't be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
 * **securityEnabled**: bool (Required): Specifies whether the group is a security group. Required
 * **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios. Read-only
-* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object
+* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[] (ReadOnly): Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange, or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
