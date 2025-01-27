@@ -1,6 +1,6 @@
 # Configure a security group's user members, referencing users by UPN
 
-This sample demonstrates use of the read-only `Microsoft.Graph/Users` bicep type which allows you to
+This sample demonstrates use of the read-only [`Microsoft.Graph/Users` bicep type][users-ref] which allows you to
 fetch `user` resources by their user principal name (UPN).
 
 This quickstart creates a security group and adds users, referenced via their UPNs, as members.
@@ -44,3 +44,4 @@ New-AzResourceGroupDeployment -ResourceGroupName <resource-group> -TemplateFile 
 [update-only]:https://learn.microsoft.com/graph/templates/known-issues-graph-bicep#deployment-behavior-group-members-and-owners-are-append-only
 [20-members]:https://learn.microsoft.com/graph/templates/limitations#no-more-than-20-members-andor-owners-can-be-declared-for-a-groups-resource
 [no-azure-sub]:https://learn.microsoft.com/graph/templates/how-to-deploy-without-azure-sub?view=graph-bicep-1.0&tabs=CLI
+[users-ref]:https://learn.microsoft.com/graph/templates/reference/users?view=graph-bicep-1.0
