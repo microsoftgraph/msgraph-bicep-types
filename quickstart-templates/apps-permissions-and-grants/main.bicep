@@ -59,6 +59,6 @@ module appCreateGrantScopesModule './appGrantScopes.bicep' = if (mode == 'grant-
 output appName string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appName : appCreateGrantScopesModule.outputs.appName)
 output appObjectID string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appObjectID : appCreateGrantScopesModule.outputs.appObjectID)
 output appID  string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appID : appCreateGrantScopesModule.outputs.appID)
-output foundScopes array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.scopes: appCreateGrantScopesModule.outputs.scopes)
+output foundInputScopes array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.scopes: appCreateGrantScopesModule.outputs.scopes)
 output clientAppResourceAccessList array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.clientAppResourceAccessList : ['Not set'])
-output scopeGrants array = ((mode == 'grant-scopes') ? appCreateGrantScopesModule.outputs.scopeGrants : ['Not set'])
+output grantedScopes string = ((mode == 'grant-scopes') ? appCreateGrantScopesModule.outputs.grantedScopes : 'Not set')

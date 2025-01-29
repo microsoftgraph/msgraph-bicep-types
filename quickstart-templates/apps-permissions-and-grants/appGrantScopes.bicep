@@ -16,6 +16,10 @@ param graphSpId string
 
 var app = 'myApp'
 
+// convert scopes array into space separate scopes string
+var scopeArray = [for (scopeItem,i) in filteredScopes: filteredScopes[i].value]
+var scopeString = join(scopeArray, ' ')
+
 // create basic app
 resource myApp 'Microsoft.Graph/applications@v1.0' = {
   displayName: displayName == null ? '${app}-${date}' :'${displayName}-${app}-${date}'
@@ -29,18 +33,16 @@ resource mySP 'Microsoft.Graph/servicePrincipals@v1.0' = {
 
 // Grant the OAuth2.0 scopes (requested in parameters) to the basic app,
 // for all users in the tenant
-resource graphScopesAssignment 'Microsoft.Graph/oauth2PermissionGrants@v1.0' =  [
-  for (scopeItem,i) in filteredScopes: {
+resource graphScopesAssignment 'Microsoft.Graph/oauth2PermissionGrants@v1.0' =  {
     clientId: mySP.id
     resourceId: graphSpId
     consentType: 'AllPrincipals'
-    scope: filteredScopes[i].value
-  }
-]
+    scope: scopeString
+}
 
 // output information
 output appName string = myApp.displayName 
 output appObjectID  string = myApp.id
 output appID  string = myApp.appId
-output scopes array = [for (scopeItem,i) in filteredScopes: filteredScopes[i].value]
-output scopeGrants array = [for i in range(0, length(filteredScopes)): graphScopesAssignment[i]]
+output scopes array = scopeArray
+output grantedScopes string = graphScopesAssignment.scope
