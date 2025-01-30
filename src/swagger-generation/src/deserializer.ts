@@ -7,7 +7,7 @@ import { EntityType } from "./definitions/EntityType";
 import { NavigationProperty } from "./definitions/NavigationProperty";
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat, SwaggerMetaType } from "./definitions/PrimitiveSwaggerType";
 import { Property } from "./definitions/Property";
-import { CSDL, DataService, PrimitivePropertyType, RawAnnotation, RawPropertyValue, RawRecord, RawCollectionItem, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema } from "./definitions/RawTypes";
+import { CSDL, DataService, PrimitivePropertyType, RawAnnotation, RawPropertyValue, RawRecord, RawCollectionItem, RawEntityType, RawEntityTypeAttributes, RawEnumMember, RawEnumType, RawNavigationProperty, RawNavigationPropertyAttributes, RawProperty, RawPropertyAttributes, RawSchema, RawEntitySet, RawEntityContainer, RawNavigationPropertyBinding } from "./definitions/RawTypes";
 import { TypeTranslator } from "./util/typeTranslator";
 import { EnumType } from "./definitions/EnumType";
 import { Config, EntityTypeConfig, NavigationPropertyMode } from "./config";
@@ -26,13 +26,14 @@ export const constructDataStructure = (csdl: CSDL, definitionMap: DefinitionMap,
       const rawEntityTypes: RawEntityType[] = schema.EntityType ? schema.EntityType : []
       const rawComplexTypes: RawEntityType[] = schema.ComplexType ? schema.ComplexType : []
       const rawEnumTypes: RawEnumType[] = schema.EnumType ? schema.EnumType : []
+      const rawEntityContainer: RawEntityContainer[] = schema.EntityContainer ? schema.EntityContainer : [];
 
       if (alias) {
         definitionMap.AliasMap.set(alias, namespace)
       }
 
-      rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(definitionMap, config, rawComplexType, namespace));
-      rawEntityTypes.forEach((rawEntityType: RawEntityType) => entityHandler(definitionMap, config, rawEntityType, namespace));
+      rawComplexTypes.forEach((rawComplexType: RawEntityType) => entityHandler(definitionMap, config, rawComplexType, rawEntityContainer, namespace));
+      rawEntityTypes.forEach((rawEntityType: RawEntityType) => entityHandler(definitionMap, config, rawEntityType, rawEntityContainer, namespace));
       rawEnumTypes.forEach((rawEnumType: RawEnumType) => enumHandler(definitionMap, rawEnumType, namespace));
     });
   });
@@ -86,15 +87,16 @@ const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty
   return property
 }
 
-const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined, rawNavigationProperty: RawNavigationProperty): NavigationProperty => {
+const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined, rawEntitySet: RawEntitySet | undefined, rawNavigationProperty: RawNavigationProperty): NavigationProperty => {
   const navigationPropertyAttributes: RawNavigationPropertyAttributes = rawNavigationProperty.$
   const navigationPropertyName: string = navigationPropertyAttributes.Name
   const navigationPropertyDescription: string = getPropertyDescription(rawNavigationProperty.Annotation, false);
   let navigationPropertyType: string = navigationPropertyAttributes.Type
   let typedNavigationPropertyType: CollectionProperty | string
-  const navigationPropertyNullable: boolean = navigationPropertyAttributes.Nullable ? navigationPropertyAttributes.Nullable : false
-  const navigationPropertyContainsTarget: boolean = navigationPropertyAttributes.ContainsTarget ? navigationPropertyAttributes.ContainsTarget : false
-
+  const navigationPropertyNullable: boolean = navigationPropertyAttributes.Nullable ?? false;
+  const navigationPropertyContainsTarget: boolean = navigationPropertyAttributes.ContainsTarget ?? false;
+  const navigationPropertyBinding: RawNavigationPropertyBinding | undefined =
+    rawEntitySet?.NavigationPropertyBinding?.filter((binding) => binding.$.Path === navigationPropertyName)[0];
   const collectionRegex: RegExp = /Collection\((.+)\)/
 
   if (collectionRegex.test(navigationPropertyType)) { // Is Collection
@@ -120,12 +122,14 @@ const navigationPropertiesHandler = (entityConfig: EntityTypeConfig | undefined,
     navigationPropertyDescription,
     navigationPropertyNullable,
     isReadOnly,
-    navigationPropertyContainsTarget)
+    navigationPropertyContainsTarget,
+    navigationPropertyBinding?.$.Target,
+  )
 
   return navigationProperty
 }
 
-const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityType: RawEntityType, namespace: string): void => {
+const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityType: RawEntityType, rawEntityContainer: RawEntityContainer[], namespace: string): void => {
   const entityAttributes: RawEntityTypeAttributes = rawEntityType.$
   const alternateKey: string | undefined = getAlternateKey(rawEntityType);
   const entityName: string = entityAttributes.Name
@@ -138,6 +142,9 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
   const fullEntityName: string = `${namespace}.${entityName}`
   const entityConfig: EntityTypeConfig | undefined = config.EntityTypes.get(fullEntityName);
 
+  const rawEntitySet: RawEntitySet | undefined = rawEntityContainer[0]?.EntitySet
+    .filter((entitySet: RawEntitySet) => entitySet.$.EntityType === fullEntityName)[0];
+
   const properties: Property[] = rawProperties
     .map((rawProperty: RawProperty): Property =>
       propertyHandler(entityConfig, rawProperty, alternateKey)
@@ -148,7 +155,7 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
 
   const navigationProperties: NavigationProperty[] = rawNavigationProperties
     .map((rawNavigationProperty: RawNavigationProperty): NavigationProperty =>
-      navigationPropertiesHandler(entityConfig, rawNavigationProperty)
+      navigationPropertiesHandler(entityConfig, rawEntitySet, rawNavigationProperty)
     )
     .filter((navigationProperty: NavigationProperty): boolean =>
       navigationPropertyFilter(entityConfig, navigationProperty)
@@ -201,21 +208,26 @@ const navigationPropertyFilter = (entityConfig: EntityTypeConfig | undefined, na
     return false // Ignore all navigation properties by default
 
   // There's config for this entity
+  if (entityConfig.Relationships) {
+    // Return true if the navigation property is included in the relationship config
+    return entityConfig.Relationships.Properties.includes(navigationProperty.Name)
+  }
+  else {
+    const navigationPropertyMode: NavigationPropertyMode | undefined = entityConfig.NavigationPropertyMode
 
-  const navigationPropertyMode: NavigationPropertyMode | undefined = entityConfig.NavigationPropertyMode
+    // Mode is either not set or set to only allow listed navigation properties (default behavior)
+    if (!navigationPropertyMode || navigationPropertyMode === NavigationPropertyMode.Allow) {
+      if (entityConfig.NavigationProperty && entityConfig.NavigationProperty.includes(navigationProperty.Name)) {
+        return true // Not ignored because it's listed
+      }
 
-  // Mode is either not set or set to only allow listed navigation properties (default behavior)
-  if (!navigationPropertyMode || navigationPropertyMode === NavigationPropertyMode.Allow) {
-    if (entityConfig.NavigationProperty && entityConfig.NavigationProperty.includes(navigationProperty.Name)) {
-      return true // Not ignored because it's listed
+      return false // Ignored because it's not listed or there's no list
     }
 
-    return false // Ignored because it's not listed or there's no list
-  }
-
-  // Mode is set to ignore listed navigation properties
-  if (entityConfig.NavigationProperty && entityConfig.NavigationProperty.includes(navigationProperty.Name)) {
-    return false // Because it's listed and list exists
+    // Mode is set to ignore listed navigation properties
+    if (entityConfig.NavigationProperty && entityConfig.NavigationProperty.includes(navigationProperty.Name)) {
+      return false // Because it's listed and list exists
+    }
   }
 
   return true // Not ignored either because it's not listed or there's no list

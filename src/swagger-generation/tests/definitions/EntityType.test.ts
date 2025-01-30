@@ -4,6 +4,7 @@ import { EntityType } from "../../src/definitions/EntityType";
 import { NavigationProperty } from "../../src/definitions/NavigationProperty";
 import { PrimitiveSwaggerType } from "../../src/definitions/PrimitiveSwaggerType";
 import { Property } from "../../src/definitions/Property";
+import { EntityTypeConfig } from "../../src/config";
 
 describe('EntityType', () => {
   const property1Description = 'Property1 description';
@@ -20,8 +21,8 @@ describe('EntityType', () => {
       new Property('Property2', 'Edm.Int32', '', true, false),
     ];
     const navigationProperties = [
-      new NavigationProperty('NavigationProperty1', 'namespace.one.EntityType1', '', true, false, false),
-      new NavigationProperty('NavigationProperty2', 'namespace.one.EntityType2', '', true, false, false),
+      new NavigationProperty('NavigationProperty1', 'namespace.one.EntityType1', '', true, false, false, 'directoryObject'),
+      new NavigationProperty('NavigationProperty2', 'namespace.one.EntityType2', '', true, false, false, 'targets'),
     ];
 
     const entityType = new EntityType(name, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties);
@@ -106,8 +107,11 @@ describe('EntityType', () => {
     ];
 
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
-
-    const definition = entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property4']) as Definition;
+    const entityTypeConfig: EntityTypeConfig = {
+      Name: name,
+      RequiredOnWrite: ['Property1', 'Property2', 'Property4']
+    };
+    const definition = entityType.toSwaggerDefinition(entityTypeConfig) as Definition;
 
     expect(definition.type).toBe('object');
     expect(definition.required).toContain('Property1');
@@ -151,9 +155,13 @@ describe('EntityType', () => {
     ];
 
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
+    const entityTypeConfig: EntityTypeConfig = {
+      Name: name,
+      RequiredOnWrite: ['Property1', 'Property2', 'Property5']
+    };
 
     expect(() => {
-      entityType.toSwaggerDefinition(['Property1', 'Property2', 'Property5']);
+      entityType.toSwaggerDefinition(entityTypeConfig);
     }).toThrowError('Required property Property5 not found in TestEntityType');
   });
 
@@ -164,9 +172,13 @@ describe('EntityType', () => {
       new Property('Property2', 'Edm.Int32', '', true, false),
     ];
     const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
+    const entityTypeConfig: EntityTypeConfig = {
+      Name: name,
+      RequiredOnWrite: ['Property1', 'MissingProperty']
+    };
 
     expect(() => {
-      entityType.toSwaggerDefinition(['Property1', 'MissingProperty']);
+      entityType.toSwaggerDefinition(entityTypeConfig);
     }).toThrowError('Required property MissingProperty not found in TestEntityType');
   });
 
@@ -176,15 +188,24 @@ describe('EntityType', () => {
       new Property('Property1', PrimitiveSwaggerType.Instance.String, property1Description, true, false),
       new Property('Property2', PrimitiveSwaggerType.Instance.String, '', true, false),
     ];
+    const entityTypeConfigRootUri: EntityTypeConfig = {
+      Name: name,
+      RootUri: '/entities',
+      RequiredOnWrite: ['Property1', 'Property2']
+    };
+    const entityTypeConfigNoRootUri: EntityTypeConfig = {
+      Name: name,
+      RequiredOnWrite: ['Property1', 'Property2']
+    };
 
     const entityTypeUndefinedAlternateKey = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
-    const definitionUndefinedAlternateKey = entityTypeUndefinedAlternateKey.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
+    const definitionUndefinedAlternateKey = entityTypeUndefinedAlternateKey.toSwaggerDefinition(entityTypeConfigRootUri) as Definition;
 
     expect(definitionUndefinedAlternateKey.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionUndefinedAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeAlternateKey = new EntityType(name, 'Property1', undefined, undefined, undefined, undefined, properties, []);
-    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(['Property1', 'Property2'], true) as Definition;
+    const definitionAlternateKey = entityTypeAlternateKey.toSwaggerDefinition(entityTypeConfigRootUri) as Definition;
 
     expect(definitionAlternateKey["x-ms-graph-resource"]).toBe(true);
     expect(definitionAlternateKey.properties.Property1["x-ms-graph-key"]).toBe(true);
@@ -194,7 +215,7 @@ describe('EntityType', () => {
     expect(definitionAlternateKey.properties.Property2["x-constant-key"]).toBeUndefined();
 
     const entityTypeSP = new EntityType('serviceprincipal', 'Property1', undefined, undefined, undefined, undefined, properties, []);
-    const definitionSP = entityTypeSP.toSwaggerDefinition(['Property1', 'Property2']) as Definition;
+    const definitionSP = entityTypeSP.toSwaggerDefinition(entityTypeConfigNoRootUri) as Definition;
 
     expect(definitionSP["x-ms-graph-resource"]).not.toBe(true);
     expect(definitionSP.properties.Property1["x-constant-key"]).toBeUndefined();

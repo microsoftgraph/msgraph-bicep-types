@@ -15,7 +15,8 @@ This document describes the steps to setup development tools and run Bicep types
 
 ### Pre-requisites
 
-1. NPM version 22.0 or later
+1. node version 22.0 or later
+1. npm version 10.0 or later
 
 ### Initial Setup
 
@@ -39,40 +40,10 @@ cd  ../swagger-generation/configs
 Create new yml files (following the existing naming convention and a new semantic version) under the `beta` and `v1.0` folders.
 Edit the new yml files, with new types, properties and/or property annotation changes.
 
-#### Configure which versions need generation
-
-1. Update extensionConfig
-
-    From the root folder `/msgraph-bicep-types`:
-
-    ```sh
-    notepad  src/extensionConfigs/extensionConfig.json
-    ```
-
-    Update the version numbers and save the file.
-
-1. Add the new swagger version file names (to be generated in the next step).
-From the root folder `/msgraph-bicep-types`:
-
-    ```sh
-    notepad  swagger/specification/microsoftgraph/preview/readme.md
-    ```
-
-    Edit the YML `input-file` sections to append the latest versions for beta and v1.0. Something like:
-
-    ```yml
-    input-file:
-        - microsoftgraph/preview/beta/0.1.8-preview.json
-        - microsoftgraph/preview/beta/0.1.9-preview.json   <-- appending new version
-
-    input-file:
-        - microsoftgraph/preview/v1.0/0.1.8-preview.json
-        - microsoftgraph/preview/v1.0/0.1.9-preview.json   <-- appending new version
-    ```
 
 ### Generate the new types
 
-From the root folder `/msgraph-bicep-types` run the following PowerShell script
+From the root folder `/msgraph-bicep-types` run the following PowerShell script to generate types for the latest version
 
 ```sh
 .\scripts\UpdateGeneratedTypes.ps1

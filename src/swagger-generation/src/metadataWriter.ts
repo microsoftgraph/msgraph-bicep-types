@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { Config, EntityTypeConfig } from "./config";
+import { Config, EntityTypeConfig, RelationshipConfig } from "./config";
 import { DefinitionMap } from './definitions/DefinitionMap';
 import { EntityType } from "./definitions/EntityType";
-import { Metadata } from './definitions/Metadata';
+import { Metadata, RelationshipMetadata } from './definitions/Metadata';
 
 export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Metadata => {
   let metadata: Metadata = {};
@@ -30,10 +30,30 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           keyProperty: entityTypeConfig.ContainerKeyProperty,
           temporaryFilterKeys: entityTypeConfig.FilterProperty,
           compositeKeyProperties: entityTypeConfig.CompositeKey,
+          relationshipMetadata: getRelationshipMetadata(entityTypeConfig.Relationships, entity),
         },
       };
     }
   });
 
   return metadata;
+}
+
+function getRelationshipMetadata(relationshipConfig: RelationshipConfig | undefined, entity: EntityType): RelationshipMetadata | undefined {
+  if (relationshipConfig) {
+    return {
+      needsBatch: relationshipConfig.NeedsBatch,
+      bulkLimit: relationshipConfig.BulkLimit,
+      properties: entity.NavigationProperty
+        .filter(np => relationshipConfig.Properties.includes(np.Name) && np.Target)
+        .map(np => {
+          return {
+            name: np.Name,
+            type: np.Target!,
+          };
+        }),
+    };
+  }
+
+  return undefined;
 }

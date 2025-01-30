@@ -27,7 +27,27 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     produces: [
       Product.application_json
     ],
-    definitions: {},
+    definitions: {
+      "msgraph.relationshipSemantics": {
+        type: "string",
+        enum: ["append", "replace"]
+      },
+      "msgraph.relationship": {
+        type: "object",
+        properties: {
+          relationshipSemantics: {
+            $ref: "#/definitions/msgraph.relationshipSemantics"
+          },
+          relationships: {
+            type: "array",
+            items: {
+              "type": "string"
+            },
+          },
+        },
+        required: ["relationships"]
+      }
+    },
     paths: {}
   }
 
@@ -42,7 +62,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
     addReferences(definitionMap, entity, entityReferences, enumReferences, entityReferencesQueue, 0)
-    swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig.RequiredOnWrite, entityTypeConfig.RootUri != undefined)
+    swagger.definitions[id] = entity.toSwaggerDefinition(entityTypeConfig)
   });
 
   while (entityReferencesQueue.length > 0) {
@@ -80,22 +100,27 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     let relativeUri: string = entitySet;
     let parameters: Parameter[] = [
       {
-        in: "body",
-        name: entityName,
-        description: `The ${entityName} to ${operationDescription.toLowerCase()}`,
-        required: true,
-        schema: {
-          $ref: `#/definitions/${id}`
-        }
-      },
-      {
         in: "path",
         description: `The id of the ${entityName}`,
         name: `${entityName}Id`,
         required: true,
         type: "string"
-      }
+      },
     ];
+
+    if (!entityTypeConfig.IsReadonlyResource) {
+      parameters.push(
+        {
+          in: "body",
+          name: entityName,
+          description: `The ${entityName} to ${operationDescription.toLowerCase()}`,
+          required: true,
+          schema: {
+            $ref: `#/definitions/${id}`
+          }
+        },
+      );
+    };
 
     if (parentEntity) {
       relativeUri = `${parentEntity}/{${parentEntity}Id}/${entitySet}`

@@ -3,11 +3,17 @@
 
 import { EntityTypeConfigMap } from './definitions/DefinitionMap'
 import { parse } from 'yaml'
-import { readFileSync } from 'fs'
+import { readFileSync, readdirSync } from 'fs'
 
 export enum NavigationPropertyMode {
   Allow = 'Allow',
   Ignore = 'Ignore',
+}
+
+export interface RelationshipConfig {
+  NeedsBatch?: boolean,
+  BulkLimit?: number,
+  Properties: string[]
 }
 
 export interface EntityTypeConfig {
@@ -22,6 +28,7 @@ export interface EntityTypeConfig {
   IgnoredProperties?: string[],
   NavigationPropertyMode?: NavigationPropertyMode,
   NavigationProperty?: string[]
+  Relationships?: RelationshipConfig,
   RequiredOnWrite?: string[]
   ReadOnly?: string[]
   FilterProperty?: string[]
@@ -53,4 +60,28 @@ export class Config {
     this.APIVersion = apiVersion
     this.ExtensionVersion = extensionVersion;
   }
+}
+
+export function getSortedConfigVersions(path: string): string[] {
+  function versionComparator(a: string, b: string): number {
+    const [aMain, aSuffix] = a.split('-');
+    const [bMain, bSuffix] = b.split('-');
+
+    const aVersion = aMain.split('.').map(Number);
+    const bVersion = bMain.split('.').map(Number);
+
+    for (let i = 0; i < aVersion.length; i++) {
+      if (aVersion[i] > bVersion[i]) return 1;
+      if (aVersion[i] < bVersion[i]) return -1;
+    }
+
+    if (!aSuffix && bSuffix) return 1;
+    if (aSuffix && !bSuffix) return -1;
+
+    return 0;
+  }
+
+  return readdirSync(path)
+    .map((yamlVersion) => yamlVersion.slice(0, -4))
+    .sort(versionComparator);
 }

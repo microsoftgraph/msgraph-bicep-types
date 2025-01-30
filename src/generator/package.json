@@ -1,48 +1,49 @@
 {
-    "name": "@autorest/bicep",
-    "version": "0.0.0",
-    "description": "The Azure Bicep extension for classic generators in AutoRest.",
-    "scripts": {
-      "build": "tsc -p .",
-      "generate": "ts-node src/cmd/generate",
-      "lint": "eslint src --ext ts",
-      "lint:fix": "eslint src --ext ts --fix"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/Azure/bicep-types-az"
-    },
-    "readme": "https://github.com/Azure/bicep-types-az/readme.md",
-    "keywords": [
-      "autorest",
-      "bicep"
-    ],
-    "author": "Microsoft Corporation",
-    "license": "MIT",
-    "bugs": {
-      "url": "https://github.com/Azure/bicep-types-az/issues"
-    },
-    "homepage": "https://github.com/Azure/bicep-types-az/blob/main/README.md",
-    "devDependencies": {
-      "@autorest/core": "3.9.5",
-      "@autorest/modelerfour": "^4.26.1",
-      "@ts-common/commonmark-to-markdown": "^2.0.2",
-      "@types/async": "^3.2.19",
-      "@types/js-yaml": "^4.0.5",
-      "@types/node": "^18.16.0",
-      "@types/yargs": "^17.0.24",
-      "@typescript-eslint/eslint-plugin": "^5.59.0",
-      "@typescript-eslint/parser": "^5.59.0",
-      "async": "^3.2.4",
-      "autorest": "^3.6.3",
-      "bicep-types": "file:../../bicep-types/src/bicep-types",
-      "colors": "^1.4.0",
-      "eslint": "^8.39.0",
-      "eslint-plugin-header": "^3.1.1",
-      "js-yaml": "^4.1.0",
-      "ts-node": "^10.9.1",
-      "typescript": "^5.0.4",
-      "yargs": "^17.7.1",
-      "extensionConfig": "file:../extensionConfig"
-    }
+  "name": "@autorest/bicep",
+  "version": "0.0.0",
+  "description": "The Azure Bicep extension for classic generators in AutoRest.",
+  "scripts": {
+    "build": "tsc -p .",
+    "generate": "ts-node src/cmd/generate",
+    "lint": "eslint src --ext ts",
+    "lint:fix": "eslint src --ext ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azure/bicep-types-az"
+  },
+  "readme": "https://github.com/Azure/bicep-types-az/readme.md",
+  "keywords": [
+    "autorest",
+    "bicep"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Azure/bicep-types-az/issues"
+  },
+  "homepage": "https://github.com/Azure/bicep-types-az/blob/main/README.md",
+  "devDependencies": {
+    "@autorest/core": "3.9.5",
+    "@autorest/modelerfour": "^4.26.1",
+    "@ts-common/commonmark-to-markdown": "^2.0.2",
+    "@types/async": "^3.2.19",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^18.16.0",
+    "@types/yargs": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "async": "^3.2.4",
+    "autorest": "^3.6.3",
+    "bicep-types": "file:../../bicep-types/src/bicep-types",
+    "colors": "^1.4.0",
+    "eslint": "^8.39.0",
+    "eslint-plugin-header": "^3.1.1",
+    "js-yaml": "^4.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "yargs": "^17.7.1",
+    "extensionConfig": "file:../extensionConfig",
+    "swagger-generation": "file:../swagger-generation"
+  }
 }

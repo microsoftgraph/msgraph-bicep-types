@@ -5,8 +5,9 @@ import path from 'path';
 import { existsSync } from 'fs';
 import { mkdir, rm, writeFile, readFile } from 'fs/promises';
 import yargs from 'yargs';
-import { TypeFile, buildIndex, writeIndexJson, writeIndexMarkdown, readTypesJson } from "bicep-types";
+import { TypeFile, buildIndex, writeIndexJson, writeIndexMarkdown, readTypesJson, TypeSettings, CrossFileTypeReference, TypeBaseKind, writeTypesJson } from "bicep-types";
 import { ApiVersion, extensionConfig } from 'extensionConfig/src/config';
+import { getSortedConfigVersions } from 'swagger-generation/src/config';
 import * as markdown from '@ts-common/commonmark-to-markdown'
 import * as yaml from 'js-yaml'
 import { copyRecursive, executeSynchronous, getLogger, lowerCaseCompare, logErr, logOut, ILogger, defaultLogger, executeCmd, findRecursive } from '../utils';
@@ -25,6 +26,17 @@ const argsConfig = yargs
   .option('single-path', { type: 'string', default: undefined, desc: 'Only regenerate under a specific file path - e.g. "compute"' })
   .option('logging-level', { type: 'string', default: 'warning', choices: ['debug', 'verbose', 'information', 'warning', 'error', 'fatal'] })
   .option('wait-for-debugger', { type: 'boolean', default: false, desc: 'Wait for a C# debugger to be attached before running the Autorest extension' });
+
+const extensionConfigForGeneration = {
+  "beta": {
+    "name": extensionConfig["beta"].name,
+    "version": getLatestVersionForGeneration(ApiVersion.Beta),
+  },
+  "v1.0": {
+    "name": extensionConfig["v1.0"].name,
+    "version": getLatestVersionForGeneration(ApiVersion.V1_0),
+  }
+}
 
 executeSynchronous(async () => {
   const args = await argsConfig.parseAsync();
@@ -71,11 +83,11 @@ executeSynchronous(async () => {
 
     for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
       const tmpOutputApiVersionDir = path.join(tmpOutputDir, 'microsoft.graph', apiVersion);
-      const outputApiVersionDir = path.join(outputBaseDir, apiVersion, extensionConfig[apiVersion].version);
+      const outputApiVersionDir = path.join(outputBaseDir, apiVersion, extensionConfigForGeneration[apiVersion].version);
 
       try {
         // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
-        await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, extensionConfig[apiVersion].version);
+        await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, extensionConfigForGeneration[apiVersion].version);
         await generateSchema(logger, bicepReadmePath, tmpOutputDir, logLevel, waitForDebugger);
 
         // remove all previously-generated files and copy over results
@@ -106,7 +118,6 @@ ${err}
   }
 
   // build the type index
-  await buildTypeIndex(defaultLogger, outputBaseDir);
   await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.Beta);
   await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_0);
 });
@@ -248,35 +259,55 @@ async function findReadmePaths(specsPath: string) {
   });
 }
 
-async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion?: ApiVersion) {
-  const extensionBaseDir = apiVersion == undefined ? generatedOutDir : path.join(baseDir, apiVersion, extensionConfig[apiVersion].version);
+async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion) {
+  // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
+  function addConfigToContent(content: string): any[] {
+    const contentTypes = JSON.parse(content) as any[];
+    const relationshipType = contentTypes.find(type => type["$type"] === TypeBaseKind.ObjectType && type["name"] === 'MsgraphRelationship');
+    const relationshipSemanticsType = relationshipType.properties['relationshipSemantics'];
+    const configType = {
+      $type: TypeBaseKind.ObjectType,
+      name: "MsGraphBicepExtensionConfig",
+      properties: {
+        relationshipSemantics: {
+          description: "The relationship semantics to use for the extension",
+          ...relationshipSemanticsType
+        }
+      }
+    };
+    contentTypes.push(configType);
+
+    return contentTypes;
+  };
+
+  const extensionBaseDir = path.join(baseDir, apiVersion, extensionConfigForGeneration[apiVersion].version);
   const typesPaths = await findRecursive(extensionBaseDir, filePath => {
     return shouldIncludeFilePath(filePath) && path.basename(filePath) === 'types.json';
   });
 
-  const typeFiles: TypeFile[] = [];
-  for (const typePath of typesPaths) {
-    const content = await readFile(typePath, { encoding: 'utf8' });
-    typeFiles.push({
-      relativePath: path.relative(extensionBaseDir, typePath),
-      types: readTypesJson(content),
-    });
-  }
+  const content = await readFile(typesPaths[0], { encoding: 'utf8' });
+  const contentJson = addConfigToContent(content);
+  const typeFiles: TypeFile[] = [{
+    relativePath: path.relative(extensionBaseDir, typesPaths[0]),
+    types: readTypesJson(JSON.stringify(contentJson)),
+  }];
 
-  const typeSettings = apiVersion == undefined ? undefined : {
-    name: extensionConfig[apiVersion].name,
-    version: extensionConfig[apiVersion].version,
+  const typeSettings: TypeSettings = {
+    name: extensionConfigForGeneration[apiVersion].name,
+    version: extensionConfigForGeneration[apiVersion].version,
     isSingleton: false,
+    configurationType: new CrossFileTypeReference('types.json', contentJson.length - 1),
   };
   const indexContent = await buildIndex(typeFiles, (log) => logOut(logger, log), typeSettings);
 
+  await writeFile(`${extensionBaseDir}/types.json`, normalizeJsonPath(writeTypesJson(contentJson)));
   await writeFile(`${extensionBaseDir}/index.json`, normalizeJsonPath(writeIndexJson(indexContent)));
   await writeFile(`${extensionBaseDir}/index.md`, normalizeJsonPath(writeIndexMarkdown(indexContent)));
 }
 
 function shouldIncludeFilePath(filePath: string) {
-  return filePath.includes(path.join(ApiVersion.Beta, extensionConfig[ApiVersion.Beta].version)) ||
-    filePath.includes(path.join(ApiVersion.V1_0, extensionConfig[ApiVersion.V1_0].version));
+  return filePath.includes(path.join(ApiVersion.Beta, extensionConfigForGeneration[ApiVersion.Beta].version)) ||
+    filePath.includes(path.join(ApiVersion.V1_0, extensionConfigForGeneration[ApiVersion.V1_0].version));
 }
 
 function isVerboseLoggingLevel(logLevel: string) {
@@ -287,4 +318,10 @@ function isVerboseLoggingLevel(logLevel: string) {
     default:
       return false;
   }
+}
+
+function getLatestVersionForGeneration(apiVersion: ApiVersion) {
+  const versions = getSortedConfigVersions(`../swagger-generation/configs/${apiVersion}`);
+
+  return versions[versions.length - 1];
 }

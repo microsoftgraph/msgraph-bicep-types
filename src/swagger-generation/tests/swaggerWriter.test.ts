@@ -76,6 +76,25 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           "type": "object",
           "x-ms-graph-resource": true,
@@ -160,6 +179,13 @@ describe('generate swagger with primitive types', () => {
             ],
             "parameters": [
               {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
                 "in": "body",
                 "name": "entityNameOne",
                 "description": "The entityNameOne to create or update",
@@ -167,13 +193,6 @@ describe('generate swagger with primitive types', () => {
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                "in": "path",
-                "description": "The id of the entityNameOne",
-                "name": "entityNameOneId",
-                "required": true,
-                "type": "string"
               }
             ],
             "responses": {
@@ -234,6 +253,25 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           "type": "object",
           "x-ms-graph-resource": true,
@@ -357,6 +395,13 @@ describe('generate swagger with primitive types', () => {
             ],
             "parameters": [
               {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
                 "in": "body",
                 "name": "entityNameOne",
                 "description": "The entityNameOne to create or update",
@@ -364,13 +409,6 @@ describe('generate swagger with primitive types', () => {
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                "in": "path",
-                "description": "The id of the entityNameOne",
-                "name": "entityNameOneId",
-                "required": true,
-                "type": "string"
               }
             ],
             "responses": {
@@ -431,6 +469,25 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.nestedEntity": {
           "type": "object",
           "x-ms-graph-resource": true,
@@ -463,6 +520,13 @@ describe('generate swagger with primitive types', () => {
             ],
             "parameters": [
               {
+                "in": "path",
+                "description": "The id of the nestedEntity",
+                "name": "nestedEntityId",
+                "required": true,
+                "type": "string"
+              },
+              {
                 "in": "body",
                 "name": "nestedEntity",
                 "description": "The nestedEntity to create or update",
@@ -470,13 +534,6 @@ describe('generate swagger with primitive types', () => {
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.nestedEntity"
                 }
-              },
-              {
-                "in": "path",
-                "description": "The id of the nestedEntity",
-                "name": "nestedEntityId",
-                "required": true,
-                "type": "string"
               },
               {
                 "in": "path",
@@ -537,6 +594,25 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.baseEntity": {
           "type": "object",
           "properties": {
@@ -581,6 +657,13 @@ describe('generate swagger with primitive types', () => {
             ],
             "parameters": [
               {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
                 "in": "body",
                 "name": "entityNameOne",
                 "description": "The entityNameOne to create or update",
@@ -588,14 +671,7 @@ describe('generate swagger with primitive types', () => {
                 "schema": {
                   "$ref": "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                "in": "path",
-                "description": "The id of the entityNameOne",
-                "name": "entityNameOneId",
-                "required": true,
-                "type": "string"
-              },
+              }
             ],
             "responses": {
               "200": {
@@ -656,6 +732,25 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           "type": "object",
           "x-ms-graph-resource": true,
@@ -690,21 +785,12 @@ describe('generate swagger with primitive types', () => {
             ],
             "parameters": [
               {
-                "in": "body",
-                "name": "entityNameOne",
-                "description": "The entityNameOne to get",
-                "required": true,
-                "schema": {
-                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
-                }
-              },
-              {
                 "in": "path",
                 "description": "The id of the entityNameOne",
                 "name": "entityNameOneId",
                 "required": true,
                 "type": "string"
-              },
+              }
             ],
             "responses": {
               "200": {
@@ -777,6 +863,25 @@ describe('complexTypes', () => {
         Product.application_json
       ],
       definitions: {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           type: "object",
           "x-ms-graph-resource": true,
@@ -825,6 +930,13 @@ describe('complexTypes', () => {
             ],
             parameters: [
               {
+                in: "path",
+                description: "The id of the entityNameOne",
+                name: "entityNameOneId",
+                required: true,
+                type: "string"
+              },
+              {
                 in: "body",
                 name: "entityNameOne",
                 description: "The entityNameOne to create or update",
@@ -832,13 +944,6 @@ describe('complexTypes', () => {
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                in: "path",
-                description: "The id of the entityNameOne",
-                name: "entityNameOneId",
-                required: true,
-                type: "string"
               }
             ],
             responses: {
@@ -911,6 +1016,25 @@ describe('complex types with collections', () => {
         Product.application_json
       ],
       definitions: {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           type: "object",
           "x-ms-graph-resource": true,
@@ -968,6 +1092,13 @@ describe('complex types with collections', () => {
             ],
             parameters: [
               {
+                in: "path",
+                description: "The id of the entityNameOne",
+                name: "entityNameOneId",
+                required: true,
+                type: "string"
+              },
+              {
                 in: "body",
                 name: "entityNameOne",
                 description: "The entityNameOne to create or update",
@@ -975,13 +1106,6 @@ describe('complex types with collections', () => {
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                in: "path",
-                description: "The id of the entityNameOne",
-                name: "entityNameOneId",
-                required: true,
-                type: "string"
               }
             ],
             responses: {
@@ -1065,6 +1189,25 @@ describe('enums', () => {
         Product.application_json
       ],
       definitions: {
+        "msgraph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "msgraph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/msgraph.relationshipSemantics"
+            },
+            relationships: {
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
         "microsoft.graph.entityNameOne": {
           type: "object",
           "x-ms-graph-resource": true,
@@ -1118,6 +1261,13 @@ describe('enums', () => {
             ],
             parameters: [
               {
+                in: "path",
+                description: "The id of the entityNameOne",
+                name: "entityNameOneId",
+                required: true,
+                type: "string"
+              },
+              {
                 in: "body",
                 name: "entityNameOne",
                 description: "The entityNameOne to create or update",
@@ -1125,13 +1275,6 @@ describe('enums', () => {
                 schema: {
                   $ref: "#/definitions/microsoft.graph.entityNameOne"
                 }
-              },
-              {
-                in: "path",
-                description: "The id of the entityNameOne",
-                name: "entityNameOneId",
-                required: true,
-                type: "string"
               }
             ],
             responses: {

@@ -160,7 +160,8 @@ const csdl: CSDL = {
                   {
                     $: {
                       Name: 'navigationPropertyName',
-                      Type: 'Collection(namespaceTwo.entityNameOne)'
+                      Type: 'Collection(namespaceTwo.entityNameOne)',
+                      ContainsTarget: true
                     },
                   },
                   {
@@ -177,6 +178,29 @@ const csdl: CSDL = {
                   }
                 ],
                 Annotation: []
+              },
+            ],
+            EntityContainer: [
+              {
+                $: {
+                  Name: 'containerName',
+                },
+                EntitySet: [
+                  {
+                    $: {
+                      Name: 'entityNameTwo',
+                      EntityType: 'namespaceThree.entityNameTwo',
+                    },
+                    NavigationPropertyBinding: [
+                      {
+                        $: {
+                          Path: 'navigationPropertyName',
+                          Target: 'entityNameOne'
+                        }
+                      }
+                    ]
+                  },
+                ],
               },
             ],
             ComplexType: [
@@ -486,8 +510,11 @@ describe('navigation properties modes', () => {
     expect(entity).toBeDefined();
     expect(entity!.NavigationProperty.length).toBe(3);
     expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')).toBeDefined();
+    expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName')!.Target).toEqual("entityNameOne");
     expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')).toBeDefined();
+    expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName2')!.Target).toBeUndefined();
     expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')).toBeDefined();
+    expect(entity!.NavigationProperty.find((navProp) => navProp.Name === 'navigationPropertyName3')!.Target).toBeUndefined();
   });
 
   it('should only allow some navigation properties', () => {
