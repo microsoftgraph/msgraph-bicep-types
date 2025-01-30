@@ -126,6 +126,7 @@ EntityTypes:
       - proxyAddresses
       - renewedDateTime
       - securityIdentifier
+      - serviceProvisioningErrors
   - Name: microsoft.graph.application
     RootUri: /applications
     Upsertable: true
@@ -140,6 +141,7 @@ EntityTypes:
       - certification
       - createdDateTime
       - publisherDomain
+      - verifiedPublisher
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
@@ -153,6 +155,7 @@ EntityTypes:
       - applicationTemplateId
       - appOwnerOrganizationId
       - signInAudience
+      - verifiedPublisher
   - Name: microsoft.graph.federatedIdentityCredential
     RootUri: /applications/federatedIdentityCredentials
     Upsertable: true

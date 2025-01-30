@@ -42,7 +42,7 @@
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID encrypts all the tokens it emits by using the key this property points to. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
 * **type**: 'Microsoft.Graph/applications' (ReadOnly, DeployTimeConstant): The resource type
 * **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to an application and used as an alternate key. Immutable
-* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
+* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher) (ReadOnly): Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.
 * **web**: [MicrosoftGraphWebApplication](#microsoftgraphwebapplication): Specifies settings for a web application.
 
 ## Resource Microsoft.Graph/applications/federatedIdentityCredentials@v1.0
@@ -106,7 +106,7 @@
 * **renewedDateTime**: string (ReadOnly): Timestamp of when the group was last renewed. This value can't be modified directly and is only updated via the renew service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
 * **securityEnabled**: bool (Required): Specifies whether the group is a security group. Required
 * **securityIdentifier**: string (ReadOnly): Security identifier of the group, used in Windows scenarios. Read-only
-* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[]: Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object
+* **serviceProvisioningErrors**: [MicrosoftGraphServiceProvisioningError](#microsoftgraphserviceprovisioningerror)[] (ReadOnly): Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object
 * **theme**: string: Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange, or Red
 * **type**: 'Microsoft.Graph/groups' (ReadOnly, DeployTimeConstant): The resource type
 * **uniqueName**: string (Required, DeployTimeConstant, Identifier): The unique identifier that can be assigned to a group and used as an alternate key. Immutable
@@ -164,7 +164,7 @@
 * **tags**: string[]: Custom strings that can be used to categorize and identify the service principal. Not nullable
 * **tokenEncryptionKeyId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Specifies the keyId of a public key from the keyCredentials collection. When configured, Microsoft Entra ID issues tokens for this application encrypted using the key specified by this property. The application code that receives the encrypted token must use the matching private key to decrypt the token before it can be used for the signed-in user.
 * **type**: 'Microsoft.Graph/servicePrincipals' (ReadOnly, DeployTimeConstant): The resource type
-* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher): Specifies the verified publisher of the application that's linked to this service principal.
+* **verifiedPublisher**: [MicrosoftGraphVerifiedPublisher](#microsoftgraphverifiedpublisher) (ReadOnly): Specifies the verified publisher of the application that's linked to this service principal.
 
 ## Resource Microsoft.Graph/users@v1.0 (ReadOnly)
 * **Valid Scope(s)**: Unknown

@@ -15,8 +15,8 @@ This document describes the steps to setup development tools and run Bicep types
 
 ### Pre-requisites
 
-1. node version 22.0 or later
-1. npm version 10.0 or later
+1. NPM version 11.0 or later
+1. Node version 22.0 or later
 
 ### Initial Setup
 

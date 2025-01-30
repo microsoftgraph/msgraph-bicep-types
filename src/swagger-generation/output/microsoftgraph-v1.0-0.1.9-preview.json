@@ -215,7 +215,8 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
               },
-              "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object"
+              "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object",
+              "readOnly": true
             },
             "theme": {
               "type": "string",
@@ -438,7 +439,8 @@
             },
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
-              "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification."
+              "description": "Specifies the verified publisher of the application. For more information about how publisher verification helps support application security, trustworthiness, and compliance, see Publisher verification.",
+              "readOnly": true
             },
             "web": {
               "$ref": "#/definitions/microsoft.graph.webApplication",
@@ -635,7 +637,8 @@
             },
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
-              "description": "Specifies the verified publisher of the application that's linked to this service principal."
+              "description": "Specifies the verified publisher of the application that's linked to this service principal.",
+              "readOnly": true
             }
           },
           "required": [
