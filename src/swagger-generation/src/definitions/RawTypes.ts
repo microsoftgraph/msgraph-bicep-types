@@ -18,6 +18,35 @@ export interface RawSchema {
     EnumType?: RawEnumType[],
     EntityType?: RawEntityType[],
     ComplexType?: RawEntityType[]
+    EntityContainer?: RawEntityContainer[]
+}
+
+export interface RawEntityContainer {
+    $: RawEntityContainerAttributes,
+    EntitySet: RawEntitySet[]
+}
+
+export interface RawEntityContainerAttributes {
+    Name: string
+}
+
+export interface RawEntitySet {
+    $: RawEntitySetAttributes,
+    NavigationPropertyBinding?: RawNavigationPropertyBinding[]
+}
+
+export interface RawEntitySetAttributes {
+    Name: string,
+    EntityType: string,
+}
+
+export interface RawNavigationPropertyBinding {
+    $: RawNavigationPropertyBindingAttributes
+}
+
+export interface RawNavigationPropertyBindingAttributes {
+    Path: string,
+    Target: string
 }
 
 export interface RawSchemaAttributes {

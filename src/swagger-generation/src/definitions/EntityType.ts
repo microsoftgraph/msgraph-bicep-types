@@ -6,6 +6,7 @@ import { NavigationProperty } from "./NavigationProperty";
 import { AllOfDefinition, Definition, Property as SwaggerProperty } from "./Swagger";
 import { PrimitiveSwaggerTypeStruct } from "./PrimitiveSwaggerType";
 import { CollectionProperty } from "./CollectionProperty";
+import { EntityTypeConfig } from "../config";
 
 
 export class EntityType extends Object {
@@ -30,7 +31,7 @@ export class EntityType extends Object {
     this.NavigationProperty = navigationProperty;
   }
 
-  toSwaggerDefinition(required?: string[], isResource: boolean = false): AllOfDefinition | Definition {
+  toSwaggerDefinition(entityTypeConfig?: EntityTypeConfig): AllOfDefinition | Definition {
     const definition: Definition = {
       type: "object",
       properties: {},
@@ -86,32 +87,38 @@ export class EntityType extends Object {
     this.NavigationProperty.forEach((navigationProperty: NavigationProperty) => {
       const swaggerProperty: SwaggerProperty = {}
 
-      let propertyType: CollectionProperty | string = navigationProperty.Type as CollectionProperty | string;
-
-      if (propertyType instanceof CollectionProperty) { // Collection unwrap
-        propertyType = propertyType.Type as string;
-        swaggerProperty.type = "array"
-        swaggerProperty.items = {
-          type: "string" // id of the entity
-        }
-      } else { // Not collection
-        swaggerProperty.type = "string" // id of the entity
+      if (entityTypeConfig?.Relationships?.Properties.includes(navigationProperty.Name)) {
+        swaggerProperty.$ref = "#/definitions/microsoft.graph.relationship";
       }
+      else {
+        let propertyType: CollectionProperty | string = navigationProperty.Type as CollectionProperty | string;
+
+        if (propertyType instanceof CollectionProperty) { // Collection unwrap
+          propertyType = propertyType.Type as string;
+          swaggerProperty.type = "array"
+          swaggerProperty.items = {
+            type: "string" // id of the entity
+          }
+        } else { // Not collection
+          swaggerProperty.type = "string" // id of the entity
+        }
+      }
+
       swaggerProperty.description = navigationProperty.Description;
       definition.properties[navigationProperty.Name] = swaggerProperty
     });
 
-    if (required) {
-      required.forEach((property: string) => {
+    if (entityTypeConfig?.RequiredOnWrite) {
+      entityTypeConfig.RequiredOnWrite.forEach((property: string) => {
         if (!definition.properties[property]) {
           throw new Error(`Required property ${property} not found in ${this.Name}`);
         }
       });
 
-      definition.required = required;
+      definition.required = entityTypeConfig.RequiredOnWrite;
     }
 
-    if (isResource) {
+    if (entityTypeConfig?.RootUri != undefined) {
       definition["x-ms-graph-resource"] = true;
     }
 

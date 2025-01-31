@@ -19,6 +19,12 @@ describe('Config', () => {
           NavigationProperty:
             - navOne
             - navTwo
+          Relationships:
+            NeedsBatch: true
+            BulkLimit: 10
+            Properties:
+              - navOne
+              - navTwo
           RequiredOnWrite:
             - propOne
             - propTwo
@@ -55,6 +61,11 @@ describe('Config', () => {
       AvailableProperty: ['propOne', 'propTwo', 'propThree', 'propFour'],
       NavigationPropertyMode: NavigationPropertyMode.Allow,
       NavigationProperty: ['navOne', 'navTwo'],
+      Relationships: {
+        NeedsBatch: true,
+        BulkLimit: 10,
+        Properties: ['navOne', 'navTwo']
+      },
       RequiredOnWrite: ['propOne', 'propTwo'],
       ReadOnly: ['propThree', 'propFour']
     } as EntityTypeConfig);

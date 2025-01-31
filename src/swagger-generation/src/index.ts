@@ -6,14 +6,14 @@ import yargs from 'yargs'
 import { CSDL } from './definitions/RawTypes'
 import { parseXML } from './parser'
 import { constructDataStructure } from './deserializer'
-import { Config } from './config'
+import { Config, getSortedConfigVersions } from './config'
 import { Swagger } from './definitions/Swagger'
 import { writeSwagger } from './swaggerWriter'
 import { writeMetadata } from './metadataWriter'
 import { validateReferences } from './validator'
 import { DefinitionMap } from './definitions/DefinitionMap'
 import { ExtensionVersionMetadata, Metadata } from './definitions/Metadata'
-import { ApiVersion, extensionConfig } from 'extensionConfig/src/config';
+import { ApiVersion } from 'extensionConfig/src/config';
 
 const argv = yargs
   .option('output', {
@@ -73,12 +73,74 @@ function writeMetadataFile(extensionVersionMetadata: ExtensionVersionMetadata) {
   });
 }
 
+function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: string[] }) {
+  let betaVersionsContent = '';
+  let v1VersionsContent = '';
+  for (const version of apiExtensionVersions[ApiVersion.Beta]) {
+    betaVersionsContent += `\n  - microsoftgraph/preview/beta/${version}.json`;
+  }
+  for (const version of apiExtensionVersions[ApiVersion.V1_0]) {
+    v1VersionsContent += `\n  - microsoftgraph/preview/v1.0/${version}.json`;
+  }
+  let readMeContent = `# MicrosoftGraph
+
+> see https://aka.ms/autorest
+
+## Getting Started
+
+To build the SDK for MicrosoftGraph, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+
+> \`autorest\`
+
+To see additional help and options, run:
+
+> \`autorest --help\`
+
+---
+
+## Configuration
+
+### Basic Information
+
+These are the global settings for the MicrosoftGraph API.
+
+\`\`\` yaml
+title: MicrosoftGraph
+description: MicrosoftGraph
+openapi-type: arm
+\`\`\`
+
+### Tag: microsoftgraph-preview
+
+These settings apply only when \`--tag=microsoftgraph-preview\` is specified on the command line.
+
+\`\`\`yaml $(tag) == 'microsoftgraph-beta'
+input-file: ${betaVersionsContent}
+\`\`\`
+
+\`\`\`yaml $(tag) == 'microsoftgraph-v1.0'
+input-file: ${v1VersionsContent}
+\`\`\`
+`
+  fs.writeFile(`../../swagger/specification/microsoftgraph/resource-manager/readme.md`, readMeContent, (err) => {
+    if (err) throw err;
+    console.log(`The swagger readme file has been saved!`);
+  });
+}
+
 async function main() {
   let extensionVersionMetadata: ExtensionVersionMetadata = require('../output/metadata.json');
   let metadata: Metadata = {};
+  let apiExtensionVersions: { [key in ApiVersion]: string[] } = {
+    [ApiVersion.Beta]: [],
+    [ApiVersion.V1_0]: [],
+  };
 
   for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
-    const extensionVersion = extensionConfig[apiVersion].version;
+    const versions = getSortedConfigVersions(`configs/${apiVersion}`);
+    apiExtensionVersions[apiVersion] = versions;
+
+    const extensionVersion = versions[versions.length - 1];
     const config = new Config(apiVersion, extensionVersion);
     const [curMetadata, curSwagger] = await parse(config);
 
@@ -95,6 +157,7 @@ async function main() {
   }
 
   writeMetadataFile(extensionVersionMetadata);
+  writeSwaggerReadMeFile(apiExtensionVersions);
 }
 
 main();
