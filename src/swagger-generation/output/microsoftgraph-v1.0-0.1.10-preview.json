@@ -14,18 +14,19 @@
     "application/json"
   ],
   "definitions": {
-    "msgraph.relationshipSemantics": {
+    "microsoft.graph.relationshipSemantics": {
       "type": "string",
       "enum": [
         "append",
         "replace"
       ]
     },
-    "msgraph.relationship": {
+    "microsoft.graph.relationship": {
       "type": "object",
       "properties": {
         "relationshipSemantics": {
-          "$ref": "#/definitions/msgraph.relationshipSemantics"
+          "$ref": "#/definitions/microsoft.graph.relationshipSemantics",
+          "description": "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
         },
         "relationships": {
           "type": "array",
@@ -256,11 +257,11 @@
               "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and the Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable."
             },
             "members": {
-              "$ref": "#/definitions/msgraph.relationship",
+              "$ref": "#/definitions/microsoft.graph.relationship",
               "description": "The members of this group, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable"
             },
             "owners": {
-              "$ref": "#/definitions/msgraph.relationship",
+              "$ref": "#/definitions/microsoft.graph.relationship",
               "description": "The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue"
             }
           },

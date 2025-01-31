@@ -89,7 +89,7 @@
 * **mail**: string (ReadOnly): The SMTP address for the group, for example, 'serviceadmins@contoso.com'. Read-only
 * **mailEnabled**: bool (Required): Specifies whether the group is mail-enabled. Required
 * **mailNickname**: string (Required): The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following characters: @ () / [] ' ; : <> , SPACE. Required
-* **members**: [MsgraphRelationship](#msgraphrelationship): The members of this group, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable
+* **members**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): The members of this group, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable
 * **membershipRule**: string: The rule that determines members for this group if the group is a dynamic group (groupTypes contains DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax
 * **membershipRuleProcessingState**: string: Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused
 * **onPremisesDomainName**: string (ReadOnly): Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. Read-only.
@@ -99,7 +99,7 @@
 * **onPremisesSamAccountName**: string (ReadOnly): Contains the on-premises SAM account name synchronized from the on-premises directory. Read-only.
 * **onPremisesSecurityIdentifier**: string (ReadOnly): Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only
 * **onPremisesSyncEnabled**: bool (ReadOnly): true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never synced from an on-premises directory (default). Read-only
-* **owners**: [MsgraphRelationship](#msgraphrelationship): The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue
 * **preferredDataLocation**: string: The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned at least one of the following Microsoft Entra roles: User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo. Nullable
 * **preferredLanguage**: string: The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US
 * **proxyAddresses**: string[] (ReadOnly): Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required to filter expressions on multi-valued properties. Read-only. Not nullable
@@ -304,6 +304,11 @@
 * **index**: int
 * **uri**: string
 
+## MicrosoftGraphRelationship
+### Properties
+* **relationships**: string[] (Required)
+* **relationshipSemantics**: 'append' | 'replace' | string: Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'
+
 ## MicrosoftGraphRequestSignatureVerification
 ### Properties
 * **allowedWeakAlgorithms**: 'rsaSha1' | string: Specifies which weak algorithms are allowed. The possible values are: rsaSha1, unknownFutureValue.
@@ -362,9 +367,4 @@
 * **logoutUrl**: string: Specifies the URL that is used by Microsoft's authorization service to log out a user using front-channel, back-channel or SAML logout protocols.
 * **redirectUris**: string[]: Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent.
 * **redirectUriSettings**: [MicrosoftGraphRedirectUriSettings](#microsoftgraphredirecturisettings)[]
-
-## MsgraphRelationship
-### Properties
-* **relationships**: string[] (Required)
-* **relationshipSemantics**: 'append' | 'replace' | string
 

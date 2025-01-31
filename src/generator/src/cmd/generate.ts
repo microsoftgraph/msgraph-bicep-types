@@ -263,14 +263,13 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
   // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
   function addConfigToContent(content: string): any[] {
     const contentTypes = JSON.parse(content) as any[];
-    const relationshipType = contentTypes.find(type => type["$type"] === TypeBaseKind.ObjectType && type["name"] === 'MsgraphRelationship');
+    const relationshipType = contentTypes.find(type => type["$type"] === TypeBaseKind.ObjectType && type["name"] === 'MicrosoftGraphRelationship');
     const relationshipSemanticsType = relationshipType.properties['relationshipSemantics'];
     const configType = {
       $type: TypeBaseKind.ObjectType,
-      name: "MsGraphBicepExtensionConfig",
+      name: "MicrosoftGraphBicepExtensionConfig",
       properties: {
         relationshipSemantics: {
-          description: "The relationship semantics to use for the extension",
           ...relationshipSemanticsType
         }
       }

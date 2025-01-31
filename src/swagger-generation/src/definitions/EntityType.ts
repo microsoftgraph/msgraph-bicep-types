@@ -88,7 +88,7 @@ export class EntityType extends Object {
       const swaggerProperty: SwaggerProperty = {}
 
       if (entityTypeConfig?.Relationships?.Properties.includes(navigationProperty.Name)) {
-        swaggerProperty.$ref = "#/definitions/msgraph.relationship";
+        swaggerProperty.$ref = "#/definitions/microsoft.graph.relationship";
       }
       else {
         let propertyType: CollectionProperty | string = navigationProperty.Type as CollectionProperty | string;

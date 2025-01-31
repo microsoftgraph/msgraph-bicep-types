@@ -357,13 +357,14 @@
   },
   {
     "$type": "ObjectType",
-    "name": "MsgraphRelationship",
+    "name": "MicrosoftGraphRelationship",
     "properties": {
       "relationshipSemantics": {
         "type": {
           "$ref": "#/14"
         },
-        "flags": 0
+        "flags": 0,
+        "description": "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
       },
       "relationships": {
         "type": {
@@ -2438,14 +2439,14 @@
   },
   {
     "$type": "ObjectType",
-    "name": "MsGraphBicepExtensionConfig",
+    "name": "MicrosoftGraphBicepExtensionConfig",
     "properties": {
       "relationshipSemantics": {
-        "description": "The relationship semantics to use for the extension",
         "type": {
           "$ref": "#/14"
         },
-        "flags": 0
+        "flags": 0,
+        "description": "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
       }
     }
   }
