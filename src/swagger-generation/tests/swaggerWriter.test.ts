@@ -76,17 +76,19 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -253,17 +255,19 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -469,17 +473,19 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -594,17 +600,19 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -732,17 +740,19 @@ describe('generate swagger with primitive types', () => {
         Product.application_json
       ],
       "definitions": {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -863,17 +873,19 @@ describe('complexTypes', () => {
         Product.application_json
       ],
       definitions: {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -1016,17 +1028,19 @@ describe('complex types with collections', () => {
         Product.application_json
       ],
       definitions: {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"
@@ -1189,17 +1203,19 @@ describe('enums', () => {
         Product.application_json
       ],
       definitions: {
-        "msgraph.relationshipSemantics": {
+        "microsoft.graph.relationshipSemantics": {
           type: "string",
           enum: ["append", "replace"]
         },
-        "msgraph.relationship": {
+        "microsoft.graph.relationship": {
           type: "object",
           properties: {
             relationshipSemantics: {
-              $ref: "#/definitions/msgraph.relationshipSemantics"
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
             },
             relationships: {
+              description: "The list of object ids to be included in the relationship.",
               type: "array",
               items: {
                 "type": "string"

@@ -44,6 +44,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
             items: {
               "type": "string"
             },
+            description: "The list of object ids to be included in the relationship."
           },
         },
         required: ["relationships"]

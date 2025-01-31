@@ -324,7 +324,7 @@
 
 ## MicrosoftGraphRelationship
 ### Properties
-* **relationships**: string[] (Required)
+* **relationships**: string[] (Required): The list of object ids to be included in the relationship.
 * **relationshipSemantics**: 'append' | 'replace' | string: Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'
 
 ## MicrosoftGraphRequestSignatureVerification

@@ -370,7 +370,8 @@
         "type": {
           "$ref": "#/15"
         },
-        "flags": 1
+        "flags": 1,
+        "description": "The list of object ids to be included in the relationship."
       }
     }
   },
