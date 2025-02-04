@@ -317,5 +317,11 @@ const filterDescription = (description: string, isAlternateKey: boolean): string
       return !hasUnhelpfulWord && !hasReadonlyForAlternateKey;
     });
 
-  return filteredSentences.join('. ').trim();
+  // Combine all sentences and add a trailing period if not already present
+  let combinedDescription = filteredSentences.join('. ').trim();
+  if (combinedDescription && !combinedDescription.endsWith('.')) {
+    combinedDescription += '.';
+  }
+
+  return combinedDescription
 }
