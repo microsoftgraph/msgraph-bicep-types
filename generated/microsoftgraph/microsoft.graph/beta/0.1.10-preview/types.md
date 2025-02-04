@@ -26,6 +26,7 @@
 * **nativeAuthenticationApisEnabled**: 'all' | 'none' | string: Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: noneand all. Default is none. For more information, see Native Authentication.
 * **notes**: string: Notes relevant for the management of the application.
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of the application. Read-only. Nullable
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Specifies parental control settings for an application.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the application. Not nullable.
 * **publicClient**: [MicrosoftGraphPublicClientApplication](#microsoftgraphpublicclientapplication): Specifies settings for installed clients such as desktop or mobile devices.
@@ -50,11 +51,12 @@
 ### Properties
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **audiences**: string[] (Required): The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required.
+* **claimsMatchingExpression**: [MicrosoftGraphFederatedIdentityExpression](#microsoftgraphfederatedidentityexpression): Enables the use of claims matching expressions against specified claims. For the list of supported expression syntax and claims, visit the Flexible FIC reference.
 * **description**: string: The un-validated, user-provided description of the federated identity credential. It has a limit of 600 characters. Optional.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **issuer**: string (Required): The URL of the external identity provider and must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app. It has a limit of 600 characters. Required.
 * **name**: string (Required, Identifier): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable
-* **subject**: string (Required): Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters
+* **subject**: string: Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters
 * **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
 
 ## Resource Microsoft.Graph/appRoleAssignedTo@beta
@@ -63,6 +65,7 @@
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **appRoleId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required): The identifier (id) for the app role that is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application hasn't declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create.
 * **creationTimestamp**: string (ReadOnly): The time when the app role assignment was created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
+* **deletedDateTime**: string (ReadOnly): Date and time when this object was deleted. Always null when the object hasn't been deleted.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **principalDisplayName**: string (ReadOnly): The display name of the user, group, or service principal that was granted the app role assignment. Maximum length is 256 characters. Read-only
 * **principalId**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"} (Required): The unique identifier (id) for the user, security group, or service principal being granted the app role. Security groups with dynamic memberships are supported. Required on create.
@@ -156,6 +159,7 @@
 * **logoutUrl**: string: Specifies the URL that the Microsoft's authorization service uses to sign out a user using OpenId Connect front-channel, back-channel, or SAML sign out protocols.
 * **notes**: string: Free text field to capture information about the service principal, typically used for operational purposes. Maximum allowed size is 1,024 characters.
 * **notificationEmailAddresses**: string[]: Specifies the list of email addresses where Microsoft Entra ID sends a notification when the active certificate is near the expiration date. This is only for the certificates used to sign the SAML token issued for Microsoft Entra Gallery applications.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the service principal. Not nullable.
 * **preferredSingleSignOnMode**: string: Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the Microsoft Entra My Apps. The supported values are password, saml, notSupported, and oidc. Note: This field might be null for older SAML apps and for OIDC applications where it isn't set automatically.
 * **preferredTokenSigningKeyEndDateTime**: string: Specifies the expiration date of the keyCredential used for token signing, marked by preferredTokenSigningKeyThumbprint. Updating this attribute isn't currently supported. For details, see ServicePrincipal property differences.
@@ -211,9 +215,9 @@
 * **description**: string: The description for the app role. This is displayed when the app role is being assigned and, if the app role functions as an application permission, during  consent experiences.
 * **displayName**: string: Display name for the permission that appears in the app role assignment and consent experiences.
 * **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: Unique role identifier inside the appRoles collection. You must specify a new GUID identifier when you create a new app role.
-* **isEnabled**: bool: When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false. At that point, in a subsequent call, this role may be removed.
+* **isEnabled**: bool: When you create or updating an app role, this value must be true. To delete a role, this must first be set to false. At that point, in a subsequent call, this role might be removed. Default value is true.
 * **origin**: string (ReadOnly): Specifies if the app role is defined on the application object or on the servicePrincipal entity. Must not be included in any POST or PATCH requests. Read-only.
-* **value**: string: Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with ..
+* **value**: string: Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z, and a-z. Any other character, including the space character, aren't allowed. May not begin with ..
 
 ## MicrosoftGraphAuthenticationBehaviors
 ### Properties
@@ -228,6 +232,11 @@
 * **isCertifiedByMicrosoft**: bool: Indicates whether the application is certified by Microsoft.
 * **isPublisherAttested**: bool: Indicates whether the application has been self-attested by the application developer or the publisher.
 * **lastCertificationDateTime**: string: The timestamp when the certification for the application was most recently added or updated.
+
+## MicrosoftGraphFederatedIdentityExpression
+### Properties
+* **languageVersion**: int: Indicated the language version to be used. Should always be set to 1. Required.
+* **value**: string: Indicates the configured expression. Required.
 
 ## MicrosoftGraphGroupWritebackConfiguration
 ### Properties

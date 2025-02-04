@@ -498,6 +498,10 @@
             "windows": {
               "$ref": "#/definitions/microsoft.graph.windowsApplication",
               "description": "Specifies settings for apps running Microsoft Windows and published in the Microsoft Store or Xbox games store."
+            },
+            "owners": {
+              "$ref": "#/definitions/microsoft.graph.relationship",
+              "description": "Directory objects that are owners of the application. Read-only. Nullable"
             }
           },
           "required": [
@@ -692,6 +696,10 @@
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
               "description": "Specifies the verified publisher of the application that's linked to this service principal."
+            },
+            "owners": {
+              "$ref": "#/definitions/microsoft.graph.relationship",
+              "description": "Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable"
             }
           },
           "required": [
@@ -716,6 +724,10 @@
               },
               "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
             },
+            "claimsMatchingExpression": {
+              "$ref": "#/definitions/microsoft.graph.federatedIdentityExpression",
+              "description": "Enables the use of claims matching expressions against specified claims. For the list of supported expression syntax and claims, visit the Flexible FIC reference."
+            },
             "description": {
               "type": "string",
               "description": "The un-validated, user-provided description of the federated identity credential. It has a limit of 600 characters. Optional."
@@ -737,8 +749,7 @@
           "required": [
             "audiences",
             "issuer",
-            "name",
-            "subject"
+            "name"
           ],
           "x-ms-graph-resource": true
         }
@@ -785,7 +796,7 @@
     "microsoft.graph.appRoleAssignment": {
       "allOf": [
         {
-          "$ref": "#/definitions/microsoft.graph.entity"
+          "$ref": "#/definitions/microsoft.graph.directoryObject"
         },
         {
           "type": "object",
@@ -860,7 +871,7 @@
         },
         "isEnabled": {
           "type": "boolean",
-          "description": "When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false. At that point, in a subsequent call, this role may be removed."
+          "description": "When you create or updating an app role, this value must be true. To delete a role, this must first be set to false. At that point, in a subsequent call, this role might be removed. Default value is true."
         },
         "origin": {
           "type": "string",
@@ -869,7 +880,7 @@
         },
         "value": {
           "type": "string",
-          "description": "Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
+          "description": "Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z, and a-z. Any other character, including the space character, aren't allowed. May not begin with .."
         }
       }
     },
@@ -1398,6 +1409,20 @@
         "relayState": {
           "type": "string",
           "description": "The relative URI the service provider would redirect to after completion of the single sign-on flow."
+        }
+      }
+    },
+    "microsoft.graph.federatedIdentityExpression": {
+      "type": "object",
+      "properties": {
+        "languageVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Indicated the language version to be used. Should always be set to 1. Required."
+        },
+        "value": {
+          "type": "string",
+          "description": "Indicates the configured expression. Required."
         }
       }
     },

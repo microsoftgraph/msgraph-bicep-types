@@ -146,6 +146,11 @@ EntityTypes:
       - certification
       - createdDateTime
       - publisherDomain
+    Relationships:
+      NeedsBatch: true
+      BulkLimit: 20
+      Properties:
+        - owners
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
@@ -159,6 +164,11 @@ EntityTypes:
       - applicationTemplateId
       - appOwnerOrganizationId
       - signInAudience
+    Relationships:
+      NeedsBatch: true
+      BulkLimit: 20
+      Properties:
+        - owners
   - Name: microsoft.graph.federatedIdentityCredential
     RootUri: /applications/federatedIdentityCredentials
     Upsertable: true
@@ -167,7 +177,6 @@ EntityTypes:
       - audiences
       - issuer
       - name
-      - subject
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
     Upsertable: false
