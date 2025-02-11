@@ -53,43 +53,43 @@
               "items": {
                 "type": "string"
               },
-              "description": "The telephone numbers for the user. NOTE: Although it's a string collection, only one number can be set for this property. Read-only for users synced from the on-premises directory"
+              "description": "The telephone numbers for the user. NOTE: Although it's a string collection, only one number can be set for this property. Read-only for users synced from the on-premises directory."
             },
             "displayName": {
               "type": "string",
-              "description": "The name displayed in the address book for the user. This value is usually the combination of the user's first name, middle initial, and family name. This property is required when a user is created and it can't be cleared during updates. Maximum length is 256 characters"
+              "description": "The name displayed in the address book for the user. This value is usually the combination of the user's first name, middle initial, and family name. This property is required when a user is created and it can't be cleared during updates. Maximum length is 256 characters."
             },
             "givenName": {
               "type": "string",
-              "description": "The given name (first name) of the user. Maximum length is 64 characters"
+              "description": "The given name (first name) of the user. Maximum length is 64 characters."
             },
             "jobTitle": {
               "type": "string",
-              "description": "The user's job title. Maximum length is 128 characters"
+              "description": "The user's job title. Maximum length is 128 characters."
             },
             "mail": {
               "type": "string",
-              "description": "The SMTP address for the user, for example, jeff@contoso.com. Changes to this property update the user's proxyAddresses collection to include the value as an SMTP address. This property can't contain accent characters. NOTE: We don't recommend updating this property for Azure AD B2C user profiles. Use the otherMails property instead"
+              "description": "The SMTP address for the user, for example, jeff@contoso.com. Changes to this property update the user's proxyAddresses collection to include the value as an SMTP address. This property can't contain accent characters. NOTE: We don't recommend updating this property for Azure AD B2C user profiles. Use the otherMails property instead."
             },
             "mobilePhone": {
               "type": "string",
-              "description": "The primary cellular telephone number for the user. Read-only for users synced from the on-premises directory. Maximum length is 64 characters"
+              "description": "The primary cellular telephone number for the user. Read-only for users synced from the on-premises directory. Maximum length is 64 characters."
             },
             "officeLocation": {
               "type": "string",
-              "description": "The office location in the user's place of business"
+              "description": "The office location in the user's place of business."
             },
             "preferredLanguage": {
               "type": "string",
-              "description": "The preferred language for the user. The preferred language format is based on RFC 4646. The name is a combination of an ISO 639 two-letter lowercase culture code associated with the language, and an ISO 3166 two-letter uppercase subculture code associated with the country or region. Example: 'en-US', or 'es-ES'"
+              "description": "The preferred language for the user. The preferred language format is based on RFC 4646. The name is a combination of an ISO 639 two-letter lowercase culture code associated with the language, and an ISO 3166 two-letter uppercase subculture code associated with the country or region. Example: 'en-US', or 'es-ES'."
             },
             "surname": {
               "type": "string",
-              "description": "The user's surname (family name or last name). Maximum length is 64 characters"
+              "description": "The user's surname (family name or last name). Maximum length is 64 characters."
             },
             "userPrincipalName": {
               "type": "string",
-              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this value should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's collection of verified domains. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies",
+              "description": "The user principal name (UPN) of the user. The UPN is an Internet-style sign-in name for the user based on the Internet standard RFC 822. By convention, this value should map to the user's email name. The general format is alias@domain, where the domain must be present in the tenant's collection of verified domains. This property is required when a user is created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE: This property can't contain accent characters. Only the following characters are allowed A - Z, a - z, 0 - 9, '. - _ ! # ^ ~. For the complete list of allowed characters, see username policies.",
               "x-ms-graph-key": true,
               "x-constant-key": true
             }
@@ -108,7 +108,7 @@
           "properties": {
             "classification": {
               "type": "string",
-              "description": "Describes a classification for the group (such as low, medium, or high business impact)"
+              "description": "Describes a classification for the group (such as low, medium, or high business impact)."
             },
             "createdDateTime": {
               "type": "string",
@@ -118,11 +118,11 @@
             },
             "description": {
               "type": "string",
-              "description": "An optional description for the group"
+              "description": "An optional description for the group."
             },
             "displayName": {
               "type": "string",
-              "description": "The display name for the group. This property is required when a group is created and can't be cleared during updates. Maximum length is 256 characters"
+              "description": "The display name for the group. This property is required when a group is created and can't be cleared during updates. Maximum length is 256 characters."
             },
             "expirationDateTime": {
               "type": "string",
@@ -135,11 +135,11 @@
               "items": {
                 "type": "string"
               },
-              "description": "Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group; otherwise, it's either a security group or a distribution group. For details, see groups overview.If the collection includes DynamicMembership, the group has dynamic membership; otherwise, membership is static"
+              "description": "Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group; otherwise, it's either a security group or a distribution group. For details, see groups overview.If the collection includes DynamicMembership, the group has dynamic membership; otherwise, membership is static."
             },
             "isAssignableToRole": {
               "type": "boolean",
-              "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true, visibility must be Hidden, and the group can't be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license"
+              "description": "Indicates whether this group can be assigned to a Microsoft Entra role. Optional. This property can only be set while creating the group and is immutable. If set to true, the securityEnabled property must also be set to true, visibility must be Hidden, and the group can't be a dynamic group (that is, groupTypes can't contain DynamicMembership). Only callers with at least the Privileged Role Administrator role can set this property. The caller must also be assigned the RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more, see Using a group to manage Microsoft Entra role assignmentsUsing this feature requires a Microsoft Entra ID P1 license."
             },
             "isManagementRestricted": {
               "type": "boolean",
@@ -147,24 +147,24 @@
             },
             "mail": {
               "type": "string",
-              "description": "The SMTP address for the group, for example, 'serviceadmins@contoso.com'. Read-only",
+              "description": "The SMTP address for the group, for example, 'serviceadmins@contoso.com'. Read-only.",
               "readOnly": true
             },
             "mailEnabled": {
               "type": "boolean",
-              "description": "Specifies whether the group is mail-enabled. Required"
+              "description": "Specifies whether the group is mail-enabled. Required."
             },
             "mailNickname": {
               "type": "string",
-              "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following characters: @ () / [] ' ; : <> , SPACE. Required"
+              "description": "The mail alias for the group, unique for Microsoft 365 groups in the organization. Maximum length is 64 characters. This property can contain only characters in the ASCII character set 0 - 127 except the following characters: @ () / [] ' ; : <> , SPACE. Required."
             },
             "membershipRule": {
               "type": "string",
-              "description": "The rule that determines members for this group if the group is a dynamic group (groupTypes contains DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax"
+              "description": "The rule that determines members for this group if the group is a dynamic group (groupTypes contains DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax."
             },
             "membershipRuleProcessingState": {
               "type": "string",
-              "description": "Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused"
+              "description": "Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused."
             },
             "onPremisesDomainName": {
               "type": "string",
@@ -174,7 +174,7 @@
             "onPremisesLastSyncDateTime": {
               "type": "string",
               "format": "date-time",
-              "description": "Indicates the last time at which the group was synced with the on-premises directory. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only",
+              "description": "Indicates the last time at which the group was synced with the on-premises directory. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on January 1, 2014 is 2014-01-01T00:00:00Z. Read-only.",
               "readOnly": true
             },
             "onPremisesNetBiosName": {
@@ -187,7 +187,7 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.onPremisesProvisioningError"
               },
-              "description": "Errors when using Microsoft synchronization product during provisioning",
+              "description": "Errors when using Microsoft synchronization product during provisioning.",
               "readOnly": true
             },
             "onPremisesSamAccountName": {
@@ -197,28 +197,28 @@
             },
             "onPremisesSecurityIdentifier": {
               "type": "string",
-              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only",
+              "description": "Contains the on-premises security identifier (SID) for the group synchronized from on-premises to the cloud. Read-only.",
               "readOnly": true
             },
             "onPremisesSyncEnabled": {
               "type": "boolean",
-              "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never synced from an on-premises directory (default). Read-only",
+              "description": "true if this group is synced from an on-premises directory; false if this group was originally synced from an on-premises directory but is no longer synced; null if this object has never synced from an on-premises directory (default). Read-only.",
               "readOnly": true
             },
             "preferredDataLocation": {
               "type": "string",
-              "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned at least one of the following Microsoft Entra roles: User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo. Nullable"
+              "description": "The preferred data location for the Microsoft 365 group. By default, the group inherits the group creator's preferred data location. To set this property, the calling app must be granted the Directory.ReadWrite.All permission and the user be assigned at least one of the following Microsoft Entra roles: User Account Administrator Directory Writer  Exchange Administrator  SharePoint Administrator  For more information about this property, see OneDrive Online Multi-Geo. Nullable."
             },
             "preferredLanguage": {
               "type": "string",
-              "description": "The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US"
+              "description": "The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example, en-US."
             },
             "proxyAddresses": {
               "type": "array",
               "items": {
                 "type": "string"
               },
-              "description": "Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required to filter expressions on multi-valued properties. Read-only. Not nullable",
+              "description": "Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. The any operator is required to filter expressions on multi-valued properties. Read-only. Not nullable.",
               "readOnly": true
             },
             "renewedDateTime": {
@@ -229,11 +229,11 @@
             },
             "securityEnabled": {
               "type": "boolean",
-              "description": "Specifies whether the group is a security group. Required"
+              "description": "Specifies whether the group is a security group. Required."
             },
             "securityIdentifier": {
               "type": "string",
-              "description": "Security identifier of the group, used in Windows scenarios. Read-only",
+              "description": "Security identifier of the group, used in Windows scenarios. Read-only.",
               "readOnly": true
             },
             "serviceProvisioningErrors": {
@@ -241,15 +241,15 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.serviceProvisioningError"
               },
-              "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object"
+              "description": "Errors published by a federated service describing a nontransient, service-specific error regarding the properties or link from a group object."
             },
             "theme": {
               "type": "string",
-              "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange, or Red"
+              "description": "Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange, or Red."
             },
             "uniqueName": {
               "type": "string",
-              "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable",
+              "description": "The unique identifier that can be assigned to a group and used as an alternate key. Immutable.",
               "x-ms-graph-key": true,
               "x-constant-key": true
             },
@@ -259,11 +259,11 @@
             },
             "members": {
               "$ref": "#/definitions/microsoft.graph.relationship",
-              "description": "The members of this group, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable"
+              "description": "The members of this group, who can be users, devices, other groups, or service principals. Supports the List members, Add member, and Remove member operations. Nullable."
             },
             "owners": {
               "$ref": "#/definitions/microsoft.graph.relationship",
-              "description": "The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue"
+              "description": "The owners of the group who can be users or service principals. Limited to 100 owners. Nullable. If this property isn't specified when creating a Microsoft 365 group the calling user (admin or non-admin) is automatically assigned as the group owner. A non-admin user can't explicitly add themselves to this collection when they're creating the group. For more information, see the related known issue. For security groups, the admin user isn't automatically added to this collection. For more information, see the related known issue."
             }
           },
           "required": [
@@ -298,7 +298,7 @@
             },
             "appId": {
               "type": "string",
-              "description": "The unique identifier for the application that is assigned to an application by Microsoft Entra ID. Not nullable. Read-only. Alternate key",
+              "description": "The unique identifier for the application that is assigned to an application by Microsoft Entra ID. Not nullable. Read-only. Alternate key.",
               "readOnly": true
             },
             "applicationTemplateId": {
@@ -321,7 +321,7 @@
             "createdDateTime": {
               "type": "string",
               "format": "date-time",
-              "description": "The date and time the application was registered. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only",
+              "description": "The date and time the application was registered. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.",
               "readOnly": true
             },
             "defaultRedirectUri": {
@@ -330,15 +330,15 @@
             },
             "description": {
               "type": "string",
-              "description": "Free text field to provide a description of the application object to end users. The maximum allowed size is 1,024 characters"
+              "description": "Free text field to provide a description of the application object to end users. The maximum allowed size is 1,024 characters."
             },
             "disabledByMicrosoftStatus": {
               "type": "string",
-              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)"
+              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)."
             },
             "displayName": {
               "type": "string",
-              "description": "The display name for the application. Maximum length is 256 characters"
+              "description": "The display name for the application. Maximum length is 256 characters."
             },
             "groupMembershipClaims": {
               "type": "string",
@@ -349,11 +349,11 @@
               "items": {
                 "type": "string"
               },
-              "description": "Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<appId>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable"
+              "description": "Also known as App ID URI, this value is set when an application is used as a resource app. The identifierUris acts as the prefix for the scopes you reference in your API's code, and it must be globally unique. You can use the default value provided, which is in the form api://<appId>, or specify a more readable URI like https://contoso.com/api. For more information on valid identifierUris patterns and best practices, see Microsoft Entra application registration security best practices. Not nullable."
             },
             "info": {
               "$ref": "#/definitions/microsoft.graph.informationalUrl",
-              "description": "Basic profile information of the application such as  app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
+              "description": "Basic profile information of the application such as  app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps."
             },
             "isDeviceOnlyAuthSupported": {
               "type": "boolean",
@@ -368,7 +368,7 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.keyCredential"
               },
-              "description": "The collection of key credentials associated with the application. Not nullable"
+              "description": "The collection of key credentials associated with the application. Not nullable."
             },
             "logo": {
               "type": "string",
@@ -404,7 +404,7 @@
             },
             "publisherDomain": {
               "type": "string",
-              "description": "The verified publisher domain for the application. Read-only. For more information, see How to: Configure an application's publisher domain",
+              "description": "The verified publisher domain for the application. Read-only. For more information, see How to: Configure an application's publisher domain.",
               "readOnly": true
             },
             "requestSignatureVerification": {
@@ -416,7 +416,7 @@
               "items": {
                 "$ref": "#/definitions/microsoft.graph.requiredResourceAccess"
               },
-              "description": "Specifies the resources that the application needs to access. This property also specifies the set of delegated permissions and application roles that it needs for each of those resources. This configuration of access to the required resources drives the consent experience. No more than 50 resource services (APIs) can be configured. Beginning mid-October 2021, the total number of required permissions must not exceed 400. For more information, see Limits on requested permissions per app. Not nullable"
+              "description": "Specifies the resources that the application needs to access. This property also specifies the set of delegated permissions and application roles that it needs for each of those resources. This configuration of access to the required resources drives the consent experience. No more than 50 resource services (APIs) can be configured. Beginning mid-October 2021, the total number of required permissions must not exceed 400. For more information, see Limits on requested permissions per app. Not nullable."
             },
             "samlMetadataUrl": {
               "type": "string",
@@ -432,7 +432,7 @@
             },
             "signInAudience": {
               "type": "string",
-              "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first"
+              "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you might need to change other properties first."
             },
             "spa": {
               "$ref": "#/definitions/microsoft.graph.spaApplication",
@@ -443,7 +443,7 @@
               "items": {
                 "type": "string"
               },
-              "description": "Custom strings that can be used to categorize and identify the application. Not nullable"
+              "description": "Custom strings that can be used to categorize and identify the application. Not nullable."
             },
             "tokenEncryptionKeyId": {
               "type": "string",
@@ -452,7 +452,7 @@
             },
             "uniqueName": {
               "type": "string",
-              "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable",
+              "description": "The unique identifier that can be assigned to an application and used as an alternate key. Immutable.",
               "x-ms-graph-key": true,
               "x-constant-key": true
             },
@@ -463,6 +463,10 @@
             "web": {
               "$ref": "#/definitions/microsoft.graph.webApplication",
               "description": "Specifies settings for a web application."
+            },
+            "owners": {
+              "$ref": "#/definitions/microsoft.graph.relationship",
+              "description": "Directory objects that are owners of this application. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object."
             }
           },
           "required": [
@@ -483,7 +487,7 @@
           "properties": {
             "accountEnabled": {
               "type": "boolean",
-              "description": "true if the service principal account is enabled; otherwise, false. If set to false, then no users are able to sign in to this app, even if they're assigned to it"
+              "description": "true if the service principal account is enabled; otherwise, false. If set to false, then no users are able to sign in to this app, even if they're assigned to it."
             },
             "addIns": {
               "type": "array",
@@ -497,7 +501,7 @@
               "items": {
                 "type": "string"
               },
-              "description": "Used to retrieve service principals by subscription, identify resource group and full resource IDs for managed identities"
+              "description": "Used to retrieve service principals by subscription, identify resource group and full resource IDs for managed identities."
             },
             "appDescription": {
               "type": "string",
@@ -509,7 +513,7 @@
             },
             "appId": {
               "type": "string",
-              "description": "The unique identifier for the associated application (its appId property). Alternate key",
+              "description": "The unique identifier for the associated application (its appId property). Alternate key.",
               "x-ms-graph-key": true
             },
             "applicationTemplateId": {
@@ -520,12 +524,12 @@
             "appOwnerOrganizationId": {
               "type": "string",
               "format": "uuid",
-              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications",
+              "description": "Contains the tenant ID where the application is registered. This is applicable only to service principals backed by applications.",
               "readOnly": true
             },
             "appRoleAssignmentRequired": {
               "type": "boolean",
-              "description": "Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable"
+              "description": "Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable."
             },
             "appRoles": {
               "type": "array",
@@ -540,15 +544,15 @@
             },
             "description": {
               "type": "string",
-              "description": "Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps displays the application description in this field. The maximum allowed size is 1,024 characters"
+              "description": "Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps displays the application description in this field. The maximum allowed size is 1,024 characters."
             },
             "disabledByMicrosoftStatus": {
               "type": "string",
-              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)"
+              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement)."
             },
             "displayName": {
               "type": "string",
-              "description": "The display name for the service principal"
+              "description": "The display name for the service principal."
             },
             "homepage": {
               "type": "string",
@@ -556,14 +560,14 @@
             },
             "info": {
               "$ref": "#/definitions/microsoft.graph.informationalUrl",
-              "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps"
+              "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps."
             },
             "keyCredentials": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/microsoft.graph.keyCredential"
               },
-              "description": "The collection of key credentials associated with the service principal. Not nullable"
+              "description": "The collection of key credentials associated with the service principal. Not nullable."
             },
             "loginUrl": {
               "type": "string",
@@ -630,7 +634,7 @@
               "items": {
                 "type": "string"
               },
-              "description": "Contains the list of identifiersUris, copied over from the associated application. Additional values can be added to hybrid applications. These values can be used to identify the permissions exposed by this app within Microsoft Entra ID. For example,Client apps can specify a resource URI that is based on the values of this property to acquire an access token, which is the URI returned in the 'aud' claim.The any operator is required for filter expressions on multi-valued properties. Not nullable"
+              "description": "Contains the list of identifiersUris, copied over from the associated application. Additional values can be added to hybrid applications. These values can be used to identify the permissions exposed by this app within Microsoft Entra ID. For example,Client apps can specify a resource URI that is based on the values of this property to acquire an access token, which is the URI returned in the 'aud' claim.The any operator is required for filter expressions on multi-valued properties. Not nullable."
             },
             "servicePrincipalType": {
               "type": "string",
@@ -646,7 +650,7 @@
               "items": {
                 "type": "string"
               },
-              "description": "Custom strings that can be used to categorize and identify the service principal. Not nullable"
+              "description": "Custom strings that can be used to categorize and identify the service principal. Not nullable."
             },
             "tokenEncryptionKeyId": {
               "type": "string",
@@ -656,6 +660,10 @@
             "verifiedPublisher": {
               "$ref": "#/definitions/microsoft.graph.verifiedPublisher",
               "description": "Specifies the verified publisher of the application that's linked to this service principal."
+            },
+            "owners": {
+              "$ref": "#/definitions/microsoft.graph.relationship",
+              "description": "Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object."
             }
           },
           "required": [
@@ -690,12 +698,12 @@
             },
             "name": {
               "type": "string",
-              "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Alternate key. Required. Not nullable",
+              "description": "The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. The string is immutable after it's created. Alternate key. Required. Not nullable.",
               "x-ms-graph-key": true
             },
             "subject": {
               "type": "string",
-              "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters"
+              "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format; each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique within the app. It has a limit of 600 characters."
             }
           },
           "required": [
@@ -718,19 +726,19 @@
           "properties": {
             "clientId": {
               "type": "string",
-              "description": "The object id (not appId) of the client service principal for the application that's authorized to act on behalf of a signed-in user when accessing an API. Required"
+              "description": "The object id (not appId) of the client service principal for the application that's authorized to act on behalf of a signed-in user when accessing an API. Required."
             },
             "consentType": {
               "type": "string",
-              "description": "Indicates if authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users might be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required"
+              "description": "Indicates if authorization is granted for the client application to impersonate all users or only a specific user. AllPrincipals indicates authorization to impersonate all users. Principal indicates authorization to impersonate a specific user. Consent on behalf of all users can be granted by an administrator. Nonadmin users might be authorized to consent on behalf of themselves in some cases, for some delegated permissions. Required."
             },
             "principalId": {
               "type": "string",
-              "description": "The id of the user on behalf of whom the client is authorized to access the resource, when consentType is Principal. If consentType is AllPrincipals this value is null. Required when consentType is Principal"
+              "description": "The id of the user on behalf of whom the client is authorized to access the resource, when consentType is Principal. If consentType is AllPrincipals this value is null. Required when consentType is Principal."
             },
             "resourceId": {
               "type": "string",
-              "description": "The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user"
+              "description": "The id of the resource service principal to which access is authorized. This identifies the API that the client is authorized to attempt to call on behalf of a signed-in user."
             },
             "scope": {
               "type": "string",
@@ -767,7 +775,7 @@
             },
             "principalDisplayName": {
               "type": "string",
-              "description": "The display name of the user, group, or service principal that was granted the app role assignment. Maximum length is 256 characters. Read-only",
+              "description": "The display name of the user, group, or service principal that was granted the app role assignment. Maximum length is 256 characters. Read-only.",
               "readOnly": true
             },
             "principalId": {
@@ -787,7 +795,7 @@
             "resourceId": {
               "type": "string",
               "format": "uuid",
-              "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create"
+              "description": "The unique identifier (id) for the resource service principal for which the assignment is made. Required on create."
             }
           },
           "required": [
@@ -847,19 +855,19 @@
         },
         "marketingUrl": {
           "type": "string",
-          "description": "Link to the application's marketing page. For example, https://www.contoso.com/app/marketing"
+          "description": "Link to the application's marketing page. For example, https://www.contoso.com/app/marketing."
         },
         "privacyStatementUrl": {
           "type": "string",
-          "description": "Link to the application's privacy statement. For example, https://www.contoso.com/app/privacy"
+          "description": "Link to the application's privacy statement. For example, https://www.contoso.com/app/privacy."
         },
         "supportUrl": {
           "type": "string",
-          "description": "Link to the application's support page. For example, https://www.contoso.com/app/support"
+          "description": "Link to the application's support page. For example, https://www.contoso.com/app/support."
         },
         "termsOfServiceUrl": {
           "type": "string",
-          "description": "Link to the application's terms of service statement. For example, https://www.contoso.com/app/termsofservice"
+          "description": "Link to the application's terms of service statement. For example, https://www.contoso.com/app/termsofservice."
         }
       }
     },
@@ -977,7 +985,7 @@
         },
         "propertyCausingError": {
           "type": "string",
-          "description": "Name of the directory property causing the error. Current possible values: UserPrincipalName or ProxyAddress"
+          "description": "Name of the directory property causing the error. Current possible values: UserPrincipalName or ProxyAddress."
         },
         "value": {
           "type": "string",
@@ -1078,7 +1086,7 @@
         },
         "isPublisherAttested": {
           "type": "boolean",
-          "description": "Indicates whether the application has been self-attested by the application developer or the publisher."
+          "description": "Indicates whether the application developer or publisher completed Publisher Attestation."
         },
         "lastCertificationDateTime": {
           "type": "string",

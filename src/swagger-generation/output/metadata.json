@@ -459,13 +459,33 @@
         "isIdempotent": true,
         "updatable": true,
         "alternateKey": "uniqueName",
-        "isContainment": false
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        }
       },
       "v1.0": {
         "isIdempotent": true,
         "updatable": true,
         "alternateKey": "uniqueName",
-        "isContainment": false
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        }
       }
     },
     "servicePrincipals": {
@@ -473,13 +493,33 @@
         "isIdempotent": true,
         "updatable": true,
         "alternateKey": "appId",
-        "isContainment": false
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        }
       },
       "v1.0": {
         "isIdempotent": true,
         "updatable": true,
         "alternateKey": "appId",
-        "isContainment": false
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        }
       }
     },
     "applications/federatedIdentityCredentials": {

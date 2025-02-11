@@ -449,9 +449,9 @@ describe('constructDataStructure', () => {
     expect(propertyWithDescription).toBeDefined();
     expect(propertyWithNoDescription).toBeDefined();
     expect(altenernateKeyWithDescription).toBeDefined();
-    expect(propertyWithDescription?.Description).toBe('Description of propertyName. Optional');
+    expect(propertyWithDescription?.Description).toBe('Description of propertyName. Optional.');
     expect(propertyWithNoDescription?.Description).toBe('')
-    expect(altenernateKeyWithDescription?.Description).toBe('Alternate key of the entity. Required');
+    expect(altenernateKeyWithDescription?.Description).toBe('Alternate key of the entity. Required.');
   });
 
   it('should deserialize alternate keys', () => {
