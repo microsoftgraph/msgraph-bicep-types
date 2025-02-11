@@ -501,7 +501,7 @@
             },
             "owners": {
               "$ref": "#/definitions/microsoft.graph.relationship",
-              "description": "Directory objects that are owners of the application. Read-only. Nullable."
+              "description": "Directory objects that are owners of this application. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable."
             }
           },
           "required": [
@@ -699,7 +699,7 @@
             },
             "owners": {
               "$ref": "#/definitions/microsoft.graph.relationship",
-              "description": "Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable."
+              "description": "Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object."
             }
           },
           "required": [
@@ -726,7 +726,7 @@
             },
             "claimsMatchingExpression": {
               "$ref": "#/definitions/microsoft.graph.federatedIdentityExpression",
-              "description": "Enables the use of claims matching expressions against specified claims. For the list of supported expression syntax and claims, visit the Flexible FIC reference."
+              "description": "Nullable. Defaults to null if not set. Enables the use of claims matching expressions against specified claims. If claimsMatchingExpression is defined, subject must be null. For the list of supported expression syntax and claims, visit the Flexible FIC reference."
             },
             "description": {
               "type": "string",
@@ -743,7 +743,7 @@
             },
             "subject": {
               "type": "string",
-              "description": "Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters."
+              "description": "Nullable. Defaults to null if not set. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters. If subject is defined, claimsMatchingExpression must be null."
             }
           },
           "required": [
@@ -1158,7 +1158,7 @@
         },
         "isPublisherAttested": {
           "type": "boolean",
-          "description": "Indicates whether the application has been self-attested by the application developer or the publisher."
+          "description": "Indicates whether the application developer or publisher completed Publisher Attestation."
         },
         "lastCertificationDateTime": {
           "type": "string",
@@ -1521,11 +1521,11 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Key."
+          "description": "Contains the name of the field that a value is associated with."
         },
         "value": {
           "type": "string",
-          "description": "Value."
+          "description": "Contains the corresponding value for the specified key."
         }
       }
     },

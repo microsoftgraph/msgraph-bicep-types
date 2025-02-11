@@ -27,7 +27,7 @@
 * **nativeAuthenticationApisEnabled**: 'all' | 'none' | string: Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: none and all. Default is none. For more information, see Native Authentication.
 * **notes**: string: Notes relevant for the management of the application.
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app.
-* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of the application. Read-only. Nullable.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this application. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object.
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Specifies parental control settings for an application.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the application. Not nullable.
 * **publicClient**: [MicrosoftGraphPublicClientApplication](#microsoftgraphpublicclientapplication): Specifies settings for installed clients such as desktop or mobile devices.
@@ -153,7 +153,7 @@
 * **notes**: string: Free text field to capture information about the service principal, typically used for operational purposes. Maximum allowed size is 1,024 characters.
 * **notificationEmailAddresses**: string[]: Specifies the list of email addresses where Microsoft Entra ID sends a notification when the active certificate is near the expiration date. This is only for the certificates used to sign the SAML token issued for Microsoft Entra Gallery applications.
 * **oauth2PermissionScopes**: [MicrosoftGraphPermissionScope](#microsoftgraphpermissionscope)[]: The delegated permissions exposed by the application. For more information, see the oauth2PermissionScopes property on the application entity's api property. Not nullable.
-* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the application. Not nullable.
 * **preferredSingleSignOnMode**: string: Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the My Apps portal. The supported values are password, saml, notSupported, and oidc. Note: This field might be null for older SAML apps and for OIDC applications where it isn't set automatically.
 * **preferredTokenSigningKeyThumbprint**: string: This property can be used on SAML applications (apps that have preferredSingleSignOnMode set to saml) to control which certificate is used to sign the SAML responses. For applications that aren't SAML, don't write or otherwise rely on this property.
@@ -215,7 +215,7 @@
 * **certificationDetailsUrl**: string: URL that shows certification details for the application.
 * **certificationExpirationDateTime**: string: The timestamp when the current certification for the application expires.
 * **isCertifiedByMicrosoft**: bool: Indicates whether the application is certified by Microsoft.
-* **isPublisherAttested**: bool: Indicates whether the application has been self-attested by the application developer or the publisher.
+* **isPublisherAttested**: bool: Indicates whether the application developer or publisher completed Publisher Attestation.
 * **lastCertificationDateTime**: string: The timestamp when the certification for the application was most recently added or updated.
 
 ## MicrosoftGraphImplicitGrantSettings

@@ -26,7 +26,7 @@
 * **nativeAuthenticationApisEnabled**: 'all' | 'none' | string: Specifies whether the Native Authentication APIs are enabled for the application. The possible values are: noneand all. Default is none. For more information, see Native Authentication.
 * **notes**: string: Notes relevant for the management of the application.
 * **optionalClaims**: [MicrosoftGraphOptionalClaims](#microsoftgraphoptionalclaims): Application developers can configure optional claims in their Microsoft Entra applications to specify the claims that are sent to their application by the Microsoft security token service. For more information, see How to: Provide optional claims to your app.
-* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of the application. Read-only. Nullable.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this application. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable.
 * **parentalControlSettings**: [MicrosoftGraphParentalControlSettings](#microsoftgraphparentalcontrolsettings): Specifies parental control settings for an application.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the application. Not nullable.
 * **publicClient**: [MicrosoftGraphPublicClientApplication](#microsoftgraphpublicclientapplication): Specifies settings for installed clients such as desktop or mobile devices.
@@ -51,12 +51,12 @@
 ### Properties
 * **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
 * **audiences**: string[] (Required): The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required.
-* **claimsMatchingExpression**: [MicrosoftGraphFederatedIdentityExpression](#microsoftgraphfederatedidentityexpression): Enables the use of claims matching expressions against specified claims. For the list of supported expression syntax and claims, visit the Flexible FIC reference.
+* **claimsMatchingExpression**: [MicrosoftGraphFederatedIdentityExpression](#microsoftgraphfederatedidentityexpression): Nullable. Defaults to null if not set. Enables the use of claims matching expressions against specified claims. If claimsMatchingExpression is defined, subject must be null. For the list of supported expression syntax and claims, visit the Flexible FIC reference.
 * **description**: string: The un-validated, user-provided description of the federated identity credential. It has a limit of 600 characters. Optional.
 * **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
 * **issuer**: string (Required): The URL of the external identity provider and must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app. It has a limit of 600 characters. Required.
 * **name**: string (Required, Identifier): The unique identifier for the federated identity credential, which has a limit of 120 characters and must be URL friendly. It is immutable once created. Alternate key. Required. Not nullable.
-* **subject**: string: Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters.
+* **subject**: string: Nullable. Defaults to null if not set. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Microsoft Entra ID. The combination of issuer and subject must be unique on the app. It has a limit of 600 characters. If subject is defined, claimsMatchingExpression must be null.
 * **type**: 'Microsoft.Graph/applications/federatedIdentityCredentials' (ReadOnly, DeployTimeConstant): The resource type
 
 ## Resource Microsoft.Graph/appRoleAssignedTo@beta
@@ -159,7 +159,7 @@
 * **logoutUrl**: string: Specifies the URL that the Microsoft's authorization service uses to sign out a user using OpenId Connect front-channel, back-channel, or SAML sign out protocols.
 * **notes**: string: Free text field to capture information about the service principal, typically used for operational purposes. Maximum allowed size is 1,024 characters.
 * **notificationEmailAddresses**: string[]: Specifies the list of email addresses where Microsoft Entra ID sends a notification when the active certificate is near the expiration date. This is only for the certificates used to sign the SAML token issued for Microsoft Entra Gallery applications.
-* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object. Read-only. Nullable.
+* **owners**: [MicrosoftGraphRelationship](#microsoftgraphrelationship): Directory objects that are owners of this servicePrincipal. The owners are a set of nonadmin users or servicePrincipals who are allowed to modify this object.
 * **passwordCredentials**: [MicrosoftGraphPasswordCredential](#microsoftgraphpasswordcredential)[]: The collection of password credentials associated with the service principal. Not nullable.
 * **preferredSingleSignOnMode**: string: Specifies the single sign-on mode configured for this application. Microsoft Entra ID uses the preferred single sign-on mode to launch the application from Microsoft 365 or the Microsoft Entra My Apps. The supported values are password, saml, notSupported, and oidc. Note: This field might be null for older SAML apps and for OIDC applications where it isn't set automatically.
 * **preferredTokenSigningKeyEndDateTime**: string: Specifies the expiration date of the keyCredential used for token signing, marked by preferredTokenSigningKeyThumbprint. Updating this attribute isn't currently supported. For details, see ServicePrincipal property differences.
@@ -230,7 +230,7 @@
 * **certificationDetailsUrl**: string: URL that shows certification details for the application.
 * **certificationExpirationDateTime**: string: The timestamp when the current certification for the application expires.
 * **isCertifiedByMicrosoft**: bool: Indicates whether the application is certified by Microsoft.
-* **isPublisherAttested**: bool: Indicates whether the application has been self-attested by the application developer or the publisher.
+* **isPublisherAttested**: bool: Indicates whether the application developer or publisher completed Publisher Attestation.
 * **lastCertificationDateTime**: string: The timestamp when the certification for the application was most recently added or updated.
 
 ## MicrosoftGraphFederatedIdentityExpression
@@ -269,8 +269,8 @@
 
 ## MicrosoftGraphKeyValue
 ### Properties
-* **key**: string: Key.
-* **value**: string: Value.
+* **key**: string: Contains the name of the field that a value is associated with.
+* **value**: string: Contains the corresponding value for the specified key.
 
 ## MicrosoftGraphOnPremisesProvisioningError
 ### Properties
