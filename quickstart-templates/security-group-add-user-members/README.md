@@ -14,8 +14,6 @@ This template sample:
 1. Creates a user UPN list from a txt file.
 2. Creates/updates a security group with its members set based on the user UPN list
 
-**NOTE:** Due to current modelling limitations [no more than 20 members can be added/updated at a time][20-members], and only [update semantics][update-only] are supported for members (and owners).
-
 ### Prerequisites
 
 - A valid **Azure subscription**: If you don't own an Azure subscription, [create a free account](https://azure.microsoft.com/free/) before you begin.
