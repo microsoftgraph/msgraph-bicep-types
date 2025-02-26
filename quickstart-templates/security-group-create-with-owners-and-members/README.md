@@ -2,7 +2,7 @@
 
 > **NOTE**:
 >
-> - Minimum Bicep version required to deploy this quickstart template is [v0.30.3](https://github.com/Azure/bicep/releases/tag/v0.30.3).
+> - Minimum Bicep version required to deploy this quickstart template is [v0.32.4](https://github.com/Azure/bicep/releases/tag/v0.32.4).
 > - This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
 
 This template allows you to create a security group with members and owners. Both `members` and `owners` take a [MicrosoftGraphRelationship](../../generated/microsoftgraph/microsoft.graph/v1.0/0.1.10-preview/types.md#microsoftgraphrelationship) type.
