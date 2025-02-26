@@ -24,6 +24,10 @@ param appScopes array = ['profile','User.Read']
 @allowed(['set-required-scopes','grant-scopes'])
 param mode string = 'set-required-scopes'
 
+@description('Owner UPN for the client application')
+param userUPN string?
+
+
 var graphAppId = '00000003-0000-0000-c000-000000000000'
 
 // Get the Microsoft Graph service principal so that the scope names
@@ -52,6 +56,7 @@ module appCreateGrantScopesModule './appGrantScopes.bicep' = if (mode == 'grant-
     date: date
     displayName: displayName
     graphSpId: msGraphSP.id
+    userUPN: userUPN
   }
 }
 
@@ -59,6 +64,7 @@ module appCreateGrantScopesModule './appGrantScopes.bicep' = if (mode == 'grant-
 output appName string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appName : appCreateGrantScopesModule.outputs.appName)
 output appObjectID string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appObjectID : appCreateGrantScopesModule.outputs.appObjectID)
 output appID  string = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appID : appCreateGrantScopesModule.outputs.appID)
+output appOwners array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.appOwners : appCreateGrantScopesModule.outputs.appOwners)
 output foundInputScopes array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.scopes: appCreateGrantScopesModule.outputs.scopes)
 output clientAppResourceAccessList array = ((mode == 'set-required-scopes') ? appCreateRraModule.outputs.clientAppResourceAccessList : ['Not set'])
 output grantedScopes string = ((mode == 'grant-scopes') ? appCreateGrantScopesModule.outputs.grantedScopes : 'Not set')
