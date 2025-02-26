@@ -1,4 +1,8 @@
-extension microsoftGraphV1
+// Setting replace semantics for all relationships in this template unless overridden
+extension microsoftGraphV1 with {
+  relationshipSemantics: 'replace'
+}
+
 
 // TEMPLATE OVERVIEW:
 // Creates a security group and adds the referenced users as members.
@@ -36,7 +40,6 @@ resource group 'Microsoft.Graph/groups@v1.0' = {
   securityEnabled: true
   uniqueName: groupName
   members: {
-    relationshipSemantics: 'replace'
     relationships: [for i in range(0, upnListLength): userList[i].id]
   }
 }
