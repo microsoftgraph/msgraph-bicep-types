@@ -1,5 +1,5 @@
-MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
-ExtensionVersion: 0.1.9-preview
+MetadataFilePath: clean_beta_metadata/cleanMetadataWithDescriptionsAndAnnotationsbeta.xml
+ExtensionVersion: 0.2.0-preview
 EntityTypes:
   - Name: microsoft.graph.user
     RootUri: /users
@@ -13,6 +13,8 @@ EntityTypes:
       - authorizationInfo
       - birthday
       - city
+      - cloudLicensing
+      - cloudRealtimeCommunicationInfo
       - companyName
       - consentProvidedForMinor
       - country
@@ -22,6 +24,7 @@ EntityTypes:
       - deletedDateTime
       - department
       - deviceEnrollmentLimit
+      - deviceKeys
       - employeeHireDate
       - employeeId
       - employeeLeaveDateTime
@@ -33,6 +36,7 @@ EntityTypes:
       - hireDate
       - identities
       - imAddresses
+      - infoCatalogs
       - interests
       - isLicenseReconciliationNeeded
       - isManagementRestricted
@@ -51,6 +55,7 @@ EntityTypes:
       - onPremisesProvisioningErrors
       - onPremisesSamAccountName
       - onPremisesSecurityIdentifier
+      - onPremisesSipInfo
       - onPremisesSyncEnabled
       - onPremisesUserPrincipalName
       - otherMails
@@ -80,6 +85,7 @@ EntityTypes:
     RootUri: /groups
     Upsertable: true
     IgnoredProperties:
+      - accessType
       - allowExternalSenders
       - assignedLabels
       - assignedLicenses
@@ -88,9 +94,13 @@ EntityTypes:
       - hideFromAddressLists
       - hideFromOutlookClients
       - isArchived
+      - isFavorite
       - isSubscribedByMail
       - licenseProcessingState
+      - membershipRuleProcessingStatus
+      - unseenConversationsCount
       - unseenCount
+      - unseenMessagesCount
     NavigationProperty:
       - members
       - owners
@@ -107,8 +117,10 @@ EntityTypes:
       - securityEnabled
       - uniqueName
     ReadOnly:
+      - createdByAppId
       - createdDateTime
       - expirationDateTime
+      - isManagementRestricted
       - mail
       - onPremisesDomainName
       - onPremisesLastSyncDateTime
@@ -124,13 +136,13 @@ EntityTypes:
     RootUri: /applications
     Upsertable: true
     IgnoredProperties:
+      - onPremisesPublishing
       - oauth2RequirePostResponse
     RequiredOnWrite:
       - displayName
       - uniqueName
     ReadOnly:
       - appId
-      - applicationTemplateId
       - certification
       - createdDateTime
       - publisherDomain
@@ -142,12 +154,15 @@ EntityTypes:
   - Name: microsoft.graph.servicePrincipal
     RootUri: /servicePrincipals
     Upsertable: true
+    IgnoredProperties:
+      - customSecurityAttributes
+      - errorUrl
+      - passwordSingleSignOnSettings
     RequiredOnWrite:
       - appId
     ReadOnly:
       - applicationTemplateId
       - appOwnerOrganizationId
-      - resourceSpecificApplicationPermissions
       - signInAudience
     Relationships:
       NeedsBatch: true
@@ -162,11 +177,13 @@ EntityTypes:
       - audiences
       - issuer
       - name
-      - subject
   - Name: microsoft.graph.oAuth2PermissionGrant
     RootUri: /oauth2PermissionGrants
     Upsertable: false
     Updatable: true
+    IgnoredProperties:
+      - expiryTime
+      - startTime
     RequiredOnWrite:
       - clientId
       - consentType
@@ -190,7 +207,7 @@ EntityTypes:
       - principalId
       - resourceId
     ReadOnly:
-      - createdDateTime
+      - creationTimestamp
       - principalDisplayName
       - principalType
     CompositeKey:
@@ -208,6 +225,9 @@ EntityTypes:
     ReadOnly:
       - hint
       - secretText
+  - Name: microsoft.graph.windowsApplication
+    ReadOnly:
+      - packageSid
   - Name: microsoft.graph.permissionScope
     IgnoredProperties:
       - origin

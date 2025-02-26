@@ -4,31 +4,31 @@
       "$ref": "types.json#/16"
     },
     "Microsoft.Graph/applications@v1.0": {
-      "$ref": "types.json#/73"
+      "$ref": "types.json#/74"
     },
     "Microsoft.Graph/servicePrincipals@v1.0": {
-      "$ref": "types.json#/91"
+      "$ref": "types.json#/92"
     },
     "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0": {
-      "$ref": "types.json#/96"
+      "$ref": "types.json#/97"
     },
     "Microsoft.Graph/oauth2PermissionGrants@v1.0": {
-      "$ref": "types.json#/100"
+      "$ref": "types.json#/101"
     },
     "Microsoft.Graph/appRoleAssignedTo@v1.0": {
-      "$ref": "types.json#/104"
+      "$ref": "types.json#/105"
     },
     "Microsoft.Graph/users@v1.0": {
-      "$ref": "types.json#/109"
+      "$ref": "types.json#/110"
     }
   },
   "resourceFunctions": {},
   "settings": {
     "name": "MicrosoftGraph",
-    "version": "0.1.10-preview",
+    "version": "0.2.0-preview",
     "isSingleton": false,
     "configurationType": {
-      "$ref": "types.json#/110"
+      "$ref": "types.json#/111"
     }
   }
 }

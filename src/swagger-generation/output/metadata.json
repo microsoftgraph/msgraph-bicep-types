@@ -387,7 +387,7 @@
       }
     }
   },
-  "0.1.10-preview": {
+  "0.2.0-preview": {
     "users": {
       "beta": {
         "isIdempotent": false,
