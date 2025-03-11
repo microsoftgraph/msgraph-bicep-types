@@ -1,9 +1,15 @@
-extension microsoftGraphV1
+// Setting replace semantics for all relationships in this template unless overridden
+extension microsoftGraphV1 with {
+  relationshipSemantics: 'replace'
+}
+
 
 // TEMPLATE OVERVIEW:
 // Creates a security group and adds the referenced users as members.
 // The user list are in a txt file, with each user's UPN on a separate line.
 // Replace example userlist.txt file values with user UPNs from your tenant.
+// The group members are added using replace semantics overwriting any
+// existing group members.
 
 @description('Today\'s date used to configure a unique daily app name')
 param date string
@@ -33,10 +39,13 @@ resource group 'Microsoft.Graph/groups@v1.0' = {
   mailNickname: uniqueString(groupName)
   securityEnabled: true
   uniqueName: groupName
-  members: [for i in range(0, upnListLength): userList[i].id]
+  members: {
+    relationships: [for i in range(0, upnListLength): userList[i].id]
+  }
 }
 
 // outputs
 output addedUserList array = upnList
 output groupName string = group.displayName
 output groupId string = group.id
+output groupMembers array = group.members.relationships

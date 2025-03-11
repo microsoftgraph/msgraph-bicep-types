@@ -22,10 +22,14 @@ resource group 'Microsoft.Graph/groups@v1.0' = {
   mailEnabled: false
   mailNickname: 'exampleGroup'
   securityEnabled: true
-  owners: [
-    resourceSp.id
-  ]
-  members: [
-    managedIdentity.properties.principalId
-  ]
+  owners: {
+    // defaults with append semantics
+    // for replace semantics add: "relationshipSemantics: 'replace'"
+    relationships: [resourceSp.id]
+  }
+  members: {
+    // defaults with append semantics
+    // for replace semantics add: "relationshipSemantics: 'replace'"
+    relationships: [managedIdentity.properties.principalId]
+  }
 }
