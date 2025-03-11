@@ -25,7 +25,7 @@
   "resourceFunctions": {},
   "settings": {
     "name": "MicrosoftGraphBeta",
-    "version": "0.1.10-preview",
+    "version": "0.2.0-preview",
     "isSingleton": false,
     "configurationType": {
       "$ref": "types.json#/115"
