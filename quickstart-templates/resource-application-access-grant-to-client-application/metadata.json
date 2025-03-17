@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Grant a client app access to a resource app.",
+    "description": "This template grants client app access to resource application by assigning the app role in the resource app to the client app.",
+    "summary": "This template grants client app access to resource application by assigning the app role in the resource app to the client app.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

@@ -1,0 +1,11 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Create an Entra security group with members and owners",
+    "description": "This template allows you to create a security group with members and owners. Both \"members\" and \"owners\" use the MicrosoftGraphRelationship type. The resource service principal created previously in the \"application-serviceprincipal-create-client-resource\" quickstart is added to the owners. A managed identity is created and added to the members too.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

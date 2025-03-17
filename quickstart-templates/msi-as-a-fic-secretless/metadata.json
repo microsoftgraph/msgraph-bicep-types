@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Configure a secret-less application to call Microsoft Graph.",
+    "description": "This template demonstrates how to create a secret-less client application, using a user-assigned managed identity as the credential (configured as part of the application's federated identity credential). It also creates other resources, that enable you to test using the application to call Microsoft Graph, all without any application secret or certificate.",
+    "summary": "This template creates a secret-less client application, using a user-assigned managed identity as the credential.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

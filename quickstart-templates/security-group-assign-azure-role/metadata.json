@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Configure client services' access, via a security group.",
+    "description": "This template configures three regional user-assigned managed identities, that can be used to read from a Blob Storage account, via a security group. The user-assigned managed identities are added as members of the security group, and the security group is assigned an Azure Reader role to the Blob Storage account.",
+    "summary": "This template configures client services that can be used to read from Blob storage, via a Microsoft Entra security group",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}
