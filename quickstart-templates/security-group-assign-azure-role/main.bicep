@@ -17,7 +17,7 @@ resource managedIdentities 'Microsoft.ManagedIdentity/userAssignedIdentities@202
   }
 ]
 
-// Storage resource that the clinet services need access to
+// Storage resource that the client services need access to
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
   name: storageName
 }
@@ -29,7 +29,10 @@ resource storageBlobReadersGroup 'Microsoft.Graph/groups@v1.0' = {
   mailNickname: uniqueString(groupName)
   securityEnabled: true
   uniqueName: groupName
-  members: [for (mi, i) in clientServiceList: managedIdentities[i].properties.principalId]
+  members: {
+    relationshipSemantics: 'replace'
+    relationships: [for (mi, i) in clientServiceList: managedIdentities[i].properties.principalId]
+  }
 }
 
 @description('Specify the storage blob reader role definition ID')

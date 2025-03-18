@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Configure a federated identity credential for GitHub Actions",
+    "description": "This template configures a federated identity credential for GitHub Actions, without using any secrets. It enables a GitHub Actions workflow to exchange a GitHub access token for a Microsoft Entra ID access token, so that the GitHub Actions workflow can access Azure resources. To enable this, the template creates an application (to represent the GitHub Action) and configures it with a federated identity credential. When the GitHub Actions workflow requests to exchange a GitHub access token for an access token, from the Microsoft identity platform, the values in the federated identity credential are checked against the provided GitHub token's \"issuer\" and \"subject\" claim values.",
+    "summary": "This template configures a federated identity credential for GitHub Actions, without using any secrets.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

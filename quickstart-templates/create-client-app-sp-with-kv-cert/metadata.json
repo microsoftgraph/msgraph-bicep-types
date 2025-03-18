@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Create an app with an X509 certificate using Key Vault.",
+    "description": "This template creates a Key Vault, through which the authorized managed identity can add an X509 certificate (if it doesn't exist) and get the certificate's public key (base64 encoded), along with the thumbprint and other metadata. Finally, the template creates the client application resource using the certificate public key as its credential. followed by creation of the service principal",
+    "summary": "This template creates a client app with an X509 certificate from Key Vault as the credential",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Configure a security group's user members.",
+    "description": "This template creates a security group and adds users, referenced via their UPNs, as members. It demonstrates use of the read-only [`Microsoft.Graph/Users` bicep type][users-ref] which allows you to fetch `user` resources by their user principal name (UPN). The list of users to be added as members are in a txt file, with each user's UPN on a separate line.",
+    "summary": "This template creates a security group and adds users, referenced via their UPNs, as members.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

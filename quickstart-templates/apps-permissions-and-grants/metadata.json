@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Configure an app with scopes to call Microsoft Graph",
+    "description": "This template configures an app with OAuth2.0 scopes to call Microsoft Graph. It creates a client application and depending on the mode parameter, and either sets the required resource access on the client application definition, or grants OAuth2.0 scopes to the client application. In either case, the target resource used is Microsoft Graph, and the deployer can select which Microsoft Graph OAuth2.0 scopes are used.",
+    "summary": "This template configures an app with OAuth2.0 scopes to call Microsoft Graph.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-03-17",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}
