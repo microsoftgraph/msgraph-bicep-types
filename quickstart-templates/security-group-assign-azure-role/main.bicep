@@ -30,6 +30,7 @@ resource storageBlobReadersGroup 'Microsoft.Graph/groups@v1.0' = {
   securityEnabled: true
   uniqueName: groupName
   members: {
+    relationshipSemantics: 'replace'
     relationships: [for (mi, i) in clientServiceList: managedIdentities[i].properties.principalId]
   }
 }
