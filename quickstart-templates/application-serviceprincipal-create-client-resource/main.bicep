@@ -1,16 +1,16 @@
 extension microsoftGraphV1
 
-@description('Id of the application role to add to the resource app')
-param appRoleId string
+@description('ID of the application role to add to the resource app. Must be a GUID.')
+param appRoleId string?
 
 @secure()
-@description('Value of the key credential')
-param certKey string
+@description('Value of the key credential.')
+param certKey string?
 
 resource resourceApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'ExampleResourceApp'
   displayName: 'Example Resource Application'
-  appRoles: [
+  appRoles: (!empty(appRoleId)) ? [
     {
       id: appRoleId
       allowedMemberTypes: [ 'User', 'Application' ]
@@ -19,7 +19,7 @@ resource resourceApp 'Microsoft.Graph/applications@v1.0' = {
       value: 'ResourceAppData.Read.All'
       isEnabled: true
     }
-  ]
+  ] : []
 }
 
 resource resourceSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
@@ -29,14 +29,14 @@ resource resourceSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
 resource clientApp 'Microsoft.Graph/applications@v1.0' = {
   uniqueName: 'ExampleClientApp'
   displayName: 'Example Client Application'
-  keyCredentials: [
+  keyCredentials: (!empty(certKey)) ? [
     {
       displayName: 'Example Client App Key Credential'
       usage: 'Verify'
       type: 'AsymmetricX509Cert'
       key: certKey
     }
-  ]
+  ] : []
 }
 
 resource clientSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
