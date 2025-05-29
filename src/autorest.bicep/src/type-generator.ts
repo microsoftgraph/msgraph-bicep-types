@@ -20,6 +20,14 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
     host.message({ Channel: Channel.Information, Text: message, });
   }
 
+  function isStream(schema: Schema | undefined) {
+    if (!schema) return false;
+    if (schema instanceof ByteArraySchema) {
+      return schema.format === 'base64url';
+    }
+    return false;
+  }
+
   function getResourcePath(definition: ResourceDefinition) {
     return (definition.putOperation ?? definition.getOperation)?.request.path;
   }
@@ -83,6 +91,21 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
     return failure('failed to obtain a name value');
   }
 
+  function* getStreamProperties(putSchema: ObjectSchema | undefined, getSchema: ObjectSchema | undefined) {
+    const putProperties = putSchema ? getSchemaProperties(putSchema) : {};
+    const getProperties = getSchema ? getSchemaProperties(getSchema) : {};
+
+    for (const propertyName of uniq([...keys(putProperties), ...keys(getProperties)])) {
+      const putProperty = putProperties[propertyName];
+      const getProperty = getProperties[propertyName];
+
+      // Check if either PUT or GET schema has this property marked as a stream
+      if (isStream(putProperty?.schema) || isStream(getProperty?.schema)) {
+        yield { propertyName, putProperty, getProperty };
+      }
+    }
+  }
+
   function processResourceBody(fullyQualifiedType: string, definition: ResourceDefinition) {
     const { descriptor, putOperation, getOperation } = definition;
     const { requestSchema: putSchema } = putOperation || {};
@@ -111,6 +134,11 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
         continue;
       }
 
+      // Skip stream properties as they will be handled separately
+      if (isStream(putProperty?.schema) || isStream(getProperty?.schema)) {
+        continue;
+      }
+
       const propertyDefinition = parseType(putProperty?.schema, getProperty?.schema);
       if (propertyDefinition !== undefined) {
         const description = getPropertyDescription(putProperty, getProperty);
@@ -119,9 +147,19 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       }
     }
 
+    // Process stream properties
+    if (schema) {
+      for (const { propertyName, putProperty, getProperty } of getStreamProperties(putSchema, getSchema)) {
+        // Add stream property as a string type (base64 encoded)
+        const streamType = factory.addStringType();
+        const description = getPropertyDescription(putProperty, getProperty);
+        const flags = parsePropertyFlags(putProperty, getProperty);
+        resourceProperties[propertyName] = createObjectTypeProperty(streamType, flags, description);
+      }
+    }
+
     if (schema?.discriminator) {
       const discriminatedObjectType = factory.lookupType(resourceDefinition) as DiscriminatedObjectType;
-
       handlePolymorphicType(discriminatedObjectType, putSchema, getSchema);
     }
 
@@ -272,7 +310,11 @@ export function generateTypes(host: AutorestExtensionHost, definition: ProviderD
       }
     }
 
-    return chain(objects).filter(o => !(ancestorsToExclude?.has(o))).flatMap(o => o.properties || []).keyBy(p => p.serializedName).value();
+    return chain(objects)
+      .filter((o: ObjectSchema) => !(ancestorsToExclude?.has(o)))
+      .flatMap((o: ObjectSchema) => o.properties || [])
+      .keyBy((p: Property) => p.serializedName)
+      .value();
   }
 
   function* getObjectTypeProperties(putSchema: ObjectSchema | undefined, getSchema: ObjectSchema | undefined, ancestorsToExclude?: Set<ComplexSchema>) {

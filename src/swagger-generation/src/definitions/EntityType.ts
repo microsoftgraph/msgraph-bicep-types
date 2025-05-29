@@ -18,8 +18,9 @@ export class EntityType extends Object {
   HasStream?: boolean;
   Property: Property[];
   NavigationProperty: NavigationProperty[];
+  StreamProperty: Property[]; // Array to track stream properties separately
 
-  constructor(name: string, alternateKey: string | undefined, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[]) {
+  constructor(name: string, alternateKey: string | undefined, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[], streamProperty: Property[] = []) {
     super();
     this.Name = name;
     this.AlternateKey = alternateKey;
@@ -29,6 +30,7 @@ export class EntityType extends Object {
     this.HasStream = hasStream;
     this.Property = property;
     this.NavigationProperty = navigationProperty;
+    this.StreamProperty = streamProperty;
   }
 
   toSwaggerDefinition(entityTypeConfig?: EntityTypeConfig): AllOfDefinition | Definition {
@@ -37,6 +39,7 @@ export class EntityType extends Object {
       properties: {},
     };
 
+    // Process regular properties
     this.Property.forEach((property: Property) => {
       const swaggerProperty: SwaggerProperty = {}
       let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
@@ -84,6 +87,19 @@ export class EntityType extends Object {
       definition.properties[property.Name] = swaggerProperty
     });
 
+    // Process stream properties
+    this.StreamProperty.forEach((property: Property) => {
+      const swaggerProperty: SwaggerProperty = {
+        type: "string",
+        format: "binary",
+        description: property.Description,
+        readOnly: property.ReadOnly // Set readOnly property
+      };
+
+      definition.properties[property.Name] = swaggerProperty;
+    });
+
+    // Process navigation properties
     this.NavigationProperty.forEach((navigationProperty: NavigationProperty) => {
       const swaggerProperty: SwaggerProperty = {}
 

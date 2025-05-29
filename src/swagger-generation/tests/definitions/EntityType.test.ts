@@ -24,8 +24,11 @@ describe('EntityType', () => {
       new NavigationProperty('NavigationProperty1', 'namespace.one.EntityType1', '', true, false, false, 'directoryObject'),
       new NavigationProperty('NavigationProperty2', 'namespace.one.EntityType2', '', true, false, false, 'targets'),
     ];
+    const streamProperties = [
+      new Property('StreamProperty1', 'Edm.Binary', 'Stream property description', true, false),
+    ];
 
-    const entityType = new EntityType(name, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties);
+    const entityType = new EntityType(name, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties, streamProperties);
 
     expect(entityType.Name).toBe(name);
     expect(entityType.AlternateKey).toBe(alternateKey);
@@ -35,6 +38,7 @@ describe('EntityType', () => {
     expect(entityType.HasStream).toBe(hasStream);
     expect(entityType.Property).toEqual(properties);
     expect(entityType.NavigationProperty).toEqual(navigationProperties);
+    expect(entityType.StreamProperty).toEqual(streamProperties);
   });
 
   it('should convert primitive types to a Swagger definition', () => {
@@ -220,5 +224,28 @@ describe('EntityType', () => {
     expect(definitionSP["x-ms-graph-resource"]).not.toBe(true);
     expect(definitionSP.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionSP.properties.Property2["x-constant-key"]).toBeUndefined();
+  });
+
+  it('should convert stream properties to swagger definition', () => {
+    const name = 'TestEntityType';
+    const streamProperties = [
+      new Property('StreamProperty1', 'Edm.Binary', 'Stream property description', true, false),
+      new Property('StreamProperty2', 'Edm.Binary', 'Another stream property', false, false),
+    ];
+
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, [], [], streamProperties);
+    const definition = entityType.toSwaggerDefinition() as Definition;
+
+    expect(definition.properties.StreamProperty1).toBeDefined();
+    expect(definition.properties.StreamProperty1.type).toBe('string');
+    expect(definition.properties.StreamProperty1.format).toBe('binary');
+    expect(definition.properties.StreamProperty1.description).toBe('Stream property description');
+    expect(definition.properties.StreamProperty1.readOnly).toBe(false);
+
+    expect(definition.properties.StreamProperty2).toBeDefined();
+    expect(definition.properties.StreamProperty2.type).toBe('string');
+    expect(definition.properties.StreamProperty2.format).toBe('binary');
+    expect(definition.properties.StreamProperty2.description).toBe('Another stream property');
+    expect(definition.properties.StreamProperty2.readOnly).toBe(false);
   });
 });

@@ -19,6 +19,7 @@ const csdl: CSDL = {
               {
                 $: {
                   Name: 'entityNameOne',
+                  HasStream: true
                 },
                 Property: [
                   {
@@ -55,6 +56,12 @@ const csdl: CSDL = {
                       Type: 'Edm.String'
                     },
                   },
+                  {
+                    $: {
+                      Name: 'streamProperty',
+                      Type: 'Edm.Stream'
+                    },
+                  }
                 ],
                 NavigationProperty: [],
                 Annotation: [
@@ -215,7 +222,6 @@ const csdl: CSDL = {
                       Name: 'complexPropertyName',
                       Type: 'Edm.String'
                     },
-
                   },
                 ],
                 NavigationProperty: []
@@ -378,7 +384,7 @@ describe('constructDataStructure', () => {
     expect(definitionMap.EntityMap.get('namespaceThree.complexTypeName')).toBeDefined();
   });
 
-  it('should identify and correctly cassify enum types', () => {
+  it('should identify and correctly classify enum types', () => {
     let definitionMap: DefinitionMap = new DefinitionMap();
     definitionMap = constructDataStructure(csdl, definitionMap, config);
     expect(definitionMap.EnumMap.get('namespaceThree.enumTypeName')).toBeDefined();
@@ -395,7 +401,6 @@ describe('constructDataStructure', () => {
     });
     expect((entity!.Property[0].Type as CollectionProperty).Type).toBeInstanceOf(PrimitiveSwaggerTypeStruct);
     expect((entity!.Property[1].Type as CollectionProperty).Type).toBe("namespaceThree.complexTypeName");
-
   });
 
   it('should have integrity between csdl and definitionMap', () => {
@@ -463,6 +468,20 @@ describe('constructDataStructure', () => {
     expect(definitionMap.EntityMap.get('namespaceTwo.entityNameOne')?.AlternateKey).toEqual('propertyNameDiff');
     expect(definitionMap.EntityMap.get('namespaceThree.entityNameTwo')?.AlternateKey).toBeUndefined();
     expect(definitionMap.EntityMap.get('namespaceFour.entityNameOne')?.AlternateKey).toBeUndefined();
+  });
+
+  it('should handle stream properties', () => {
+    let definitionMap: DefinitionMap = new DefinitionMap();
+    definitionMap = constructDataStructure(csdl, definitionMap, config);
+    const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
+    expect(entity).toBeDefined();
+    expect(entity!.HasStream).toBeTruthy();
+    const streamProperty = entity!.Property.find(prop => prop.Name === 'streamProperty');
+    expect(streamProperty).toBeDefined();
+    expect(streamProperty!.Type).toEqual({
+      format: 'base64url',
+      type: 'string'
+    });
   });
 });
 
@@ -640,7 +659,7 @@ describe('available property', () => {
     definitionMap = constructDataStructure(csdl, definitionMap, config);
     const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
     expect(entity).toBeDefined();
-    expect(entity!.Property.length).toBe(3);
+    expect(entity!.Property.length).toBe(4);
     expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
     expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeDefined();
   });
@@ -680,7 +699,7 @@ describe('available property', () => {
     definitionMap = constructDataStructure(csdl, definitionMap, config);
     const entity = definitionMap.EntityMap.get('namespace.entityNameOne');
     expect(entity).toBeDefined();
-    expect(entity!.Property.length).toBe(2);
+    expect(entity!.Property.length).toBe(3);
     expect(entity!.Property.find((prop) => prop.Name === 'propertyName')).toBeDefined();
     expect(entity!.Property.find((prop) => prop.Name === 'uniqueName')).toBeDefined();
     expect(entity!.Property.find((prop) => prop.Name === 'propertyNameTwo')).toBeUndefined();
