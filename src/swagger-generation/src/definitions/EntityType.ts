@@ -18,9 +18,8 @@ export class EntityType extends Object {
   HasStream?: boolean;
   Property: Property[];
   NavigationProperty: NavigationProperty[];
-  StreamProperty: Property[]; // Array to track stream properties separately
 
-  constructor(name: string, alternateKey: string | undefined, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[], streamProperty: Property[] = []) {
+  constructor(name: string, alternateKey: string | undefined, abstract: boolean | undefined, baseType: string | undefined, openType: boolean | undefined, hasStream: boolean | undefined, property: Property[], navigationProperty: NavigationProperty[]) {
     super();
     this.Name = name;
     this.AlternateKey = alternateKey;
@@ -30,7 +29,6 @@ export class EntityType extends Object {
     this.HasStream = hasStream;
     this.Property = property;
     this.NavigationProperty = navigationProperty;
-    this.StreamProperty = streamProperty;
   }
 
   toSwaggerDefinition(entityTypeConfig?: EntityTypeConfig): AllOfDefinition | Definition {
@@ -41,40 +39,22 @@ export class EntityType extends Object {
 
     // Process regular properties
     this.Property.forEach((property: Property) => {
-      const swaggerProperty: SwaggerProperty = {}
-      let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
+      const swaggerProperty: SwaggerProperty = {};
 
-      if (propertyType instanceof CollectionProperty) { // Collection unwrap
-        propertyType = propertyType.Type as PrimitiveSwaggerTypeStruct | string;
-        if (propertyType instanceof PrimitiveSwaggerTypeStruct) {  // Property is primitive type
-          swaggerProperty.type = "array"
-          swaggerProperty.items = {
-            type: propertyType.type,  // Set swagger primitive type
-          }
-          if (propertyType.format) {
-            swaggerProperty.items.format = propertyType.format // Set swagger primitive format
-          }
-        } else { // Property is complex type
-          swaggerProperty.type = "array"
-          swaggerProperty.items = {
-            $ref: `#/definitions/${propertyType}` // Set swagger reference
-          }
-        }
-      } else { // Not collection
-        if (property.Type instanceof PrimitiveSwaggerTypeStruct) {  // Property is primitive type
-          swaggerProperty.type = property.Type.type // Set swagger primitive type
-          if (property.Type.format) {
-            swaggerProperty.format = property.Type.format // Set swagger primitive format
-          }
-        } else {
-          swaggerProperty.$ref = `#/definitions/${property.Type}` // Set swagger reference
-        }
+      if (property.Type instanceof PrimitiveSwaggerTypeStruct) {
+        swaggerProperty.type = property.Type.type;
+        swaggerProperty.format = property.Type.format;
+      } else if (property.Type instanceof CollectionProperty) {
+        swaggerProperty.type = "array";
+        swaggerProperty.items = {
+          type: "string"
+        };
+      } else {
+        swaggerProperty.$ref = `#/definitions/${property.Type}`;
       }
 
       swaggerProperty.description = property.Description;
-
-      if (property.ReadOnly)
-        swaggerProperty.readOnly = property.ReadOnly
+      swaggerProperty.readOnly = property.ReadOnly;
 
       if (this.AlternateKey && property.Name === this.AlternateKey) {
         swaggerProperty["x-ms-graph-key"] = true;
@@ -85,18 +65,6 @@ export class EntityType extends Object {
       }
 
       definition.properties[property.Name] = swaggerProperty
-    });
-
-    // Process stream properties
-    this.StreamProperty.forEach((property: Property) => {
-      const swaggerProperty: SwaggerProperty = {
-        type: "string",
-        format: "binary",
-        description: property.Description,
-        readOnly: property.ReadOnly // Set readOnly property
-      };
-
-      definition.properties[property.Name] = swaggerProperty;
     });
 
     // Process navigation properties

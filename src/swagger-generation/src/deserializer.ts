@@ -187,8 +187,7 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
     openType,
     hasStream,
     properties,
-    navigationProperties,
-    streamPropertiesList
+    navigationProperties
   );
 
   definitionMap.EntityMap.set(fullEntityName, entityType);
