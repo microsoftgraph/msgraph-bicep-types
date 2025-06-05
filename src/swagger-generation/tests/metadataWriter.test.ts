@@ -271,6 +271,16 @@ describe("writeMetadata", () => {
         isIdempotent: false,
         updatable: false,
         isContainment: false,
+        alternateKey: undefined,
+        compositeKeyProperties: undefined,
+        containerEntitySet: undefined,
+        entitySetPath: undefined,
+        isReadonly: undefined,
+        keyProperty: undefined,
+        navigationProperties: undefined,
+        relationshipMetadata: undefined,
+        resourceKey: undefined,
+        temporaryFilterKeys: undefined,
         orchestrationProperties: {
           save: [{
             name: "streamProperty",
@@ -278,7 +288,7 @@ describe("writeMetadata", () => {
             urlPattern: "/content",
             httpMethod: "PUT"
           }],
-          get: []
+          get: undefined
         }
       }
     });

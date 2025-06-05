@@ -104,64 +104,81 @@ describe('generate swagger with primitive types', () => {
             "id": {
               "type": "string",
               "description": "",
+              "format": undefined,
+              "readOnly": false
             },
             "contentBytes": {
               "type": "string",
               "format": "base64url",
-              "description": "Content Bytes description."
+              "description": "Content Bytes description.",
+              "readOnly": false
             },
             "isEnabled": {
               "type": "boolean",
               "description": "",
+              "format": undefined,
+              "readOnly": false
             },
             "caseStatus": {
               "type": "string",
               "format": "byte",
               "description": "",
+              "readOnly": false
             },
             "startDate": {
               "type": "string",
               "format": "date",
               "description": "",
+              "readOnly": false
             },
             "effectiveDateTime": {
               "type": "string",
               "format": "date-time",
               "description": "",
+              "readOnly": false
             },
             "balanceDue": {
               "type": "number",
               "format": "float",
               "description": "",
+              "readOnly": false
             },
             "weight": {
               "type": "number",
               "format": "double",
               "description": "",
+              "readOnly": false
             },
             "duration": {
               "type": "string",
               "description": "",
+              "format": undefined,
+              "readOnly": false
             },
             "callChainId": {
               "type": "string",
               "description": "",
+              "format": undefined,
+              "readOnly": false
             },
             "disc": {
               "type": "integer",
               "format": "int32",
               "description": "",
+              "readOnly": false
             },
             "version": {
               "type": "integer",
               "format": "int32",
               "description": "",
+              "readOnly": false
             },
             "freeStorageSpaceInBytes": {
               "type": "integer",
               "format": "int64",
               "description": "",
-            },
+              "readOnly": false
+            }
           }
         },
       },
@@ -283,9 +300,11 @@ describe('generate swagger with primitive types', () => {
             "id": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "format": undefined
               },
               "description": "",
+              "readOnly": false
             },
             "contentBytes": {
               "type": "array",
@@ -293,14 +312,17 @@ describe('generate swagger with primitive types', () => {
                 "type": "string",
                 "format": "base64url"
               },
-              "description": "Content Bytes description."
+              "description": "Content Bytes description.",
+              "readOnly": false
             },
             "isEnabled": {
               "type": "array",
               "items": {
-                "type": "boolean"
+                "type": "boolean",
+                "format": undefined
               },
               "description": "",
+              "readOnly": false
             },
             "caseStatus": {
               "type": "array",
@@ -309,6 +331,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "byte"
               },
               "description": "",
+              "readOnly": false
             },
             "startDate": {
               "type": "array",
@@ -317,6 +340,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "date"
               },
               "description": "",
+              "readOnly": false
             },
             "effectiveDateTime": {
               "type": "array",
@@ -325,6 +349,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "date-time"
               },
               "description": "",
+              "readOnly": false
             },
             "balanceDue": {
               "type": "array",
@@ -333,6 +358,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "float"
               },
               "description": "",
+              "readOnly": false
             },
             "weight": {
               "type": "array",
@@ -341,20 +367,25 @@ describe('generate swagger with primitive types', () => {
                 "format": "double"
               },
               "description": "",
+              "readOnly": false
             },
             "duration": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "format": undefined
               },
               "description": "",
+              "readOnly": false
             },
             "callChainId": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "format": undefined
               },
               "description": "",
+              "readOnly": false
             },
             "disc": {
               "type": "array",
@@ -363,6 +394,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "int32"
               },
               "description": "",
+              "readOnly": false
             },
             "version": {
               "type": "array",
@@ -371,6 +403,7 @@ describe('generate swagger with primitive types', () => {
                 "format": "int32"
               },
               "description": "",
+              "readOnly": false
             },
             "freeStorageSpaceInBytes": {
               "type": "array",
@@ -379,7 +412,8 @@ describe('generate swagger with primitive types', () => {
                 "format": "int64"
               },
               "description": "",
-            },
+              "readOnly": false
+            }
           }
         },
       },
@@ -501,12 +535,15 @@ describe('generate swagger with primitive types', () => {
             "id": {
               "type": "string",
               "description": "",
+              "format": undefined,
+              "readOnly": false
             },
             "freeStorageSpaceInBytes": {
               "type": "integer",
               "format": "int64",
-              "description": "Free storage space in bytes description."
-            },
+              "description": "Free storage space in bytes description.",
+              "readOnly": false
+            }
           }
         },
       },
@@ -627,7 +664,9 @@ describe('generate swagger with primitive types', () => {
             "id": {
               "type": "string",
               "description": "",
-            },
+              "format": undefined,
+              "readOnly": false
+            }
           }
         },
         "microsoft.graph.entityNameOne": {
@@ -642,7 +681,8 @@ describe('generate swagger with primitive types', () => {
                 "freeStorageSpaceInBytes": {
                   "type": "integer",
                   "format": "int64",
-                  "description": "Free storage space in bytes description."
+                  "description": "Free storage space in bytes description.",
+                  "readOnly": false
                 }
               }
             }
@@ -769,12 +809,15 @@ describe('generate swagger with primitive types', () => {
               "type": "string",
               "x-constant-key": true,
               "x-ms-graph-key": true,
-              "description": "Unique name description."
+              "description": "Unique name description.",
+              "format": undefined,
+              "readOnly": false
             },
             "freeStorageSpaceInBytes": {
               "type": "integer",
               "format": "int64",
-              "description": "Free storage space in bytes description."
+              "description": "Free storage space in bytes description.",
+              "readOnly": false
             }
           }
         },
@@ -848,7 +891,9 @@ describe('complexTypes', () => {
     ];
     const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
-    const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [], [])
+    const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [
+      new Property('propertyOne', new CollectionProperty('microsoft.graph.entityNameFour'), '', false, false)
+    ], [])
 
     const entityComplexThree: EntityType = new EntityType('entityNameFour', undefined, false, undefined, undefined, undefined, [], [])
 
@@ -900,11 +945,13 @@ describe('complexTypes', () => {
           properties: {
             "contentBytes": {
               $ref: "#/definitions/microsoft.graph.entityNameTwo",
-              "description": "Content bytes description"
+              "description": "Content bytes description",
+              "readOnly": false
             },
             "isEnabled": {
               $ref: "#/definitions/microsoft.graph.entityNameThree",
               "description": "",
+              "readOnly": false
             }
           }
         },
@@ -913,13 +960,23 @@ describe('complexTypes', () => {
           properties: {
             "propertyOne": {
               $ref: "#/definitions/microsoft.graph.entityNameFour",
-              "description": "Property one description"
+              "description": "Property one description",
+              "readOnly": false
             }
           }
         },
         "microsoft.graph.entityNameThree": {
           type: "object",
-          properties: {}
+          properties: {
+            "propertyOne": {
+              type: "array",
+              items: {
+                $ref: "#/definitions/microsoft.graph.entityNameFour"
+              },
+              "description": "",
+              "readOnly": false
+            }
+          }
         },
         "microsoft.graph.entityNameFour": {
           type: "object",
@@ -1003,7 +1060,9 @@ describe('complex types with collections', () => {
     ];
     const complexTypeOne: EntityType = new EntityType('entityNameTwo', undefined, false, undefined, undefined, undefined, propertiesComplexOne, [])
 
-    const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [], [])
+    const entityComplexTwo: EntityType = new EntityType('entityNameThree', undefined, false, undefined, undefined, undefined, [
+      new Property('propertyOne', new CollectionProperty('microsoft.graph.entityNameFour'), '', false, false)
+    ], [])
 
     const entityComplexThree: EntityType = new EntityType('entityNameFour', undefined, false, undefined, undefined, undefined, [], [])
 
@@ -1058,7 +1117,8 @@ describe('complex types with collections', () => {
               items: {
                 $ref: "#/definitions/microsoft.graph.entityNameTwo"
               },
-              "description": "Content bytes description"
+              "description": "Content bytes description",
+              "readOnly": false
             },
             "isEnabled": {
               type: "array",
@@ -1066,6 +1126,7 @@ describe('complex types with collections', () => {
                 $ref: "#/definitions/microsoft.graph.entityNameThree"
               },
               "description": "",
+              "readOnly": false
             }
           }
         },
@@ -1077,13 +1138,23 @@ describe('complex types with collections', () => {
               items: {
                 $ref: "#/definitions/microsoft.graph.entityNameFour"
               },
-              "description": "Property one description"
+              "description": "Property one description",
+              "readOnly": false
             }
           }
         },
         "microsoft.graph.entityNameThree": {
           type: "object",
-          properties: {}
+          properties: {
+            "propertyOne": {
+              type: "array",
+              items: {
+                $ref: "#/definitions/microsoft.graph.entityNameFour"
+              },
+              "description": "",
+              "readOnly": false
+            }
+          }
         },
         "microsoft.graph.entityNameFour": {
           type: "object",
@@ -1230,7 +1301,8 @@ describe('enums', () => {
           properties: {
             "contentBytes": {
               $ref: "#/definitions/microsoft.graph.entityNameTwo",
-              "description": "Content bytes description"
+              "description": "Content bytes description",
+              "readOnly": false
             }
           }
         },
@@ -1239,7 +1311,8 @@ describe('enums', () => {
           properties: {
             "propertyOne": {
               $ref: "#/definitions/microsoft.graph.entityNameThree",
-              description: "Property one description"
+              description: "Property one description",
+              "readOnly": false
             }
           }
         },
@@ -1249,6 +1322,7 @@ describe('enums', () => {
             "propertyOne": {
               $ref: "#/definitions/microsoft.graph.entityNameFour",
               description: "",
+              "readOnly": false
             }
           }
         },

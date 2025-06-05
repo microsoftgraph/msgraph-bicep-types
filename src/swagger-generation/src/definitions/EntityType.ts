@@ -46,9 +46,17 @@ export class EntityType extends Object {
         swaggerProperty.format = property.Type.format;
       } else if (property.Type instanceof CollectionProperty) {
         swaggerProperty.type = "array";
-        swaggerProperty.items = {
-          type: "string"
-        };
+        const collectionType = property.Type.Type;
+        if (collectionType instanceof PrimitiveSwaggerTypeStruct) {
+          swaggerProperty.items = {
+            type: collectionType.type,
+            format: collectionType.format
+          };
+        } else {
+          swaggerProperty.items = {
+            $ref: `#/definitions/${collectionType}`
+          };
+        }
       } else {
         swaggerProperty.$ref = `#/definitions/${property.Type}`;
       }
