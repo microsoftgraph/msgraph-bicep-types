@@ -20,7 +20,8 @@ export const determineOrchestrationType = (property: Property): OrchestrationTyp
         if (collectionType === "microsoft.graph.certificate") {
             return OrchestrationType.CertificateCollection;
         }
-        return OrchestrationType.Collection;
+        // Treat other collections as custom metadata
+        return OrchestrationType.CustomMetadata;
     }
 
     // If it's a complex object (not primitive)
@@ -34,9 +35,10 @@ export const determineOrchestrationType = (property: Property): OrchestrationTyp
         if (property.Name.toLowerCase().includes("metadata")) {
             return OrchestrationType.CustomMetadata;
         }
-        return OrchestrationType.ComplexObject;
+        // Treat other complex objects as custom metadata
+        return OrchestrationType.CustomMetadata;
     }
 
-    // Default to primitive for simple types
-    return OrchestrationType.Primitive;
+    // Default to custom metadata for simple types
+    return OrchestrationType.CustomMetadata;
 } 

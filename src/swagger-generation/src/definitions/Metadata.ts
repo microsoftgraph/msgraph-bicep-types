@@ -7,9 +7,6 @@ export enum OrchestrationType {
     CertificateCollection = "certificateCollection",
     BehaviorSettings = "behaviorSettings",
     InternalSettings = "internalSettings",
-    ComplexObject = "complexObject",
-    Collection = "collection",
-    Primitive = "primitive"
 }
 
 export interface RelationshipMetadata {

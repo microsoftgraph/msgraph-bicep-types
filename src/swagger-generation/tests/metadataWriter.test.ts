@@ -271,24 +271,16 @@ describe("writeMetadata", () => {
         isIdempotent: false,
         updatable: false,
         isContainment: false,
-        alternateKey: undefined,
-        compositeKeyProperties: undefined,
-        containerEntitySet: undefined,
-        entitySetPath: undefined,
-        isReadonly: undefined,
-        keyProperty: undefined,
-        navigationProperties: undefined,
-        relationshipMetadata: undefined,
-        resourceKey: undefined,
-        temporaryFilterKeys: undefined,
         orchestrationProperties: {
-          save: [{
-            name: "streamProperty",
-            orchestrationType: OrchestrationType.BinaryStream,
-            urlPattern: "/content",
-            httpMethod: "PUT"
-          }],
-          get: undefined
+          get: [],
+          save: [
+            {
+              httpMethod: "PUT",
+              name: "streamProperty",
+              orchestrationType: "binaryStream",
+              urlPattern: "/streamProperty/content"
+            }
+          ]
         }
       }
     });

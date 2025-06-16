@@ -8,6 +8,20 @@ import { Metadata, RelationshipMetadata, OrchestrationType } from './definitions
 import { determineOrchestrationType } from './util/orchestrationTypeResolver';
 import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat } from './definitions/PrimitiveSwaggerType';
 
+const getStreamUrlPattern = (propertyName: string, entityName: string): string => {
+  // Special case for logo property
+  if (propertyName.toLowerCase() === 'logo') {
+    return '/logo';
+  }
+  // Default pattern for other stream properties
+  return `/${propertyName}/content`;
+};
+
+const shouldOrchestrateProperty = (propertyName: string): boolean => {
+  // Orchestrate both logo and stream properties
+  return propertyName.toLowerCase() === 'logo' || propertyName.toLowerCase() === 'streamproperty';
+};
+
 export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Metadata => {
   let metadata: Metadata = {};
 
@@ -20,32 +34,24 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
       const relativeUri: string = rootUri.slice(1) as string;
       const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
-      // Generate orchestration properties if not explicitly configured
-      const orchestrationProperties = entityTypeConfig.OrchestrationProperties || {
+      // Only include logo property in orchestration properties
+      const orchestrationProperties = {
         Save: entity.Property
-          .filter(p => !p.ReadOnly)
-          .map(p => {
-            const isStream = p.Type instanceof PrimitiveSwaggerTypeStruct && 
-                           p.Type.type === "string" && 
-                           p.Type.format === SwaggerMetaFormat.Binary;
-            return {
-              Name: p.Name,
-              OrchestrationType: determineOrchestrationType(p),
-              ...(isStream && { UrlPattern: undefined, HttpMethod: undefined })
-            };
-          }),
+          .filter(p => !p.ReadOnly && shouldOrchestrateProperty(p.Name))
+          .map(p => ({
+            Name: p.Name,
+            OrchestrationType: OrchestrationType.BinaryStream,
+            UrlPattern: getStreamUrlPattern(p.Name, id),
+            HttpMethod: "PUT"
+          })),
         Get: entity.Property
-          .filter(p => p.ReadOnly)
-          .map(p => {
-            const isStream = p.Type instanceof PrimitiveSwaggerTypeStruct && 
-                           p.Type.type === "string" && 
-                           p.Type.format === SwaggerMetaFormat.Binary;
-            return {
-              Name: p.Name,
-              OrchestrationType: determineOrchestrationType(p),
-              ...(isStream && { UrlPattern: undefined, HttpMethod: undefined })
-            };
-          })
+          .filter(p => p.ReadOnly && shouldOrchestrateProperty(p.Name))
+          .map(p => ({
+            Name: p.Name,
+            OrchestrationType: OrchestrationType.BinaryStream,
+            UrlPattern: getStreamUrlPattern(p.Name, id),
+            HttpMethod: "GET"
+          }))
       };
 
       metadata[relativeUri] = {
@@ -68,13 +74,13 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           orchestrationProperties: {
             save: orchestrationProperties.Save?.map(p => ({ 
               name: p.Name,
-              orchestrationType: p.OrchestrationType as OrchestrationType,
+              orchestrationType: p.OrchestrationType,
               urlPattern: p.UrlPattern,
               httpMethod: p.HttpMethod
             })),
             get: orchestrationProperties.Get?.map(p => ({ 
               name: p.Name,
-              orchestrationType: p.OrchestrationType as OrchestrationType,
+              orchestrationType: p.OrchestrationType,
               urlPattern: p.UrlPattern,
               httpMethod: p.HttpMethod
             }))
