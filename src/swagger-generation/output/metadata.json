@@ -394,14 +394,22 @@
         "isReadonly": true,
         "updatable": false,
         "alternateKey": "userPrincipalName",
-        "isContainment": false
+        "isContainment": false,
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       },
       "v1.0": {
         "isIdempotent": false,
         "isReadonly": true,
         "updatable": false,
         "alternateKey": "userPrincipalName",
-        "isContainment": false
+        "isContainment": false,
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       }
     },
     "groups": {
@@ -427,6 +435,10 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
         }
       },
       "v1.0": {
@@ -451,6 +463,10 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
         }
       }
     },
@@ -469,6 +485,17 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [
+            {
+              "name": "logo",
+              "orchestrationType": "binaryStream",
+              "urlPattern": "/logo",
+              "httpMethod": "PUT"
+            }
+          ],
+          "get": []
         }
       },
       "v1.0": {
@@ -485,6 +512,17 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [
+            {
+              "name": "logo",
+              "orchestrationType": "binaryStream",
+              "urlPattern": "/logo",
+              "httpMethod": "PUT"
+            }
+          ],
+          "get": []
         }
       }
     },
@@ -503,6 +541,10 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
         }
       },
       "v1.0": {
@@ -519,6 +561,10 @@
               "type": "directoryObjects"
             }
           ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
         }
       }
     },
@@ -528,14 +574,22 @@
         "updatable": true,
         "alternateKey": "name",
         "isContainment": true,
-        "containerEntitySet": "applications"
+        "containerEntitySet": "applications",
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       },
       "v1.0": {
         "isIdempotent": true,
         "updatable": true,
         "alternateKey": "name",
         "isContainment": true,
-        "containerEntitySet": "applications"
+        "containerEntitySet": "applications",
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       }
     },
     "oauth2PermissionGrants": {
@@ -552,7 +606,11 @@
           "clientId",
           "consentType",
           "resourceId"
-        ]
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       },
       "v1.0": {
         "isIdempotent": false,
@@ -567,7 +625,11 @@
           "clientId",
           "consentType",
           "resourceId"
-        ]
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       }
     },
     "appRoleAssignedTo": {
@@ -580,7 +642,11 @@
         "compositeKeyProperties": [
           "appRoleId",
           "principalId"
-        ]
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       },
       "v1.0": {
         "isIdempotent": false,
@@ -591,7 +657,11 @@
         "compositeKeyProperties": [
           "appRoleId",
           "principalId"
-        ]
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
       }
     }
   }

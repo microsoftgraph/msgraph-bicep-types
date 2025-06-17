@@ -4,6 +4,7 @@
 import { EntityTypeConfigMap } from './definitions/DefinitionMap'
 import { parse } from 'yaml'
 import { readFileSync, readdirSync } from 'fs'
+import { OrchestrationType } from './definitions/Metadata'
 
 export enum NavigationPropertyMode {
   Allow = 'Allow',
@@ -14,6 +15,28 @@ export interface RelationshipConfig {
   NeedsBatch?: boolean,
   BulkLimit?: number,
   Properties: string[]
+}
+
+export interface StreamPropertyConfig {
+  Name: string,
+  UrlPattern: string,
+  HttpMethod: string
+}
+
+export interface ResourceKeyConfig {
+  Name: string
+}
+
+export interface OrchestrationPropertyConfig {
+  Name: string,
+  OrchestrationType: OrchestrationType,
+  UrlPattern?: string,
+  HttpMethod?: string
+}
+
+export interface OrchestrationPropertiesConfig {
+  Save?: OrchestrationPropertyConfig[],
+  Get?: OrchestrationPropertyConfig[]
 }
 
 export interface EntityTypeConfig {
@@ -33,6 +56,9 @@ export interface EntityTypeConfig {
   ReadOnly?: string[]
   FilterProperty?: string[]
   CompositeKey?: string[]
+  EntitySetPath?: string
+  ResourceKey?: ResourceKeyConfig
+  OrchestrationProperties?: OrchestrationPropertiesConfig
 }
 
 export class Config {

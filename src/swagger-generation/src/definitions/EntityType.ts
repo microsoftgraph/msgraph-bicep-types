@@ -37,41 +37,32 @@ export class EntityType extends Object {
       properties: {},
     };
 
+    // Process regular properties
     this.Property.forEach((property: Property) => {
-      const swaggerProperty: SwaggerProperty = {}
-      let propertyType: CollectionProperty | PrimitiveSwaggerTypeStruct | string = property.Type;
+      const swaggerProperty: SwaggerProperty = {};
 
-      if (propertyType instanceof CollectionProperty) { // Collection unwrap
-        propertyType = propertyType.Type as PrimitiveSwaggerTypeStruct | string;
-        if (propertyType instanceof PrimitiveSwaggerTypeStruct) {  // Property is primitive type
-          swaggerProperty.type = "array"
+      if (property.Type instanceof PrimitiveSwaggerTypeStruct) {
+        swaggerProperty.type = property.Type.type;
+        swaggerProperty.format = property.Type.format;
+      } else if (property.Type instanceof CollectionProperty) {
+        swaggerProperty.type = "array";
+        const collectionType = property.Type.Type;
+        if (collectionType instanceof PrimitiveSwaggerTypeStruct) {
           swaggerProperty.items = {
-            type: propertyType.type,  // Set swagger primitive type
-          }
-          if (propertyType.format) {
-            swaggerProperty.items.format = propertyType.format // Set swagger primitive format
-          }
-        } else { // Property is complex type
-          swaggerProperty.type = "array"
-          swaggerProperty.items = {
-            $ref: `#/definitions/${propertyType}` // Set swagger reference
-          }
-        }
-      } else { // Not collection
-        if (property.Type instanceof PrimitiveSwaggerTypeStruct) {  // Property is primitive type
-          swaggerProperty.type = property.Type.type // Set swagger primitive type
-          if (property.Type.format) {
-            swaggerProperty.format = property.Type.format // Set swagger primitive format
-          }
+            type: collectionType.type,
+            format: collectionType.format
+          };
         } else {
-          swaggerProperty.$ref = `#/definitions/${property.Type}` // Set swagger reference
+          swaggerProperty.items = {
+            $ref: `#/definitions/${collectionType}`
+          };
         }
+      } else {
+        swaggerProperty.$ref = `#/definitions/${property.Type}`;
       }
 
       swaggerProperty.description = property.Description;
-
-      if (property.ReadOnly)
-        swaggerProperty.readOnly = property.ReadOnly
+      swaggerProperty.readOnly = property.ReadOnly;
 
       if (this.AlternateKey && property.Name === this.AlternateKey) {
         swaggerProperty["x-ms-graph-key"] = true;
@@ -84,6 +75,7 @@ export class EntityType extends Object {
       definition.properties[property.Name] = swaggerProperty
     });
 
+    // Process navigation properties
     this.NavigationProperty.forEach((navigationProperty: NavigationProperty) => {
       const swaggerProperty: SwaggerProperty = {}
 

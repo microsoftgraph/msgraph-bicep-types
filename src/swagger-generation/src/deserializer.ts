@@ -55,20 +55,25 @@ const propertyHandler = (entityConfig: EntityTypeConfig | undefined, rawProperty
   const collectionRegex: RegExp = /Collection\((.+)\)/
   let isCollection: boolean = false
 
-  if (collectionRegex.test(propertyType)) { // Collection
-    propertyType = propertyType.match(collectionRegex)![1]
-    isCollection = true
-  }
+  // Check if this is a stream property
+  if (propertyType === PrimitivePropertyType.Stream) {
+    typedPropertyType = new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, SwaggerMetaFormat.Binary);
+  } else {
+    if (collectionRegex.test(propertyType)) { // Collection
+      propertyType = propertyType.match(collectionRegex)![1]
+      isCollection = true
+    }
 
-  // Primitive Types
-  if (Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyType)) {
-    typedPropertyType = TypeTranslator.Instance.odataToSwaggerType(propertyType as PrimitivePropertyType)
-  } else { // String references
-    typedPropertyType = propertyType
-  }
+    // Primitive Types
+    if (Object.values(PrimitivePropertyType).map(v => v.toString()).includes(propertyType)) {
+      typedPropertyType = TypeTranslator.Instance.odataToSwaggerType(propertyType as PrimitivePropertyType)
+    } else { // String references
+      typedPropertyType = propertyType
+    }
 
-  if (isCollection) {
-    typedPropertyType = new CollectionProperty(typedPropertyType)
+    if (isCollection) {
+      typedPropertyType = new CollectionProperty(typedPropertyType)
+    }
   }
 
   const propertyNullable: boolean = propertyAttributes.Nullable ? propertyAttributes.Nullable : false
@@ -145,10 +150,23 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
   const rawEntitySet: RawEntitySet | undefined = rawEntityContainer[0]?.EntitySet
     .filter((entitySet: RawEntitySet) => entitySet.$.EntityType === fullEntityName)[0];
 
-  const properties: Property[] = rawProperties
-    .map((rawProperty: RawProperty): Property =>
-      propertyHandler(entityConfig, rawProperty, alternateKey)
-    )
+  // Separate stream properties from regular properties
+  const { streamProperties, regularProperties } = rawProperties.reduce<{ streamProperties: Property[], regularProperties: Property[] }>((acc, rawProperty) => {
+    const property = propertyHandler(entityConfig, rawProperty, alternateKey);
+    if (property.Type === PrimitivePropertyType.Stream) {
+      acc.streamProperties.push(property);
+    } else {
+      acc.regularProperties.push(property);
+    }
+    return acc;
+  }, { streamProperties: [], regularProperties: [] });
+
+  const properties: Property[] = regularProperties
+    .filter((property: Property): boolean =>
+      propertyFilter(entityConfig, property)
+    );
+
+  const streamPropertiesList: Property[] = streamProperties
     .filter((property: Property): boolean =>
       propertyFilter(entityConfig, property)
     );
@@ -161,9 +179,18 @@ const entityHandler = (definitionMap: DefinitionMap, config: Config, rawEntityTy
       navigationPropertyFilter(entityConfig, navigationProperty)
     );
 
-  const entityType: EntityType = new EntityType(entityName, alternateKey, abstract, baseType, openType, hasStream, properties, navigationProperties)
+  const entityType: EntityType = new EntityType(
+    entityName,
+    alternateKey,
+    abstract,
+    baseType,
+    openType,
+    hasStream,
+    properties,
+    navigationProperties
+  );
 
-  definitionMap.EntityMap.set(fullEntityName, entityType)
+  definitionMap.EntityMap.set(fullEntityName, entityType);
 }
 
 const enumHandler = (definitionMap: DefinitionMap, rawEnumType: RawEnumType, namespace: string): void => {

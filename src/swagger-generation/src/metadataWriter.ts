@@ -4,7 +4,23 @@
 import { Config, EntityTypeConfig, RelationshipConfig } from "./config";
 import { DefinitionMap } from './definitions/DefinitionMap';
 import { EntityType } from "./definitions/EntityType";
-import { Metadata, RelationshipMetadata } from './definitions/Metadata';
+import { Metadata, RelationshipMetadata, OrchestrationType } from './definitions/Metadata';
+import { determineOrchestrationType } from './util/orchestrationTypeResolver';
+import { PrimitiveSwaggerTypeStruct, SwaggerMetaFormat } from './definitions/PrimitiveSwaggerType';
+
+const getStreamUrlPattern = (propertyName: string, entityName: string): string => {
+  // Special case for logo property
+  if (propertyName.toLowerCase() === 'logo') {
+    return '/logo';
+  }
+  // Default pattern for other stream properties
+  return `/${propertyName}/content`;
+};
+
+const shouldOrchestrateProperty = (propertyName: string): boolean => {
+  // Orchestrate both logo and stream properties
+  return propertyName.toLowerCase() === 'logo' || propertyName.toLowerCase() === 'streamproperty';
+};
 
 export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Metadata => {
   let metadata: Metadata = {};
@@ -18,8 +34,29 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
       const relativeUri: string = rootUri.slice(1) as string;
       const entity: EntityType = definitionMap.EntityMap.get(id)! // Validator already checked this assertion
 
+      // Only include logo property in orchestration properties
+      const orchestrationProperties = {
+        Save: entity.Property
+          .filter(p => !p.ReadOnly && shouldOrchestrateProperty(p.Name))
+          .map(p => ({
+            Name: p.Name,
+            OrchestrationType: OrchestrationType.BinaryStream,
+            UrlPattern: getStreamUrlPattern(p.Name, id),
+            HttpMethod: "PUT"
+          })),
+        Get: entity.Property
+          .filter(p => p.ReadOnly && shouldOrchestrateProperty(p.Name))
+          .map(p => ({
+            Name: p.Name,
+            OrchestrationType: OrchestrationType.BinaryStream,
+            UrlPattern: getStreamUrlPattern(p.Name, id),
+            HttpMethod: "GET"
+          }))
+      };
+
       metadata[relativeUri] = {
         [config.APIVersion]: {
+          entitySetPath: entityTypeConfig.EntitySetPath,
           isIdempotent: entityTypeConfig.Upsertable ?? false,
           isReadonly: entityTypeConfig.IsReadonlyResource,
           updatable: (entityTypeConfig.Upsertable ?? false) || (entityTypeConfig.Updatable ?? false),
@@ -31,6 +68,23 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           temporaryFilterKeys: entityTypeConfig.FilterProperty,
           compositeKeyProperties: entityTypeConfig.CompositeKey,
           relationshipMetadata: getRelationshipMetadata(entityTypeConfig.Relationships, entity),
+          resourceKey: entityTypeConfig.ResourceKey ? {
+            name: entityTypeConfig.ResourceKey.Name
+          } : undefined,
+          orchestrationProperties: {
+            save: orchestrationProperties.Save?.map(p => ({ 
+              name: p.Name,
+              orchestrationType: p.OrchestrationType,
+              urlPattern: p.UrlPattern,
+              httpMethod: p.HttpMethod
+            })),
+            get: orchestrationProperties.Get?.map(p => ({ 
+              name: p.Name,
+              orchestrationType: p.OrchestrationType,
+              urlPattern: p.UrlPattern,
+              httpMethod: p.HttpMethod
+            }))
+          }
         },
       };
     }

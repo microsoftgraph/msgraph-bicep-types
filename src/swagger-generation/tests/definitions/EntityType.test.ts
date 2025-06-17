@@ -221,4 +221,27 @@ describe('EntityType', () => {
     expect(definitionSP.properties.Property1["x-constant-key"]).toBeUndefined();
     expect(definitionSP.properties.Property2["x-constant-key"]).toBeUndefined();
   });
+
+  it('should convert stream properties to swagger definition', () => {
+    const name = 'TestEntityType';
+    const properties = [
+      new Property('StreamProperty1', PrimitiveSwaggerType.Instance.Binary, 'Stream property description', true, false),
+      new Property('StreamProperty2', PrimitiveSwaggerType.Instance.Binary, 'Another stream property', false, false),
+    ];
+
+    const entityType = new EntityType(name, undefined, undefined, undefined, undefined, undefined, properties, []);
+    const definition = entityType.toSwaggerDefinition() as Definition;
+
+    expect(definition.properties.StreamProperty1).toBeDefined();
+    expect(definition.properties.StreamProperty1.type).toBe('string');
+    expect(definition.properties.StreamProperty1.format).toBe('base64url');
+    expect(definition.properties.StreamProperty1.description).toBe('Stream property description');
+    expect(definition.properties.StreamProperty1.readOnly).toBe(false);
+
+    expect(definition.properties.StreamProperty2).toBeDefined();
+    expect(definition.properties.StreamProperty2.type).toBe('string');
+    expect(definition.properties.StreamProperty2.format).toBe('base64url');
+    expect(definition.properties.StreamProperty2.description).toBe('Another stream property');
+    expect(definition.properties.StreamProperty2.readOnly).toBe(false);
+  });
 });
