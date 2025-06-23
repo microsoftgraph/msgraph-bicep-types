@@ -1,9 +1,9 @@
 {
     "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
     "type": "QuickStart",
-    "itemDisplayName": "Remove key and certificate credentials on a service principal",
-    "description": "This template removes credentials (password and certificates) on a service principal",
-    "summary": "This template removes credentials (password and certificates) on a service principal",
+    "itemDisplayName": "Remove all password and certificate credentials on a service principal",
+    "description": "This template removes all credentials (password and certificates) on a service principal",
+    "summary": "This template removes all credentials (password and certificates) on a service principal",
     "githubUsername": "linkhp",
     "docOwner": "dkershaw10",
     "dateUpdated": "2025-05-06",
