@@ -77,10 +77,12 @@ function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: str
   let betaVersionsContent = '';
   let v1VersionsContent = '';
   for (const version of apiExtensionVersions[ApiVersion.Beta]) {
-    betaVersionsContent += `\n  - microsoftgraph/preview/beta/${version}.json`;
+    const releaseType = version.endsWith('preview') ? 'preview' : 'official';
+    betaVersionsContent += `\n  - microsoftgraph/${releaseType}/beta/${version}.json`;
   }
   for (const version of apiExtensionVersions[ApiVersion.V1_0]) {
-    v1VersionsContent += `\n  - microsoftgraph/preview/v1.0/${version}.json`;
+    const releaseType = version.endsWith('preview') ? 'preview' : 'official';
+    v1VersionsContent += `\n  - microsoftgraph/${releaseType}/v1.0/${version}.json`;
   }
   let readMeContent = `# MicrosoftGraph
 
