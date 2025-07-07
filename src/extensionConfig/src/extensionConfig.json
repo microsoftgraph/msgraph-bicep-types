@@ -1,10 +1,10 @@
 {
   "beta": {
     "name": "MicrosoftGraphBeta",
-    "version": "0.2.0-preview"
+    "version": "1.0.0"
   },
   "v1.0": {
     "name": "MicrosoftGraph",
-    "version": "0.2.0-preview"
+    "version": "1.0.0"
   }
 }
