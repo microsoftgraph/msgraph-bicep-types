@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "languageVersion": "2.1-experimental",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.36.27.45608",
+      "templateHash": "7492329852185030736"
+    }
+  },
+  "imports": {
+    "microsoftGraphBeta": {
+      "provider": "MicrosoftGraph",
+      "version": "0.2.0-preview"
+    }
+  },
+  "resources": {
+    "myApp": {
+      "import": "microsoftGraphBeta",
+      "type": "Microsoft.Graph/applications@beta",
+      "properties": {
+        "displayName": "070925myAppDisplayName",
+        "uniqueName": "myapp070925"
+      }
+    },
+    "myGroup": {
+      "import": "microsoftGraphBeta",
+      "type": "Microsoft.Graph/groups@beta",
+      "properties": {
+        "displayName": "070925myGroupDisplayName",
+        "uniqueName": "mygroup070925",
+        "mailEnabled": false,
+        "mailNickname": "mygroup070925",
+        "securityEnabled": true
+      }
+    }
+  }
+}
