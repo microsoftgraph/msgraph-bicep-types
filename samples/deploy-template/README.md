@@ -18,6 +18,8 @@ A .NET console application that deploys ARM templates using Azure Resource Manag
 
 ## App configuration
 
+There are two options here.  You can either follow the manual steps below **or** you can use the Bicep template in the _grant-deployment-app-arm-and-graph-scopes_ folder to create an application, service principal and grant the requisite permissions, by following the instructions in the folder's _README.md_ file (recommended). The latter option outputs the `appId` and `tenantId` which you will need later to configure the constants in the `Program.cs` file.
+
 ### 1. Register an Application in Microsoft Entra ID
 
 1. Go to the [Azure Portal](https://portal.azure.com)

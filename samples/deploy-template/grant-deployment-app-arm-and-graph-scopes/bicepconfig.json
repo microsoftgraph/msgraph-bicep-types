@@ -1,0 +1,6 @@
+{
+    // specify an alias for the version of the v1.0 dynamic types package you want to use
+    "extensions": {
+      "microsoftGraphV1": "br:mcr.microsoft.com/bicep/extensions/microsoftgraph/v1.0:1.0.0"
+    }
+}
