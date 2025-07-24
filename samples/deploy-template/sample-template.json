@@ -10,23 +10,23 @@
     }
   },
   "imports": {
-    "microsoftGraphBeta": {
+    "microsoftGraphV1": {
       "provider": "MicrosoftGraph",
-      "version": "0.2.0-preview"
+      "version": "1.0.0"
     }
   },
   "resources": {
     "myApp": {
-      "import": "microsoftGraphBeta",
-      "type": "Microsoft.Graph/applications@beta",
+      "import": "microsoftGraphV1",
+      "type": "Microsoft.Graph/applications@v1.0",
       "properties": {
         "displayName": "070925myAppDisplayName",
         "uniqueName": "myapp070925"
       }
     },
     "myGroup": {
-      "import": "microsoftGraphBeta",
-      "type": "Microsoft.Graph/groups@beta",
+      "import": "microsoftGraphV1",
+      "type": "Microsoft.Graph/groups@v1.0",
       "properties": {
         "displayName": "070925myGroupDisplayName",
         "uniqueName": "mygroup070925",

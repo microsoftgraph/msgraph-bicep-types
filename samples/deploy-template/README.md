@@ -55,7 +55,7 @@ From your app registration, note:
     private const string TenantId = "YOUR_TENANT_ID";
     private const string Authority = $"https://login.microsoftonline.com/{TenantId}";
     private const string SubscriptionId = "YOUR_AZURE_SUBSCRIPTION_ID";
-    private const string ResourceGroupName = "OUR_RESOURCE_GROUP_NAME";
+    private const string ResourceGroupName = "YOUR_RESOURCE_GROUP_NAME";
     private const string DeploymentName = "sample-deployment";
     private const string TemplateFileName = "sample-template.json";
 ```
@@ -68,13 +68,13 @@ The application includes a sample ARM template (`sample-template.json`) that cre
 
 ## Building and Running
 
-### Build the application:
+### Build the application
 
 ```bash
 dotnet build deploy-template.csproj
 ```
 
-### Run the application:
+### Run the application
 
 ```bash
 dotnet run --project deploy-template.csproj
@@ -82,13 +82,12 @@ dotnet run --project deploy-template.csproj
 
 ## How It Works
 
-1. **Configuration Loading**: The application loads configuration from `appsettings.json`
-2. **MSAL Initialization**: Initializes the MSAL public client application
-3. **Authentication**: 
+1. **MSAL Initialization**: Initializes the MSAL public client application
+1. **Authentication**: 
    - First attempts silent token acquisition (from cache)
    - Falls back to interactive authentication if needed
    - Opens a browser window for user sign-in
-4. **ARM Deployment**:
+1. **ARM Deployment**:
    - Creates an Azure Resource Manager client using the access token
    - Reads the ARM template from the file system
    - Deploys the template to the specified resource group
@@ -96,7 +95,6 @@ dotnet run --project deploy-template.csproj
 
 ## Security Best Practices
 
-- **No Hardcoded Credentials**: All sensitive information is stored in configuration files
 - **Token Caching**: Implements proper token caching for performance and security
 - **HTTPS Only**: All communication with Azure services uses HTTPS
 - **Minimal Permissions**: Requests only the necessary permissions for the operation
@@ -117,7 +115,6 @@ dotnet run --project deploy-template.csproj
    - Check that the ARM template syntax is valid
 
 3. **Configuration Errors**:
-   - Ensure `appsettings.json` is copied to the output directory
    - Verify all placeholder values have been replaced with actual values
 
 ### Logs and Debugging
@@ -137,7 +134,6 @@ The application provides detailed logging output including:
 
 ## Security Notes
 
-- Never commit `appsettings.json` with real credentials to source control
 - Use Azure Key Vault for production scenarios
 - Consider using managed identity when running in Azure
 - Implement proper access controls and role-based permissions

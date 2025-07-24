@@ -11,11 +11,11 @@ namespace DeployTemplate
   class Program
   {
     // Hardcoded values
-    private const string ClientId = "a5f19b14-0ab3-4ed9-9498-3266bd26f49b";
-    private const string TenantId = "2d2f744a-64f6-4d8b-af38-e43d35ee4e74";
+    private const string ClientId = "YOUR_APPLICATION_CLIENT_ID";
+    private const string TenantId = "YOUR_TENANT_ID";
     private const string Authority = $"https://login.microsoftonline.com/{TenantId}";
-    private const string SubscriptionId = "b24b5122-ed51-497e-94f7-406bf93e7bfc";
-    private const string ResourceGroupName = "GraphARMTest-EUS2";
+    private const string SubscriptionId = "YOUR_AZURE_SUBSCRIPTION_ID";
+    private const string ResourceGroupName = "YOUR_RESOURCE_GROUP_NAME";
     private const string DeploymentName = "sample-deployment";
     private const string TemplateFileName = "sample-template.json";
 
