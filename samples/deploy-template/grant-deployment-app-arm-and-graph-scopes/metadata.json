@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Create an app to call Microsoft Graph and ARM APIs",
+    "description": "This template configures an app with OAuth2.0 scopes to call Microsoft Graph and ARM APIs. It creates a client application and grants OAuth2.0 scopes to the client application. The deployer can select which Microsoft Graph OAuth2.0 scopes are used.",
+    "summary": "This template configures an app with OAuth2.0 scopes to call Microsoft Graph and ARM APIs.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-07-24",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+}

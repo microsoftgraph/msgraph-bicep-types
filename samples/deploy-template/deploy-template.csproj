@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>DeployTemplate</RootNamespace>
+    <AssemblyName>deploy-template</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.14.0" />
+    <PackageReference Include="Azure.ResourceManager" Version="1.13.1" />
+    <PackageReference Include="Azure.ResourceManager.Resources" Version="1.9.1" />    
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.74.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="sample-template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

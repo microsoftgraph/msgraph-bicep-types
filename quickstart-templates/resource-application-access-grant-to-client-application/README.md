@@ -11,7 +11,7 @@ The id for the app role must be passed in as a parameter. It needs to be the sam
 - This template depends on a successful deployment of [application-serviceprincipal-create-client-resource](../application-serviceprincipal-create-client-resource/)
 - A valid **Azure subscription**: If you don't own an Azure subscription, [create a free account](https://azure.microsoft.com/free/) before you begin.
 - An **Azure resource group** that you own under a valid Azure subscription, or [deploy without an Azure subscription][no-azure-sub].
-- [Bicep tools for authoring and deployment](https://learn.microsoft.com/graph/templates/quickstart-install-bicep-tools). The minimum required Bicep version is [v0.32.4](https://github.com/Azure/bicep/releases/tag/v0.32.4).
+- [Bicep tools for authoring and deployment](https://learn.microsoft.com/graph/templates/quickstart-install-bicep-tools). The minimum required Bicep version is [v0.36.1](https://github.com/Azure/bicep/releases/tag/v0.36.1).
 - Permissions to grant app roles. [Users have this permission by default](https://learn.microsoft.com/entra/fundamentals/users-default-permissions#compare-member-and-guest-default-permissions) as long as you created the client app. If not, you need to be assigned at least the [Application Administrator](https://learn.microsoft.com/entra/identity/role-based-access-control/permissions-reference#application-administrator) role.
 
 ### Deploy the Bicep template
