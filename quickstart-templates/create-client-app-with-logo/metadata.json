@@ -1,0 +1,12 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Create client app with a logo",
+    "description": "This template creates a client application including setting a logo, demonstrating how to set a stream property.",
+    "summary": "This template creates a client application including setting the logo property.",
+    "githubUsername": "dkershaw10",
+    "docOwner": "dkershaw10",
+    "dateUpdated": "2025-07-22",
+    "validationType": "Manual",
+    "languages": ["bicep"]
+  }
