@@ -14,43 +14,15 @@ A .NET console application that deploys ARM templates using Azure Resource Manag
 
 - .NET 9.0 or later
 - Azure subscription
-- Microsoft Entra ID application registration and permissions granted to the application.
+- Microsoft Entra ID application registration and permissions granted to the application (see next section for a bootstrap template that performs this task)
 
-## App configuration
+## Microsoft Entra ID application configuration
 
-There are two options here.  You can either follow the manual steps below **or** you can use the Bicep template in the _grant-deployment-app-arm-and-graph-scopes_ folder to create an application, service principal and grant the requisite permissions, by following the instructions in the folder's _README.md_ file (recommended). The latter option outputs the `appId` and `tenantId` which you will need later to configure the constants in the `Program.cs` file.
+Use the Bicep template in the _grant-deployment-app-arm-and-graph-scopes_ folder to create an application, service principal and grant the requisite permissions, by following the instructions in the folder's _README.md_ file. On successful deployment, the template outputs the `appId` (application client ID) and `tenantId` (as well as the Azure `subscriptionId` and `resourceGroupName`) which you will need later to configure the constants in the `Program.cs` file.
 
-### 1. Register an Application in Microsoft Entra ID
+## .NET console application configuration
 
-1. Go to the [Azure Portal](https://portal.azure.com)
-2. Navigate to **Azure Active Directory** > **App registrations**
-3. Click **New registration**
-4. Provide a name for your application
-5. Select **Accounts in this organizational directory only**
-6. Set Redirect URI to **Public client/native (mobile & desktop)**: `http://localhost`
-7. Click **Register**
-
-### 2. Configure API Permissions
-
-1. In your app registration, go to **API permissions**
-2. Click **Add a permission**
-3. Select **Azure Service Management**
-4. Select **Delegated permissions**
-5. Check **user_impersonation**
-6. Click **Add permissions**
-7. Click **Grant admin consent** (if you have admin privileges)
-8. For **Microsoft Graph** permissions, repeat steps 2-6 selecting Microsoft Graph for the API in step 3 and whichever permissions you need in step 5, while thinking about a least privileged approach. Then follow this with step 7.
-
-### 3. Note Configuration Values
-
-From your app registration, note:
-
-- **Application (client) ID**
-- **Directory (tenant) ID**
-
-## Configuration
-
-1. Open `Program.cs` and replace the hardcoded constants placeholder values:
+1. Open `Program.cs` and replace the hardcoded constants placeholder values with the :
 
 ```csharp
     private const string ClientId = "YOUR_APPLICATION_CLIENT_ID";
@@ -67,6 +39,8 @@ From your app registration, note:
 ## ARM Template
 
 The application includes a sample ARM template (`sample-template.json`) that creates an Entra ID application and security group. You can modify this template or replace it with your own ARM template.
+
+The deployment API that ARM provides *only* supports deploying ARM JSON templates. It does not support Bicep templates. To use the console application, you will need to first transpile the Bicep template into an ARM JSON template using the [Bicep CLI build command][bicep-cli-build].
 
 ## Building and Running
 

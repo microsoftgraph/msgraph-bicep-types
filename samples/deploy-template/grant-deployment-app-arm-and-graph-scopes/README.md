@@ -1,14 +1,12 @@
 # Create an app with OAuth2.0 scopes to call Microsoft Graph and ARM APIs
 
-This template sample automates the process of creating an application that can be used to deploy ARM templates including Microsoft Graph resources. The template also grants OAuth2.0 scopes that the application needs to deploy the resources declared in templates. 
+This template sample automates the process of creating an application that can be used to deploy ARM templates including Microsoft Graph resources. The template also grants OAuth2.0 scopes that the application needs to deploy the resources declared in templates.
 
 ## Details
 
 - The sample creates a basic client application, creates a service principal from the application, and finally grants the desired Microsoft Graph OAuth2.0 scopes to the service principal (using the `Microsoft.Graph/oauth2PermissionGrants` bicep type) as well as the ARM API#s _user_impersonation_ scope (which enables both ARM deployment capability as well as being able to deploy any ARM resource as the signed-in user, as long as the signed-in user has the requisite role(s)).
 
 The `appScopes` array parameter allows the deployer to select the Microsoft Graph Oauth2.0 scopes to grant to the client application. The sample validates the set of provided scopes in the array parameter against [Microsoft Graph delegated permission scopes][graph-permissions]. Any invalid scopes provided are ignored. `appScopes` should contain a list of scope names (for example *User.Read.All* and *Group.ReadWrite.All*).
-
-The sample also enables the deployer to optionally set an owner of the client application, using the `userUPN` parameter.
 
 ### Prerequisites
 
@@ -25,13 +23,13 @@ The sample also enables the deployer to optionally set an owner of the client ap
 #### Az CLI
 
 ```sh
-az deployment group create --resource-group <resource-group> --template-file main.bicep --parameter date='2025-07-24' appScopes="['User.Read','Application.ReadWrite.All','Group.ReadWrite.All]"
+az deployment group create --resource-group <resource-group> --template-file main.bicep --parameters date='2025-07-24' appScopes="['User.Read','Application.ReadWrite.All','Group.ReadWrite.All']"
 ```
 
 #### Az Powershell
 
 ```powershell
-New-AzResourceGroupDeployment -ResourceGroupName <resource-group> -TemplateFile .\main.bicep -date "2025-07-24" -appScopes @('User.Read','Application.Read.All','Group.ReadWrite.All)
+New-AzResourceGroupDeployment -ResourceGroupName <resource-group> -TemplateFile .\main.bicep -date "2025-07-24" -appScopes @('User.Read','Application.Read.All','Group.ReadWrite.All')
 ```
 
 [priv-role-admin]:https://learn.microsoft.com/entra/identity/role-based-access-control/permissions-reference#privileged-role-administrator
