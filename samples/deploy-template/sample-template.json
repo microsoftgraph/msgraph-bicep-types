@@ -5,8 +5,30 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.36.27.45608",
-      "templateHash": "7492329852185030736"
+      "version": "0.36.177.2456",
+      "templateHash": "4754332622177909620"
+    }
+  },
+  "parameters": {
+    "date": {
+      "type": "string",
+      "defaultValue": "2025-07-28"
+    },
+    "appDisplayName": {
+      "type": "string",
+      "defaultValue": "sampleApp"
+    },
+    "groupDisplayName": {
+      "type": "string",
+      "defaultValue": "sampleGroup"
+    },
+    "app": {
+      "type": "string",
+      "defaultValue": "sampleApp"
+    },
+    "group": {
+      "type": "string",
+      "defaultValue": "sampleGroup"
     }
   },
   "imports": {
@@ -20,18 +42,18 @@
       "import": "microsoftGraphV1",
       "type": "Microsoft.Graph/applications@v1.0",
       "properties": {
-        "displayName": "070925myAppDisplayName",
-        "uniqueName": "myapp070925"
+        "displayName": "[if(equals(parameters('appDisplayName'), null()), format('{0}-{1}', parameters('app'), parameters('date')), format('{0}-{1}', parameters('appDisplayName'), parameters('date')))]",
+        "uniqueName": "[uniqueString(parameters('app'), parameters('date'))]"
       }
     },
     "myGroup": {
       "import": "microsoftGraphV1",
       "type": "Microsoft.Graph/groups@v1.0",
       "properties": {
-        "displayName": "070925myGroupDisplayName",
-        "uniqueName": "mygroup070925",
+        "displayName": "[if(equals(parameters('groupDisplayName'), null()), format('{0}-{1}', parameters('group'), parameters('date')), format('{0}-{1}', parameters('groupDisplayName'), parameters('date')))]",
+        "uniqueName": "[uniqueString(parameters('group'), parameters('date'))]",
+        "mailNickname": "[uniqueString(parameters('group'), parameters('date'))]",
         "mailEnabled": false,
-        "mailNickname": "mygroup070925",
         "securityEnabled": true
       }
     }
