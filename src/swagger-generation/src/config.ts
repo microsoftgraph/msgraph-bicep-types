@@ -24,7 +24,8 @@ export interface StreamPropertyConfig {
 }
 
 export interface ResourceKeyConfig {
-  Name: string
+  Name: string,
+  OmitInPayload?: boolean
 }
 
 export interface OrchestrationPropertyConfig {
@@ -59,6 +60,9 @@ export interface EntityTypeConfig {
   EntitySetPath?: string
   ResourceKey?: ResourceKeyConfig
   OrchestrationProperties?: OrchestrationPropertiesConfig
+  IsSingleton?: boolean,
+  PathSegmentName?: string,
+  IsInternal?: boolean
 }
 
 export class Config {
