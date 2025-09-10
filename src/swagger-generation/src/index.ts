@@ -45,7 +45,8 @@ async function parse(config: Config): Promise<[Metadata, Swagger]> {
 
 function writeSwaggerFile(swagger: Swagger, apiVersion: string, extensionVersion: string) {
   const swaggerJson: string = JSON.stringify(swagger, null, 2);
-  const fullOutputPath = `${outputPath}/${apiVersion}`;
+  const releaseType: string = getReleaseTypeFromExtensionVersion(extensionVersion);
+  const fullOutputPath = `${outputPath}/${releaseType}/${apiVersion}`;
 
   if (outputPath !== 'output') {
     if (!fs.existsSync(fullOutputPath)) {
@@ -77,11 +78,11 @@ function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: str
   let betaVersionsContent = '';
   let v1VersionsContent = '';
   for (const version of apiExtensionVersions[ApiVersion.Beta]) {
-    const releaseType = version.endsWith('preview') ? 'preview' : 'official';
+    const releaseType = getReleaseTypeFromExtensionVersion(version);
     betaVersionsContent += `\n  - microsoftgraph/${releaseType}/beta/${version}.json`;
   }
   for (const version of apiExtensionVersions[ApiVersion.V1_0]) {
-    const releaseType = version.endsWith('preview') ? 'preview' : 'official';
+    const releaseType = getReleaseTypeFromExtensionVersion(version);
     v1VersionsContent += `\n  - microsoftgraph/${releaseType}/v1.0/${version}.json`;
   }
   let readMeContent = `# MicrosoftGraph
@@ -128,6 +129,10 @@ input-file: ${v1VersionsContent}
     if (err) throw err;
     console.log(`The swagger readme file has been saved!`);
   });
+}
+
+function getReleaseTypeFromExtensionVersion(extensionVersion: string): 'preview' | 'official' {
+  return extensionVersion.endsWith('preview') ? 'preview' : 'official';
 }
 
 async function main() {
