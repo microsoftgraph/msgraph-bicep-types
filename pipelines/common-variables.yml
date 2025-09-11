@@ -7,7 +7,7 @@ variables:
   ArtifactName: "GeneratedFiles"
   ProductBinPath: '$(Build.SourcesDirectory)/src/Microsoft.Graph.Bicep.Types/bin/$(BuildConfiguration)'
   BuildSolution: '$(Build.SourcesDirectory)/Microsoft.Graph.Bicep.Types.sln'
-  SwaggerFilePath: '$(Build.SourcesDirectory)/swagger/specification/microsoftgraph/resource-manager/microsoftgraph/preview'
+  SwaggerFilePath: '$(Build.SourcesDirectory)/swagger/specification/microsoftgraph/resource-manager/microsoftgraph'
   AutoRestWorkingDir: "$(Build.SourcesDirectory)/src/autorest.bicep"
   BicepTypesWorkingDir: "$(Build.SourcesDirectory)/bicep-types/src/bicep-types"
   GeneratorWorkingdir: "$(Build.SourcesDirectory)/src/generator"

@@ -37,8 +37,6 @@ jobs:
 
       - template: ./common-templates/security-pre-checks.yml
 
-      - template: ./common-templates/common-steps.yml
-        parameters:
-          Official: false
+      - template: ./common-templates/generate-types.yml
 
       - template: ./common-templates/security-post-checks.yml
