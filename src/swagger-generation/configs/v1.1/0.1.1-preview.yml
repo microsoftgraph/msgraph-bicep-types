@@ -1,0 +1,219 @@
+MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
+ExtensionVersion: 0.1.1-preview
+EntityTypes:
+  - Name: microsoft.graph.user
+    RootUri: /users
+    IsReadonlyResource: true
+    IgnoredProperties:
+      - aboutMe
+      - accountEnabled
+      - ageGroup
+      - assignedLicenses
+      - assignedPlans
+      - authorizationInfo
+      - birthday
+      - city
+      - companyName
+      - consentProvidedForMinor
+      - country
+      - createdDateTime
+      - creationType
+      - customSecurityAttributes
+      - deletedDateTime
+      - department
+      - deviceEnrollmentLimit
+      - employeeHireDate
+      - employeeId
+      - employeeLeaveDateTime
+      - employeeOrgData
+      - employeeType
+      - externalUserState
+      - externalUserStateChangeDateTime
+      - faxNumber
+      - hireDate
+      - identities
+      - imAddresses
+      - interests
+      - isLicenseReconciliationNeeded
+      - isManagementRestricted
+      - isResourceAccount
+      - lastPasswordChangeDateTime
+      - legalAgeGroupClassification
+      - licenseAssignmentStates
+      - mailboxSettings
+      - mailNickname
+      - mySite
+      - onPremisesDistinguishedName
+      - onPremisesDomainName
+      - onPremisesExtensionAttributes
+      - onPremisesImmutableId
+      - onPremisesLastSyncDateTime
+      - onPremisesProvisioningErrors
+      - onPremisesSamAccountName
+      - onPremisesSecurityIdentifier
+      - onPremisesSyncEnabled
+      - onPremisesUserPrincipalName
+      - otherMails
+      - passwordPolicies
+      - passwordProfile
+      - pastProjects
+      - postalCode
+      - preferredDataLocation
+      - preferredName
+      - print
+      - provisionedPlans
+      - proxyAddresses
+      - refreshTokensValidFromDateTime
+      - responsibilities
+      - schools
+      - securityIdentifier
+      - serviceProvisioningErrors
+      - showInAddressList
+      - signInActivity
+      - signInSessionsValidFromDateTime
+      - skills
+      - state
+      - streetAddress
+      - usageLocation
+      - userType
+  - Name: microsoft.graph.group
+    RootUri: /groups
+    Upsertable: true
+    IgnoredProperties:
+      - allowExternalSenders
+      - assignedLabels
+      - assignedLicenses
+      - autoSubscribeNewMembers
+      - hasMembersWithLicenseErrors
+      - hideFromAddressLists
+      - hideFromOutlookClients
+      - isArchived
+      - isSubscribedByMail
+      - licenseProcessingState
+      - unseenCount
+    NavigationProperty:
+      - members
+      - owners
+    Relationships:
+      NeedsBatch: false
+      BulkLimit: 20
+      Properties:
+        - members
+        - owners
+    RequiredOnWrite:
+      - displayName
+      - mailEnabled
+      - mailNickname
+      - securityEnabled
+      - uniqueName
+    ReadOnly:
+      - createdDateTime
+      - expirationDateTime
+      - mail
+      - onPremisesDomainName
+      - onPremisesLastSyncDateTime
+      - onPremisesNetBiosName
+      - onPremisesProvisioningErrors
+      - onPremisesSamAccountName
+      - onPremisesSecurityIdentifier
+      - onPremisesSyncEnabled
+      - proxyAddresses
+      - renewedDateTime
+      - securityIdentifier
+  - Name: microsoft.graph.application
+    RootUri: /applications
+    Upsertable: true
+    IgnoredProperties:
+      - oauth2RequirePostResponse
+    RequiredOnWrite:
+      - displayName
+      - uniqueName
+    ReadOnly:
+      - appId
+      - applicationTemplateId
+      - certification
+      - createdDateTime
+      - publisherDomain
+    Relationships:
+      NeedsBatch: true
+      BulkLimit: 20
+      Properties:
+        - owners
+  - Name: microsoft.graph.servicePrincipal
+    RootUri: /servicePrincipals
+    Upsertable: true
+    RequiredOnWrite:
+      - appId
+    ReadOnly:
+      - applicationTemplateId
+      - appOwnerOrganizationId
+      - resourceSpecificApplicationPermissions
+      - signInAudience
+    Relationships:
+      NeedsBatch: true
+      BulkLimit: 20
+      Properties:
+        - owners
+  - Name: microsoft.graph.federatedIdentityCredential
+    RootUri: /applications/federatedIdentityCredentials
+    Upsertable: true
+    ContainerEntitySet: applications
+    RequiredOnWrite:
+      - audiences
+      - issuer
+      - name
+      - subject
+  - Name: microsoft.graph.oAuth2PermissionGrant
+    RootUri: /oauth2PermissionGrants
+    Upsertable: false
+    Updatable: true
+    RequiredOnWrite:
+      - clientId
+      - consentType
+      - resourceId
+    FilterProperty:
+      - clientId
+      - consentType
+      - resourceId
+    CompositeKey:
+      - clientId
+      - consentType
+      - resourceId
+  - Name: microsoft.graph.appRoleAssignment
+    RootUri: /appRoleAssignedTo
+    Upsertable: false
+    Updatable: false
+    ContainerEntitySet: servicePrincipals
+    ContainerKeyProperty: resourceId
+    RequiredOnWrite:
+      - appRoleId
+      - principalId
+      - resourceId
+    ReadOnly:
+      - createdDateTime
+      - principalDisplayName
+      - principalType
+    CompositeKey:
+      - appRoleId
+      - principalId
+  - Name: microsoft.graph.appRole
+    ReadOnly:
+      - origin
+  - Name: microsoft.graph.informationalUrl
+    ReadOnly:
+      - logoUrl
+  - Name: microsoft.graph.passwordCredential
+    IgnoredProperties:
+      - customKeyIdentifier
+    ReadOnly:
+      - hint
+      - secretText
+  - Name: microsoft.graph.permissionScope
+    IgnoredProperties:
+      - origin
+  - Name: microsoft.graph.directoryObject
+    ReadOnly:
+      - deletedDateTime
+  - Name: microsoft.graph.entity
+    ReadOnly:
+      - id

@@ -10,8 +10,83 @@ import { Reference } from "./definitions/Reference";
 import { Parameter, Path, Product, Scheme, Swagger, SwaggerVersion } from "./definitions/Swagger";
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
+function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
+  return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
+         (apiVersion === 'v1.1' && extensionVersion === '0.1.1-preview');
+}
+
 export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swagger => {
   const MAX_DEPTH = 15;
+  const isEnhanced = isEnhancedRelationshipVersion(config.APIVersion, config.ExtensionVersion);
+  
+  // Base definitions that are always present
+  const baseDefinitions: any = {
+    "microsoft.graph.relationshipSemantics": {
+      type: "string",
+      enum: ["append", "replace"]
+    }
+  };
+
+  // Add RelationshipMember type for enhanced versions
+  if (isEnhanced) {
+    baseDefinitions["microsoft.graph.relationshipMember"] = {
+      type: "object",
+      properties: {
+        id: {
+          type: "string",
+          description: "The unique identifier of the relationship member."
+        },
+        type: {
+          type: "string",
+          description: "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system.",
+          readOnly: true
+        },
+        displayName: {
+          type: "string",
+          description: "The display name of the relationship member. This is a read-only property populated by the system.",
+          readOnly: true
+        },
+        userPrincipalName: {
+          type: "string",
+          description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+          readOnly: true
+        },
+        appId: {
+          type: "string",
+          description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+          readOnly: true
+        },
+        uniqueName: {
+          type: "string", 
+          description: "A unique name that can be used to reference this relationship member in templates. This is a read-only property populated by the system.",
+          readOnly: true
+        }
+      },
+      required: ["id"]
+    };
+  }
+
+  // Add relationship type with conditional structure
+  baseDefinitions["microsoft.graph.relationship"] = {
+    type: "object",
+    properties: {
+      relationshipSemantics: {
+        $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+        description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
+      },
+      relationships: {
+        type: "array",
+        items: isEnhanced 
+          ? { $ref: "#/definitions/microsoft.graph.relationshipMember" }
+          : { type: "string" },
+        description: isEnhanced
+          ? "The list of relationship members with their IDs and types."
+          : "The list of object ids to be included in the relationship."
+      },
+    },
+    required: ["relationships"]
+  };
+
   const swagger: Swagger = {
     swagger: SwaggerVersion.v2,
     info: {
@@ -27,29 +102,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     produces: [
       Product.application_json
     ],
-    definitions: {
-      "microsoft.graph.relationshipSemantics": {
-        type: "string",
-        enum: ["append", "replace"]
-      },
-      "microsoft.graph.relationship": {
-        type: "object",
-        properties: {
-          relationshipSemantics: {
-            $ref: "#/definitions/microsoft.graph.relationshipSemantics",
-            description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
-          },
-          relationships: {
-            type: "array",
-            items: {
-              "type": "string"
-            },
-            description: "The list of object ids to be included in the relationship."
-          },
-        },
-        required: ["relationships"]
-      }
-    },
+    definitions: baseDefinitions,
     paths: {}
   }
 
