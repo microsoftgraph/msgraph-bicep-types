@@ -93,6 +93,7 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     if (!entityTypeConfig.RootUri) { // Entity is not exposed
       return;
     }
+    
     const entityName: string = definitionMap.EntityMap.get(id)!.Name
     const entitySegments: string[] = entityTypeConfig.RootUri.split("/").slice(-2)
     const operationType: string = entityTypeConfig.IsReadonlyResource ? "get" : "put";
@@ -100,15 +101,18 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
     const parentEntity: string = entitySegments[0];
     const entitySet: string = entitySegments[1];
     let relativeUri: string = entitySet;
-    let parameters: Parameter[] = [
-      {
+    let parameters: Parameter[] = [];
+
+    // For singleton resources, don't add ID parameter
+    if (!entityTypeConfig.IsSingleton) {
+      parameters.push({
         in: "path",
         description: `The id of the ${entityName}`,
         name: `${entityName}Id`,
         required: true,
         type: "string"
-      },
-    ];
+      });
+    }
 
     if (!entityTypeConfig.IsReadonlyResource) {
       parameters.push(
@@ -135,7 +139,9 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
       })
     };
 
-    const host: string = `/{rootScope}/providers/Microsoft.Graph/${relativeUri}/{${entityName}Id}`
+    // For singleton resources, don't include the ID in the path
+    const pathIdSegment = entityTypeConfig.IsSingleton ? "" : `/{${entityName}Id}`;
+    const host: string = `/{rootScope}/providers/Microsoft.Graph/${relativeUri}${pathIdSegment}`
     const path: Path = {
       [operationType]: {
         tags: [

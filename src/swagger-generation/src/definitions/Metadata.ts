@@ -39,7 +39,8 @@ export interface StreamPropertyMetadata {
 }
 
 export interface ResourceKey {
-    name: string
+    name: string,
+    omitInPayload?: boolean
 }
 
 export interface OrchestrationProperty {
@@ -68,5 +69,7 @@ export interface EntityMetadata {
     compositeKeyProperties?: string[],
     relationshipMetadata?: RelationshipMetadata,
     resourceKey?: ResourceKey,
-    orchestrationProperties?: OrchestrationProperties
+    orchestrationProperties?: OrchestrationProperties,
+    isSingleton?: boolean,
+    pathSegmentName?: string
 }

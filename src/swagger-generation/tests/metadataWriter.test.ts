@@ -285,4 +285,109 @@ describe("writeMetadata", () => {
       }
     });
   });
+
+  describe("singleton support", () => {
+    it("should include singleton properties in metadata when IsSingleton is true", () => {
+      const definitionMap: DefinitionMap = new DefinitionMap();
+      const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+      definitionMap.EntityMap.set(
+        "microsoft.graph.admin",
+        new EntityType("admin", undefined, false, undefined, false, false, [], [])
+      );
+
+      entityTypes.set("microsoft.graph.admin", {
+        Name: "microsoft.graph.admin",
+        Upsertable: true,
+        RootUri: "/admin",
+        IsSingleton: true,
+        PathSegmentName: "admin",
+        EntitySetPath: "admin",
+        NavigationProperty: [],
+      } as EntityTypeConfig);
+
+      const config = {
+        EntityTypes: entityTypes,
+        MetadataFilePath: "https://example.com",
+        APIVersion: "beta",
+      } as Config;
+
+      const metadata = writeMetadata(definitionMap, config);
+
+      expect(metadata["admin"]).toBeDefined();
+      expect(metadata["admin"]["beta"].isSingleton).toBe(true);
+      expect(metadata["admin"]["beta"].pathSegmentName).toBe("admin");
+      expect(metadata["admin"]["beta"].entitySetPath).toBe("admin");
+    });
+
+    it("should not include singleton properties when IsSingleton is false", () => {
+      const definitionMap: DefinitionMap = new DefinitionMap();
+      const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+      definitionMap.EntityMap.set(
+        "microsoft.graph.user",
+        new EntityType("user", undefined, false, undefined, false, false, [], [])
+      );
+
+      entityTypes.set("microsoft.graph.user", {
+        Name: "microsoft.graph.user",
+        Upsertable: true,
+        RootUri: "/users",
+        IsSingleton: false,
+        NavigationProperty: [],
+      } as EntityTypeConfig);
+
+      const config = {
+        EntityTypes: entityTypes,
+        MetadataFilePath: "https://example.com",
+        APIVersion: "beta",
+      } as Config;
+
+      const metadata = writeMetadata(definitionMap, config);
+
+      expect(metadata["users"]).toBeDefined();
+      expect(metadata["users"]["beta"].isSingleton).toBe(false);
+      expect(metadata["users"]["beta"].pathSegmentName).toBeUndefined();
+    });
+
+    it("should include resourceKey with omitInPayload when configured", () => {
+      const definitionMap: DefinitionMap = new DefinitionMap();
+      const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+      definitionMap.EntityMap.set(
+        "microsoft.graph.testSingletonEntity",
+        new EntityType("testSingletonEntity", undefined, false, undefined, false, false, [], [])
+      );
+
+      entityTypes.set("microsoft.graph.testSingletonEntity", {
+        Name: "microsoft.graph.testSingletonEntity",
+        Upsertable: true,
+        RootUri: "/testContainer/testSingleton",
+        IsSingleton: true,
+        PathSegmentName: "testSingleton",
+        EntitySetPath: "testContainer/testSingleton",
+        ResourceKey: {
+          Name: "testKey",
+          OmitInPayload: true
+        },
+        NavigationProperty: [],
+      } as EntityTypeConfig);
+
+      const config = {
+        EntityTypes: entityTypes,
+        MetadataFilePath: "https://example.com",
+        APIVersion: "beta",
+      } as Config;
+
+      const metadata = writeMetadata(definitionMap, config);
+
+      expect(metadata["testContainer/testSingleton"]).toBeDefined();
+      expect(metadata["testContainer/testSingleton"]["beta"].isSingleton).toBe(true);
+      expect(metadata["testContainer/testSingleton"]["beta"].pathSegmentName).toBe("testSingleton");
+      expect(metadata["testContainer/testSingleton"]["beta"].resourceKey).toEqual({
+        name: "testKey",
+        omitInPayload: true
+      });
+    });
+  });
 });

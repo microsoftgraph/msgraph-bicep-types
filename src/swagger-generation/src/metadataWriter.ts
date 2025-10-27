@@ -69,8 +69,11 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
           compositeKeyProperties: entityTypeConfig.CompositeKey,
           relationshipMetadata: getRelationshipMetadata(entityTypeConfig.Relationships, entity),
           resourceKey: entityTypeConfig.ResourceKey ? {
-            name: entityTypeConfig.ResourceKey.Name
+            name: entityTypeConfig.ResourceKey.Name,
+            omitInPayload: entityTypeConfig.ResourceKey.OmitInPayload
           } : undefined,
+          isSingleton: entityTypeConfig.IsSingleton,
+          pathSegmentName: entityTypeConfig.PathSegmentName,
           orchestrationProperties: {
             save: orchestrationProperties.Save?.map(p => ({ 
               name: p.Name,

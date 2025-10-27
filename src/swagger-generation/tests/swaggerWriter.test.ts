@@ -1385,5 +1385,156 @@ describe('enums', () => {
 
     expect(writeSwagger(definitionMap, config)).toEqual(expectedSwagger);
   });
+});
 
+describe('singleton resource support', () => {
+  it('should generate swagger path without ID parameter for singleton resources', () => {
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    
+    const adminEntity = new EntityType('admin', undefined, false, undefined, false, false, [], []);
+    entityMap.set('microsoft.graph.admin', adminEntity);
+
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+    entityTypes.set('microsoft.graph.admin', {
+      Name: 'microsoft.graph.admin',
+      RootUri: '/admin',
+      Upsertable: true,
+      IsSingleton: true,
+      PathSegmentName: 'admin',
+      EntitySetPath: 'admin',
+      NavigationProperty: []
+    } as EntityTypeConfig);
+
+    const config = {
+      ExtensionVersion: "1.0.0",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'beta'
+    } as Config;
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    const result = writeSwagger(definitionMap, config);
+
+    // Check that the singleton path exists without ID parameter
+    expect(result.paths['/{rootScope}/providers/Microsoft.Graph/admin']).toBeDefined();
+    
+    // Check that the operation exists
+    const adminPath = result.paths['/{rootScope}/providers/Microsoft.Graph/admin'];
+    expect(adminPath.put).toBeDefined();
+    
+    // Check that no ID parameter is included for singleton
+    if (adminPath.put) {
+      const parameters = adminPath.put.parameters;
+      const idParameter = parameters.find(p => p.name === 'adminId');
+      expect(idParameter).toBeUndefined();
+      
+      // Should still have body parameter
+      const bodyParameter = parameters.find(p => p.in === 'body');
+      expect(bodyParameter).toBeDefined();
+    }
+  });
+
+  it('should generate swagger path with ID parameter for non-singleton resources', () => {
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    
+    const userEntity = new EntityType('user', undefined, false, undefined, false, false, [], []);
+    entityMap.set('microsoft.graph.user', userEntity);
+
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+    entityTypes.set('microsoft.graph.user', {
+      Name: 'microsoft.graph.user',
+      RootUri: '/users',
+      Upsertable: true,
+      IsSingleton: false,
+      NavigationProperty: []
+    } as EntityTypeConfig);
+
+    const config = {
+      ExtensionVersion: "1.0.0",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'beta'
+    } as Config;
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    const result = writeSwagger(definitionMap, config);
+
+    // Check that the regular path exists with ID parameter
+    expect(result.paths['/{rootScope}/providers/Microsoft.Graph/users/{userId}']).toBeDefined();
+    
+    // Check that the operation exists
+    const userPath = result.paths['/{rootScope}/providers/Microsoft.Graph/users/{userId}'];
+    expect(userPath.put).toBeDefined();
+    
+    // Check that ID parameter is included for non-singleton
+    if (userPath.put) {
+      const parameters = userPath.put.parameters;
+      const idParameter = parameters.find(p => p.name === 'userId');
+      expect(idParameter).toBeDefined();
+      if (idParameter) {
+        expect(idParameter.in).toBe('path');
+        expect(idParameter.required).toBe(true);
+      }
+    }
+  });
+
+  it('should generate swagger for container singleton resources', () => {
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    
+    const domainRegEntity = new EntityType('domainRegistration', undefined, false, undefined, false, false, [], []);
+    entityMap.set('microsoft.graph.domainRegistration', domainRegEntity);
+
+    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+    entityTypes.set('microsoft.graph.domainRegistration', {
+      Name: 'microsoft.graph.domainRegistration',
+      RootUri: '/applications/domainRegistration',
+      Upsertable: true,
+      IsSingleton: true,
+      PathSegmentName: 'domainRegistration',
+      EntitySetPath: 'applications/domainRegistration',
+      ContainerEntitySet: 'applications',
+      NavigationProperty: []
+    } as EntityTypeConfig);
+
+    const config = {
+      ExtensionVersion: "1.0.0",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'beta'
+    } as Config;
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    const result = writeSwagger(definitionMap, config);
+
+    // Check that the container singleton path exists without ID parameter
+    expect(result.paths['/{rootScope}/providers/Microsoft.Graph/applications/{applicationsId}/domainRegistration']).toBeDefined();
+    
+    // Check that the operation exists
+    const domainRegPath = result.paths['/{rootScope}/providers/Microsoft.Graph/applications/{applicationsId}/domainRegistration'];
+    expect(domainRegPath.put).toBeDefined();
+    
+    // Check that no ID parameter is included for the singleton itself
+    if (domainRegPath.put) {
+      const parameters = domainRegPath.put.parameters;
+      const singletonIdParameter = parameters.find(p => p.name === 'domainRegistrationId');
+      expect(singletonIdParameter).toBeUndefined();
+      
+      // Should still have container ID parameter
+      const containerIdParameter = parameters.find(p => p.name === 'applicationsId');
+      expect(containerIdParameter).toBeDefined();
+      
+      // Should still have body parameter
+      const bodyParameter = parameters.find(p => p.in === 'body');
+      expect(bodyParameter).toBeDefined();
+    }
+  });
 });
