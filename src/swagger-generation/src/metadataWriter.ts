@@ -28,12 +28,6 @@ export const writeMetadata = (definitionMap: DefinitionMap, config: Config): Met
   config.EntityTypes.forEach((entityTypeConfig: EntityTypeConfig, id: string) => {
     const rootUri = entityTypeConfig.RootUri;
 
-    // Skip internal entities
-    if (entityTypeConfig.IsInternal) {
-      console.log("Skipping internal entity " + id);
-      return;
-    }
-
     if (rootUri) {
       console.log("Writing metadata for " + id);
 

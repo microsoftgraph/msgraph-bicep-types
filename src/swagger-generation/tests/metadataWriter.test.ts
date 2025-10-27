@@ -355,19 +355,19 @@ describe("writeMetadata", () => {
       const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
 
       definitionMap.EntityMap.set(
-        "microsoft.graph.domainRegistration",
-        new EntityType("domainRegistration", undefined, false, undefined, false, false, [], [])
+        "microsoft.graph.testSingletonEntity",
+        new EntityType("testSingletonEntity", undefined, false, undefined, false, false, [], [])
       );
 
-      entityTypes.set("microsoft.graph.domainRegistration", {
-        Name: "microsoft.graph.domainRegistration",
+      entityTypes.set("microsoft.graph.testSingletonEntity", {
+        Name: "microsoft.graph.testSingletonEntity",
         Upsertable: true,
-        RootUri: "/applications/domainRegistration",
+        RootUri: "/testContainer/testSingleton",
         IsSingleton: true,
-        PathSegmentName: "domainRegistration",
-        EntitySetPath: "applications/domainRegistration",
+        PathSegmentName: "testSingleton",
+        EntitySetPath: "testContainer/testSingleton",
         ResourceKey: {
-          Name: "name",
+          Name: "testKey",
           OmitInPayload: true
         },
         NavigationProperty: [],
@@ -381,70 +381,13 @@ describe("writeMetadata", () => {
 
       const metadata = writeMetadata(definitionMap, config);
 
-      expect(metadata["applications/domainRegistration"]).toBeDefined();
-      expect(metadata["applications/domainRegistration"]["beta"].isSingleton).toBe(true);
-      expect(metadata["applications/domainRegistration"]["beta"].pathSegmentName).toBe("domainRegistration");
-      expect(metadata["applications/domainRegistration"]["beta"].resourceKey).toEqual({
-        name: "name",
+      expect(metadata["testContainer/testSingleton"]).toBeDefined();
+      expect(metadata["testContainer/testSingleton"]["beta"].isSingleton).toBe(true);
+      expect(metadata["testContainer/testSingleton"]["beta"].pathSegmentName).toBe("testSingleton");
+      expect(metadata["testContainer/testSingleton"]["beta"].resourceKey).toEqual({
+        name: "testKey",
         omitInPayload: true
       });
-    });
-
-    it("should skip internal entities when IsInternal is true", () => {
-      const definitionMap: DefinitionMap = new DefinitionMap();
-      const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-      definitionMap.EntityMap.set(
-        "microsoft.graph.internalEntity",
-        new EntityType("internalEntity", undefined, false, undefined, false, false, [], [])
-      );
-
-      entityTypes.set("microsoft.graph.internalEntity", {
-        Name: "microsoft.graph.internalEntity",
-        Upsertable: true,
-        RootUri: "/internalEntities",
-        IsInternal: true,
-        NavigationProperty: [],
-      } as EntityTypeConfig);
-
-      const config = {
-        EntityTypes: entityTypes,
-        MetadataFilePath: "https://example.com",
-        APIVersion: "beta",
-      } as Config;
-
-      const metadata = writeMetadata(definitionMap, config);
-
-      expect(metadata["internalEntities"]).toBeUndefined();
-    });
-
-    it("should include internal entity in metadata when IsInternal is false", () => {
-      const definitionMap: DefinitionMap = new DefinitionMap();
-      const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-
-      definitionMap.EntityMap.set(
-        "microsoft.graph.publicEntity",
-        new EntityType("publicEntity", undefined, false, undefined, false, false, [], [])
-      );
-
-      entityTypes.set("microsoft.graph.publicEntity", {
-        Name: "microsoft.graph.publicEntity",
-        Upsertable: true,
-        RootUri: "/publicEntities",
-        IsInternal: false,
-        NavigationProperty: [],
-      } as EntityTypeConfig);
-
-      const config = {
-        EntityTypes: entityTypes,
-        MetadataFilePath: "https://example.com",
-        APIVersion: "beta",
-      } as Config;
-
-      const metadata = writeMetadata(definitionMap, config);
-
-      expect(metadata["publicEntities"]).toBeDefined();
-      expect(metadata["publicEntities"]["beta"]).toBeDefined();
     });
   });
 });

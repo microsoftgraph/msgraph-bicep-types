@@ -1484,39 +1484,6 @@ describe('singleton resource support', () => {
     }
   });
 
-  it('should skip internal entities in swagger generation when IsInternal is true', () => {
-    const definitionMap: DefinitionMap = new DefinitionMap();
-    const entityMap: EntityMap = new Map<string, EntityType>();
-    
-    const internalEntity = new EntityType('internalEntity', undefined, false, undefined, false, false, [], []);
-    entityMap.set('microsoft.graph.internalEntity', internalEntity);
-
-    const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
-    entityTypes.set('microsoft.graph.internalEntity', {
-      Name: 'microsoft.graph.internalEntity',
-      RootUri: '/internalEntities',
-      Upsertable: true,
-      IsInternal: true,
-      NavigationProperty: []
-    } as EntityTypeConfig);
-
-    const config = {
-      ExtensionVersion: "1.0.0",
-      EntityTypes: entityTypes,
-      MetadataFilePath: 'https://example.com',
-      APIVersion: 'beta'
-    } as Config;
-
-    definitionMap.EntityMap = entityMap;
-    definitionMap.EnumMap = new Map();
-
-    const result = writeSwagger(definitionMap, config);
-
-    // Check that no path is generated for internal entity
-    const internalPaths = Object.keys(result.paths).filter(path => path.includes('internalEntities'));
-    expect(internalPaths).toHaveLength(0);
-  });
-
   it('should generate swagger for container singleton resources', () => {
     const definitionMap: DefinitionMap = new DefinitionMap();
     const entityMap: EntityMap = new Map<string, EntityType>();

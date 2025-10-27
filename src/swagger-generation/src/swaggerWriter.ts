@@ -94,11 +94,6 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
       return;
     }
     
-    // Skip internal entities
-    if (entityTypeConfig.IsInternal) {
-      return;
-    }
-    
     const entityName: string = definitionMap.EntityMap.get(id)!.Name
     const entitySegments: string[] = entityTypeConfig.RootUri.split("/").slice(-2)
     const operationType: string = entityTypeConfig.IsReadonlyResource ? "get" : "put";

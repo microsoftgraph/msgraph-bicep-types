@@ -61,8 +61,7 @@ export interface EntityTypeConfig {
   ResourceKey?: ResourceKeyConfig
   OrchestrationProperties?: OrchestrationPropertiesConfig
   IsSingleton?: boolean,
-  PathSegmentName?: string,
-  IsInternal?: boolean
+  PathSegmentName?: string
 }
 
 export class Config {
