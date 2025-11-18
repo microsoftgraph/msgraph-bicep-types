@@ -1538,3 +1538,435 @@ describe('singleton resource support', () => {
     }
   });
 });
+
+describe('generate swagger with enhanced relationship types', () => {
+  const entityTypes: Map<string, EntityTypeConfig> = new Map<string, EntityTypeConfig>();
+
+  entityTypes.set('microsoft.graph.entityNameOne', {
+    Name: 'microsoft.graph.entityNameOne',
+    RootUri: '/entityNameOnes',
+    NavigationProperty: []
+  } as EntityTypeConfig);
+
+  it('should generate enhanced relationship structure for beta 1.1.0-preview', () => {
+    const configEnhanced = {
+      ExtensionVersion: "1.1.0-preview",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'beta'
+    } as Config;
+
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    const properties: Property[] = [
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+    ];
+    const rootEntity = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, []);
+    entityMap.set('microsoft.graph.entityNameOne', rootEntity);
+
+    const expectedSwagger: Swagger = {
+      "swagger": SwaggerVersion.v2,
+      "info": {
+        "title": "Microsoft Graph",
+        "version": "beta"
+      },
+      "schemes": [
+        Scheme.https
+      ],
+      "consumes": [
+        Product.application_json
+      ],
+      "produces": [
+        Product.application_json
+      ],
+      "definitions": {
+        "microsoft.graph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "microsoft.graph.relationshipMember": {
+          type: "object",
+          properties: {
+            id: {
+              type: "string",
+              description: "The unique identifier of the relationship member."
+            },
+            type: {
+              type: "string",
+              description: "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            displayName: {
+              type: "string",
+              description: "The display name of the relationship member. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            userPrincipalName: {
+              type: "string",
+              description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            appId: {
+              type: "string",
+              description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            uniqueName: {
+              type: "string", 
+              description: "A unique name that can be used to reference this relationship member in templates. This is a read-only property populated by the system.",
+              readOnly: true
+            }
+          },
+          required: ["id"]
+        },
+        "microsoft.graph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
+            },
+            relationships: {
+              description: "The list of relationship members with their IDs and types.",
+              type: "array",
+              items: {
+                $ref: "#/definitions/microsoft.graph.relationshipMember"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
+        "microsoft.graph.entityNameOne": {
+          "type": "object",
+          "x-ms-graph-resource": true,
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "",
+              "format": undefined,
+              "readOnly": false
+            }
+          }
+        }
+      },
+      "paths": {
+        "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+          "put": {
+            "tags": [
+              "entityNameOnes"
+            ],
+            "description": "Create or update a entityNameOne",
+            "operationId": "entityNameOnes_upsert",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "entityNameOne",
+                "description": "The entityNameOne to create or update",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "entityNameOne created or updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    expect(writeSwagger(definitionMap, configEnhanced)).toEqual(expectedSwagger);
+  });
+
+  it('should generate enhanced relationship structure for v1.1 0.1.1-preview', () => {
+    const configEnhanced = {
+      ExtensionVersion: "0.1.1-preview",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'v1.1'
+    } as Config;
+
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    const properties: Property[] = [
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+    ];
+    const rootEntity = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, []);
+    entityMap.set('microsoft.graph.entityNameOne', rootEntity);
+
+    const expectedSwagger: Swagger = {
+      "swagger": SwaggerVersion.v2,
+      "info": {
+        "title": "Microsoft Graph",
+        "version": "v1.1"
+      },
+      "schemes": [
+        Scheme.https
+      ],
+      "consumes": [
+        Product.application_json
+      ],
+      "produces": [
+        Product.application_json
+      ],
+      "definitions": {
+        "microsoft.graph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "microsoft.graph.relationshipMember": {
+          type: "object",
+          properties: {
+            id: {
+              type: "string",
+              description: "The unique identifier of the relationship member."
+            },
+            type: {
+              type: "string",
+              description: "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            displayName: {
+              type: "string",
+              description: "The display name of the relationship member. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            userPrincipalName: {
+              type: "string",
+              description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            appId: {
+              type: "string",
+              description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+              readOnly: true
+            },
+            uniqueName: {
+              type: "string", 
+              description: "A unique name that can be used to reference this relationship member in templates. This is a read-only property populated by the system.",
+              readOnly: true
+            }
+          },
+          required: ["id"]
+        },
+        "microsoft.graph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
+            },
+            relationships: {
+              description: "The list of relationship members with their IDs and types.",
+              type: "array",
+              items: {
+                $ref: "#/definitions/microsoft.graph.relationshipMember"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
+        "microsoft.graph.entityNameOne": {
+          "type": "object",
+          "x-ms-graph-resource": true,
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "",
+              "format": undefined,
+              "readOnly": false
+            }
+          }
+        }
+      },
+      "paths": {
+        "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+          "put": {
+            "tags": [
+              "entityNameOnes"
+            ],
+            "description": "Create or update a entityNameOne",
+            "operationId": "entityNameOnes_upsert",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "entityNameOne",
+                "description": "The entityNameOne to create or update",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "entityNameOne created or updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    expect(writeSwagger(definitionMap, configEnhanced)).toEqual(expectedSwagger);
+  });
+
+  it('should generate legacy relationship structure for non-enhanced versions', () => {
+    const configLegacy = {
+      ExtensionVersion: "1.0.0",
+      EntityTypes: entityTypes,
+      MetadataFilePath: 'https://example.com',
+      APIVersion: 'v1.0'
+    } as Config;
+
+    const definitionMap: DefinitionMap = new DefinitionMap();
+    const entityMap: EntityMap = new Map<string, EntityType>();
+    const properties: Property[] = [
+      new Property('id', new PrimitiveSwaggerTypeStruct(SwaggerMetaType.String, undefined), '', false, false),
+    ];
+    const rootEntity = new EntityType('entityNameOne', undefined, false, undefined, undefined, undefined, properties, []);
+    entityMap.set('microsoft.graph.entityNameOne', rootEntity);
+
+    const expectedSwagger: Swagger = {
+      "swagger": SwaggerVersion.v2,
+      "info": {
+        "title": "Microsoft Graph",
+        "version": "v1.0"
+      },
+      "schemes": [
+        Scheme.https
+      ],
+      "consumes": [
+        Product.application_json
+      ],
+      "produces": [
+        Product.application_json
+      ],
+      "definitions": {
+        "microsoft.graph.relationshipSemantics": {
+          type: "string",
+          enum: ["append", "replace"]
+        },
+        "microsoft.graph.relationship": {
+          type: "object",
+          properties: {
+            relationshipSemantics: {
+              $ref: "#/definitions/microsoft.graph.relationshipSemantics",
+              description: "Specifies the semantics used by the Microsoft Graph Bicep extension to process the relationships. The 'append' semantics means that the relationship items in the template are added to the existing list. The 'replace' semantics means that the relationship items in the template will replace all existing items in the Entra resource. The default value (if not set) is 'append'"
+            },
+            relationships: {
+              description: "The list of object ids to be included in the relationship.",
+              type: "array",
+              items: {
+                "type": "string"
+              },
+            },
+          },
+          required: ["relationships"]
+        },
+        "microsoft.graph.entityNameOne": {
+          "type": "object",
+          "x-ms-graph-resource": true,
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "",
+              "format": undefined,
+              "readOnly": false
+            }
+          }
+        }
+      },
+      "paths": {
+        "/{rootScope}/providers/Microsoft.Graph/entityNameOnes/{entityNameOneId}": {
+          "put": {
+            "tags": [
+              "entityNameOnes"
+            ],
+            "description": "Create or update a entityNameOne",
+            "operationId": "entityNameOnes_upsert",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+              {
+                "in": "path",
+                "description": "The id of the entityNameOne",
+                "name": "entityNameOneId",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "entityNameOne",
+                "description": "The entityNameOne to create or update",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "entityNameOne created or updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/microsoft.graph.entityNameOne"
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    definitionMap.EntityMap = entityMap;
+    definitionMap.EnumMap = new Map();
+
+    expect(writeSwagger(definitionMap, configLegacy)).toEqual(expectedSwagger);
+  });
+
+});
