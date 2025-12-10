@@ -11,8 +11,8 @@ import { Parameter, Path, Product, Scheme, Swagger, SwaggerVersion } from "./def
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
-  return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
-         (apiVersion === 'v1.1' && extensionVersion === '0.1.1-preview');
+  return (apiVersion === 'beta' && extensionVersion === '1.0.1-preview') ||
+         (apiVersion === 'v1.0' && extensionVersion === '1.0.1-preview');
 }
 
 export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swagger => {
@@ -48,12 +48,12 @@ export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swag
         },
         userPrincipalName: {
           type: "string",
-          description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+          description: "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system.",
           readOnly: true
         },
         appId: {
           type: "string",
-          description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+          description: "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system.",
           readOnly: true
         },
         uniqueName: {

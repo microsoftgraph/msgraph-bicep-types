@@ -3,7 +3,6 @@
 export enum ApiVersion {
   Beta = "beta",
   V1_0 = "v1.0",
-  V1_1 = "v1.1",
 }
 
 export interface apiExtensionConfig {

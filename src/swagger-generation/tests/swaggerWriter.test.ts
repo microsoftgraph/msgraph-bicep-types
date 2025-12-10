@@ -1548,9 +1548,9 @@ describe('generate swagger with enhanced relationship types', () => {
     NavigationProperty: []
   } as EntityTypeConfig);
 
-  it('should generate enhanced relationship structure for beta 1.1.0-preview', () => {
+  it('should generate enhanced relationship structure for beta 1.0.1-preview', () => {
     const configEnhanced = {
-      ExtensionVersion: "1.1.0-preview",
+      ExtensionVersion: "1.0.1-preview",
       EntityTypes: entityTypes,
       MetadataFilePath: 'https://example.com',
       APIVersion: 'beta'
@@ -1603,12 +1603,12 @@ describe('generate swagger with enhanced relationship types', () => {
             },
             userPrincipalName: {
               type: "string",
-              description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+              description: "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system.",
               readOnly: true
             },
             appId: {
               type: "string",
-              description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+              description: "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system.",
               readOnly: true
             },
             uniqueName: {
@@ -1700,12 +1700,12 @@ describe('generate swagger with enhanced relationship types', () => {
     expect(writeSwagger(definitionMap, configEnhanced)).toEqual(expectedSwagger);
   });
 
-  it('should generate enhanced relationship structure for v1.1 0.1.1-preview', () => {
+  it('should generate enhanced relationship structure for v1.0 1.0.1-preview', () => {
     const configEnhanced = {
-      ExtensionVersion: "0.1.1-preview",
+      ExtensionVersion: "1.0.1-preview",
       EntityTypes: entityTypes,
       MetadataFilePath: 'https://example.com',
-      APIVersion: 'v1.1'
+      APIVersion: 'v1.0'
     } as Config;
 
     const definitionMap: DefinitionMap = new DefinitionMap();
@@ -1720,7 +1720,7 @@ describe('generate swagger with enhanced relationship types', () => {
       "swagger": SwaggerVersion.v2,
       "info": {
         "title": "Microsoft Graph",
-        "version": "v1.1"
+        "version": "v1.0"
       },
       "schemes": [
         Scheme.https
@@ -1755,12 +1755,12 @@ describe('generate swagger with enhanced relationship types', () => {
             },
             userPrincipalName: {
               type: "string",
-              description: "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+              description: "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system.",
               readOnly: true
             },
             appId: {
               type: "string",
-              description: "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+              description: "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system.",
               readOnly: true
             },
             uniqueName: {

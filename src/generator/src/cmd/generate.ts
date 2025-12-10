@@ -35,10 +35,6 @@ const extensionConfigForGeneration = {
   "v1.0": {
     "name": extensionConfig["v1.0"].name,
     "version": getLatestVersionForGeneration(ApiVersion.V1_0),
-  },
-  "v1.1": {
-    "name": extensionConfig["v1.1"].name,
-    "version": getLatestVersionForGeneration(ApiVersion.V1_1),
   }
 }
 
@@ -85,7 +81,7 @@ executeSynchronous(async () => {
     const tmpLoggerPath = `${tmpOutputDir}/log.out`;
     const logger = await getLogger(tmpLoggerPath);
 
-    for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0, ApiVersion.V1_1]) {
+    for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
       const tmpOutputApiVersionDir = path.join(tmpOutputDir, 'microsoft.graph', apiVersion);
       const outputApiVersionDir = path.join(outputBaseDir, apiVersion, extensionConfigForGeneration[apiVersion].version);
 
@@ -124,7 +120,6 @@ ${err}
   // build the type index
   await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.Beta);
   await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_0);
-  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_1);
 });
 
 function normalizeJsonPath(jsonPath: string) {
@@ -267,8 +262,8 @@ async function findReadmePaths(specsPath: string) {
 async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion) {
   // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
   function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
-    return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
-           (apiVersion === 'v1.1' && extensionVersion === '0.1.1-preview');
+    return (apiVersion === 'beta' && extensionVersion === '1.0.1-preview') ||
+           (apiVersion === 'v1.0' && extensionVersion === '1.0.1-preview');
   }
 
   function addConfigToContent(content: string, apiVersion: string, extensionVersion: string): any[] {
@@ -356,8 +351,7 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
 
 function shouldIncludeFilePath(filePath: string) {
   return filePath.includes(path.join(ApiVersion.Beta, extensionConfigForGeneration[ApiVersion.Beta].version)) ||
-    filePath.includes(path.join(ApiVersion.V1_0, extensionConfigForGeneration[ApiVersion.V1_0].version)) ||
-    filePath.includes(path.join(ApiVersion.V1_1, extensionConfigForGeneration[ApiVersion.V1_1].version));
+    filePath.includes(path.join(ApiVersion.V1_0, extensionConfigForGeneration[ApiVersion.V1_0].version));
 }
 
 function isVerboseLoggingLevel(logLevel: string) {

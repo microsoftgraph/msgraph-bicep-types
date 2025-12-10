@@ -77,7 +77,7 @@ function writeMetadataFile(extensionVersionMetadata: ExtensionVersionMetadata) {
 function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: string[] }) {
   let betaVersionsContent = '';
   let v1VersionsContent = '';
-  let v11VersionsContent = '';
+
   for (const version of apiExtensionVersions[ApiVersion.Beta]) {
     const releaseType = getReleaseTypeFromExtensionVersion(version);
     betaVersionsContent += `\n  - microsoftgraph/${releaseType}/beta/${version}.json`;
@@ -86,10 +86,7 @@ function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: str
     const releaseType = getReleaseTypeFromExtensionVersion(version);
     v1VersionsContent += `\n  - microsoftgraph/${releaseType}/v1.0/${version}.json`;
   }
-  for (const version of apiExtensionVersions[ApiVersion.V1_1]) {
-    const releaseType = getReleaseTypeFromExtensionVersion(version);
-    v11VersionsContent += `\n  - microsoftgraph/${releaseType}/v1.1/${version}.json`;
-  }
+
   let readMeContent = `# MicrosoftGraph
 
 > see https://aka.ms/autorest
@@ -131,7 +128,7 @@ input-file: ${v1VersionsContent}
 \`\`\`
 
 \`\`\`yaml $(tag) == 'microsoftgraph-v1.1'
-input-file: ${v11VersionsContent}
+
 \`\`\`
 `
   fs.writeFile(`../../swagger/specification/microsoftgraph/resource-manager/readme.md`, readMeContent, (err) => {
@@ -150,10 +147,9 @@ async function main() {
   let apiExtensionVersions: { [key in ApiVersion]: string[] } = {
     [ApiVersion.Beta]: [],
     [ApiVersion.V1_0]: [],
-    [ApiVersion.V1_1]: [],
   };
 
-  for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0, ApiVersion.V1_1]) {
+  for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
     const versions = getSortedConfigVersions(`configs/${apiVersion}`);
     apiExtensionVersions[apiVersion] = versions;
 

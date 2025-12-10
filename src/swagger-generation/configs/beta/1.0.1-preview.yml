@@ -1,5 +1,5 @@
 MetadataFilePath: clean_beta_metadata/cleanMetadataWithDescriptionsAndAnnotationsbeta.xml
-ExtensionVersion: 1.1.0-preview
+ExtensionVersion: 1.0.1-preview
 EntityTypes:
   - Name: microsoft.graph.user
     RootUri: /users

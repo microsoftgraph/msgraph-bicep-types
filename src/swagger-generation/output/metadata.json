@@ -1891,5 +1891,283 @@
         }
       }
     }
+  },
+  "1.0.1-preview": {
+    "users": {
+      "beta": {
+        "isIdempotent": false,
+        "isReadonly": true,
+        "updatable": false,
+        "alternateKey": "userPrincipalName",
+        "isContainment": false,
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "isReadonly": true,
+        "updatable": false,
+        "alternateKey": "userPrincipalName",
+        "isContainment": false,
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    },
+    "groups": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "navigationProperties": [
+          "members",
+          "owners"
+        ],
+        "relationshipMetadata": {
+          "needsBatch": false,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "members",
+              "type": "directoryObjects"
+            },
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "navigationProperties": [
+          "members",
+          "owners"
+        ],
+        "relationshipMetadata": {
+          "needsBatch": false,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "members",
+              "type": "directoryObjects"
+            },
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    },
+    "applications": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [
+            {
+              "name": "logo",
+              "orchestrationType": "binaryStream",
+              "urlPattern": "/logo",
+              "httpMethod": "PUT"
+            }
+          ],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "uniqueName",
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [
+            {
+              "name": "logo",
+              "orchestrationType": "binaryStream",
+              "urlPattern": "/logo",
+              "httpMethod": "PUT"
+            }
+          ],
+          "get": []
+        }
+      }
+    },
+    "servicePrincipals": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "appId",
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "appId",
+        "isContainment": false,
+        "relationshipMetadata": {
+          "needsBatch": true,
+          "bulkLimit": 20,
+          "properties": [
+            {
+              "name": "owners",
+              "type": "directoryObjects"
+            }
+          ]
+        },
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    },
+    "applications/federatedIdentityCredentials": {
+      "beta": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "name",
+        "isContainment": true,
+        "containerEntitySet": "applications",
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": true,
+        "updatable": true,
+        "alternateKey": "name",
+        "isContainment": true,
+        "containerEntitySet": "applications",
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    },
+    "oauth2PermissionGrants": {
+      "beta": {
+        "isIdempotent": false,
+        "updatable": true,
+        "isContainment": false,
+        "temporaryFilterKeys": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "compositeKeyProperties": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "updatable": true,
+        "isContainment": false,
+        "temporaryFilterKeys": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "compositeKeyProperties": [
+          "clientId",
+          "consentType",
+          "resourceId"
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    },
+    "appRoleAssignedTo": {
+      "beta": {
+        "isIdempotent": false,
+        "updatable": false,
+        "isContainment": true,
+        "containerEntitySet": "servicePrincipals",
+        "keyProperty": "resourceId",
+        "compositeKeyProperties": [
+          "appRoleId",
+          "principalId"
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      },
+      "v1.0": {
+        "isIdempotent": false,
+        "updatable": false,
+        "isContainment": true,
+        "containerEntitySet": "servicePrincipals",
+        "keyProperty": "resourceId",
+        "compositeKeyProperties": [
+          "appRoleId",
+          "principalId"
+        ],
+        "orchestrationProperties": {
+          "save": [],
+          "get": []
+        }
+      }
+    }
   }
 }
