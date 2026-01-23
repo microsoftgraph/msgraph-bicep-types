@@ -1,5 +1,5 @@
 MetadataFilePath: clean_v10_metadata/cleanMetadataWithDescriptionsAndAnnotationsv1.0.xml
-ExtensionVersion: 0.1.1-preview
+ExtensionVersion: 1.1.0-preview
 EntityTypes:
   - Name: microsoft.graph.user
     RootUri: /users

@@ -1548,9 +1548,9 @@ describe('generate swagger with enhanced relationship types', () => {
     NavigationProperty: []
   } as EntityTypeConfig);
 
-  it('should generate enhanced relationship structure for beta 1.0.1-preview', () => {
+  it('should generate enhanced relationship structure for beta 1.1.0-preview', () => {
     const configEnhanced = {
-      ExtensionVersion: "1.0.1-preview",
+      ExtensionVersion: "1.1.0-preview",
       EntityTypes: entityTypes,
       MetadataFilePath: 'https://example.com',
       APIVersion: 'beta'
@@ -1700,9 +1700,9 @@ describe('generate swagger with enhanced relationship types', () => {
     expect(writeSwagger(definitionMap, configEnhanced)).toEqual(expectedSwagger);
   });
 
-  it('should generate enhanced relationship structure for v1.0 1.0.1-preview', () => {
+  it('should generate enhanced relationship structure for v1.0 1.1.0-preview', () => {
     const configEnhanced = {
-      ExtensionVersion: "1.0.1-preview",
+      ExtensionVersion: "1.1.0-preview",
       EntityTypes: entityTypes,
       MetadataFilePath: 'https://example.com',
       APIVersion: 'v1.0'

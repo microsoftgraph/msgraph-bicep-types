@@ -40,12 +40,12 @@
         },
         "userPrincipalName": {
           "type": "string",
-          "description": "The user principal name (UPN) of the relationship member. Only populated for user objects. This is a read-only property populated by the system.",
+          "description": "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system.",
           "readOnly": true
         },
         "appId": {
           "type": "string",
-          "description": "The application ID of the relationship member. Only populated for service principal objects. This is a read-only property populated by the system.",
+          "description": "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system.",
           "readOnly": true
         },
         "uniqueName": {
@@ -101,6 +101,11 @@
             "givenName": {
               "type": "string",
               "description": "The given name (first name) of the user. Maximum length is 64 characters.",
+              "readOnly": false
+            },
+            "identityParentId": {
+              "type": "string",
+              "description": "The object ID of the parent identity for agent users. Always null for regular user accounts. For agentUser resources, this property references the object ID of the associated agent identity.",
               "readOnly": false
             },
             "jobTitle": {
@@ -357,7 +362,12 @@
             },
             "visibility": {
               "type": "string",
-              "description": "Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable.",
+              "description": "Specifies the group join policy and group content visibility for groups. The possible values are: Private, Public, or HiddenMembership. HiddenMembership can be set only for Microsoft 365 groups when the groups are created. It can't be updated later. Other values of visibility can be updated after group creation. If visibility value isn't specified during group creation on Microsoft Graph, a security group is created as Private by default, and Microsoft 365 group is Public. Groups assignable to roles are always Private. To learn more, see group visibility options. Nullable.",
+              "readOnly": false
+            },
+            "welcomeMessageEnabled": {
+              "type": "boolean",
+              "description": "",
               "readOnly": false
             },
             "writebackConfiguration": {
@@ -421,6 +431,11 @@
               "description": "Specifies the certification status of the application.",
               "readOnly": true
             },
+            "createdByAppId": {
+              "type": "string",
+              "description": "The globally unique appId (called Application (client) ID on the Microsoft Entra admin center) of the application that created this application. Set internally by Microsoft Entra ID. Read-only.",
+              "readOnly": false
+            },
             "createdDateTime": {
               "type": "string",
               "format": "date-time",
@@ -439,7 +454,7 @@
             },
             "disabledByMicrosoftStatus": {
               "type": "string",
-              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).",
+              "description": "Specifies whether Microsoft has disabled the registered application. The possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).",
               "readOnly": false
             },
             "displayName": {
@@ -468,6 +483,11 @@
             "isDeviceOnlyAuthSupported": {
               "type": "boolean",
               "description": "Specifies whether this application supports device authentication without a user. The default is false.",
+              "readOnly": false
+            },
+            "isDisabled": {
+              "type": "boolean",
+              "description": "Specifies whether the service principal of the app in a tenant or across tenants for multi-tenant apps can obtain new access tokens or access protected resources. When set to true, existing tokens remain valid until they expire based on their configured lifetimes, and the app stays visible in the Enterprise apps list but users cannot sign in.true if the application is deactivated (disabled); otherwise false.",
               "readOnly": false
             },
             "isFallbackPublicClient": {
@@ -558,6 +578,11 @@
             "signInAudience": {
               "type": "string",
               "description": "Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg (default), AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, and PersonalMicrosoftAccount. See more in the table. The value of this object also limits the number of permissions an app can request. For more information, see Limits on requested permissions per app. The value for this property has implications on other app object properties. As a result, if you change this property, you may need to change other properties first.",
+              "readOnly": false
+            },
+            "signInAudienceRestrictions": {
+              "$ref": "#/definitions/microsoft.graph.signInAudienceRestrictionsBase",
+              "description": "Specifies restrictions on the supported account types specified in signInAudience. The value type determines the restrictions that can be applied:unrestrictedAudience: There are no additional restrictions on the supported account types allowed by signInAudience.allowedTenantsAudience: The application can only be used in the specified Entra tenants. Only supported when signInAudience is AzureADMultipleOrgs. Default is a value of type unrestrictedAudience.",
               "readOnly": false
             },
             "spa": {
@@ -683,6 +708,11 @@
               "description": "The roles exposed by the application, which this service principal represents. For more information, see the appRoles property definition on the application entity. Not nullable.",
               "readOnly": false
             },
+            "createdByAppId": {
+              "type": "string",
+              "description": "The appId (called Application (client) ID on the Microsoft Entra admin center) of the application used to create the service principal. Set internally by Microsoft Entra ID. Read-only.",
+              "readOnly": false
+            },
             "description": {
               "type": "string",
               "description": "Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps displays the application description in this field. The maximum allowed size is 1,024 characters.",
@@ -690,7 +720,7 @@
             },
             "disabledByMicrosoftStatus": {
               "type": "string",
-              "description": "Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).",
+              "description": "Specifies whether Microsoft has disabled the registered application. The possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).",
               "readOnly": false
             },
             "displayName": {
@@ -706,6 +736,11 @@
             "info": {
               "$ref": "#/definitions/microsoft.graph.informationalUrl",
               "description": "Basic profile information of the acquired application such as app's marketing, support, terms of service and privacy statement URLs. The terms of service and privacy statement are surfaced to users through the user consent experience. For more info, see How to: Add Terms of service and privacy statement for registered Microsoft Entra apps.",
+              "readOnly": false
+            },
+            "isDisabled": {
+              "type": "boolean",
+              "description": "Specifies whether the service principal of the app in a tenant or across tenants for multi-tenant apps can obtain new access tokens or access protected resources. When set to true, existing tokens remain valid until they expire based on their configured lifetimes, and the app stays visible in the Enterprise apps list but users cannot sign in.true if the application is deactivated (disabled); otherwise false.",
               "readOnly": false
             },
             "keyCredentials": {
@@ -804,7 +839,7 @@
             },
             "servicePrincipalType": {
               "type": "string",
-              "description": "Identifies if the service principal represents an application or a managed identity. This is set by Microsoft Entra ID internally. For a service principal that represents an application this is set as Application. For a service principal that represents a managed identity this is set as ManagedIdentity. The SocialIdp type is for internal use.",
+              "description": "Identifies if the service principal represents an application or a managed identity. This property is set by Microsoft Entra ID internally. For a service principal that represents an application this is set as Application. For a service principal that represents a managed identity this is set as ManagedIdentity.For a service principal that represents an agent identity, this is set to ServiceIdentity. The SocialIdp type is for internal use.",
               "readOnly": false
             },
             "signInAudience": {
@@ -1533,6 +1568,16 @@
         }
       }
     },
+    "microsoft.graph.signInAudienceRestrictionsBase": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/microsoft.graph.kind",
+          "description": "The kind of restrictions on what is allowed by the signInAudience value. The possible values are: unrestricted, allowedTenants, unknownFutureValue.",
+          "readOnly": false
+        }
+      }
+    },
     "microsoft.graph.spaApplication": {
       "type": "object",
       "properties": {
@@ -1787,6 +1832,13 @@
       "type": "string",
       "enum": [
         "rsaSha1"
+      ]
+    },
+    "microsoft.graph.kind": {
+      "type": "string",
+      "enum": [
+        "unrestricted",
+        "allowedTenants"
       ]
     }
   },

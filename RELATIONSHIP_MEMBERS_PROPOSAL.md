@@ -56,7 +56,7 @@ Implement enhanced relationship member types that provide rich object metadata w
 
 ### Version Strategy
 
-- **Enhanced Versions**: `beta/1.0.1-preview` and `v1.0/1.0.1-preview`
+- **Enhanced Versions**: `beta/1.1.0-preview` and `v1.0/1.1.0-preview`
 - **Legacy Versions**: `v1.0/1.0.0` (maintains string arrays)
 - **Detection Logic**: `isEnhancedRelationshipVersion()` function
 
@@ -95,16 +95,16 @@ if (isEnhanced) {
 **Location:** `src/generator/src/generate.ts`
 
 **Changes:**
-- Updated `extensionConfigForGeneration` with v1.0.1 configuration
-- Enhanced `shouldIncludeFilePath` with v1.0.1 patterns
-- Updated `buildTypeIndex` for v1.0.1 version handling
+- Updated `extensionConfigForGeneration` with v1.1.0 configuration
+- Enhanced `shouldIncludeFilePath` with v1.1.0 patterns
+- Updated `buildTypeIndex` for v1.1.0 version handling
 
 #### 3. index.ts (swagger-generation)
 **Location:** `src/swagger-generation/src/index.ts`
 
 **Changes:**
-- Fixed `writeSwaggerReadMeFile` to include v1.0.1 AutoRest configuration
-- Added v1.0.1 section to readme template
+- Fixed `writeSwaggerReadMeFile` to include v1.1.0 AutoRest configuration
+- Added v1.1.0 section to readme template
 - Ensured proper AutoRest setup for all API versions
 
 ### Test Coverage
@@ -113,15 +113,15 @@ if (isEnhanced) {
 **Location:** `src/swagger-generation/tests/swaggerWriter.test.ts`
 
 **Coverage:**
-1. **Enhanced Beta Test**: Validates `beta/1.0.1-preview` with full relationship member objects
-2. **Enhanced v1.0.1 Test**: Validates `v1.0/1.0.1-preview` with full relationship member objects  
+1. **Enhanced Beta Test**: Validates `beta/1.1.0-preview` with full relationship member objects
+2. **Enhanced v1.1.0 Test**: Validates `v1.0/1.1.0-preview` with full relationship member objects  
 3. **Legacy v1.0 Test**: Validates `v1.0/1.0.0` maintains simple string arrays
 
 **Test Results:** ✅ 11/11 tests passing
 
 ## API Version Comparison
 
-### Enhanced Versions (beta/1.0.1-preview, v1.0/1.0.1-preview)
+### Enhanced Versions (beta/1.1.0-preview, v1.0/1.1.0-preview)
 
 ```json
 {
@@ -199,8 +199,8 @@ var servicePrincipals = filter(group.members, member => member.type == 'serviceP
 ## Validation Results
 
 ### Production Validation
-- ✅ **Beta Swagger**: `microsoftgraph-beta-1.0.1-preview.json` contains enhanced relationshipMember
-- ✅ **v1.1 Swagger**: `microsoftgraph-v1.0-1.0.1-preview.json` contains enhanced relationshipMember  
+- ✅ **Beta Swagger**: `microsoftgraph-beta-1.1.0-preview.json` contains enhanced relationshipMember
+- ✅ **v1.1 Swagger**: `microsoftgraph-v1.0-1.1.0-preview.json` contains enhanced relationshipMember  
 - ✅ **v1.0 Swagger**: `microsoftgraph-v1.0-1.0.0.json` maintains string arrays (no relationshipMember)
 
 ### Test Validation
@@ -212,7 +212,7 @@ npm test -- swaggerWriter.test.ts
 ### Generated Output Verification
 ```powershell
 # Enhanced versions contain full object structure
-Get-Content src\swagger-generation\output\microsoftgraph-beta-1.0.1-preview.json | 
+Get-Content src\swagger-generation\output\microsoftgraph-beta-1.1.0-preview.json | 
   ConvertFrom-Json | Select-Object -ExpandProperty definitions | 
   Select-Object -ExpandProperty "microsoft.graph.relationshipMember"
 
@@ -234,7 +234,7 @@ Get-Content src\swagger-generation\output\microsoftgraph-v1.0-1.0.0.json |
 ## Migration Path
 
 ### For New Implementations
-- Use enhanced versions (`beta/1.0.1-preview` or `v1.0/1.0.1-preview`)
+- Use enhanced versions (`beta/1.1.0-preview` or `v1.0/1.1.0-preview`)
 - Leverage rich relationship member objects for advanced scenarios
 
 ### For Existing Implementations
@@ -247,8 +247,8 @@ Get-Content src\swagger-generation\output\microsoftgraph-v1.0-1.0.0.json |
 ### Version Detection Logic
 ```typescript
 function isEnhancedRelationshipVersion(config: Config): boolean {
-  return (config.APIVersion === 'beta' && config.ExtensionVersion === '1.0.1-preview') ||
-         (config.APIVersion === 'v1.0' && config.ExtensionVersion === '1.0.1-preview');
+  return (config.APIVersion === 'beta' && config.ExtensionVersion === '1.1.0-preview') ||
+         (config.APIVersion === 'v1.0' && config.ExtensionVersion === '1.1.0-preview');
 }
 ```
 

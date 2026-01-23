@@ -262,8 +262,8 @@ async function findReadmePaths(specsPath: string) {
 async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion) {
   // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
   function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
-    return (apiVersion === 'beta' && extensionVersion === '1.0.1-preview') ||
-           (apiVersion === 'v1.0' && extensionVersion === '1.0.1-preview');
+    return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
+           (apiVersion === 'v1.0' && extensionVersion === '1.1.0-preview');
   }
 
   function addConfigToContent(content: string, apiVersion: string, extensionVersion: string): any[] {

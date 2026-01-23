@@ -37,7 +37,7 @@ input-file:
   - microsoftgraph/preview/beta/0.1.9-preview.json
   - microsoftgraph/preview/beta/0.2.0-preview.json
   - microsoftgraph/official/beta/1.0.0.json
-  - microsoftgraph/preview/beta/1.0.1-preview.json
+  - microsoftgraph/preview/beta/1.1.0-preview.json
 ```
 
 ```yaml $(tag) == 'microsoftgraph-v1.0'
@@ -47,7 +47,7 @@ input-file:
   - microsoftgraph/preview/v1.0/0.1.9-preview.json
   - microsoftgraph/preview/v1.0/0.2.0-preview.json
   - microsoftgraph/official/v1.0/1.0.0.json
-  - microsoftgraph/preview/v1.0/1.0.1-preview.json
+  - microsoftgraph/preview/v1.0/1.1.0-preview.json
 ```
 
 ```yaml $(tag) == 'microsoftgraph-v1.1'

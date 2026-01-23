@@ -11,8 +11,8 @@ import { Parameter, Path, Product, Scheme, Swagger, SwaggerVersion } from "./def
 import { resolvePropertyTypeToReference } from "./util/propertyTypeResolver";
 
 function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
-  return (apiVersion === 'beta' && extensionVersion === '1.0.1-preview') ||
-         (apiVersion === 'v1.0' && extensionVersion === '1.0.1-preview');
+  return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
+         (apiVersion === 'v1.0' && extensionVersion === '1.1.0-preview');
 }
 
 export const writeSwagger = (definitionMap: DefinitionMap, config: Config): Swagger => {
