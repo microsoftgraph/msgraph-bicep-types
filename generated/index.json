@@ -1,46 +1,46 @@
 {
   "resources": {
     "Microsoft.Graph/groups@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/18"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/18"
     },
     "Microsoft.Graph/applications@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/74"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/74"
     },
     "Microsoft.Graph/servicePrincipals@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/92"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/92"
     },
     "Microsoft.Graph/applications/federatedIdentityCredentials@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/97"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/97"
     },
     "Microsoft.Graph/oauth2PermissionGrants@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/101"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/101"
     },
     "Microsoft.Graph/appRoleAssignedTo@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/105"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/105"
     },
     "Microsoft.Graph/users@beta": {
-      "$ref": "microsoftgraph/microsoft.graph/beta/0.1.9-preview/types.json#/110"
+      "$ref": "microsoftgraph/microsoft.graph/beta/1.0.1-preview/types.json#/110"
     },
     "Microsoft.Graph/groups@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/13"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/13"
     },
     "Microsoft.Graph/applications@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/70"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/70"
     },
     "Microsoft.Graph/servicePrincipals@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/88"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/88"
     },
     "Microsoft.Graph/applications/federatedIdentityCredentials@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/93"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/93"
     },
     "Microsoft.Graph/oauth2PermissionGrants@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/97"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/97"
     },
     "Microsoft.Graph/appRoleAssignedTo@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/101"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/101"
     },
     "Microsoft.Graph/users@v1.0": {
-      "$ref": "microsoftgraph/microsoft.graph/v1.0/0.1.9-preview/types.json#/106"
+      "$ref": "microsoftgraph/microsoft.graph/v1.0/1.0.1-preview/types.json#/106"
     }
   },
   "resourceFunctions": {}
