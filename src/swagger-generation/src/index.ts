@@ -77,6 +77,7 @@ function writeMetadataFile(extensionVersionMetadata: ExtensionVersionMetadata) {
 function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: string[] }) {
   let betaVersionsContent = '';
   let v1VersionsContent = '';
+
   for (const version of apiExtensionVersions[ApiVersion.Beta]) {
     const releaseType = getReleaseTypeFromExtensionVersion(version);
     betaVersionsContent += `\n  - microsoftgraph/${releaseType}/beta/${version}.json`;
@@ -85,6 +86,7 @@ function writeSwaggerReadMeFile(apiExtensionVersions: { [key in ApiVersion]: str
     const releaseType = getReleaseTypeFromExtensionVersion(version);
     v1VersionsContent += `\n  - microsoftgraph/${releaseType}/v1.0/${version}.json`;
   }
+
   let readMeContent = `# MicrosoftGraph
 
 > see https://aka.ms/autorest
@@ -123,6 +125,10 @@ input-file: ${betaVersionsContent}
 
 \`\`\`yaml $(tag) == 'microsoftgraph-v1.0'
 input-file: ${v1VersionsContent}
+\`\`\`
+
+\`\`\`yaml $(tag) == 'microsoftgraph-v1.1'
+
 \`\`\`
 `
   fs.writeFile(`../../swagger/specification/microsoftgraph/resource-manager/readme.md`, readMeContent, (err) => {

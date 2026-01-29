@@ -128,10 +128,10 @@ function normalizeJsonPath(jsonPath: string) {
 }
 
 async function generateAutorestConfig(logger: ILogger, readmePath: string, bicepReadmePath: string, apiVersion: string, extensionVersion: string) {
-  // We expect a path format convention of <provider>/(any/number/of/intervening/folders)/(beta|v1.0))/<filename>.json
+  // We expect a path format convention of <provider>/(any/number/of/intervening/folders)/(beta|v1.0|v1.1))/<filename>.json
   // This information is used to generate individual tags in the generated autorest configuration
   // eslint-disable-next-line no-useless-escape
-  const pathRegex = /^(\$\(this-folder\)\/|)([^\/]+)(?:\/[^\/]+)*\/(beta|v1.0)\/(.*)\.json$/i;
+  const pathRegex = /^(\$\(this-folder\)\/|)([^\/]+)(?:\/[^\/]+)*\/(beta|v1\.0|v1\.1)\/(.*)\.json$/i;
 
   const readmeContents = await readFile(readmePath, { encoding: 'utf8' });
   const readmeMarkdown = markdown.parse(readmeContents);
@@ -261,9 +261,49 @@ async function findReadmePaths(specsPath: string) {
 
 async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion) {
   // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
-  function addConfigToContent(content: string): any[] {
+  function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
+    return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
+           (apiVersion === 'v1.0' && extensionVersion === '1.1.0-preview');
+  }
+
+  function addConfigToContent(content: string, apiVersion: string, extensionVersion: string): any[] {
     const contentTypes = JSON.parse(content) as any[];
     const relationshipType = contentTypes.find(type => type["$type"] === TypeBaseKind.ObjectType && type["name"] === 'MicrosoftGraphRelationship');
+    const isEnhanced = isEnhancedRelationshipVersion(apiVersion, extensionVersion);
+    
+    if (isEnhanced) {
+      // Add RelationshipMember type before MicrosoftGraphRelationship
+      const relationshipMemberType = {
+        $type: TypeBaseKind.ObjectType,
+        name: "MicrosoftGraphRelationshipMember",
+        properties: {
+          id: {
+            type: { $ref: "#/0" }, // StringType
+            flags: 1, // Required
+            description: "The unique identifier of the relationship member."
+          },
+          type: {
+            type: { $ref: "#/0" }, // StringType  
+            flags: 2, // ReadOnly
+            description: "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system."
+          }
+        }
+      };
+      
+      // Insert before MicrosoftGraphRelationship
+      const relationshipIndex = contentTypes.findIndex(type => type.name === 'MicrosoftGraphRelationship');
+      contentTypes.splice(relationshipIndex, 0, relationshipMemberType);
+      
+      // Update relationships property to reference RelationshipMember array
+      const updatedRelationshipType = { ...relationshipType };
+      updatedRelationshipType.properties.relationships.type = {
+        $type: "ArrayType",
+        itemType: { $ref: `#/${relationshipIndex}` } // Reference to RelationshipMember
+      };
+      updatedRelationshipType.properties.relationships.description = "The list of relationship members with their IDs and types.";
+      contentTypes[relationshipIndex + 1] = updatedRelationshipType;
+    }
+    
     const relationshipSemanticsType = relationshipType.properties['relationshipSemantics'];
     const configType = {
       $type: TypeBaseKind.ObjectType,
@@ -284,8 +324,13 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
     return shouldIncludeFilePath(filePath) && path.basename(filePath) === 'types.json';
   });
 
+  if (typesPaths.length === 0) {
+    console.warn(`No types.json files found for ${apiVersion} in ${extensionBaseDir}`);
+    return;
+  }
+
   const content = await readFile(typesPaths[0], { encoding: 'utf8' });
-  const contentJson = addConfigToContent(content);
+  const contentJson = addConfigToContent(content, apiVersion, extensionConfigForGeneration[apiVersion].version);
   const typeFiles: TypeFile[] = [{
     relativePath: path.relative(extensionBaseDir, typesPaths[0]),
     types: readTypesJson(JSON.stringify(contentJson)),
