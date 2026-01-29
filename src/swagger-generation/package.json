@@ -34,11 +34,11 @@
   "devDependencies": {
     "@types/jest": "^29.5.3",
     "@types/xml2js": "^0.4.11",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
-    "eslint": "^8.47.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^9.39.2",
+    "extensionConfig": "file:../extensionConfig",
     "jest": "^29.6.2",
-    "ts-jest": "^29.1.1",
-    "extensionConfig": "file:../extensionConfig"
+    "ts-jest": "^29.1.1"
   }
 }
