@@ -15,7 +15,7 @@
     "@types/lodash": "^4.14.194",
     "autorest": "^3.6.3",
     "bicep-types": "file:../../bicep-types/src/bicep-types",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
