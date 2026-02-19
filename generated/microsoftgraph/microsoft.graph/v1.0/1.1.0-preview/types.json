@@ -1,4 +1,4 @@
-./[
+[
   {
     "$type": "StringType"
   },
@@ -1166,28 +1166,28 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's marketing page. For example, https:/www.contoso.com/app/marketing."
+        "description": "Link to the application's marketing page. For example, https://www.contoso.com/app/marketing."
       },
       "privacyStatementUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's privacy statement. For example, https:/www.contoso.com/app/privacy."
+        "description": "Link to the application's privacy statement. For example, https://www.contoso.com/app/privacy."
       },
       "supportUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's support page. For example, https:/www.contoso.com/app/support."
+        "description": "Link to the application's support page. For example, https://www.contoso.com/app/support."
       },
       "termsOfServiceUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's terms of service statement. For example, https:/www.contoso.com/app/termsofservice."
+        "description": "Link to the application's terms of service statement. For example, https://www.contoso.com/app/termsofservice."
       }
     }
   },
@@ -1455,7 +1455,7 @@
           "$ref": "#/57"
         },
         "flags": 0,
-        "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}:/auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS:/auth."
+        "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}://auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS://auth."
       }
     }
   },
@@ -2194,7 +2194,7 @@
           "$ref": "#/97"
         },
         "flags": 1,
-        "description": "The audience that can appear in the external token. This field is mandatory and should be set to api:/AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you might need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
+        "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you might need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
       },
       "description": {
         "type": {

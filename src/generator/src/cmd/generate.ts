@@ -344,9 +344,9 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
   };
   const indexContent = await buildIndex(typeFiles, (log) => logOut(logger, log), typeSettings);
 
-  await writeFile(`${extensionBaseDir}/types.json`, normalizeJsonPath(writeTypesJson(contentJson)));
-  await writeFile(`${extensionBaseDir}/index.json`, normalizeJsonPath(writeIndexJson(indexContent)));
-  await writeFile(`${extensionBaseDir}/index.md`, normalizeJsonPath(writeIndexMarkdown(indexContent)));
+  await writeFile(`${extensionBaseDir}/types.json`, writeTypesJson(contentJson));
+  await writeFile(`${extensionBaseDir}/index.json`, writeIndexJson(indexContent));
+  await writeFile(`${extensionBaseDir}/index.md`, writeIndexMarkdown(indexContent));
 }
 
 function shouldIncludeFilePath(filePath: string) {
