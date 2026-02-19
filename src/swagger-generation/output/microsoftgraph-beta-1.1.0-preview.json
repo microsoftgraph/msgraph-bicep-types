@@ -367,7 +367,7 @@
             },
             "welcomeMessageEnabled": {
               "type": "boolean",
-              "description": "",
+              "description": "Indicates whether a welcome message is sent to new members when they are added to the group. The default value is true. Supported only on the Get group API (GET /groups/{ID}).",
               "readOnly": false
             },
             "writebackConfiguration": {
