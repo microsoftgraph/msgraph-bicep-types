@@ -447,26 +447,6 @@
   },
   {
     "$type": "ObjectType",
-    "name": "MicrosoftGraphRelationshipMember",
-    "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 1,
-        "description": "The unique identifier of the relationship member."
-      },
-      "type": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 2,
-        "description": "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system."
-      }
-    }
-  },
-  {
-    "$type": "ObjectType",
     "name": "MicrosoftGraphRelationship",
     "properties": {
       "relationshipSemantics": {
@@ -478,10 +458,7 @@
       },
       "relationships": {
         "type": {
-          "$type": "ArrayType",
-          "itemType": {
-            "$ref": "#/16"
-          }
+          "$ref": "#/21"
         },
         "flags": 1,
         "description": "The list of relationship members with their IDs and types."
@@ -527,6 +504,34 @@
         },
         "flags": 2,
         "description": "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system."
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The display name of the relationship member. This is a read-only property populated by the system."
+      },
+      "userPrincipalName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system."
+      },
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system."
+      },
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "A unique name that can be used to reference this relationship member in templates. This is a read-only property populated by the system."
       }
     }
   },

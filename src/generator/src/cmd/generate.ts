@@ -272,36 +272,52 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
     const isEnhanced = isEnhancedRelationshipVersion(apiVersion, extensionVersion);
     
     if (isEnhanced) {
-      // Add RelationshipMember type before MicrosoftGraphRelationship
-      const relationshipMemberType = {
-        $type: TypeBaseKind.ObjectType,
-        name: "MicrosoftGraphRelationshipMember",
-        properties: {
-          id: {
-            type: { $ref: "#/0" }, // StringType
-            flags: 1, // Required
-            description: "The unique identifier of the relationship member."
-          },
-          type: {
-            type: { $ref: "#/0" }, // StringType  
-            flags: 2, // ReadOnly
-            description: "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system."
-          }
+      // Find the existing autorest-generated MicrosoftGraphRelationshipMember type
+      const relationshipMemberIndex = contentTypes.findIndex(type => type["$type"] === TypeBaseKind.ObjectType && type["name"] === 'MicrosoftGraphRelationshipMember');
+
+      if (relationshipMemberIndex !== -1) {
+        // Ensure the richer fields are present on the MicrosoftGraphRelationshipMember type
+        const memberType = contentTypes[relationshipMemberIndex];
+        if (!memberType.properties.displayName) {
+          memberType.properties.displayName = {
+            type: { $ref: "#/0" },
+            flags: 2,
+            description: "The display name of the relationship member. This is a read-only property populated by the system."
+          };
         }
-      };
-      
-      // Insert before MicrosoftGraphRelationship
-      const relationshipIndex = contentTypes.findIndex(type => type.name === 'MicrosoftGraphRelationship');
-      contentTypes.splice(relationshipIndex, 0, relationshipMemberType);
-      
-      // Update relationships property to reference RelationshipMember array
-      const updatedRelationshipType = { ...relationshipType };
-      updatedRelationshipType.properties.relationships.type = {
-        $type: "ArrayType",
-        itemType: { $ref: `#/${relationshipIndex}` } // Reference to RelationshipMember
-      };
-      updatedRelationshipType.properties.relationships.description = "The list of relationship members with their IDs and types.";
-      contentTypes[relationshipIndex + 1] = updatedRelationshipType;
+        if (!memberType.properties.userPrincipalName) {
+          memberType.properties.userPrincipalName = {
+            type: { $ref: "#/0" },
+            flags: 2,
+            description: "The user principal name (UPN) of the relationship member. This field is only populated for user objects and will be null/undefined for other object types (groups, service principals, etc.). This is a read-only property populated by the system."
+          };
+        }
+        if (!memberType.properties.appId) {
+          memberType.properties.appId = {
+            type: { $ref: "#/0" },
+            flags: 2,
+            description: "The application ID of the relationship member. This field is only populated for service principal objects and will be null/undefined for other object types (users, groups, etc.). This is a read-only property populated by the system."
+          };
+        }
+        if (!memberType.properties.uniqueName) {
+          memberType.properties.uniqueName = {
+            type: { $ref: "#/0" },
+            flags: 2,
+            description: "A unique name that can be used to reference this relationship member in templates. This is a read-only property populated by the system."
+          };
+        }
+
+        // Find the existing ArrayType that references the MicrosoftGraphRelationshipMember
+        const memberArrayIndex = contentTypes.findIndex(type => type["$type"] === "ArrayType" && type["itemType"]?.["$ref"] === `#/${relationshipMemberIndex}`);
+
+        if (memberArrayIndex !== -1) {
+          // Update relationships property to reference the ArrayType of MicrosoftGraphRelationshipMember
+          relationshipType.properties.relationships.type = {
+            $ref: `#/${memberArrayIndex}`
+          };
+          relationshipType.properties.relationships.description = "The list of relationship members with their IDs and types.";
+        }
+      }
     }
     
     const relationshipSemanticsType = relationshipType.properties['relationshipSemantics'];
