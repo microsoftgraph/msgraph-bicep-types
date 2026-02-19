@@ -358,26 +358,6 @@
   },
   {
     "$type": "ObjectType",
-    "name": "MicrosoftGraphRelationshipMember",
-    "properties": {
-      "id": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 1,
-        "description": "The unique identifier of the relationship member."
-      },
-      "type": {
-        "type": {
-          "$ref": "#/0"
-        },
-        "flags": 2,
-        "description": "The type of the relationship member (e.g., user, group, servicePrincipal). This is a read-only property populated by the system."
-      }
-    }
-  },
-  {
-    "$type": "ObjectType",
     "name": "MicrosoftGraphRelationship",
     "properties": {
       "relationshipSemantics": {
@@ -389,10 +369,7 @@
       },
       "relationships": {
         "type": {
-          "$type": "ArrayType",
-          "itemType": {
-            "$ref": "#/11"
-          }
+          "$ref": "#/16"
         },
         "flags": 1,
         "description": "The list of relationship members with their IDs and types."
