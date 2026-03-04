@@ -46,6 +46,21 @@ executeSynchronous(async () => {
   const waitForDebugger = args['wait-for-debugger'];
   const singlePath = args['single-path'];
 
+  // Detect internal generation by checking if output directory contains 'internal'
+  const isInternalGeneration = outputBaseDir.includes('internal');
+  
+  // For internal generation, use 1.1.0-preview-internal version consistently
+  const effectiveExtensionConfig = isInternalGeneration ? {
+    "beta": {
+      "name": extensionConfig["beta"].name,
+      "version": "1.0.0",
+    },
+    "v1.0": {
+      "name": extensionConfig["v1.0"].name,
+      "version": "1.0.0",
+    }
+  } : extensionConfigForGeneration;
+
   if (!existsSync(`${extensionDir}/dist`)) {
     throw `Unable to find ${extensionDir}/dist. Did you forget to run 'npm run build'?`;
   }
@@ -83,11 +98,11 @@ executeSynchronous(async () => {
 
     for (const apiVersion of [ApiVersion.Beta, ApiVersion.V1_0]) {
       const tmpOutputApiVersionDir = path.join(tmpOutputDir, 'microsoft.graph', apiVersion);
-      const outputApiVersionDir = path.join(outputBaseDir, apiVersion, extensionConfigForGeneration[apiVersion].version);
+      const outputApiVersionDir = path.join(outputBaseDir, apiVersion, effectiveExtensionConfig[apiVersion].version);
 
       try {
         // autorest readme.bicep.md files are not checked in, so we must generate them before invoking autorest
-        await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, extensionConfigForGeneration[apiVersion].version);
+        await generateAutorestConfig(logger, readmePath, bicepReadmePath, apiVersion, effectiveExtensionConfig[apiVersion].version);
         await generateSchema(logger, bicepReadmePath, tmpOutputDir, logLevel, waitForDebugger);
 
         // remove all previously-generated files and copy over results
@@ -118,8 +133,8 @@ ${err}
   }
 
   // build the type index
-  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.Beta);
-  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_0);
+  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.Beta, effectiveExtensionConfig);
+  await buildTypeIndex(defaultLogger, outputBaseDir, ApiVersion.V1_0, effectiveExtensionConfig);
 });
 
 function normalizeJsonPath(jsonPath: string) {
@@ -259,7 +274,7 @@ async function findReadmePaths(specsPath: string) {
   });
 }
 
-async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion) {
+async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiVersion, extensionConfig: any) {
   // Add the MsGraphBicepExtensionConfig type to the last position in types.json file
   function isEnhancedRelationshipVersion(apiVersion: string, extensionVersion: string): boolean {
     return (apiVersion === 'beta' && extensionVersion === '1.1.0-preview') ||
@@ -335,9 +350,9 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
     return contentTypes;
   };
 
-  const extensionBaseDir = path.join(baseDir, apiVersion, extensionConfigForGeneration[apiVersion].version);
+  const extensionBaseDir = path.join(baseDir, apiVersion, extensionConfig[apiVersion].version);
   const typesPaths = await findRecursive(extensionBaseDir, filePath => {
-    return shouldIncludeFilePath(filePath) && path.basename(filePath) === 'types.json';
+    return shouldIncludeFilePath(filePath, extensionConfig) && path.basename(filePath) === 'types.json';
   });
 
   if (typesPaths.length === 0) {
@@ -346,15 +361,15 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
   }
 
   const content = await readFile(typesPaths[0], { encoding: 'utf8' });
-  const contentJson = addConfigToContent(content, apiVersion, extensionConfigForGeneration[apiVersion].version);
+  const contentJson = addConfigToContent(content, apiVersion, extensionConfig[apiVersion].version);
   const typeFiles: TypeFile[] = [{
     relativePath: path.relative(extensionBaseDir, typesPaths[0]),
     types: readTypesJson(JSON.stringify(contentJson)),
   }];
 
   const typeSettings: TypeSettings = {
-    name: extensionConfigForGeneration[apiVersion].name,
-    version: extensionConfigForGeneration[apiVersion].version,
+    name: extensionConfig[apiVersion].name,
+    version: extensionConfig[apiVersion].version,
     isSingleton: false,
     configurationType: new CrossFileTypeReference('types.json', contentJson.length - 1),
   };
@@ -365,9 +380,9 @@ async function buildTypeIndex(logger: ILogger, baseDir: string, apiVersion: ApiV
   await writeFile(`${extensionBaseDir}/index.md`, writeIndexMarkdown(indexContent));
 }
 
-function shouldIncludeFilePath(filePath: string) {
-  return filePath.includes(path.join(ApiVersion.Beta, extensionConfigForGeneration[ApiVersion.Beta].version)) ||
-    filePath.includes(path.join(ApiVersion.V1_0, extensionConfigForGeneration[ApiVersion.V1_0].version));
+function shouldIncludeFilePath(filePath: string, extensionConfig: any) {
+  return filePath.includes(path.join(ApiVersion.Beta, extensionConfig[ApiVersion.Beta].version)) ||
+    filePath.includes(path.join(ApiVersion.V1_0, extensionConfig[ApiVersion.V1_0].version));
 }
 
 function isVerboseLoggingLevel(logLevel: string) {
