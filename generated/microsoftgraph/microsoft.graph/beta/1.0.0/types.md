@@ -133,6 +133,86 @@
 * **scope**: string: A space-separated list of the claim values for delegated permissions that should be included in access tokens for the resource application (the API). For example, openid User.Read GroupMember.Read.All. Each claim value should match the value field of one of the delegated permissions defined by the API, listed in the publishedPermissionScopes property of the resource service principal. Must not exceed 3850 characters in length.
 * **type**: 'Microsoft.Graph/oauth2PermissionGrants' (ReadOnly, DeployTimeConstant): The resource type
 
+## Resource Microsoft.Graph/resourcePolicyAssignments@beta
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **assignedPolicy**: [MicrosoftGraphAssignedPolicyReference](#microsoftgraphassignedpolicyreference): The policy definition that is assigned.
+* **createdDateTime**: string (ReadOnly): Assignment creation date-time. Read-only.
+* **deletedDateTime**: string (ReadOnly): Assignment deletion date-time. Read-only.
+* **enforcementMode**: 'doNotEnforce' | 'enforce' | 'unknownFutureValue' | string: Controls whether the assignment's effect is applied. Possible values: doNotEnforce, enforce, unknownFutureValue. Defaults to 'doNotEnforce'.
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **isEnabled**: bool: Enable or disable the assignment. Defaults to true if not set.
+* **lastModifiedDateTime**: string (ReadOnly): Assignment last modified date-time. Read-only.
+* **params**: any: Typed JSON parameter values, validated at ingestion against the definition's paramsSchema.
+* **scope**: string: The scope of the assignment. '/' for the tenant. Defaults to '/'.
+* **type**: 'Microsoft.Graph/resourcePolicyAssignments' (ReadOnly, DeployTimeConstant): The resource type
+* **uniqueName**: string (Required, DeployTimeConstant, Identifier): User-supplied but immutable name. Serves as the key and alternate key for upsert addressing.
+
+## Resource Microsoft.Graph/resourcePolicyBuiltInDefinitions@beta (ReadOnly)
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **category**: string (ReadOnly): Category name specified in the Rego policy, used to enable filtering during enumeration. Defaults to 'general'. Read-only.
+* **createdDateTime**: string (ReadOnly): Policy creation date-time. Read-only.
+* **deletedDateTime**: string (ReadOnly): Policy deletion date-time. Read-only.
+* **description**: string (ReadOnly): Description for the policy, specified in the Rego policy. Read-only.
+* **displayName**: string (ReadOnly): Display name for the policy, specified in the Rego policy. Read-only.
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **lastModifiedDateTime**: string (ReadOnly): Policy last modified date-time. Read-only.
+* **paramsSchema**: any (ReadOnly): Read-only JSON-schema subset that assignment params are validated against. Read-only.
+* **rule**: [MicrosoftGraphResourcePolicyRule](#microsoftgraphresourcepolicyrule) (ReadOnly): The rule that defines the policy effects, applicability and conditions.
+* **type**: 'Microsoft.Graph/resourcePolicyBuiltInDefinitions' (ReadOnly, DeployTimeConstant): The resource type
+* **uniqueName**: string (Required, DeployTimeConstant, Identifier): User-supplied but immutable primary key of the policy definition. Used for upsert addressing. 128 alphanumeric unicode, '_' and '-'.
+* **version**: string (ReadOnly): Policy definition version using a semantic versioning scheme. Read-only.
+
+## Resource Microsoft.Graph/resourcePolicyConfiguration@beta
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **lastModifiedDateTime**: string (ReadOnly): The date and time when the resource policy configuration was last modified. Read-only.
+* **name**: string: The name used for Bicep resource identification. This is a singleton resource; use the constant value 'default'.
+* **privilegedReadSetting**: [MicrosoftGraphPrivilegedReadSetting](#microsoftgraphprivilegedreadsetting): The privileged read setting for the resource policy configuration.
+* **type**: 'Microsoft.Graph/resourcePolicyConfiguration' (ReadOnly, DeployTimeConstant): The resource type
+
+## Resource Microsoft.Graph/resourcePolicyDefinitions@beta
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **category**: string (ReadOnly): Category name specified in the Rego policy, used to enable filtering during enumeration. Defaults to 'general'. Read-only.
+* **createdDateTime**: string (ReadOnly): Policy creation date-time. Read-only.
+* **deletedDateTime**: string (ReadOnly): Policy deletion date-time. Read-only.
+* **description**: string (ReadOnly): Description for the policy, specified in the Rego policy. Read-only.
+* **displayName**: string (ReadOnly): Display name for the policy, specified in the Rego policy. Read-only.
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **lastModifiedDateTime**: string (ReadOnly): Policy last modified date-time. Read-only.
+* **paramsSchema**: any (ReadOnly): Read-only JSON-schema subset that assignment params are validated against. Read-only.
+* **rule**: [MicrosoftGraphResourcePolicyRule](#microsoftgraphresourcepolicyrule): The rule that defines the policy effects, applicability and conditions.
+* **type**: 'Microsoft.Graph/resourcePolicyDefinitions' (ReadOnly, DeployTimeConstant): The resource type
+* **uniqueName**: string (Required, DeployTimeConstant, Identifier): User-supplied but immutable primary key of the policy definition. Used for upsert addressing. 128 alphanumeric unicode, '_' and '-'.
+* **version**: string (ReadOnly): Policy definition version using a semantic versioning scheme. Read-only.
+
+## Resource Microsoft.Graph/resourcePolicyDefinitions/previousVersions@beta (ReadOnly)
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **id**: string (ReadOnly): The unique identifier for an entity. Read-only.
+* **lastModifiedDateTime**: string (ReadOnly): Policy last modified date-time. Read-only.
+* **name**: string (Required, DeployTimeConstant, Identifier): The name used for Bicep resource identification, of the form '{policyDefinitionUniqueName}/{version}'.
+* **paramsSchema**: any (ReadOnly): Read-only JSON-schema subset that assignment params are validated against. Read-only.
+* **policy**: string (ReadOnly): Stringified version of the Rego policy for this version. Read-only.
+* **type**: 'Microsoft.Graph/resourcePolicyDefinitions/previousVersions' (ReadOnly, DeployTimeConstant): The resource type
+* **version**: string (ReadOnly): User-supplied but immutable version conforming to semantic versioning. Read-only.
+
+## Resource Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject@beta (ReadOnly)
+* **Valid Scope(s)**: Unknown
+### Properties
+* **apiVersion**: 'beta' (ReadOnly, DeployTimeConstant): The resource api version
+* **appId**: string (Required, DeployTimeConstant, Identifier): The application (client) ID for which to compute the federated identity credential subject.
+* **type**: 'Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject' (ReadOnly, DeployTimeConstant): The resource type
+* **value**: string (ReadOnly): The computed federated identity credential subject. Read-only.
+
 ## Resource Microsoft.Graph/servicePrincipals@beta
 * **Valid Scope(s)**: Unknown
 ### Properties
@@ -218,6 +298,18 @@
 * **isEnabled**: bool: When you create or updating an app role, this value must be true. To delete a role, this must first be set to false. At that point, in a subsequent call, this role might be removed. Default value is true.
 * **origin**: string (ReadOnly): Specifies if the app role is defined on the application object or on the servicePrincipal entity. Must not be included in any POST or PATCH requests. Read-only.
 * **value**: string: Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z, and a-z. Any other character, including the space character, aren't allowed. May not begin with ..
+
+## MicrosoftGraphAssignedPolicyReference
+* **Discriminator**: kind
+
+### Base Properties
+
+### MicrosoftGraphPolicyDefinitionReference
+#### Properties
+* **kind**: 'policyDefinition' (Required): The kind of assigned policy reference. Possible values: policyDefinition.
+* **policyUniqueName**: string (Required)
+* **version**: string (Required)
+
 
 ## MicrosoftGraphAuthenticationBehaviors
 ### Properties
@@ -317,10 +409,20 @@
 * **userConsentDisplayName**: string: A title for the permission, intended to be read by a user granting the permission on their own behalf. This text appears in consent experiences where the user is consenting only on behalf of themselves.
 * **value**: string: Specifies the value to include in the scp (scope) claim in access tokens. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , -. / : ;  =  ? @ [ ] ^ + _  {  } ~, and characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, aren't allowed. May not begin with ..
 
+## MicrosoftGraphPolicyAppliesTo
+### Properties
+* **includeDerivedTypes**: bool (ReadOnly): Indicates whether policy evaluation includes types derived from resourceName. Read-only.
+* **operations**: string (ReadOnly): Comma-separated list of operations in scope for policy evaluation. Possible values: create, updateOrUpsert, delete, invokeAction, unknownFutureValue. Defaults to 'create,updateOrUpsert'. Read-only.
+* **resourceName**: string (ReadOnly): The entity type name or fully-qualified action name in scope for policy evaluation, for example 'microsoft.graph.user'. Read-only.
+
 ## MicrosoftGraphPreAuthorizedApplication
 ### Properties
 * **appId**: string: The unique identifier for the client application.
 * **permissionIds**: string[]: The unique identifier for the scopes the client application is granted.
+
+## MicrosoftGraphPrivilegedReadSetting
+### Properties
+* **appId**: string: The application (client) ID authorized for privileged read access.
 
 ## MicrosoftGraphPublicClientApplication
 ### Properties
@@ -350,6 +452,11 @@
 ### Properties
 * **id**: string {minLength: 36, maxLength: 36, pattern: "^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$"}: The unique identifier of an app role or delegated permission exposed by the resource application. For delegated permissions, this should match the id property of one of the delegated permissions in the oauth2PermissionScopes collection of the resource application's service principal. For app roles (application permissions), this should match the id property of an app role in the appRoles collection of the resource application's service principal.
 * **type**: string: Specifies whether the id property references a delegated permission or an app role (application permission). The possible values are: Scope (for delegated permissions) or Role (for app roles).
+
+## MicrosoftGraphResourcePolicyRule
+### Properties
+* **appliesTo**: [MicrosoftGraphPolicyAppliesTo](#microsoftgraphpolicyappliesto) (ReadOnly): Applicability information describing what resource or action is in scope for policy evaluation. Read-only.
+* **policy**: string (Required): Stringified Rego policy containing the rules and expressions that are evaluated for compliance.
 
 ## MicrosoftGraphSamlSingleSignOnSettings
 ### Properties

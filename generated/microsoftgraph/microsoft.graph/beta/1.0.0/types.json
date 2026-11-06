@@ -1123,28 +1123,28 @@
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's marketing page. For example, https:/www.contoso.com/app/marketing."
+        "description": "Link to the application's marketing page. For example, https://www.contoso.com/app/marketing."
       },
       "privacyStatementUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's privacy statement. For example, https:/www.contoso.com/app/privacy."
+        "description": "Link to the application's privacy statement. For example, https://www.contoso.com/app/privacy."
       },
       "supportUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's support page. For example, https:/www.contoso.com/app/support."
+        "description": "Link to the application's support page. For example, https://www.contoso.com/app/support."
       },
       "termsOfServiceUrl": {
         "type": {
           "$ref": "#/0"
         },
         "flags": 0,
-        "description": "Link to the application's terms of service statement. For example, https:/www.contoso.com/app/termsofservice."
+        "description": "Link to the application's terms of service statement. For example, https://www.contoso.com/app/termsofservice."
       }
     }
   },
@@ -1412,7 +1412,7 @@
           "$ref": "#/57"
         },
         "flags": 0,
-        "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}:/auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS:/auth."
+        "description": "Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. For iOS and macOS apps, specify the value following the syntax msauth.{BUNDLEID}://auth, replacing '{BUNDLEID}'. For example, if the bundle ID is com.microsoft.identitysample.MSALiOS, the URI is msauth.com.microsoft.identitysample.MSALiOS://auth."
       }
     }
   },
@@ -2196,7 +2196,7 @@
           "$ref": "#/99"
         },
         "flags": 1,
-        "description": "The audience that can appear in the external token. This field is mandatory and should be set to api:/AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
+        "description": "The audience that can appear in the external token. This field is mandatory and should be set to api://AzureADTokenExchange for Microsoft Entra ID. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Microsoft Entra ID in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. This field can only accept a single value and has a limit of 600 characters. Required."
       },
       "claimsMatchingExpression": {
         "type": {
@@ -2458,7 +2458,7 @@
   },
   {
     "$type": "StringLiteralType",
-    "value": "Microsoft.Graph/users"
+    "value": "Microsoft.Graph/resourcePolicyDefinitions"
   },
   {
     "$type": "StringLiteralType",
@@ -2466,7 +2466,7 @@
   },
   {
     "$type": "ObjectType",
-    "name": "Microsoft.Graph/users",
+    "name": "Microsoft.Graph/resourcePolicyDefinitions",
     "properties": {
       "type": {
         "type": {
@@ -2482,9 +2482,424 @@
         "flags": 10,
         "description": "The resource api version"
       },
-      "businessPhones": {
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 25,
+        "description": "User-supplied but immutable primary key of the policy definition. Used for upsert addressing. 128 alphanumeric unicode, '_' and '-'."
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Display name for the policy, specified in the Rego policy. Read-only."
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Description for the policy, specified in the Rego policy. Read-only."
+      },
+      "category": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Category name specified in the Rego policy, used to enable filtering during enumeration. Defaults to 'general'. Read-only."
+      },
+      "version": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy definition version using a semantic versioning scheme. Read-only."
+      },
+      "rule": {
         "type": {
           "$ref": "#/113"
+        },
+        "flags": 0,
+        "description": "The rule that defines the policy effects, applicability and conditions."
+      },
+      "paramsSchema": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 2,
+        "description": "Read-only JSON-schema subset that assignment params are validated against. Read-only."
+      },
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy creation date-time. Read-only."
+      },
+      "lastModifiedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy last modified date-time. Read-only."
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy deletion date-time. Read-only."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphResourcePolicyRule",
+    "properties": {
+      "appliesTo": {
+        "type": {
+          "$ref": "#/114"
+        },
+        "flags": 2,
+        "description": "Applicability information describing what resource or action is in scope for policy evaluation. Read-only."
+      },
+      "policy": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1,
+        "description": "Stringified Rego policy containing the rules and expressions that are evaluated for compliance."
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPolicyAppliesTo",
+    "properties": {
+      "operations": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Comma-separated list of operations in scope for policy evaluation. Possible values: create, updateOrUpsert, delete, invokeAction, unknownFutureValue. Defaults to 'create,updateOrUpsert'. Read-only."
+      },
+      "resourceName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The entity type name or fully-qualified action name in scope for policy evaluation, for example 'microsoft.graph.user'. Read-only."
+      },
+      "includeDerivedTypes": {
+        "type": {
+          "$ref": "#/7"
+        },
+        "flags": 2,
+        "description": "Indicates whether policy evaluation includes types derived from resourceName. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyDefinitions@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/112"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/resourcePolicyAssignments"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/resourcePolicyAssignments",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/116"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/117"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 25,
+        "description": "User-supplied but immutable name. Serves as the key and alternate key for upsert addressing."
+      },
+      "isEnabled": {
+        "type": {
+          "$ref": "#/7"
+        },
+        "flags": 0,
+        "description": "Enable or disable the assignment. Defaults to true if not set."
+      },
+      "scope": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0,
+        "description": "The scope of the assignment. '/' for the tenant. Defaults to '/'."
+      },
+      "enforcementMode": {
+        "type": {
+          "$ref": "#/122"
+        },
+        "flags": 0,
+        "description": "Controls whether the assignment's effect is applied. Possible values: doNotEnforce, enforce, unknownFutureValue. Defaults to 'doNotEnforce'."
+      },
+      "assignedPolicy": {
+        "type": {
+          "$ref": "#/123"
+        },
+        "flags": 0,
+        "description": "The policy definition that is assigned."
+      },
+      "params": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 0,
+        "description": "Typed JSON parameter values, validated at ingestion against the definition's paramsSchema."
+      },
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Assignment creation date-time. Read-only."
+      },
+      "lastModifiedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Assignment last modified date-time. Read-only."
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Assignment deletion date-time. Read-only."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "doNotEnforce"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "enforce"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "unknownFutureValue"
+  },
+  {
+    "$type": "UnionType",
+    "elements": [
+      {
+        "$ref": "#/119"
+      },
+      {
+        "$ref": "#/120"
+      },
+      {
+        "$ref": "#/121"
+      },
+      {
+        "$ref": "#/0"
+      }
+    ]
+  },
+  {
+    "$type": "DiscriminatedObjectType",
+    "name": "MicrosoftGraphAssignedPolicyReference",
+    "discriminator": "kind",
+    "baseProperties": {},
+    "elements": {
+      "policyDefinition": {
+        "$ref": "#/124"
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPolicyDefinitionReference",
+    "properties": {
+      "policyUniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "version": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1
+      },
+      "kind": {
+        "type": {
+          "$ref": "#/125"
+        },
+        "flags": 1,
+        "description": "The kind of assigned policy reference. Possible values: policyDefinition."
+      }
+    }
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "policyDefinition"
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyAssignments@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/118"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/resourcePolicyConfiguration"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/resourcePolicyConfiguration",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/127"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/128"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "name": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0,
+        "description": "The name used for Bicep resource identification. This is a singleton resource; use the constant value 'default'."
+      },
+      "lastModifiedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The date and time when the resource policy configuration was last modified. Read-only."
+      },
+      "privilegedReadSetting": {
+        "type": {
+          "$ref": "#/130"
+        },
+        "flags": 0,
+        "description": "The privileged read setting for the resource policy configuration."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ObjectType",
+    "name": "MicrosoftGraphPrivilegedReadSetting",
+    "properties": {
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 0,
+        "description": "The application (client) ID authorized for privileged read access."
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyConfiguration@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/129"
+    },
+    "flags": 0
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/users"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/users",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/132"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/133"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "businessPhones": {
+        "type": {
+          "$ref": "#/135"
         },
         "flags": 2,
         "description": "The telephone numbers for the user. Only one number can be set for this property. Read-only for users synced from on-premises directory."
@@ -2579,7 +2994,251 @@
     "name": "Microsoft.Graph/users@beta",
     "scopeType": 0,
     "body": {
-      "$ref": "#/112"
+      "$ref": "#/134"
+    },
+    "flags": 1
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/137"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/138"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "appId": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 25,
+        "description": "The application (client) ID for which to compute the federated identity credential subject."
+      },
+      "value": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The computed federated identity credential subject. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/139"
+    },
+    "flags": 1
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/resourcePolicyDefinitions/previousVersions"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/resourcePolicyDefinitions/previousVersions",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/141"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/142"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "name": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 25,
+        "description": "The name used for Bicep resource identification, of the form '{policyDefinitionUniqueName}/{version}'."
+      },
+      "version": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "User-supplied but immutable version conforming to semantic versioning. Read-only."
+      },
+      "policy": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Stringified version of the Rego policy for this version. Read-only."
+      },
+      "lastModifiedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy last modified date-time. Read-only."
+      },
+      "paramsSchema": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 2,
+        "description": "Read-only JSON-schema subset that assignment params are validated against. Read-only."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyDefinitions/previousVersions@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/143"
+    },
+    "flags": 1
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Microsoft.Graph/resourcePolicyBuiltInDefinitions"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "beta"
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Microsoft.Graph/resourcePolicyBuiltInDefinitions",
+    "properties": {
+      "type": {
+        "type": {
+          "$ref": "#/145"
+        },
+        "flags": 10,
+        "description": "The resource type"
+      },
+      "apiVersion": {
+        "type": {
+          "$ref": "#/146"
+        },
+        "flags": 10,
+        "description": "The resource api version"
+      },
+      "uniqueName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 25,
+        "description": "User-supplied but immutable primary key of the policy definition. Used for upsert addressing. 128 alphanumeric unicode, '_' and '-'."
+      },
+      "displayName": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Display name for the policy, specified in the Rego policy. Read-only."
+      },
+      "description": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Description for the policy, specified in the Rego policy. Read-only."
+      },
+      "category": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Category name specified in the Rego policy, used to enable filtering during enumeration. Defaults to 'general'. Read-only."
+      },
+      "version": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy definition version using a semantic versioning scheme. Read-only."
+      },
+      "rule": {
+        "type": {
+          "$ref": "#/113"
+        },
+        "flags": 2,
+        "description": "The rule that defines the policy effects, applicability and conditions."
+      },
+      "paramsSchema": {
+        "type": {
+          "$ref": "#/4"
+        },
+        "flags": 2,
+        "description": "Read-only JSON-schema subset that assignment params are validated against. Read-only."
+      },
+      "createdDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy creation date-time. Read-only."
+      },
+      "lastModifiedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy last modified date-time. Read-only."
+      },
+      "deletedDateTime": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "Policy deletion date-time. Read-only."
+      },
+      "id": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 2,
+        "description": "The unique identifier for an entity. Read-only."
+      }
+    }
+  },
+  {
+    "$type": "ResourceType",
+    "name": "Microsoft.Graph/resourcePolicyBuiltInDefinitions@beta",
+    "scopeType": 0,
+    "body": {
+      "$ref": "#/147"
     },
     "flags": 1
   },
