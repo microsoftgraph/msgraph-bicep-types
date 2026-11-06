@@ -14,6 +14,7 @@ import { validateReferences } from './validator'
 import { DefinitionMap } from './definitions/DefinitionMap'
 import { ExtensionVersionMetadata, Metadata } from './definitions/Metadata'
 import { ApiVersion } from 'extensionConfig/src/config';
+import { applyVersionedSwaggerAdditions } from './swaggerAdditions'
 
 const argv = yargs
   .option('output', {
@@ -53,16 +54,12 @@ function writeSwaggerFile(swagger: Swagger, apiVersion: string, extensionVersion
       fs.mkdirSync(fullOutputPath, { recursive: true });
     }
 
-    fs.writeFile(`${fullOutputPath}/${extensionVersion}.json`, swaggerJson, (err) => {
-      if (err) throw err;
-      console.log(`The swagger file spec for ${apiVersion}/${extensionVersion} has been saved!`);
-    });
+    fs.writeFileSync(`${fullOutputPath}/${extensionVersion}.json`, swaggerJson);
+    console.log(`The swagger file spec for ${apiVersion}/${extensionVersion} has been saved!`);
   }
 
-  fs.writeFile(`output/microsoftgraph-${apiVersion}-${extensionVersion}.json`, swaggerJson, (err) => {
-    if (err) throw err;
-    console.log(`The output for ${apiVersion}-${extensionVersion} has been saved.`);
-  });
+  fs.writeFileSync(`output/microsoftgraph-${apiVersion}-${extensionVersion}.json`, swaggerJson);
+  console.log(`The output for ${apiVersion}-${extensionVersion} has been saved.`);
 }
 
 function writeMetadataFile(extensionVersionMetadata: ExtensionVersionMetadata) {
@@ -169,6 +166,7 @@ async function main() {
     writeSwaggerFile(curSwagger, apiVersion, extensionVersion);
   }
 
+  applyVersionedSwaggerAdditions(outputPath);
   writeMetadataFile(extensionVersionMetadata);
   writeSwaggerReadMeFile(apiExtensionVersions);
 }

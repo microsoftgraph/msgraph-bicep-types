@@ -18,8 +18,26 @@
     "Microsoft.Graph/appRoleAssignedTo@beta": {
       "$ref": "types.json#/109"
     },
+    "Microsoft.Graph/resourcePolicyDefinitions@beta": {
+      "$ref": "types.json#/115"
+    },
+    "Microsoft.Graph/resourcePolicyAssignments@beta": {
+      "$ref": "types.json#/126"
+    },
+    "Microsoft.Graph/resourcePolicyConfiguration@beta": {
+      "$ref": "types.json#/131"
+    },
     "Microsoft.Graph/users@beta": {
-      "$ref": "types.json#/114"
+      "$ref": "types.json#/136"
+    },
+    "Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject@beta": {
+      "$ref": "types.json#/140"
+    },
+    "Microsoft.Graph/resourcePolicyDefinitions/previousVersions@beta": {
+      "$ref": "types.json#/144"
+    },
+    "Microsoft.Graph/resourcePolicyBuiltInDefinitions@beta": {
+      "$ref": "types.json#/148"
     }
   },
   "resourceFunctions": {},
@@ -28,7 +46,7 @@
     "version": "1.0.0",
     "isSingleton": false,
     "configurationType": {
-      "$ref": "types.json#/115"
+      "$ref": "types.json#/149"
     }
   }
 }

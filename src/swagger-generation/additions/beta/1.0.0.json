@@ -1,0 +1,1149 @@
+{
+  "definitions": {
+    "microsoft.graph.resourcePolicyFederatedIdentityCredentialSubject": {
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string",
+          "description": "The application (client) ID for which to compute the federated identity credential subject.",
+          "x-ms-graph-key": true,
+          "x-constant-key": true
+        },
+        "value": {
+          "type": "string",
+          "description": "The computed federated identity credential subject. Read-only.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "appId"
+      ],
+      "x-ms-graph-resource": true,
+      "x-ms-graph-resource-type": "resourcePolicyFederatedIdentityCredentialSubject"
+    },
+    "microsoft.graph.resourcePolicyConfiguration": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name used for Bicep resource identification. This is a singleton resource; use the constant value 'default'."
+            },
+            "lastModifiedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the resource policy configuration was last modified. Read-only.",
+              "readOnly": true
+            },
+            "privilegedReadSetting": {
+              "$ref": "#/definitions/microsoft.graph.privilegedReadSetting",
+              "description": "The privileged read setting for the resource policy configuration."
+            }
+          },
+          "x-ms-graph-resource": true
+        }
+      ]
+    },
+    "microsoft.graph.privilegedReadSetting": {
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string",
+          "description": "The application (client) ID authorized for privileged read access."
+        }
+      }
+    },
+    "microsoft.graph.resourcePolicyDefinition": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "uniqueName": {
+              "type": "string",
+              "description": "User-supplied but immutable primary key of the policy definition. Used for upsert addressing. 128 alphanumeric unicode, '_' and '-'.",
+              "x-ms-graph-key": true,
+              "x-constant-key": true
+            },
+            "displayName": {
+              "type": "string",
+              "description": "Display name for the policy, specified in the Rego policy. Read-only.",
+              "readOnly": true
+            },
+            "description": {
+              "type": "string",
+              "description": "Description for the policy, specified in the Rego policy. Read-only.",
+              "readOnly": true
+            },
+            "category": {
+              "type": "string",
+              "description": "Category name specified in the Rego policy, used to enable filtering during enumeration. Defaults to 'general'. Read-only.",
+              "readOnly": true
+            },
+            "version": {
+              "type": "string",
+              "description": "Policy definition version using a semantic versioning scheme. Read-only.",
+              "readOnly": true
+            },
+            "rule": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyRule",
+              "description": "The rule that defines the policy effects, applicability and conditions."
+            },
+            "paramsSchema": {
+              "type": "object",
+              "description": "Read-only JSON-schema subset that assignment params are validated against. Read-only.",
+              "readOnly": true
+            },
+            "createdDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Policy creation date-time. Read-only.",
+              "readOnly": true
+            },
+            "lastModifiedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Policy last modified date-time. Read-only.",
+              "readOnly": true
+            },
+            "deletedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Policy deletion date-time. Read-only.",
+              "readOnly": true
+            }
+          },
+          "required": [
+            "uniqueName"
+          ],
+          "x-ms-graph-resource": true
+        }
+      ]
+    },
+    "microsoft.graph.resourcePolicyRule": {
+      "type": "object",
+      "properties": {
+        "appliesTo": {
+          "$ref": "#/definitions/microsoft.graph.policyAppliesTo",
+          "description": "Applicability information describing what resource or action is in scope for policy evaluation. Read-only.",
+          "readOnly": true
+        },
+        "policy": {
+          "type": "string",
+          "description": "Stringified Rego policy containing the rules and expressions that are evaluated for compliance."
+        }
+      },
+      "required": [
+        "policy"
+      ]
+    },
+    "microsoft.graph.policyAppliesTo": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "string",
+          "description": "Comma-separated list of operations in scope for policy evaluation. Possible values: create, updateOrUpsert, delete, invokeAction, unknownFutureValue. Defaults to 'create,updateOrUpsert'. Read-only.",
+          "readOnly": true
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "The entity type name or fully-qualified action name in scope for policy evaluation, for example 'microsoft.graph.user'. Read-only.",
+          "readOnly": true
+        },
+        "includeDerivedTypes": {
+          "type": "boolean",
+          "description": "Indicates whether policy evaluation includes types derived from resourceName. Read-only.",
+          "readOnly": true
+        }
+      }
+    },
+    "microsoft.graph.resourcePolicyDefinitionVersion": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name used for Bicep resource identification, of the form '{policyDefinitionUniqueName}/{version}'.",
+              "x-ms-graph-key": true,
+              "x-constant-key": true
+            },
+            "version": {
+              "type": "string",
+              "description": "User-supplied but immutable version conforming to semantic versioning. Read-only.",
+              "readOnly": true
+            },
+            "policy": {
+              "type": "string",
+              "description": "Stringified version of the Rego policy for this version. Read-only.",
+              "readOnly": true
+            },
+            "lastModifiedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Policy last modified date-time. Read-only.",
+              "readOnly": true
+            },
+            "paramsSchema": {
+              "type": "object",
+              "description": "Read-only JSON-schema subset that assignment params are validated against. Read-only.",
+              "readOnly": true
+            }
+          },
+          "x-ms-graph-resource": true
+        }
+      ]
+    },
+    "microsoft.graph.resourcePolicyAssignment": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.entity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "uniqueName": {
+              "type": "string",
+              "description": "User-supplied but immutable name. Serves as the key and alternate key for upsert addressing.",
+              "x-ms-graph-key": true,
+              "x-constant-key": true
+            },
+            "isEnabled": {
+              "type": "boolean",
+              "description": "Enable or disable the assignment. Defaults to true if not set."
+            },
+            "scope": {
+              "type": "string",
+              "description": "The scope of the assignment. '/' for the tenant. Defaults to '/'."
+            },
+            "enforcementMode": {
+              "type": "string",
+              "description": "Controls whether the assignment's effect is applied. Possible values: doNotEnforce, enforce, unknownFutureValue. Defaults to 'doNotEnforce'.",
+              "enum": [
+                "doNotEnforce",
+                "enforce",
+                "unknownFutureValue"
+              ]
+            },
+            "assignedPolicy": {
+              "$ref": "#/definitions/microsoft.graph.assignedPolicyReference",
+              "description": "The policy definition that is assigned."
+            },
+            "params": {
+              "type": "object",
+              "description": "Typed JSON parameter values, validated at ingestion against the definition's paramsSchema."
+            },
+            "createdDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Assignment creation date-time. Read-only.",
+              "readOnly": true
+            },
+            "lastModifiedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Assignment last modified date-time. Read-only.",
+              "readOnly": true
+            },
+            "deletedDateTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Assignment deletion date-time. Read-only.",
+              "readOnly": true
+            }
+          },
+          "required": [
+            "uniqueName"
+          ],
+          "x-ms-graph-resource": true
+        }
+      ]
+    },
+    "microsoft.graph.assignedPolicyReference": {
+      "type": "object",
+      "discriminator": "kind",
+      "description": "Abstract base type referencing an assigned policy. The 'kind' discriminator selects the derived type.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "The kind of assigned policy reference. Possible values: policyDefinition."
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    },
+    "microsoft.graph.policyDefinitionReference": {
+      "x-ms-discriminator-value": "policyDefinition",
+      "allOf": [
+        {
+          "$ref": "#/definitions/microsoft.graph.assignedPolicyReference"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "policyUniqueName": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "policyUniqueName",
+            "version"
+          ]
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyFederatedIdentityCredentialSubject/{resourcePolicyFederatedIdentityCredentialSubjectAppId}": {
+      "get": {
+        "operationId": "resourcePolicyFederatedIdentityCredentialSubject_Get",
+        "summary": "Compute a federated identity credential subject",
+        "description": "Compute the federated identity credential subject for an application.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyFederatedIdentityCredentialSubjectAppId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The application (client) ID for which to compute the subject."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyFederatedIdentityCredentialSubject"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyDefinitions": {
+      "get": {
+        "operationId": "resourcePolicyDefinitions_List",
+        "summary": "List resourcePolicyDefinitions",
+        "description": "Get a list of resourcePolicyDefinition objects.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyDefinitions/{resourcePolicyDefinitionName}": {
+      "get": {
+        "operationId": "resourcePolicyDefinitions_Get",
+        "summary": "Get resourcePolicyDefinition",
+        "description": "Get a resourcePolicyDefinition object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "resourcePolicyDefinitions_CreateOrUpdate",
+        "summary": "Create or update resourcePolicyDefinition",
+        "description": "Create or update a resourcePolicyDefinition object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "resourcePolicyDefinitions_Update",
+        "summary": "Update resourcePolicyDefinition",
+        "description": "Update a resourcePolicyDefinition object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "resourcePolicyDefinitions_Delete",
+        "summary": "Delete resourcePolicyDefinition",
+        "description": "Delete a resourcePolicyDefinition object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyDefinitions/{resourcePolicyDefinitionName}/previousVersions": {
+      "get": {
+        "operationId": "resourcePolicyDefinitionVersions_List",
+        "summary": "List resourcePolicyDefinitionVersions",
+        "description": "Get a list of previous version objects for a resource policy definition.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinitionVersion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyDefinitions/{resourcePolicyDefinitionName}/previousVersions/{versionName}": {
+      "get": {
+        "operationId": "resourcePolicyDefinitionVersions_Get",
+        "summary": "Get resourcePolicyDefinitionVersion",
+        "description": "Get a previous version object for a resource policy definition. This is a read-only resource.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "versionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The version of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinitionVersion"
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyAssignments": {
+      "get": {
+        "operationId": "resourcePolicyAssignments_List",
+        "summary": "List resourcePolicyAssignments",
+        "description": "Get a list of resourcePolicyAssignment objects.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyAssignments/{resourcePolicyAssignmentName}": {
+      "get": {
+        "operationId": "resourcePolicyAssignments_Get",
+        "summary": "Get resourcePolicyAssignment",
+        "description": "Get a resourcePolicyAssignment object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyAssignmentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy assignment."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "resourcePolicyAssignments_CreateOrUpdate",
+        "summary": "Create or update resourcePolicyAssignment",
+        "description": "Create or update a resourcePolicyAssignment object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyAssignmentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy assignment."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "resourcePolicyAssignments_Update",
+        "summary": "Update resourcePolicyAssignment",
+        "description": "Update a resourcePolicyAssignment object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyAssignmentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy assignment."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyAssignment"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "resourcePolicyAssignments_Delete",
+        "summary": "Delete resourcePolicyAssignment",
+        "description": "Delete a resourcePolicyAssignment object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyAssignmentName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy assignment."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyConfiguration": {
+      "get": {
+        "operationId": "resourcePolicyConfiguration_List",
+        "summary": "Get resourcePolicyConfiguration",
+        "description": "Get the resourcePolicyConfiguration singleton.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyConfiguration/{resourcePolicyConfigurationName}": {
+      "get": {
+        "operationId": "resourcePolicyConfiguration_Get",
+        "summary": "Get resourcePolicyConfiguration",
+        "description": "Get the resourcePolicyConfiguration singleton.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyConfigurationName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource policy configuration. This is a singleton; use the constant value 'default'."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "resourcePolicyConfiguration_CreateOrUpdate",
+        "summary": "Create or update resourcePolicyConfiguration",
+        "description": "Create or update the resourcePolicyConfiguration singleton.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyConfigurationName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource policy configuration. This is a singleton; use the constant value 'default'."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "resourcePolicyConfiguration_Update",
+        "summary": "Update resourcePolicyConfiguration",
+        "description": "Update the resourcePolicyConfiguration singleton.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyConfigurationName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource policy configuration. This is a singleton; use the constant value 'default'."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyConfiguration"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "resourcePolicyConfiguration_Delete",
+        "summary": "Delete resourcePolicyConfiguration",
+        "description": "Delete the resourcePolicyConfiguration singleton.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyConfigurationName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource policy configuration. This is a singleton; use the constant value 'default'."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyBuiltInDefinitions": {
+      "get": {
+        "operationId": "resourcePolicyBuiltInDefinitions_List",
+        "summary": "List resourcePolicyBuiltInDefinitions",
+        "description": "Get a list of resourcePolicyDefinition objects.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{rootScope}/providers/Microsoft.Graph/resourcePolicyBuiltInDefinitions/{resourcePolicyBuiltInDefinitionName}": {
+      "get": {
+        "operationId": "resourcePolicyBuiltInDefinitions_Get",
+        "summary": "Get resourcePolicyDefinition",
+        "description": "Get a resourcePolicyDefinition object.",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "The root scope",
+            "name": "rootScope",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "resourcePolicyBuiltInDefinitionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique name of the resource policy definition."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The API version to use for this operation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/microsoft.graph.resourcePolicyDefinition"
+            }
+          }
+        }
+      }
+    }
+  }
+}
